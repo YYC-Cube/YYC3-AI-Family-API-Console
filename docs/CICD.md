@@ -41,7 +41,7 @@ graph LR
 | `e2e-a11y` | Playwright a11y 全链路 | 报告见 Artifacts `e2e-reports` |
 | `visual-regression` | 12 路由 × dark/light + 徽章基线 | 预期变更 → `pnpm test:visual:update` 重冻结 |
 | `lighthouse-pwa` | 五类审计（PWA/性能/a11y/最佳实践/SEO） | 报告参考型，暂不阻断 |
-| `notify` | failure 聚合告警（admin@0379.email） | 可选 Webhook（Secrets.WEBHOOK_URL） |
+| `notify` | failure 聚合告警（<admin@0379.email>） | 可选 Webhook（Secrets.WEBHOOK_URL） |
 
 依赖编排：`install → {typecheck, lint, security} → build → {e2e, visual, lighthouse} → notify`
 
@@ -65,7 +65,9 @@ graph LR
 - 漂移处置：复核 `src/lib/api.ts` 类型同步 + 受影响页面（Dashboard/Routing/Cache/Playground）→ 确认兼容后 `pnpm contract:freeze`
 - 巡检：每日 02:00 UTC 定时被动发现线上漂移
 
-## 四、docs.yml — 文档流水线
+## 四、docs.yml — 文档流水线（纯校验）
+
+> Pages 部署职责已移交 [deploy.yml](../.github/workflows/deploy.yml)——Pages 单站点仅允许一个部署方，**应用 dist 为唯一站点主体**（<https://token.yyc3.top）。>
 
 | 步骤 | 工具 | 说明 |
 | --- | --- | --- |
@@ -73,7 +75,22 @@ graph LR
 | 死链扫描 | lychee（offline 模式） | 站内相对链接零死链 |
 | Mermaid 校验 | mmdc（可用时） | 图表语法防呆 |
 | Frontmatter 校验 | python3 内联 | 标规必填字段防呆 |
-| 部署 | GitHub Pages | 整站文档上线 |
+
+## 四.5、deploy.yml — 生产部署流水线
+
+```
+push main（src/public/config 变更）或手动
+  → quality-gate（pnpm 冻结安装 → tsc strict → vite build → cp 404.html SPA 回退 → dist 冒烟: CNAME/manifest/sw/canonical 域名）
+  → configure-pages + upload-pages-artifact
+  → deploy（actions/deploy-pages → environment github-pages，url = https://token.yyc3.top）
+  → post-deploy（域名探针: / · /manifest.webmanifest · /offline.html，非阻断）
+```
+
+要点：
+
+- **域名**：`public/CNAME`（token.yyc3.top）随 dist 发布；需 Settings → Pages → Custom domain 一致
+- **SPA 回退**：react-router BrowserRouter 深链刷新经 `404.html` 兜底
+- **concurrency group: pages + cancel-in-progress: false**：部署串行不互踩
 
 ## 五、release.yml — 发布流水线
 

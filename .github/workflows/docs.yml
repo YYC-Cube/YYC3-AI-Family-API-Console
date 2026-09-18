@@ -1,5 +1,9 @@
 name: Docs
 
+# 📚 YYC³ 文档质量门禁（纯校验 · 不部署）
+# Pages 部署职责已移交 deploy.yml（应用 dist 为唯一站点主体，域名 token.yyc3.top）
+# 本工作流只做：markdownlint + 死链扫描 + Mermaid 防呆 + Frontmatter 校验
+
 on:
   push:
     branches: [main]
@@ -9,12 +13,16 @@ on:
       - "README.md"
       - ".markdownlint-cli2.jsonc"
       - ".github/workflows/docs.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "**.md"
+      - "README.md"
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: docs-${{ github.ref }}
@@ -22,7 +30,7 @@ concurrency:
 
 jobs:
   build:
-    name: "📚 Build & Verify Docs"
+    name: "📚 Verify Docs (lint · links · frontmatter)"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -39,7 +47,7 @@ jobs:
       - name: Lychee dead-link scan
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --offline --no-progress --exclude-loopback --exclude 'https://yanyucloudcube.com/*' .
+          args: --offline --no-progress --exclude-loopback --exclude 'https://token.yyc3.top/*' --exclude 'https://api.0379.world/*' .
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -73,18 +81,3 @@ jobs:
                   pass  # permitted without frontmatter
           sys.exit(1 if bad else 0)
           " || (echo "Frontmatter errors above" && exit 1)
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
-
-  deploy:
-    name: "🚀 Deploy to GitHub Pages"
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: github-pages
-      url: "${{ steps.deployment.outputs.page_url }}"
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4

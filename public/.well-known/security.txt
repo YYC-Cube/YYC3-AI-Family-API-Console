@@ -1,11 +1,11 @@
 Contact: mailto:admin@0379.email
 Contact: mailto:security@0379.email
-Encryption: https://yanyucloudcube.com/.well-known/pgp-key.asc
+Encryption: https://token.yyc3.top/.well-known/pgp-key.asc
 Expires: 2027-09-18T00:00:00.000Z
 Preferred-Languages: zh-CN, en-US
-Canonical: https://yanyucloudcube.com/.well-known/security.txt
-Policy: https://yanyucloudcube.com/security
-Acknowledgments: https://yanyucloudcube.com/security/acknowledgments
+Canonical: https://token.yyc3.top/.well-known/security.txt
+Policy: https://token.yyc3.top/security
+Acknowledgments: https://token.yyc3.top/security/acknowledgments
 
 # YYC³ Security · 安全披露
 # 我们鼓励负责任的漏洞披露。30 天内修复关键问题，公开致谢。

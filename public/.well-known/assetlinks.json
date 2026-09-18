@@ -9,7 +9,7 @@
       "relation_type": "delegate_permission/common.handle_all_urls",
       "target": {
         "namespace": "web",
-        "site": "https://yanyucloudcube.com/"
+        "site": "https://token.yyc3.top/"
       }
     }
   ]

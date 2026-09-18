@@ -1,0 +1,95 @@
+name: Deploy
+
+# 🚀 YYC³ 生产部署门禁（应用 dist → GitHub Pages · https://token.yyc3.top）
+# 触发：push main（src/public/config 相关）或手动
+# 域名：public/CNAME（token.yyc3.top）· SPA 回退：404.html → index.html
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "public/**"
+      - "index.html"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "vite.config.ts"
+      - "tsconfig.json"
+      - "playwright.config.ts"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  quality-gate:
+    name: "🛡️ Pre-deploy Quality Gate (tsc + build)"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        # 版本经 package.json#packageManager 锁定（Corepack 闭环）
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check (strict)
+        run: pnpm exec tsc --noEmit
+
+      - name: Production build
+        run: pnpm build
+
+      - name: SPA fallback (404.html for react-router BrowserRouter)
+        run: cp dist/index.html dist/404.html
+
+      - name: Deploy smoke test (CNAME + SEO meta must exist)
+        run: |
+          test -f dist/CNAME || (echo "::error::dist/CNAME 缺失" && exit 1)
+          test -f dist/manifest.webmanifest || (echo "::error::manifest 缺失" && exit 1)
+          test -f dist/sw.js || (echo "::error::sw.js 缺失" && exit 1)
+          grep -q "token.yyc3.top" dist/index.html || (echo "::error::index.html canonical 域名非 token.yyc3.top" && exit 1)
+          echo "✅ dist 冒烟校验通过"
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    name: "🚀 Deploy to GitHub Pages (token.yyc3.top)"
+    runs-on: ubuntu-latest
+    needs: quality-gate
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+  post-deploy:
+    name: "🔍 Post-deploy Probe"
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Probe custom domain (non-blocking)
+        run: |
+          sleep 30
+          for path in / /manifest.webmanifest /offline.html; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" -m 15 "https://token.yyc3.top${path}" || echo "000")
+            echo "$code  https://token.yyc3.top${path}"
+          done
+          echo "提示：若返回 404/000，请检查 Settings→Pages→Custom domain 是否为 token.yyc3.top 且 DNS 已生效"

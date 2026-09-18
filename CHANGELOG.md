@@ -19,6 +19,20 @@ language: zh-CN
 
 ## [Unreleased]
 
+### Added 新增
+
+- **CI 自动部署**：[deploy.yml](.github/workflows/deploy.yml) 七闸闭环——push main 自动 `质量门禁(tsc+build) → SPA 404 回退 → dist 冒烟(CNAME/manifest/sw/canonical) → GitHub Pages 部署 → 域名探针`，站点 **<https://token.yyc3.top>**
+- **自定义域名**：`public/CNAME`（token.yyc3.top）随 dist 发布
+
+### Changed 变更
+
+- **域名全量统一** `yanyucloudcube.com` → `token.yyc3.top`：`index.html`（canonical/og:url）、`sitemap.xml`（13 loc）、`robots.txt`、`manifest.webmanifest`、`.well-known/{assetlinks.json, security.txt}`
+- **docs.yml 职责收敛**：移除 Pages 部署（Pages 单站点仅允许一个部署方，应用 dist 为唯一主体），退化为纯文档校验并新增 PR 触发
+
+### Fixed 修复
+
+- Issue 模板 `config.yml`：3 个 `mailto:` 联系链接改为合法 `https://` URL（GitHub Schema 校验合规），邮箱改述于 about 文案
+
 ## [v1.0.0] - 2026-09-18
 
 > *言启千行 · 语枢万物智能* — 首个正式初始化版本

@@ -1,14 +1,14 @@
 blank_issues_enabled: false
 contact_links:
   - name: 📮 开发讨论 | Development Discussion
-    url: mailto:dev@0379.email
-    about: 开发相关问题 Development-related questions
+    url: https://github.com/YYC-Cube/YYC3-AI-Family-API-Console/discussions
+    about: 开发相关问题讨论（或邮件 dev@0379.email）Development discussions (or email dev@0379.email)
   - name: 📚 文档咨询 | Docs Support
-    url: mailto:docs@0379.email
-    about: 文档与知识库问题 Documentation & knowledge base
+    url: https://github.com/YYC-Cube/YYC3-AI-Family-API-Console/issues/new?template=documentation.yml
+    about: 文档与知识库问题（或邮件 docs@0379.email）Docs & knowledge base (or email docs@0379.email)
   - name: 🛡️ 安全漏洞 | Security Vulnerability
-    url: mailto:sec@0379.email
-    about: 请勿公开披露，使用私密渠道报告 Do not disclose publicly; use this private channel
+    url: https://github.com/YYC-Cube/YYC3-AI-Family-API-Console/security/advisories/new
+    about: 请勿公开披露，使用私密安全通告（或邮件 sec@0379.email）Do not disclose publicly; private advisory (or email sec@0379.email)
   - name: 🧭 提问建议先读 | Read First
     url: https://github.com/YYC-Cube/YYC3-AI-Family-API-Console/blob/main/.github/CONTRIBUTING.md
     about: 贡献指南与标签规范 Contributing guide & labeling policy

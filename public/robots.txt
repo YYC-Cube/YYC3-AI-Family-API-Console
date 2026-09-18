@@ -30,7 +30,7 @@ User-agent: Applebot-Extended
 Allow: /
 
 # Sitemap
-Sitemap: https://yanyucloudcube.com/sitemap.xml
+Sitemap: https://token.yyc3.top/sitemap.xml
 
 # Host
-Host: https://yanyucloudcube.com
+Host: https://token.yyc3.top
