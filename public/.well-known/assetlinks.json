@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "package_name": "com.yanyucloudcube.console",
+  "sha256_cert_fingerprints": [
+    "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"
+  ],
+  "relation": [
+    {
+      "relation_type": "delegate_permission/common.handle_all_urls",
+      "target": {
+        "namespace": "web",
+        "site": "https://yanyucloudcube.com/"
+      }
+    }
+  ]
+}

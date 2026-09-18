@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="<!-- figma:lang -->">
+  <head>
+    <!-- figma:head-start -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no, url=no" />
+
+    <!-- ============= 主题色（跨端统一）============= -->
+    <meta name="theme-color" content="#080a10" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#0a1224" media="(prefers-color-scheme: light)" />
+    <meta name="color-scheme" content="dark light" />
+
+    <!-- ============= SEO 基础三件套 ============= -->
+    <meta name="description" content="YYC³ AI Family Token Console — 统一模型网关 · 可观测 · 可调试 · 由 YanYuCloudCube 出品" />
+    <meta name="keywords" content="YYC³,YanYuCloudCube,AI Console,Model Gateway,LLM,Observability,AI Family" />
+    <meta name="author" content="YanYuCloudCube Team" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="rating" content="general" />
+    <meta name="distribution" content="global" />
+    <meta name="revisit-after" content="7 days" />
+    <link rel="canonical" href="https://yanyucloudcube.com/" />
+
+    <!-- ============= Favicon 体系（全平台） ============= -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/yyc3-icons/Web App/favicon-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/yyc3-icons/Web App/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/yyc3-icons/macOS/64.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/yyc3-icons/macOS/64.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" type="image/svg+xml" />
+
+    <!-- ============= Apple iOS ============= -->
+    <link rel="apple-touch-icon" href="/yyc3-icons/Web App/apple-touch-icon.png" sizes="180x180" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/yyc3-icons/iOS/iPhone App 2x.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="/yyc3-icons/iOS/iPhone App 2x.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/yyc3-icons/iOS/iPad App.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/yyc3-icons/iOS/iPad App.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/yyc3-icons/iOS/iPhone App 2x.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/yyc3-icons/iOS/iPhone App 2x.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/yyc3-icons/iOS/iPad App.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/yyc3-icons/iOS/iPad Pro App 2x.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="/yyc3-icons/iOS/iPad Pro App 2x.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/yyc3-icons/iOS/iPhone App 3x.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="YYC³ Console" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- ============= Android / Chrome ============= -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/yyc3-icons/Android/mdpi.png" />
+    <link rel="icon" type="image/png" sizes="72x72" href="/yyc3-icons/Android/hdpi.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/yyc3-icons/Android/xhdpi.png" />
+    <link rel="icon" type="image/png" sizes="144x144" href="/yyc3-icons/Android/xxhdpi.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/yyc3-icons/Android/xxxhdpi.png" />
+
+    <!-- ============= Microsoft Windows 磁贴 ============= -->
+    <meta name="msapplication-TileColor" content="#080a10" />
+    <meta name="msapplication-TileImage" content="/yyc3-icons/macOS/128.png" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    <meta name="application-name" content="YYC³ Console" />
+    <meta name="theme-color" content="#080a10" />
+
+    <!-- ============= 社交分享（Open Graph + Twitter）============= -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="YYC³ Console" />
+    <meta property="og:title" content="YYC³ AI Family Token Console" />
+    <meta property="og:description" content="统一模型网关 · 可观测 · 可调试 — YanYuCloudCube 出品的智能体全家桶控制台" />
+    <meta property="og:url" content="https://yanyucloudcube.com/" />
+    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image:secure_url" content="/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="YYC³ AI Family Token Console — Unified Model Gateway" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="YYC³ AI Family Token Console" />
+    <meta name="twitter:description" content="统一模型网关 · 可观测 · 可调试" />
+    <meta name="twitter:image" content="/og-image.png" />
+    <meta name="twitter:image:alt" content="YYC³ Console" />
+    <meta name="twitter:creator" content="@yanyucloudcube" />
+    <meta name="twitter:site" content="@yanyucloudcube" />
+
+    <!-- ============= PWA / Web App 标准 ============= -->
+    <meta name="application-name" content="YYC³ Console" />
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- ============= Service Worker ============= -->
+    <link rel="preload" href="/sw.js" as="script" />
+
+    <title><!-- figma:title --></title>
+    <!-- figma:head-end -->
+  </head>
+  <body>
+    <!-- figma:body-start -->
+    <!-- 屏幕阅读器 / 无障碍兜底，跳过导航直入主区 -->
+    <a href="#root" class="skip-link" style="position:fixed;top:8px;left:8px;z-index:2147483647;transform:translateY(-150%);border-radius:6px;background:#111827;color:#fff;padding:8px 12px;font:600 14px/1.2 system-ui,sans-serif;text-decoration:none" onfocus="this.style.transform='translateY(0)'" onblur="this.style.transform='translateY(-150%)'">Skip to content</a>
+
+    <noscript>
+      <div style="padding:24px;background:#080a10;color:#fff;font-family:system-ui;text-align:center">
+        <h1 style="margin:0 0 8px">⚠️ JavaScript is required</h1>
+        <p style="margin:0;opacity:.8">YYC³ Console is a client-rendered PWA. Please enable JavaScript to continue.</p>
+      </div>
+    </noscript>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <!-- figma:body-end -->
+  </body>
+</html>

@@ -1,0 +1,47 @@
+name: Contract Gate
+
+# 📜 YYC³ 契约漂移门禁（v5.1 · 文档03 第七部分）
+# openapi.json 实况 sha256 vs contracts/openapi.snapshot.json 冻结值
+# 漂移 → 阻断合并；确认兼容后由人工执行 pnpm contract:freeze 更新快照
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - "src/lib/api.ts"
+      - "contracts/**"
+      - "scripts/contract/**"
+      - ".github/workflows/contract.yml"
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    # 每日 02:00 UTC 巡检线上契约（被动漂移发现）
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: contract-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  drift-check:
+    name: "📜 Contract · drift check"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check contract drift (live openapi vs frozen snapshot)
+        env:
+          YYC3_API_BASE: https://api.0379.world
+        run: node scripts/contract/check.mjs
+
+      - name: Drift report (on failure)
+        if: failure()
+        run: |
+          echo "::error::契约漂移！请对照 contracts/openapi.snapshot.json 复核以下影响面："
+          echo "  1. src/lib/api.ts 类型定义是否需要同步"
+          echo "  2. 受影响页面（Dashboard/Routing/Cache/Playground）"
+          echo "  3. 确认兼容后执行: pnpm contract:freeze 并提交快照"

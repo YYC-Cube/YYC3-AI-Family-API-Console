@@ -1,0 +1,24 @@
+{
+  "title": "YYC³ AI Family Token Console",
+  "description": "统一模型网关 · 可观测 · 可调试 — YanYuCloudCube 出品的 AI 智能体全家桶控制台",
+  "language": "zh-CN",
+  "robots": {
+    "index": true
+  },
+  "icons": {
+    "icon": "/yyc3-icons/Web App/favicon-32.png"
+  },
+  "openGraph": {
+    "image": "/og-image.png"
+  },
+  "analytics": {},
+  "customScripts": {
+    "headStart": "",
+    "headEnd": "",
+    "bodyStart": "",
+    "bodyEnd": ""
+  },
+  "accessibility": {
+    "addBypassLinks": true
+  }
+}

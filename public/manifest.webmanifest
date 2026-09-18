@@ -1,0 +1,183 @@
+{
+  "name": "YanYuCloudCube Console",
+  "short_name": "YYC³ Console",
+  "description": "统一模型网关 · 可观测 · 可调试",
+  "long_name": "YanYuCloudCube AI Family Token Console",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "browser"],
+  "orientation": "any",
+  "background_color": "#080a10",
+  "theme_color": "#080a10",
+  "theme_color_dark": "#0a1224",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  "categories": ["productivity", "developer", "utilities"],
+  "iarc_rating_id": "",
+  "handle": "https://yanyucloudcube.com/",
+  "shortcuts": [
+    {
+      "name": "观测总览 Dashboard",
+      "short_name": "Dashboard",
+      "url": "/dashboard",
+      "description": "服务呼吸 · 实时观测",
+      "icons": [
+        { "src": "/yyc3-icons/Web App/android-chrome-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" }
+      ]
+    },
+    {
+      "name": "模型中枢 Models",
+      "short_name": "Models",
+      "url": "/models",
+      "description": "为每个任务找最合适的模型",
+      "icons": [
+        { "src": "/yyc3-icons/Web App/android-chrome-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" }
+      ]
+    },
+    {
+      "name": "推理实验场 Playground",
+      "short_name": "Playground",
+      "url": "/playground",
+      "description": "调试一次推理，读懂一次路径",
+      "icons": [
+        { "src": "/yyc3-icons/Web App/android-chrome-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" }
+      ]
+    },
+    {
+      "name": "安全设置 Security",
+      "short_name": "Security",
+      "url": "/security",
+      "description": "密钥只在受信任的链路中流动",
+      "icons": [
+        { "src": "/yyc3-icons/Web App/android-chrome-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/yyc3-icons/Web App/android-chrome-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "YYC³ Console — 桌面端宽屏主界面"
+    },
+    {
+      "src": "/yyc3-icons/Web App/android-chrome-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "YYC³ Console — 移动端主界面"
+    }
+  ],
+  "icons": [
+    {
+      "src": "/yyc3-icons/Web App/favicon-16.png",
+      "sizes": "16x16",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/yyc3-icons/Web App/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/yyc3-icons/Web App/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/yyc3-icons/Web App/android-chrome-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/yyc3-icons/Web App/android-chrome-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/yyc3-icons/Web App/android-chrome-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/yyc3-icons/Web App/android-chrome-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/yyc3-icons/macOS/16.png",
+      "sizes": "16x16",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/yyc3-icons/macOS/32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/yyc3-icons/macOS/64.png",
+      "sizes": "64x64",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/yyc3-icons/macOS/128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/yyc3-icons/macOS/256.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/yyc3-icons/macOS/512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/yyc3-icons/macOS/1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "edge_side_panel": {
+    "default_path": "/dashboard"
+  },
+  "launch_handler": {
+    "client_mode": "auto"
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+yyc3",
+      "url": "/dashboard?from=%s"
+    }
+  ],
+  "file_handlers": [],
+  "share_target": {
+    "action": "/dashboard",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

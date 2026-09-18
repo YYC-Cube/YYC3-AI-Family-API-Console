@@ -1,0 +1,886 @@
+{
+  "frozenAt": "2026-09-18T03:23:47.529Z",
+  "apiVersion": "2.0.0",
+  "hash": "18e5309cb38e2be0d256e3dbb006a7e02c2a2672ba1e863c7147248bd5b9e45d",
+  "spec": {
+    "openapi": "3.1.0",
+    "info": {
+      "version": "2.0.0"
+    },
+    "paths": {
+      "/metrics": {
+        "get": {
+          "operationId": "metrics_metrics_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            }
+          }
+        }
+      },
+      "/v1/chat/completions": {
+        "post": {
+          "operationId": "chat_completion_v1_chat_completions_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/mcp/tools": {
+        "get": {
+          "operationId": "list_all_mcp_tools_v1_mcp_tools_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "$ref": "#/components/schemas/MCPToolsList"
+              }
+            }
+          }
+        }
+      },
+      "/v1/mcp/execute": {
+        "post": {
+          "operationId": "execute_mcp_tool_v1_mcp_execute_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "$ref": "#/components/schemas/MCPToolResponse"
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/mcp/local/tools": {
+        "get": {
+          "operationId": "list_local_mcp_tools_v1_mcp_local_tools_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            }
+          }
+        }
+      },
+      "/v1/mcp/local/status": {
+        "get": {
+          "operationId": "get_local_mcp_status_v1_mcp_local_status_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            }
+          }
+        }
+      },
+      "/v1/mcp/local/execute": {
+        "post": {
+          "operationId": "execute_local_mcp_tool_v1_mcp_local_execute_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "$ref": "#/components/schemas/MCPToolResponse"
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/mcp/web/read": {
+        "post": {
+          "operationId": "read_webpage_v1_mcp_web_read_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/mcp/web/search": {
+        "post": {
+          "operationId": "search_web_v1_mcp_web_search_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/mcp/github/search": {
+        "post": {
+          "operationId": "search_github_v1_mcp_github_search_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/mcp/github/structure": {
+        "post": {
+          "operationId": "get_github_structure_v1_mcp_github_structure_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/mcp/filesystem/read": {
+        "post": {
+          "operationId": "read_file_v1_mcp_filesystem_read_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/mcp/filesystem/list": {
+        "post": {
+          "operationId": "list_directory_v1_mcp_filesystem_list_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/mcp/docker/containers": {
+        "get": {
+          "operationId": "list_docker_containers_v1_mcp_docker_containers_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            }
+          }
+        }
+      },
+      "/v1/mcp/docker/logs": {
+        "post": {
+          "operationId": "get_container_logs_v1_mcp_docker_logs_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/mcp/database/query": {
+        "post": {
+          "operationId": "query_database_v1_mcp_database_query_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/mcp/database/tables": {
+        "get": {
+          "operationId": "list_database_tables_v1_mcp_database_tables_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            }
+          }
+        }
+      },
+      "/v1/mcp/search": {
+        "post": {
+          "operationId": "brave_search_v1_mcp_search_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/knowledge-bases": {
+        "post": {
+          "operationId": "create_knowledge_base_v1_knowledge_bases_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "$ref": "#/components/schemas/KnowledgeBaseResponse"
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        },
+        "get": {
+          "operationId": "list_knowledge_bases_v1_knowledge_bases_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": "array"
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/knowledge-bases/{kb_id}": {
+        "get": {
+          "operationId": "get_knowledge_base_v1_knowledge_bases__kb_id__get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "$ref": "#/components/schemas/KnowledgeBaseResponse"
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        },
+        "patch": {
+          "operationId": "update_knowledge_base_v1_knowledge_bases__kb_id__patch",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "$ref": "#/components/schemas/KnowledgeBaseResponse"
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        },
+        "delete": {
+          "operationId": "delete_knowledge_base_v1_knowledge_bases__kb_id__delete",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/knowledge-bases/{kb_id}/stats": {
+        "get": {
+          "operationId": "get_knowledge_base_stats_v1_knowledge_bases__kb_id__stats_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/documents/upload": {
+        "post": {
+          "operationId": "upload_document_v1_documents_upload_post",
+          "requestBody": [
+            "multipart/form-data"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "$ref": "#/components/schemas/DocumentResponse"
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/documents": {
+        "post": {
+          "operationId": "create_document_v1_documents_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "$ref": "#/components/schemas/DocumentResponse"
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        },
+        "get": {
+          "operationId": "list_documents_v1_documents_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": "array"
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/documents/{doc_id}": {
+        "get": {
+          "operationId": "get_document_v1_documents__doc_id__get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "$ref": "#/components/schemas/DocumentResponse"
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        },
+        "delete": {
+          "operationId": "delete_document_v1_documents__doc_id__delete",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/documents/{doc_id}/chunks": {
+        "get": {
+          "operationId": "list_document_chunks_v1_documents__doc_id__chunks_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": "array"
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/documents/{doc_id}/reprocess": {
+        "post": {
+          "operationId": "reprocess_document_v1_documents__doc_id__reprocess_post",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/rag/search": {
+        "post": {
+          "operationId": "search_v1_rag_search_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "$ref": "#/components/schemas/SearchResponse"
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/rag/ask": {
+        "post": {
+          "operationId": "ask_with_context_v1_rag_ask_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/embeddings": {
+        "post": {
+          "operationId": "embeddings_v1_embeddings_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/rerank": {
+        "post": {
+          "operationId": "rerank_v1_rerank_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/audio/transcriptions": {
+        "post": {
+          "operationId": "transcriptions_v1_audio_transcriptions_post",
+          "requestBody": [
+            "multipart/form-data"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/ocr": {
+        "post": {
+          "operationId": "ocr_v1_ocr_post",
+          "requestBody": [
+            "multipart/form-data"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/health": {
+        "get": {
+          "operationId": "health_check_health_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            }
+          }
+        }
+      },
+      "/healthz": {
+        "get": {
+          "operationId": "healthz_healthz_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            }
+          }
+        }
+      },
+      "/v1/ping": {
+        "get": {
+          "operationId": "ping_v1_ping_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "$ref": "#/components/schemas/PingResponse"
+              }
+            }
+          }
+        }
+      },
+      "/v1/cache/stats": {
+        "get": {
+          "operationId": "get_cache_stats_v1_cache_stats_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            }
+          }
+        }
+      },
+      "/v1/cache/info": {
+        "get": {
+          "operationId": "get_cache_info_v1_cache_info_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            }
+          }
+        }
+      },
+      "/v1/cache/invalidate/{model_name}": {
+        "post": {
+          "operationId": "invalidate_cache_v1_cache_invalidate__model_name__post",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/cache/all": {
+        "delete": {
+          "operationId": "clear_cache_v1_cache_all_delete",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            }
+          }
+        }
+      },
+      "/v1/router/stats": {
+        "get": {
+          "operationId": "get_router_stats_v1_router_stats_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            }
+          }
+        }
+      },
+      "/v1/router/health": {
+        "get": {
+          "operationId": "get_router_health_v1_router_health_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            }
+          }
+        }
+      },
+      "/v1/model/type": {
+        "get": {
+          "operationId": "get_model_type_v1_model_type_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/versions": {
+        "get": {
+          "operationId": "get_api_versions_v1_versions_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            }
+          }
+        }
+      },
+      "/v1/models": {
+        "get": {
+          "operationId": "list_models_v1_models_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": "array"
+              }
+            }
+          }
+        }
+      },
+      "/v1/models/stats": {
+        "get": {
+          "operationId": "get_stats_v1_models_stats_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": "array"
+              }
+            }
+          }
+        }
+      },
+      "/v1/models/errors": {
+        "get": {
+          "operationId": "get_errors_v1_models_errors_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": "array"
+              }
+            }
+          }
+        }
+      },
+      "/v1/models/summary": {
+        "get": {
+          "operationId": "get_summary_v1_models_summary_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "$ref": "#/components/schemas/UsageSummary"
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemaNames": [
+      "Body_ocr_v1_ocr_post",
+      "Body_transcriptions_v1_audio_transcriptions_post",
+      "Body_upload_document_v1_documents_upload_post",
+      "CompletionRequest",
+      "DocumentChunkResponse",
+      "DocumentCreate",
+      "DocumentResponse",
+      "EmbeddingRequest",
+      "ErrorRecord",
+      "HTTPValidationError",
+      "KnowledgeBaseCreate",
+      "KnowledgeBaseResponse",
+      "KnowledgeBaseUpdate",
+      "MCPToolRequest",
+      "MCPToolResponse",
+      "MCPToolsList",
+      "Message",
+      "ModelConfig",
+      "ModelStat",
+      "PingResponse",
+      "RerankRequest",
+      "SearchRequest",
+      "SearchResponse",
+      "SearchResult",
+      "UsageSummary",
+      "ValidationError"
+    ]
+  }
+}

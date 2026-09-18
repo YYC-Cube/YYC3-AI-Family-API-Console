@@ -1,0 +1,105 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*.*.*"]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Manual version (e.g. v1.2.3)"
+        required: true
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  packages: write
+  id-token: write
+
+jobs:
+  verify:
+    name: "✅ Pre-release Gate"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec tsc --noEmit
+      - run: pnpm format --check
+      - name: Build
+        run: pnpm build
+
+  release-build:
+    name: "📦 Build Artifacts"
+    runs-on: ubuntu-latest
+    needs: verify
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 30
+
+  release-publish:
+    name: "🚀 GitHub Release + Pages"
+    runs-on: ubuntu-latest
+    needs: release-build
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Generate changelog
+        id: changelog
+        uses: mikepenz/release-changelog-builder-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body: |
+            ## YYC³ AI Family Token Console · ${{ github.ref_name }}
+
+            > *言启千行 · 语枢万物智能*
+
+            ### 📥 安装方式
+            - **Web PWA**：直接打开 [yanyucloudcube.com](https://yanyucloudcube.com) → 浏览器安装
+            - **iOS**：`App Store` 搜索 `YYC³ Console`
+            - **Android**：Google Play / 各应用市场搜索 `YYC³ Console`
+            - **macOS / Windows**：下载 `dist/` 解压运行
+
+            ### 📦 本次变更
+            ${{ steps.changelog.outputs.changelog }}
+          files: dist/**/*
+          generate_release_notes: true
+
+  release-notify:
+    name: "📣 Notify"
+    runs-on: ubuntu-latest
+    needs: release-publish
+    if: always()
+    steps:
+      - name: On failure → admin@
+        if: failure()
+        run: echo "Release FAILED for ${{ github.ref_name }} — notify admin@0379.email"
+      - name: On success → broadcast
+        if: success()
+        run: echo "Release ${{ github.ref_name }} published ✅ — broadcast via dev@0379.email"

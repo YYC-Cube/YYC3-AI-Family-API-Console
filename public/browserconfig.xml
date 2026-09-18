@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<browserconfig>
+  <msapplication>
+    <tile>
+      <square70x70logo src="/yyc3-icons/macOS/64.png" />
+      <square150x150logo src="/yyc3-icons/macOS/128.png" />
+      <wide310x150logo src="/yyc3-icons/macOS/256.png" />
+      <square310x310logo src="/yyc3-icons/macOS/256.png" />
+      <TileColor>#080a10</TileColor>
+      <TileImage src="/yyc3-icons/macOS/128.png" />
+    </tile>
+    <notification>
+      <polling-uri src="/feed/updates.xml" />
+      <polling-uri2 src="/feed/updates.xml" />
+      <polling-uri3 src="/feed/updates.xml" />
+      <frequency>60</frequency>
+      <cycle>1</cycle>
+    </notification>
+  </msapplication>
+</browserconfig>

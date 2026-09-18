@@ -1,0 +1,84 @@
+name: 🐛 缺陷报告 | Bug Report
+description: 报告一个可复现的缺陷 Report a reproducible defect
+title: "[Bug]: "
+labels: ["bug", "status:needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈！请尽量填写完整，便于快速定位。
+        Thanks for reporting! Please fill in as much detail as possible for fast triage.
+
+  - type: dropdown
+    id: module
+    attributes:
+      label: 所属智能体/模块 | Agent / Module
+      description: 问题发生在哪个路由域或基础设施 Which route domain or infra component
+      options:
+        - "mod:tianshu 天枢 · 首页/Dashboard/MCP/Governance"
+        - "mod:bole 伯乐 · Models 模型资产"
+        - "mod:wanyu 万语 · Playground 推理场"
+        - "mod:qianxing 千行 · Routing 路由策略"
+        - "mod:zongshi 宗师 · Knowledge 知识库/RAG"
+        - "mod:lingyun 凌云 · Cache 缓存 / Branding 品牌"
+        - "mod:xianzhi 仙知 · Monitor 监控"
+        - "mod:zhihui 智绘 · Security 安全"
+        - "mod:contract 契约 · api.ts / openapi 快照"
+        - "mod:infra 基础设施 · CI/CD / scripts"
+        - "mod:docs 文档 · docs/ / README"
+        - "mod:pwa 多端 · manifest / sw / icons"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 优先级 | Priority
+      options:
+        - "priority:critical P0"
+        - "priority:high P1"
+        - "priority:medium P2"
+        - "priority:low P3"
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: 复现步骤 | Reproduction Steps
+      placeholder: |
+        1. 进入 '...'
+        2. 执行 '...'
+        3. 观察到 '...'
+        1. Go to '...'
+        2. Run '...'
+        3. See '...'
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望行为 | Expected Behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际行为 | Actual Behavior
+      description: 如含报错请附日志（脱敏后）Attach sanitized logs if applicable
+    validations:
+      required: true
+
+  - type: textarea
+    id: env
+    attributes:
+      label: 环境信息 | Environment
+      placeholder: |
+        - OS: [e.g. macOS 15 / ubuntu-latest]
+        - Node: [e.g. 22.x]
+        - pnpm: [e.g. 11.x]
+        - Commit: [e.g. abc1234]
+    validations:
+      required: true

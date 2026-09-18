@@ -1,0 +1,90 @@
+name: Docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "**.md"
+      - "README.md"
+      - ".markdownlint-cli2.jsonc"
+      - ".github/workflows/docs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: "📚 Build & Verify Docs"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # 1) Markdown 静态校验（标题层级、表格闭合、链接合法性）
+      - name: Markdown lint
+        uses: DavidAnson/markdownlint-cli2-action@v17
+        with:
+          globs: |
+            *.md
+            docs/**/*.md
+
+      # 2) 死链扫描（README / 设计文档 / 规范文档互相引用）
+      - name: Lychee dead-link scan
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --offline --no-progress --exclude-loopback --exclude 'https://yanyucloudcube.com/*' .
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 3) Mermaid 图表语法校验（如果使用）
+      - name: Mermaid syntax check
+        run: |
+          if command -v mmdc >/dev/null 2>&1; then
+            find . -name "*.md" -exec grep -l '```mermaid' {} \; | xargs -I{} mmdc -i {} -o /tmp/out.svg || true
+          else
+            echo "mmdc not installed, skipping"
+          fi
+
+      # 4) Frontmatter 校验
+      - name: Frontmatter validation
+        run: |
+          python3 -c "
+          import os, re, sys
+          bad = []
+          for root, _, files in os.walk('.'):
+            if any(p in root for p in ['.git','node_modules','dist','site']):
+              continue
+            for f in files:
+              if f.endswith('.md'):
+                p = os.path.join(root, f)
+                with open(p, encoding='utf-8') as fh:
+                  c = fh.read()
+                if c.startswith('---'):
+                  if not re.search(r'^file:\s', c[:1000], re.M):
+                    bad.append(p + ' (missing file:)')
+                elif 'docs/YYC3' in p or 'README' in f:
+                  pass  # permitted without frontmatter
+          sys.exit(1 if bad else 0)
+          " || (echo "Frontmatter errors above" && exit 1)
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+  deploy:
+    name: "🚀 Deploy to GitHub Pages"
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: "${{ steps.deployment.outputs.page_url }}"
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

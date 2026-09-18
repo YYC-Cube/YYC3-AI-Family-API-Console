@@ -1,0 +1,57 @@
+name: A11y Gate
+
+# ♿ YYC³ 可访问性门禁（v5.1 · 文档03 ⑫ axe-core WCAG 2.2 AA）
+# serious/critical 违规 → 阻断合并
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - "src/**"
+      - "e2e/**"
+      - "playwright.config.ts"
+      - ".github/workflows/a11y.yml"
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+concurrency:
+  group: a11y-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  axe-audit:
+    name: "♿ A11y · axe-core WCAG 2.2 AA"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        # 版本经 package.json#packageManager 锁定（Corepack 闭环）
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install chromium --with-deps
+
+      - name: Run a11y audit (build + serve + axe scan)
+        run: pnpm exec playwright test e2e/specs/a11y.spec.ts
+
+      - name: Upload a11y report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-report
+          path: |
+            playwright-report/
+            reports/a11y/
+          retention-days: 14

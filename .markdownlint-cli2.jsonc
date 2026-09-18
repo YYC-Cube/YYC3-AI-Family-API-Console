@@ -1,0 +1,20 @@
+{
+  // YYC³ AI Family Token Console · markdownlint-cli2 配置
+  // 与 .github/workflows/docs.yml 联动（DavidAnson/markdownlint-cli2-action）
+  "config": {
+    "default": true,
+    "MD013": false,
+    "MD033": false,
+    "MD041": false,
+    "MD024": { "siblings_only": true },
+    "MD036": false,
+    "MD040": false,
+    "MD046": false
+  },
+  "globs": ["*.md", "docs/**/*.md"],
+  "ignores": [
+    "node_modules/**",
+    "dist/**",
+    "docs/YYC3-AI-Family-Token-Console-团队规范/模版闭环/**"
+  ]
+}

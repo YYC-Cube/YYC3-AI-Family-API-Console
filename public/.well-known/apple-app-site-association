@@ -1,0 +1,21 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["YANYUCLOUDCUBE.console"],
+        "components": [
+          { "/": "/dashboard",   "comment": "Dashboard deep link" },
+          { "/": "/models/*",    "comment": "Model detail routing" },
+          { "/": "/playground/*","comment": "Playground session" },
+          { "/": "/security",    "comment": "Security console" }
+        ]
+      }
+    ]
+  },
+  "webcredentials": {
+    "apps": ["YANYUCLOUDCUBE.console"]
+  },
+  "appclips": {
+    "apps": ["YANYUCLOUDCUBE.console.Clip"]
+  }
+}
