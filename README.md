@@ -188,9 +188,15 @@ docs/yyc3-icon-system-design.md     ← 图标可视化体系设计文档
 
 | 工作流 | 触发 | 内容 |
 | ------ | ------- | -------- |
-| `ci.yml` | push / PR to main、develop | TypeScript 编译 + Lint + Vitest + Playwright (a11y/visual) + Bundle 分析 + GHCR 镜像 |
-| `release.yml` | tag `v*.*.*` | 版本门禁 → 制品构建 → GH Release → GHCR 推送 → 通知 |
-| `docs.yml` | push to `docs/**`、`**.md`、`mkdocs.yml` | MkDocs Material 构建 → GitHub Pages 部署 |
+| `ci.yml` | push / PR to main、develop | TypeScript 编译 + Lint + 安全扫描 + Playwright (a11y/visual) + Lighthouse + 失败告警 |
+| `a11y.yml` | `src/**` / `e2e/**` 变更 | axe-core WCAG 2.2 AA 门禁（serious/critical 阻断合并） |
+| `visual.yml` | `src/**` 视觉相关变更 | 32 快照回归（12 路由 × dark/light + 8 徽章 + 2 组件） |
+| `contract.yml` | `api.ts` / `contracts/**` + 每日巡检 | OpenAPI sha256 契约漂移检测（漂移阻断） |
+| `release.yml` | tag `v*.*.*` | 版本门禁 → 制品构建 → GH Release → 通知 |
+| `docs.yml` | push / PR（`docs/**`、`**.md`） | Markdown lint + 死链扫描 + Frontmatter 校验（纯校验） |
+| `deploy.yml` | push to `main`（src/public 变更） | 质量门禁 → Vite 构建 → **GitHub Pages 自动部署 → [token.yyc3.top](https://token.yyc3.top)** |
+
+完整流水线说明见 [docs/CICD.md](./docs/CICD.md)。
 
 ## 🧪 测试 · Testing
 
