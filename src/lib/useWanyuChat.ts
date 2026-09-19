@@ -221,7 +221,10 @@ export function useWanyuChat() {
         ...s,
         messages: [
           ...s.messages,
-          { role: "user" as const, content: params.messages.at(-1)?.content ?? "" },
+          {
+            role: "user" as const,
+            content: params.messages.at(-1)?.content ?? "",
+          },
         ],
       }));
       return runStream(params, "");

@@ -26,10 +26,7 @@
     "MD055": false,
     "MD056": false,
   },
-  "globs": [
-    "*.md",
-    "docs/**/*.md"
-  ],
+  "globs": ["*.md", "docs/**/*.md"],
   "ignores": [
     "node_modules/**",
     "dist/**",

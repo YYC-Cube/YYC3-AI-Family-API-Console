@@ -31,17 +31,17 @@ graph LR
 
 ## 二、ci.yml — 总闸流水线
 
-| Job                 | 内容                                       | 失败处置                                    |
-| ------------------- | ------------------------------------------ | ------------------------------------------- |
-| `install`           | pnpm `--frozen-lockfile`（锁文件唯一真值） | 锁文件漂移 → 本地重跑 `pnpm install` 提交锁 |
-| `typecheck`         | `tsc --noEmit`（strict）                   | 类型错误零容忍                              |
-| `lint`              | `pnpm format --check`（oxfmt ≥0.68 官方版；⚠️ 历史上误装同名损坏包 0.2.0 会破坏 TS 语法，已升级根治） | 格式化后提交 |
-| `security-scan`     | gitleaks + Trivy HIGH/CRITICAL             | 泄密立即轮转密钥；漏洞升级依赖或加抑制      |
-| `build`             | Vite 生产构建 + dist 产物上传（14 天）     | —                                           |
-| `e2e-a11y`          | Playwright a11y 全链路                     | 报告见 Artifacts `e2e-reports`              |
-| `visual-regression` | 12 路由 × dark/light + 徽章基线            | 预期变更 → `pnpm test:visual:update` 重冻结 |
-| `lighthouse-pwa`    | 五类审计（PWA/性能/a11y/最佳实践/SEO）     | 报告参考型，暂不阻断                        |
-| `notify`            | failure 聚合告警（<admin@0379.email>）     | 可选 Webhook（Secrets.WEBHOOK_URL）         |
+| Job                 | 内容                                                                                                  | 失败处置                                    |
+| ------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| `install`           | pnpm `--frozen-lockfile`（锁文件唯一真值）                                                            | 锁文件漂移 → 本地重跑 `pnpm install` 提交锁 |
+| `typecheck`         | `tsc --noEmit`（strict）                                                                              | 类型错误零容忍                              |
+| `lint`              | `pnpm format --check`（oxfmt ≥0.68 官方版；⚠️ 历史上误装同名损坏包 0.2.0 会破坏 TS 语法，已升级根治） | 格式化后提交                                |
+| `security-scan`     | gitleaks + Trivy HIGH/CRITICAL                                                                        | 泄密立即轮转密钥；漏洞升级依赖或加抑制      |
+| `build`             | Vite 生产构建 + dist 产物上传（14 天）                                                                | —                                           |
+| `e2e-a11y`          | Playwright a11y 全链路                                                                                | 报告见 Artifacts `e2e-reports`              |
+| `visual-regression` | 12 路由 × dark/light + 徽章基线                                                                       | 预期变更 → `pnpm test:visual:update` 重冻结 |
+| `lighthouse-pwa`    | 五类审计（PWA/性能/a11y/最佳实践/SEO）                                                                | 报告参考型，暂不阻断                        |
+| `notify`            | failure 聚合告警（<admin@0379.email>）                                                                | 可选 Webhook（Secrets.WEBHOOK_URL）         |
 
 依赖编排：`install → {typecheck, lint, security} → build → {e2e, visual, lighthouse} → notify`
 
