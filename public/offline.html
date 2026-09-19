@@ -1,102 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#080a10" />
-  <title>离线模式 · YYC³ Console</title>
-  <link rel="icon" type="image/png" sizes="32x32" href="/yyc3-icons/Web App/favicon-32.png" />
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-      background: linear-gradient(135deg, #080a10 0%, #0a1224 100%);
-      color: #e5e7eb;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-    .card {
-      max-width: 480px;
-      width: 100%;
-      background: rgba(15,23,42,.6);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(0,212,255,.2);
-      border-radius: 16px;
-      padding: 40px 32px;
-      text-align: center;
-      box-shadow: 0 20px 60px rgba(0,0,0,.5);
-    }
-    .logo {
-      width: 80px; height: 80px;
-      margin: 0 auto 24px;
-      background: radial-gradient(circle, rgba(0,212,255,.2) 0%, transparent 70%);
-      border-radius: 20px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 48px;
-    }
-    h1 {
-      font-size: 22px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      letter-spacing: -.3px;
-    }
-    p {
-      color: #94a3b8;
-      line-height: 1.6;
-      margin-bottom: 24px;
-      font-size: 14px;
-    }
-    .code {
-      background: rgba(0,0,0,.4);
-      border: 1px solid rgba(255,255,255,.06);
-      border-radius: 8px;
-      padding: 12px 16px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 13px;
-      color: #00d4ff;
-      letter-spacing: .5px;
-      margin-bottom: 24px;
-    }
-    button {
-      background: linear-gradient(135deg, #00d4ff 0%, #b700ff 100%);
-      color: #fff;
-      border: 0;
-      border-radius: 8px;
-      padding: 12px 24px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 14px;
-      transition: transform .15s ease;
-    }
-    button:hover { transform: translateY(-1px); }
-    button:active { transform: translateY(0); }
-    .hint {
-      margin-top: 24px;
-      font-size: 12px;
-      color: #64748b;
-    }
-    .bypass {
-      position: fixed; top: -150px; left: 8px;
-      background: #111827; color: #fff;
-      padding: 8px 12px; border-radius: 6px;
-      font-size: 14px; font-weight: 600;
-      text-decoration: none;
-    }
-    .bypass:focus { top: 8px; }
-  </style>
-</head>
-<body>
-  <a class="bypass" href="#main">Skip to main</a>
-  <main id="main" class="card" role="main">
-    <div class="logo">☁️</div>
-    <h1>当前处于离线模式</h1>
-    <p>云枢连接似乎暂时中断，部分需要远程推理的功能暂不可用。<br/>已缓存的页面与本地模型仍可继续使用。</p>
-    <div class="code">CACHE · yyc3-console-v1</div>
-    <button onclick="location.reload()">🔄 重试连接</button>
-    <p class="hint">* 言启千行 · 语枢万物智能 *<br/>YanYuCloudCube™ © 2026</p>
-  </main>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#080a10" />
+    <title>离线模式 · YYC³ Console</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/yyc3-icons/Web App/favicon-32.png" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB",
+          "Microsoft YaHei", sans-serif;
+        background: linear-gradient(135deg, #080a10 0%, #0a1224 100%);
+        color: #e5e7eb;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .card {
+        max-width: 480px;
+        width: 100%;
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(0, 212, 255, 0.2);
+        border-radius: 16px;
+        padding: 40px 32px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      }
+      .logo {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 24px;
+        background: radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, transparent 70%);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 48px;
+      }
+      h1 {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        letter-spacing: -0.3px;
+      }
+      p {
+        color: #94a3b8;
+        line-height: 1.6;
+        margin-bottom: 24px;
+        font-size: 14px;
+      }
+      .code {
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 13px;
+        color: #00d4ff;
+        letter-spacing: 0.5px;
+        margin-bottom: 24px;
+      }
+      button {
+        background: linear-gradient(135deg, #00d4ff 0%, #b700ff 100%);
+        color: #fff;
+        border: 0;
+        border-radius: 8px;
+        padding: 12px 24px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 14px;
+        transition: transform 0.15s ease;
+      }
+      button:hover {
+        transform: translateY(-1px);
+      }
+      button:active {
+        transform: translateY(0);
+      }
+      .hint {
+        margin-top: 24px;
+        font-size: 12px;
+        color: #64748b;
+      }
+      .bypass {
+        position: fixed;
+        top: -150px;
+        left: 8px;
+        background: #111827;
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .bypass:focus {
+        top: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <a class="bypass" href="#main">Skip to main</a>
+    <main id="main" class="card" role="main">
+      <div class="logo">☁️</div>
+      <h1>当前处于离线模式</h1>
+      <p>
+        云枢连接似乎暂时中断，部分需要远程推理的功能暂不可用。<br />已缓存的页面与本地模型仍可继续使用。
+      </p>
+      <div class="code">CACHE · yyc3-console-v1</div>
+      <button onclick="location.reload()">🔄 重试连接</button>
+      <p class="hint">* 言启千行 · 语枢万物智能 *<br />YanYuCloudCube™ © 2026</p>
+    </main>
+  </body>
 </html>

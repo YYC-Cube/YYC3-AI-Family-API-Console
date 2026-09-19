@@ -1,28 +1,28 @@
 export type BrandingConfig = {
   slogan: {
     primary: {
-      zh: string
-      en: string
-    }
+      zh: string;
+      en: string;
+    };
     secondary: {
-      zh: string
-      en: string
-    }
-  }
+      zh: string;
+      en: string;
+    };
+  };
   seo: {
-    title: string
-    description: string
-  }
+    title: string;
+    description: string;
+  };
   contact: {
-    email: string
-    website: string
-  }
+    email: string;
+    website: string;
+  };
   copyright: {
-    year: number
-    owner: string
-    license: string
-  }
-}
+    year: number;
+    owner: string;
+    license: string;
+  };
+};
 
 export const defaultBranding: BrandingConfig = {
   slogan: {
@@ -45,26 +45,26 @@ export const defaultBranding: BrandingConfig = {
     owner: "YanYuCloudCube Team",
     license: "MIT",
   },
-}
+};
 
-const storageKey = "yyc3-branding"
+const storageKey = "yyc3-branding";
 
 export function loadBranding(): BrandingConfig {
-  if (typeof window === "undefined") return defaultBranding
+  if (typeof window === "undefined") return defaultBranding;
   try {
-    const saved = window.localStorage.getItem(storageKey)
+    const saved = window.localStorage.getItem(storageKey);
     return saved
       ? {
           ...defaultBranding,
           ...JSON.parse(saved),
           slogan: { ...defaultBranding.slogan, ...JSON.parse(saved).slogan },
         }
-      : defaultBranding
+      : defaultBranding;
   } catch {
-    return defaultBranding
+    return defaultBranding;
   }
 }
 
 export function saveBranding(config: BrandingConfig) {
-  window.localStorage.setItem(storageKey, JSON.stringify(config))
+  window.localStorage.setItem(storageKey, JSON.stringify(config));
 }

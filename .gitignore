@@ -35,3 +35,7 @@ e2e/reports/
 # 编辑器与系统 Editor & OS
 .idea/
 *.swp
+
+# 本地专属目录（不入库 · 仅本地留存 Local-only directories）
+docs/YYC3-AI-Family-Token-Console-团队规范/
+docs/YYC3-AI-Family-Token-Console-设计核心/

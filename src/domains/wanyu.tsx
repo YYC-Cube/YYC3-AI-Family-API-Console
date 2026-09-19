@@ -1,37 +1,35 @@
-import { useEffect, useRef, useState } from "react"
-import { useWanyuChat } from "../lib/useWanyuChat"
-import { Bind, FamilyBadge, Page, SectionTitle } from "./shared"
-import type { PageConfig } from "./shared"
+import { useEffect, useRef, useState } from "react";
+import { useWanyuChat } from "../lib/useWanyuChat";
+import { Bind, FamilyBadge, Page, SectionTitle } from "./shared";
+import type { PageConfig } from "./shared";
 
 /** 语枢·万物域 · 推理实验场（SSE 七态状态机可视化） */
 export function Playground({ page }: { page: PageConfig }) {
-  const [text, setText] = useState("")
-  const [stream, setStream] = useState(true)
-  const [temperature, setTemperature] = useState(0.7)
-  const chat = useWanyuChat()
-  const { state } = chat
-  const scrollRef = useRef<HTMLDivElement>(null)
+  const [text, setText] = useState("");
+  const [stream, setStream] = useState(true);
+  const [temperature, setTemperature] = useState(0.7);
+  const chat = useWanyuChat();
+  const { state } = chat;
+  const scrollRef = useRef<HTMLDivElement>(null);
   const streaming =
-    state.phase === "streaming" ||
-    state.phase === "degraded" ||
-    state.phase === "connecting"
+    state.phase === "streaming" || state.phase === "degraded" || state.phase === "connecting";
 
   // 新内容到达时滚动到底部
   useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight })
-  }, [state.buffer, state.messages.length])
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight });
+  }, [state.buffer, state.messages.length]);
 
   const submit = () => {
-    const content = text.trim()
-    if (!content || streaming) return
-    setText("")
+    const content = text.trim();
+    if (!content || streaming) return;
+    setText("");
     // 流式/非流式统一走 SSE 通道（协议一致，仅展示差异）
     void chat.send({
       model: "auto",
       messages: [{ role: "user", content }],
       temperature,
-    })
-  }
+    });
+  };
 
   return (
     <Page page={page}>
@@ -63,10 +61,7 @@ export function Playground({ page }: { page: PageConfig }) {
             max_tokens
             <input value="4096" readOnly />
           </label>
-          <button
-            className={`switch ${stream ? "on" : ""}`}
-            onClick={() => setStream(!stream)}
-          >
+          <button className={`switch ${stream ? "on" : ""}`} onClick={() => setStream(!stream)}>
             <i />
             stream
           </button>
@@ -88,10 +83,7 @@ export function Playground({ page }: { page: PageConfig }) {
           ) : (
             <div className="chat-stream" ref={scrollRef} aria-live="polite">
               {state.messages.map((m, i) => (
-                <div
-                  key={i}
-                  className={`stream-msg ${m.role === "user" ? "user" : "assistant"}`}
-                >
+                <div key={i} className={`stream-msg ${m.role === "user" ? "user" : "assistant"}`}>
                   {m.content}
                 </div>
               ))}
@@ -100,9 +92,7 @@ export function Playground({ page }: { page: PageConfig }) {
                   {state.buffer}
                   {(state.phase === "streaming" ||
                     state.phase === "degraded" ||
-                    state.phase === "connecting") && (
-                    <span className="cursor" />
-                  )}
+                    state.phase === "connecting") && <span className="cursor" />}
                 </div>
               )}
               {state.phase === "paused" && (
@@ -122,8 +112,8 @@ export function Playground({ page }: { page: PageConfig }) {
               {state.phase === "done" && state.totalMs != null && (
                 <div className="stream-meta">
                   <span>
-                    思考完毕 · ~{(state.messages.at(-1)?.content.length ?? 0) >> 2}{" "}
-                    tokens · {Math.round(state.totalMs)}ms
+                    思考完毕 · ~{(state.messages.at(-1)?.content.length ?? 0) >> 2} tokens ·{" "}
+                    {Math.round(state.totalMs)}ms
                   </span>
                   {state.ttftMs != null && (
                     <span className="ttft">TTFT {Math.round(state.ttftMs)}ms</span>
@@ -133,9 +123,7 @@ export function Playground({ page }: { page: PageConfig }) {
             </div>
           )}
           <div className="stream-meta">
-            {state.upstream && (
-              <span className="upstream">◈ upstream: {state.upstream}</span>
-            )}
+            {state.upstream && <span className="upstream">◈ upstream: {state.upstream}</span>}
             {state.degraded && (
               <span className="degraded-badge">
                 降级路径 ·「原路径受阻，改由 {state.upstream ?? "备选"} 继续思考」
@@ -148,8 +136,8 @@ export function Playground({ page }: { page: PageConfig }) {
               onChange={(e) => setText(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault()
-                  submit()
+                  e.preventDefault();
+                  submit();
                 }
               }}
               placeholder="输入一条消息，开始一次可观测的思考…"
@@ -192,5 +180,5 @@ export function Playground({ page }: { page: PageConfig }) {
         </aside>
       </div>
     </Page>
-  )
+  );
 }

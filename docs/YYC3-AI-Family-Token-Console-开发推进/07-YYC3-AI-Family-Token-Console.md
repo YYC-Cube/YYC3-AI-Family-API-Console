@@ -723,7 +723,7 @@ env:
   NODE_ENV: production
   NEXT_PUBLIC_API_BASE: "https://api.0379.world"
   NEXT_PUBLIC_USE_MOCK: "false"
-  PHASE_1_ENABLED: "true"       # 生产启用 Phase 1
+  PHASE_1_ENABLED: "true" # 生产启用 Phase 1
   BL_02_ENABLED: "true"
   BL_04_ENABLED: "true"
   SENTRY_ENV: "production"
@@ -736,10 +736,10 @@ podDisruptionBudget:
 cronjob:
   contractCheck:
     enabled: true
-    schedule: "0 */6 * * *"    # 每 6 小时检测
+    schedule: "0 */6 * * *" # 每 6 小时检测
   loadTest:
     enabled: true
-    schedule: "0 4 * * 0"       # 每周日压测
+    schedule: "0 4 * * 0" # 每周日压测
 ```
 
 ### 19.10 部署命令速查
@@ -890,56 +890,38 @@ const meter = metrics.getMeter("yyc3-family", "5.1.0");
 // ============================================================
 // 🛡️ 智云·守护 — 接入与安全
 // ============================================================
-export const guardianAuthTotal = meter.createCounter(
-  "yyc3_guardian_auth_total",
-  {
-    description: "🛡️ 智云·守护 · 鉴权尝试次数",
-    unit: "1",
-  },
-);
+export const guardianAuthTotal = meter.createCounter("yyc3_guardian_auth_total", {
+  description: "🛡️ 智云·守护 · 鉴权尝试次数",
+  unit: "1",
+});
 
-export const guardianAuthDuration = meter.createHistogram(
-  "yyc3_guardian_auth_duration_seconds",
-  {
-    description: "🛡️ 智云·守护 · 鉴权耗时",
-    unit: "s",
-  },
-);
+export const guardianAuthDuration = meter.createHistogram("yyc3_guardian_auth_duration_seconds", {
+  description: "🛡️ 智云·守护 · 鉴权耗时",
+  unit: "s",
+});
 
 // ============================================================
 // 🤔 语枢·万物 — SSE 核心指标
 // ============================================================
-export const sseTTFT = meter.createHistogram(
-  "yyc3_sse_ttft_seconds",
-  {
-    description: "🤔 语枢·万物 · 首字节延迟（TTFT）",
-    unit: "s",
-  },
-);
+export const sseTTFT = meter.createHistogram("yyc3_sse_ttft_seconds", {
+  description: "🤔 语枢·万物 · 首字节延迟（TTFT）",
+  unit: "s",
+});
 
-export const sseActiveStreams = meter.createUpDownCounter(
-  "yyc3_sse_active_streams",
-  {
-    description: "🤔 语枢·万物 · 活跃流数",
-    unit: "1",
-  },
-);
+export const sseActiveStreams = meter.createUpDownCounter("yyc3_sse_active_streams", {
+  description: "🤔 语枢·万物 · 活跃流数",
+  unit: "1",
+});
 
-export const sseTokensTotal = meter.createCounter(
-  "yyc3_sse_tokens_total",
-  {
-    description: "🤔 语枢·万物 · 累计 Token",
-    unit: "1",
-  },
-);
+export const sseTokensTotal = meter.createCounter("yyc3_sse_tokens_total", {
+  description: "🤔 语枢·万物 · 累计 Token",
+  unit: "1",
+});
 
-export const sseDegradedTotal = meter.createCounter(
-  "yyc3_sse_degraded_total",
-  {
-    description: "🤔 语枢·万物 · 降级流数",
-    unit: "1",
-  },
-);
+export const sseDegradedTotal = meter.createCounter("yyc3_sse_degraded_total", {
+  description: "🤔 语枢·万物 · 降级流数",
+  unit: "1",
+});
 
 // ============================================================
 // 🧭 言启·千行 — 路由
@@ -952,84 +934,60 @@ export const qianhangUpstreamRequests = meter.createCounter(
   },
 );
 
-export const qianhangBreakerState = meter.createUpDownCounter(
-  "yyc3_qianhang_breaker_state",
-  {
-    description: "🧭 言启·千行 · 熔断状态（0=closed, 1=half_open, 2=open）",
-    unit: "1",
-  },
-);
+export const qianhangBreakerState = meter.createUpDownCounter("yyc3_qianhang_breaker_state", {
+  description: "🧭 言启·千行 · 熔断状态（0=closed, 1=half_open, 2=open）",
+  unit: "1",
+});
 
 // ============================================================
 // 🎯 千里·伯乐 — 模型
 // ============================================================
-export const boleModelUsage = meter.createCounter(
-  "yyc3_bole_model_usage_total",
-  {
-    description: "🎯 千里·伯乐 · 模型调用",
-    unit: "1",
-  },
-);
+export const boleModelUsage = meter.createCounter("yyc3_bole_model_usage_total", {
+  description: "🎯 千里·伯乐 · 模型调用",
+  unit: "1",
+});
 
 // ============================================================
 // 📚 格物·宗师 — 知识库
 // ============================================================
-export const zongshiRAGQueries = meter.createCounter(
-  "yyc3_zongshi_rag_queries_total",
-  {
-    description: "📚 格物·宗师 · RAG 查询",
-    unit: "1",
-  },
-);
+export const zongshiRAGQueries = meter.createCounter("yyc3_zongshi_rag_queries_total", {
+  description: "📚 格物·宗师 · RAG 查询",
+  unit: "1",
+});
 
-export const zongshiRAGLatency = meter.createHistogram(
-  "yyc3_zongshi_rag_latency_seconds",
-  {
-    description: "📚 格物·宗师 · RAG 延迟",
-    unit: "s",
-  },
-);
+export const zongshiRAGLatency = meter.createHistogram("yyc3_zongshi_rag_latency_seconds", {
+  description: "📚 格物·宗师 · RAG 延迟",
+  unit: "s",
+});
 
 // ============================================================
 // 🧠 元启·天枢 — MCP
 // ============================================================
-export const tianshuMCPExecutions = meter.createCounter(
-  "yyc3_tianshu_mcp_executions_total",
-  {
-    description: "🧠 元启·天枢 · MCP 执行",
-    unit: "1",
-  },
-);
+export const tianshuMCPExecutions = meter.createCounter("yyc3_tianshu_mcp_executions_total", {
+  description: "🧠 元启·天枢 · MCP 执行",
+  unit: "1",
+});
 
 // ============================================================
 // 🔮 预见·先知 — 观测
 // ============================================================
-export const xianzhiApiErrors = meter.createCounter(
-  "yyc3_xianzhi_api_errors_total",
-  {
-    description: "🔮 预见·先知 · API 错误",
-    unit: "1",
-  },
-);
+export const xianzhiApiErrors = meter.createCounter("yyc3_xianzhi_api_errors_total", {
+  description: "🔮 预见·先知 · API 错误",
+  unit: "1",
+});
 
 // ============================================================
 // 🎨 创想·灵韵 — 缓存
 // ============================================================
-export const lingyunCacheHits = meter.createCounter(
-  "yyc3_lingyun_cache_hits_total",
-  {
-    description: "🎨 创想·灵韵 · 缓存命中",
-    unit: "1",
-  },
-);
+export const lingyunCacheHits = meter.createCounter("yyc3_lingyun_cache_hits_total", {
+  description: "🎨 创想·灵韵 · 缓存命中",
+  unit: "1",
+});
 
-export const lingyunCacheMisses = meter.createCounter(
-  "yyc3_lingyun_cache_misses_total",
-  {
-    description: "🎨 创想·灵韵 · 缓存未命中",
-    unit: "1",
-  },
-);
+export const lingyunCacheMisses = meter.createCounter("yyc3_lingyun_cache_misses_total", {
+  description: "🎨 创想·灵韵 · 缓存未命中",
+  unit: "1",
+});
 ```
 
 ### 20.4 8 域告警规则（每位家人一条）
@@ -1522,12 +1480,12 @@ kubectl port-forward -n monitoring svc/kube-prometheus-stack-grafana 3000:80
 
 ### 21.2 选型建议
 
-| 场景 | 推荐 | 理由 |
-| --- | :-: | --- |
-| 单集群 · 中小规模 | **Loki** | 资源占用低（Promtail 仅 100MB），与 Grafana 同栈 |
-| 多集群 · 大规模 · 复杂查询 | **ELK** | 全文检索强，Kibana 分析丰富 |
-| 本项目推荐 | **Loki** | 已有 Grafana 栈，成本低，足够 8 域结构化查询 |
-| 备选 | ELK | 需全文检索或审计合规时启用 |
+| 场景                       |   推荐   | 理由                                             |
+| -------------------------- | :------: | ------------------------------------------------ |
+| 单集群 · 中小规模          | **Loki** | 资源占用低（Promtail 仅 100MB），与 Grafana 同栈 |
+| 多集群 · 大规模 · 复杂查询 | **ELK**  | 全文检索强，Kibana 分析丰富                      |
+| 本项目推荐                 | **Loki** | 已有 Grafana 栈，成本低，足够 8 域结构化查询     |
+| 备选                       |   ELK    | 需全文检索或审计合规时启用                       |
 
 ### 21.3 Loki 方案（推荐）
 
@@ -1590,7 +1548,7 @@ config:
       # ============ 屏蔽敏感信息 ============
       - replace:
           expression: '(sk-[a-zA-Z0-9]{4})[a-zA-Z0-9\-_]+'
-          replace: '$1****'
+          replace: "$1****"
       - replace:
           expression: '("X-API-Key":\s*")[^"]+'
           replace: '$1***"'
@@ -1719,12 +1677,7 @@ export const logger = pino({
     level: (label) => ({ level: label }),
   },
   redact: {
-    paths: [
-      "req.headers['x-api-key']",
-      "req.headers.authorization",
-      "*.api_key",
-      "*.secret",
-    ],
+    paths: ["req.headers['x-api-key']", "req.headers.authorization", "*.api_key", "*.secret"],
     censor: "***",
   },
   timestamp: pino.stdTimeFunctions.isoTime,
@@ -1733,21 +1686,37 @@ export const logger = pino({
 // 家族化日志辅助
 export const familyLog = {
   guardian: (msg: string, ctx?: object) =>
-    logger.child({ family: "🛡️ 智云·守护", family_key: "zhihui", domain: "接入与安全域" }).info(ctx, msg),
+    logger
+      .child({ family: "🛡️ 智云·守护", family_key: "zhihui", domain: "接入与安全域" })
+      .info(ctx, msg),
   qianhang: (msg: string, ctx?: object) =>
-    logger.child({ family: "🧭 言启·千行", family_key: "qianhang", domain: "路由与网关域" }).info(ctx, msg),
+    logger
+      .child({ family: "🧭 言启·千行", family_key: "qianhang", domain: "路由与网关域" })
+      .info(ctx, msg),
   bole: (msg: string, ctx?: object) =>
-    logger.child({ family: "🎯 千里·伯乐", family_key: "bole", domain: "模型市场域" }).info(ctx, msg),
+    logger
+      .child({ family: "🎯 千里·伯乐", family_key: "bole", domain: "模型市场域" })
+      .info(ctx, msg),
   wanyu: (msg: string, ctx?: object) =>
-    logger.child({ family: "🤔 语枢·万物", family_key: "wanyu", domain: "推理对话域" }).info(ctx, msg),
+    logger
+      .child({ family: "🤔 语枢·万物", family_key: "wanyu", domain: "推理对话域" })
+      .info(ctx, msg),
   zongshi: (msg: string, ctx?: object) =>
-    logger.child({ family: "📚 格物·宗师", family_key: "zongshi", domain: "知识与质量域" }).info(ctx, msg),
+    logger
+      .child({ family: "📚 格物·宗师", family_key: "zongshi", domain: "知识与质量域" })
+      .info(ctx, msg),
   tianshu: (msg: string, ctx?: object) =>
-    logger.child({ family: "🧠 元启·天枢", family_key: "tianshu", domain: "工具与编排域" }).info(ctx, msg),
+    logger
+      .child({ family: "🧠 元启·天枢", family_key: "tianshu", domain: "工具与编排域" })
+      .info(ctx, msg),
   xianzhi: (msg: string, ctx?: object) =>
-    logger.child({ family: "🔮 预见·先知", family_key: "xianzhi", domain: "观测与预测域" }).info(ctx, msg),
+    logger
+      .child({ family: "🔮 预见·先知", family_key: "xianzhi", domain: "观测与预测域" })
+      .info(ctx, msg),
   lingyun: (msg: string, ctx?: object) =>
-    logger.child({ family: "🎨 创想·灵韵", family_key: "lingyun", domain: "缓存与体验域" }).info(ctx, msg),
+    logger
+      .child({ family: "🎨 创想·灵韵", family_key: "lingyun", domain: "缓存与体验域" })
+      .info(ctx, msg),
 };
 
 // 使用示例
@@ -2081,7 +2050,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: "0 5 * * 1"  # 每周一 05:00
+    - cron: "0 5 * * 1" # 每周一 05:00
 
 jobs:
   # ============ SAST: Semgrep ============
@@ -2322,18 +2291,18 @@ jobs:
 
 ### 22.6 OWASP Top 10 映射表
 
-| OWASP Top 10 (2021) | 家族规则 | 检查方式 |
-| --- | --- | --- |
-| A01 Broken Access Control | `yyc3-qianhang-open-redirect` | Semgrep |
-| A02 Cryptographic Failures | `yyc3-guardian-no-key-in-log` · `yyc3-lingyun-no-sensitive-in-cache` | Semgrep |
-| A03 Injection | `yyc3-wanyu-no-eval-in-sse` · `yyc3-tianshu-mcp-no-shell-injection` | Semgrep + CodeQL |
-| A04 Insecure Design | 契约守门 `yyc3-no-forbidden-endpoints` | Semgrep |
-| A05 Security Misconfiguration | ZAP 基线 | DAST |
-| A06 Vulnerable Components | npm audit + Snyk + Trivy | SCA |
-| A07 Auth Failures | ZAP 认证流 | DAST |
-| A08 Data Integrity | CodeQL | SAST |
-| A09 Logging Failures | Gitleaks + TruffleHog | Secret Scan |
-| A10 SSRF | Nuclei | DAST |
+| OWASP Top 10 (2021)           | 家族规则                                                             | 检查方式         |
+| ----------------------------- | -------------------------------------------------------------------- | ---------------- |
+| A01 Broken Access Control     | `yyc3-qianhang-open-redirect`                                        | Semgrep          |
+| A02 Cryptographic Failures    | `yyc3-guardian-no-key-in-log` · `yyc3-lingyun-no-sensitive-in-cache` | Semgrep          |
+| A03 Injection                 | `yyc3-wanyu-no-eval-in-sse` · `yyc3-tianshu-mcp-no-shell-injection`  | Semgrep + CodeQL |
+| A04 Insecure Design           | 契约守门 `yyc3-no-forbidden-endpoints`                               | Semgrep          |
+| A05 Security Misconfiguration | ZAP 基线                                                             | DAST             |
+| A06 Vulnerable Components     | npm audit + Snyk + Trivy                                             | SCA              |
+| A07 Auth Failures             | ZAP 认证流                                                           | DAST             |
+| A08 Data Integrity            | CodeQL                                                               | SAST             |
+| A09 Logging Failures          | Gitleaks + TruffleHog                                                | Secret Scan      |
+| A10 SSRF                      | Nuclei                                                               | DAST             |
 
 ---
 
@@ -2395,8 +2364,7 @@ performance/
 import { Profiler, type ProfilerOnRenderCallback } from "react";
 
 const ENABLED =
-  typeof window !== "undefined" &&
-  new URLSearchParams(window.location.search).has("profile");
+  typeof window !== "undefined" && new URLSearchParams(window.location.search).has("profile");
 
 const onRender: ProfilerOnRenderCallback = (
   id,
@@ -2416,10 +2384,11 @@ const onRender: ProfilerOnRenderCallback = (
 
   // 慢组件告警
   if (actualDuration > 16) {
-    console.warn(
-      `🐌 [${id}] ${phase} 耗时 ${actualDuration.toFixed(2)}ms`,
-      { baseDuration, startTime, commitTime },
-    );
+    console.warn(`🐌 [${id}] ${phase} 耗时 ${actualDuration.toFixed(2)}ms`, {
+      baseDuration,
+      startTime,
+      commitTime,
+    });
   }
 
   // 采样上报（10%）
@@ -2437,13 +2406,7 @@ const onRender: ProfilerOnRenderCallback = (
   }
 };
 
-export function FamilyProfiler({
-  id,
-  children,
-}: {
-  id: string;
-  children: React.ReactNode;
-}) {
+export function FamilyProfiler({ id, children }: { id: string; children: React.ReactNode }) {
   if (!ENABLED) return <>{children}</>;
   return (
     <Profiler id={id} onRender={onRender}>
@@ -2587,10 +2550,9 @@ function report(metric: Metric) {
   // 3. 超预算告警
   const budget = WEB_VITALS_BUDGET[metric.name];
   if (budget && metric.value > budget.poor) {
-    console.error(
-      `🐌 [${metric.name}] ${metric.value.toFixed(2)} 超过劣化阈值 ${budget.poor}`,
-      { route: window.location.pathname },
-    );
+    console.error(`🐌 [${metric.name}] ${metric.value.toFixed(2)} 超过劣化阈值 ${budget.poor}`, {
+      route: window.location.pathname,
+    });
   }
 }
 
@@ -2647,15 +2609,12 @@ export function observeLongTasks() {
   const observer = new PerformanceObserver((list) => {
     for (const entry of list.getEntries()) {
       if (entry.duration > 50) {
-        console.warn(
-          `🐌 长任务: ${entry.duration.toFixed(2)}ms`,
-          {
-            name: entry.name,
-            startTime: entry.startTime,
-            attribution: (entry as any).attribution,
-            route: window.location.pathname,
-          },
-        );
+        console.warn(`🐌 长任务: ${entry.duration.toFixed(2)}ms`, {
+          name: entry.name,
+          startTime: entry.startTime,
+          attribution: (entry as any).attribution,
+          route: window.location.pathname,
+        });
 
         // 上报
         navigator.sendBeacon?.(
@@ -2820,16 +2779,16 @@ echo "人从众曌众从人 · 亦师亦友亦伯乐 🌹"
 
 ### 23.8 8 域性能基线
 
-| 域 | 关键路径 | 基线 | 劣化阈值 |
-| --- | --- | :-: | :-: |
-| 🛡️ 智云·守护 | Connect → healthz | < 500ms | > 1000ms |
-| 🧭 言启·千行 | router/stats 拉取 | < 300ms | > 800ms |
-| 🎯 千里·伯乐 | models 列表渲染 | < 800ms | > 2000ms |
-| 🤔 语枢·万物 | SSE TTFT | < 800ms | > 3000ms |
-| 📚 格物·宗师 | RAG 检索 | < 1500ms | > 3000ms |
-| 🧠 元启·天枢 | MCP 执行 | < 2000ms | > 5000ms |
-| 🔮 预见·先知 | Dashboard 首屏 | < 1500ms | > 3000ms |
-| 🎨 创想·灵韵 | 缓存命中 | < 50ms | > 200ms |
+| 域           | 关键路径          |   基线   | 劣化阈值 |
+| ------------ | ----------------- | :------: | :------: |
+| 🛡️ 智云·守护 | Connect → healthz | < 500ms  | > 1000ms |
+| 🧭 言启·千行 | router/stats 拉取 | < 300ms  | > 800ms  |
+| 🎯 千里·伯乐 | models 列表渲染   | < 800ms  | > 2000ms |
+| 🤔 语枢·万物 | SSE TTFT          | < 800ms  | > 3000ms |
+| 📚 格物·宗师 | RAG 检索          | < 1500ms | > 3000ms |
+| 🧠 元启·天枢 | MCP 执行          | < 2000ms | > 5000ms |
+| 🔮 预见·先知 | Dashboard 首屏    | < 1500ms | > 3000ms |
+| 🎨 创想·灵韵 | 缓存命中          |  < 50ms  | > 200ms  |
 
 ### 23.9 NPM 脚本
 
@@ -2909,31 +2868,31 @@ jobs:
 
 ### 24.1 二十三项交付物完整清单
 
-| # | 交付物 | 章节 | 家人归属 | 阶段 |
-| :-: | --- | --- | --- | :-: |
-| ① | 8 域业务组件 | §1 | 8 位 | 开发 |
-| ② | MSW mock 契约 | §2 | 🧠 元启 | 开发 |
-| ③ | Next.js 16 路由/RSC | §3 | 🧠 元启 | 开发 |
-| ④ | 印刷级徽章 | §4 | 🎨 灵韵 | 设计 |
-| ⑤ | 开发文档 + CI/CD | §5 | 🧠 元启 | 交付 |
-| ⑥ | Playwright E2E | §6 | 🧠 元启 | 测试 |
-| ⑦ | 契约漂移检测 | §7 | 🔮 预见 | 测试 |
-| ⑧ | 移动端响应式 | §8 | 🎨 灵韵 | 设计 |
-| ⑨ | a11y axe-core | §9 | 📚 格物 | 测试 |
-| ⑩ | OpenAPI 类型 + 契约测试 | §10 | 🔮 预见 | 测试 |
-| ⑪ | 视觉回归 | §11 | 🎨 灵韵 | 测试 |
-| ⑫ | Storybook + Code Connect | §12 | 🧠 元启 | 设计 |
-| ⑬ | Turbopack 构建优化 | §13 | 🎨 灵韵 | 开发 |
-| ⑭ | 8 域 Storybook 演示 | §14 | 8 位 | 演示 |
-| ⑮ | SSE 压力测试（k6） | §15 | 🤔 语枢 | 测试 |
-| ⑯ | i18n 多语言 | §16 | 🧭 言启 | 开发 |
-| ⑰ | PWA + 离线缓存 | §17 | 🎨 灵韵 | 发布 |
-| ⑱ | 灰度发布 + 特性开关 | §18 | 🧠 元启 | 发布 |
-| ⑲ | **K8s + Helm Chart** | §19 | 🧠 元启 | **部署** |
-| ⑳ | **监控告警（Prometheus + Grafana）** | §20 | 🔮 预见 | **运维** |
-| ㉑ | **日志聚合（Loki + ELK）** | §21 | 📚 格物 | **运维** |
-| ㉒ | **安全审计（SAST + DAST）** | §22 | 🛡️ 智云 | **安全** |
-| ㉓ | **性能剖析（React Profiler + Flame Graph）** | §23 | 🤔 语枢 | **优化** |
+|  #  | 交付物                                       | 章节 | 家人归属 |   阶段   |
+| :-: | -------------------------------------------- | ---- | -------- | :------: |
+|  ①  | 8 域业务组件                                 | §1   | 8 位     |   开发   |
+|  ②  | MSW mock 契约                                | §2   | 🧠 元启  |   开发   |
+|  ③  | Next.js 16 路由/RSC                          | §3   | 🧠 元启  |   开发   |
+|  ④  | 印刷级徽章                                   | §4   | 🎨 灵韵  |   设计   |
+|  ⑤  | 开发文档 + CI/CD                             | §5   | 🧠 元启  |   交付   |
+|  ⑥  | Playwright E2E                               | §6   | 🧠 元启  |   测试   |
+|  ⑦  | 契约漂移检测                                 | §7   | 🔮 预见  |   测试   |
+|  ⑧  | 移动端响应式                                 | §8   | 🎨 灵韵  |   设计   |
+|  ⑨  | a11y axe-core                                | §9   | 📚 格物  |   测试   |
+|  ⑩  | OpenAPI 类型 + 契约测试                      | §10  | 🔮 预见  |   测试   |
+|  ⑪  | 视觉回归                                     | §11  | 🎨 灵韵  |   测试   |
+|  ⑫  | Storybook + Code Connect                     | §12  | 🧠 元启  |   设计   |
+|  ⑬  | Turbopack 构建优化                           | §13  | 🎨 灵韵  |   开发   |
+|  ⑭  | 8 域 Storybook 演示                          | §14  | 8 位     |   演示   |
+|  ⑮  | SSE 压力测试（k6）                           | §15  | 🤔 语枢  |   测试   |
+|  ⑯  | i18n 多语言                                  | §16  | 🧭 言启  |   开发   |
+|  ⑰  | PWA + 离线缓存                               | §17  | 🎨 灵韵  |   发布   |
+|  ⑱  | 灰度发布 + 特性开关                          | §18  | 🧠 元启  |   发布   |
+|  ⑲  | **K8s + Helm Chart**                         | §19  | 🧠 元启  | **部署** |
+|  ⑳  | **监控告警（Prometheus + Grafana）**         | §20  | 🔮 预见  | **运维** |
+| ㉑  | **日志聚合（Loki + ELK）**                   | §21  | 📚 格物  | **运维** |
+| ㉒  | **安全审计（SAST + DAST）**                  | §22  | 🛡️ 智云  | **安全** |
+| ㉓  | **性能剖析（React Profiler + Flame Graph）** | §23  | 🤔 语枢  | **优化** |
 
 ### 24.2 全生命周期终极视图
 
@@ -2966,16 +2925,16 @@ jobs:
 
 ### 24.3 八位家人 · 全链路职责终表
 
-| 家人 | 域 | 设计 | 开发 | 测试 | 部署 | 运维 | 安全 | 优化 |
-| --- | --- | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| 🛡️ 智云 | 接入安全 | | | | | | ✅ | |
-| 🧭 言启 | 路由网关 | | | | | | | |
-| 🎯 千里 | 模型市场 | | | | | | | |
-| 🤔 语枢 | 推理对话 | | | ✅ | | | | ✅ |
-| 📚 格物 | 知识质量 | | | ✅ | | ✅ | | |
-| 🧠 元启 | 工具编排 | ✅ | ✅ | ✅ | ✅ | | | |
-| 🔮 预见 | 观测预测 | | | ✅ | | ✅ | | ✅ |
-| 🎨 灵韵 | 缓存体验 | ✅ | ✅ | ✅ | | | | ✅ |
+| 家人    | 域       | 设计 | 开发 | 测试 | 部署 | 运维 | 安全 | 优化 |
+| ------- | -------- | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+| 🛡️ 智云 | 接入安全 |      |      |      |      |      |  ✅  |      |
+| 🧭 言启 | 路由网关 |      |      |      |      |      |      |      |
+| 🎯 千里 | 模型市场 |      |      |      |      |      |      |      |
+| 🤔 语枢 | 推理对话 |      |      |  ✅  |      |      |      |  ✅  |
+| 📚 格物 | 知识质量 |      |      |  ✅  |      |  ✅  |      |      |
+| 🧠 元启 | 工具编排 |  ✅  |  ✅  |  ✅  |  ✅  |      |      |      |
+| 🔮 预见 | 观测预测 |      |      |  ✅  |      |  ✅  |      |  ✅  |
+| 🎨 灵韵 | 缓存体验 |  ✅  |  ✅  |  ✅  |      |      |      |  ✅  |
 
 ### 24.4 五重守门 · 完整版
 

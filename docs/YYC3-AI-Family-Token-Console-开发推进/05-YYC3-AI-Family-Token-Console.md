@@ -106,17 +106,14 @@ import { mergeConfig } from "vite";
 import path from "node:path";
 
 const config: StorybookConfig = {
-  stories: [
-    "../stories/**/*.mdx",
-    "../stories/**/*.stories.@(ts|tsx)",
-  ],
+  stories: ["../stories/**/*.mdx", "../stories/**/*.stories.@(ts|tsx)"],
   addons: [
     "@storybook/addon-essentials",
-    "@storybook/addon-a11y",             // ♿ a11y 集成（对应 §9）
+    "@storybook/addon-a11y", // ♿ a11y 集成（对应 §9）
     "@storybook/addon-themes",
     "@storybook/addon-interactions",
-    "@chromatic-com/storybook",          // 📸 视觉回归
-    "@storybook/addon-designs",          // 🎨 Figma 嵌入
+    "@chromatic-com/storybook", // 📸 视觉回归
+    "@storybook/addon-designs", // 🎨 Figma 嵌入
   ],
   framework: {
     name: "@storybook/nextjs-vite",
@@ -136,8 +133,7 @@ const config: StorybookConfig = {
     reactDocgenTypescriptOptions: {
       shouldExtractLiteralValuesFromEnum: true,
       shouldRemoveUndefinedFromOptional: true,
-      propFilter: (prop) =>
-        prop.parent ? !/node_modules/.test(prop.parent.fileName) : true,
+      propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
     },
   },
   docs: {
@@ -272,10 +268,7 @@ const meta = {
   argTypes: {
     member: {
       control: "select",
-      options: [
-        "zhihui", "qianhang", "bole", "wanyu",
-        "zongshi", "tianshu", "xianzhi", "lingyun",
-      ],
+      options: ["zhihui", "qianhang", "bole", "wanyu", "zongshi", "tianshu", "xianzhi", "lingyun"],
       description: "家人标识",
     },
     size: { control: "radio", options: ["sm", "md", "lg"] },
@@ -303,9 +296,7 @@ export const AllMembers: Story = {
       {Object.values(MEMBERS).map((m) => (
         <div key={m.key} className="flex items-center gap-3">
           <FamilyBadge member={m.key as any} size="md" showExt />
-          <span className="text-caption text-text-tertiary italic">
-            「{m.motto}」
-          </span>
+          <span className="text-caption text-text-tertiary italic">「{m.motto}」</span>
         </div>
       ))}
     </div>
@@ -610,14 +601,14 @@ jobs:
 
 ### 12.9 交付标准
 
-| 项 | 目标 | 状态 |
-| --- | :-: | :-: |
-| 家人组件故事 | 8 位 × 各 1 故事 | ✅ |
-| 通用组件故事 | 30+ | ✅ |
-| 控制台组件故事 | 20+ | ✅ |
-| Code Connect 映射 | 12 关键组件 | ✅ |
-| Chromatic 基线 | 全故事 | ✅ |
-| Storybook 静态部署 | GitHub Pages | ✅ |
+| 项                 |       目标       | 状态 |
+| ------------------ | :--------------: | :--: |
+| 家人组件故事       | 8 位 × 各 1 故事 |  ✅  |
+| 通用组件故事       |       30+        |  ✅  |
+| 控制台组件故事     |       20+        |  ✅  |
+| Code Connect 映射  |   12 关键组件    |  ✅  |
+| Chromatic 基线     |      全故事      |  ✅  |
+| Storybook 静态部署 |   GitHub Pages   |  ✅  |
 
 ---
 
@@ -700,10 +691,7 @@ const nextConfig: NextConfig = {
   // 编译优化
   // ============================================================
   compiler: {
-    removeConsole:
-      process.env.NODE_ENV === "production"
-        ? { exclude: ["error", "warn"] }
-        : false,
+    removeConsole: process.env.NODE_ENV === "production" ? { exclude: ["error", "warn"] } : false,
   },
 
   // ============================================================
@@ -736,9 +724,9 @@ export default nextConfig;
  */
 export interface BundleBudget {
   name: string;
-  maxGzip: number;     // KB
-  maxRaw: number;      // KB
-  pages: string[];     // 适用的页面
+  maxGzip: number; // KB
+  maxRaw: number; // KB
+  pages: string[]; // 适用的页面
 }
 
 export const BUNDLE_BUDGETS: BundleBudget[] = [
@@ -770,7 +758,16 @@ export const BUNDLE_BUDGETS: BundleBudget[] = [
     name: "其他页面",
     maxGzip: 160,
     maxRaw: 500,
-    pages: ["/routing", "/knowledge", "/mcp", "/cache", "/monitor", "/settings", "/docs", "/roadmap"],
+    pages: [
+      "/routing",
+      "/knowledge",
+      "/mcp",
+      "/cache",
+      "/monitor",
+      "/settings",
+      "/docs",
+      "/roadmap",
+    ],
   },
 ];
 
@@ -829,11 +826,10 @@ function main() {
 
   // 1. 运行 Turbopack 官方分析器
   console.log("🌹 运行 Turbopack Bundle Analyzer…");
-  const analyze = spawnSync(
-    "npx",
-    ["next", "experimental-analyze", "--output"],
-    { cwd: resolve(ROOT, "apps/console"), stdio: "inherit" },
-  );
+  const analyze = spawnSync("npx", ["next", "experimental-analyze", "--output"], {
+    cwd: resolve(ROOT, "apps/console"),
+    stdio: "inherit",
+  });
 
   if (analyze.status !== 0) {
     console.warn("⚠️ Turbopack 分析器运行失败，回退到手动统计");
@@ -868,14 +864,10 @@ function main() {
   const violations: string[] = [];
 
   if (totalGzipKB > TOTAL_BUDGET.maxGzip) {
-    violations.push(
-      `总 gzip ${totalGzipKB.toFixed(1)}KB 超过预算 ${TOTAL_BUDGET.maxGzip}KB`,
-    );
+    violations.push(`总 gzip ${totalGzipKB.toFixed(1)}KB 超过预算 ${TOTAL_BUDGET.maxGzip}KB`);
   }
   if (totalRawKB > TOTAL_BUDGET.maxRaw) {
-    violations.push(
-      `总 raw ${totalRawKB.toFixed(1)}KB 超过预算 ${TOTAL_BUDGET.maxRaw}KB`,
-    );
+    violations.push(`总 raw ${totalRawKB.toFixed(1)}KB 超过预算 ${TOTAL_BUDGET.maxRaw}KB`);
   }
 
   // 4. 生成报告
@@ -889,10 +881,7 @@ function main() {
     violations,
   };
 
-  writeFileSync(
-    resolve(OUT_DIR, "bundle-report.json"),
-    JSON.stringify(report, null, 2),
-  );
+  writeFileSync(resolve(OUT_DIR, "bundle-report.json"), JSON.stringify(report, null, 2));
 
   // 5. Markdown 报告
   const lines: string[] = [];
@@ -963,14 +952,14 @@ main();
 
 ### 13.6 Turbopack 优化要点速查
 
-| 优化项 | 配置 | 效果 |
-| --- | --- | --- |
-| **磁盘缓存** | 默认启用（16.1+） | CI warm path 最高 5.5× 提速 |
-| **内存淘汰** | `turbopackMemoryEviction: 'auto'` | dev 内存减少最高 90% |
-| **包导入优化** | `optimizePackageImports` | 按需 treeshake |
-| **React Compiler** | `reactCompiler: true` | 自动 memo 优化 |
-| **Console 移除** | `removeConsole` | 生产环境减小体积 |
-| **图片格式** | AVIF/WebP | 减 60-75% 图片体积 |
+| 优化项             | 配置                              | 效果                        |
+| ------------------ | --------------------------------- | --------------------------- |
+| **磁盘缓存**       | 默认启用（16.1+）                 | CI warm path 最高 5.5× 提速 |
+| **内存淘汰**       | `turbopackMemoryEviction: 'auto'` | dev 内存减少最高 90%        |
+| **包导入优化**     | `optimizePackageImports`          | 按需 treeshake              |
+| **React Compiler** | `reactCompiler: true`             | 自动 memo 优化              |
+| **Console 移除**   | `removeConsole`                   | 生产环境减小体积            |
+| **图片格式**       | AVIF/WebP                         | 减 60-75% 图片体积          |
 
 ### 13.7 CI 集成
 
@@ -1304,9 +1293,7 @@ export const ConnectFlow: Story = {
     await userEvent.click(submit);
 
     // 5. 等待成功台词
-    await expect(
-      await canvas.findByText(/信任已建立，欢迎回家/),
-    ).toBeVisible();
+    await expect(await canvas.findByText(/信任已建立，欢迎回家/)).toBeVisible();
   },
 };
 ```
@@ -1326,16 +1313,16 @@ export const ConnectFlow: Story = {
 
 ### 14.7 8 域交付标准
 
-| 域 | 总览故事 | 组件故事 | 交互测试 | a11y |
-| --- | :-: | :-: | :-: | :-: |
-| 🛡️ 智云·守护 | ✅ | 4 | 2 | ✅ |
-| 🧭 言启·千行 | ✅ | 4 | 2 | ✅ |
-| 🎯 千里·伯乐 | ✅ | 4 | 2 | ✅ |
-| 🤔 语枢·万物 | ✅ | 6 | 3 | ✅ |
-| 📚 格物·宗师 | ✅ | 5 | 2 | ✅ |
-| 🧠 元启·天枢 | ✅ | 5 | 2 | ✅ |
-| 🔮 预见·先知 | ✅ | 5 | 2 | ✅ |
-| 🎨 创想·灵韵 | ✅ | 5 | 2 | ✅ |
+| 域           | 总览故事 | 组件故事 | 交互测试 | a11y |
+| ------------ | :------: | :------: | :------: | :--: |
+| 🛡️ 智云·守护 |    ✅    |    4     |    2     |  ✅  |
+| 🧭 言启·千行 |    ✅    |    4     |    2     |  ✅  |
+| 🎯 千里·伯乐 |    ✅    |    4     |    2     |  ✅  |
+| 🤔 语枢·万物 |    ✅    |    6     |    3     |  ✅  |
+| 📚 格物·宗师 |    ✅    |    5     |    2     |  ✅  |
+| 🧠 元启·天枢 |    ✅    |    5     |    2     |  ✅  |
+| 🔮 预见·先知 |    ✅    |    5     |    2     |  ✅  |
+| 🎨 创想·灵韵 |    ✅    |    5     |    2     |  ✅  |
 
 ---
 
@@ -1436,13 +1423,13 @@ import { getApiKey } from "./auth.js";
 // ============================================================
 // 自定义指标
 // ============================================================
-export const ttft = new Trend("sse_ttft_ms", true);          // 首字节延迟
-export const totalLatency = new Trend("sse_total_ms", true);  // 总耗时
-export const tokensReceived = new Counter("sse_tokens");       // 累计 Token
-export const tokensPerSecond = new Gauge("sse_tps");           // 每秒 Token
-export const streamErrors = new Rate("sse_stream_errors");     // 流式错误率
-export const degradedStreams = new Counter("sse_degraded");    // 降级流数
-export const activeStreams = new Gauge("sse_active_streams");  // 活跃流数
+export const ttft = new Trend("sse_ttft_ms", true); // 首字节延迟
+export const totalLatency = new Trend("sse_total_ms", true); // 总耗时
+export const tokensReceived = new Counter("sse_tokens"); // 累计 Token
+export const tokensPerSecond = new Gauge("sse_tps"); // 每秒 Token
+export const streamErrors = new Rate("sse_stream_errors"); // 流式错误率
+export const degradedStreams = new Counter("sse_degraded"); // 降级流数
+export const activeStreams = new Gauge("sse_active_streams"); // 活跃流数
 
 // ============================================================
 // SSE 流式请求
@@ -1557,9 +1544,9 @@ export const options = {
   vus: 1,
   duration: "30s",
   thresholds: {
-    "sse_ttft_ms": ["p(95)<2000"],
-    "sse_total_ms": ["p(95)<15000"],
-    "sse_stream_errors": ["rate<0.01"],
+    sse_ttft_ms: ["p(95)<2000"],
+    sse_total_ms: ["p(95)<15000"],
+    sse_stream_errors: ["rate<0.01"],
   },
 };
 
@@ -1597,22 +1584,22 @@ const BASE_URL = __ENV.API_BASE || "https://api.0379.world";
 
 export const options = {
   stages: [
-    { duration: "2m", target: 10 },    // 预热
-    { duration: "3m", target: 50 },    // 加压
-    { duration: "3m", target: 100 },   // 中等并发
-    { duration: "3m", target: 300 },   // 高并发
-    { duration: "3m", target: 500 },   // 极限
-    { duration: "2m", target: 0 },     // 冷却
+    { duration: "2m", target: 10 }, // 预热
+    { duration: "3m", target: 50 }, // 加压
+    { duration: "3m", target: 100 }, // 中等并发
+    { duration: "3m", target: 300 }, // 高并发
+    { duration: "3m", target: 500 }, // 极限
+    { duration: "2m", target: 0 }, // 冷却
   ],
   thresholds: {
     // TTFT 95 分位 < 3s
-    "sse_ttft_ms": ["p(95)<3000", "p(99)<5000"],
+    sse_ttft_ms: ["p(95)<3000", "p(99)<5000"],
     // 总耗时 95 分位 < 20s
-    "sse_total_ms": ["p(95)<20000"],
+    sse_total_ms: ["p(95)<20000"],
     // 错误率 < 5%
-    "sse_stream_errors": ["rate<0.05"],
+    sse_stream_errors: ["rate<0.05"],
     // TPS 平均值 > 20
-    "sse_tps": ["avg>20"],
+    sse_tps: ["avg>20"],
   },
 };
 
@@ -1621,9 +1608,7 @@ export default function () {
     BASE_URL,
     {
       model: "qwen2.5:7b",
-      messages: [
-        { role: "user", content: "请用一句话介绍你自己" },
-      ],
+      messages: [{ role: "user", content: "请用一句话介绍你自己" }],
       stream: true,
       max_tokens: 100,
       temperature: 0.7,
@@ -1660,10 +1645,10 @@ export const options = {
     },
   },
   thresholds: {
-    "sse_ttft_ms": ["p(95)<3000"],
-    "sse_stream_errors": ["rate<0.02"],
+    sse_ttft_ms: ["p(95)<3000"],
+    sse_stream_errors: ["rate<0.02"],
     // 连接稳定性：活跃流不应持续增长
-    "sse_active_streams": ["max<60"],
+    sse_active_streams: ["max<60"],
   },
 };
 
@@ -1867,7 +1852,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: "0 4 * * 0"  # 每周日 UTC 04:00 全量
+    - cron: "0 4 * * 0" # 每周日 UTC 04:00 全量
 
 jobs:
   smoke:
@@ -1937,12 +1922,12 @@ jobs:
 
 ### 15.10 压测通过标准
 
-| 场景 | VU | 时长 | TTFT P95 | 错误率 | TPS |
-| --- | :-: | :-: | :-: | :-: | :-: |
-| 冒烟 | 1 | 30s | < 2s | < 1% | — |
-| 阶梯 | 10→500 | 16min | < 3s | < 5% | > 20 |
-| 稳态 | 50 | 30min | < 3s | < 2% | > 25 |
-| 峰值 | 500 | 2min | < 5s | < 10% | > 15 |
+| 场景 |   VU   | 时长  | TTFT P95 | 错误率 | TPS  |
+| ---- | :----: | :---: | :------: | :----: | :--: |
+| 冒烟 |   1    |  30s  |   < 2s   |  < 1%  |  —   |
+| 阶梯 | 10→500 | 16min |   < 3s   |  < 5%  | > 20 |
+| 稳态 |   50   | 30min |   < 3s   |  < 2%  | > 25 |
+| 峰值 |  500   | 2min  |   < 5s   | < 10%  | > 15 |
 
 ---
 
@@ -2486,8 +2471,7 @@ const serwist = new Serwist({
     // 健康检查：Network-first（短缓存）
     // ============================================================
     {
-      matcher: ({ url }) =>
-        url.pathname === "/health" || url.pathname === "/healthz",
+      matcher: ({ url }) => url.pathname === "/health" || url.pathname === "/healthz",
       handler: new NetworkFirst({
         cacheName: "yyc3-health",
         networkTimeoutSeconds: 5,
@@ -2585,8 +2569,7 @@ export default function OfflinePage() {
       <FamilyBadge member="zhihui" size="lg" showExt showMotto />
       <h1 className="text-h2 font-semibold">🌹 暂时离线</h1>
       <p className="text-body-md text-text-secondary max-w-md">
-        网络暂时不可达。但请放心——
-        已缓存的页面仍可浏览，你的数据仍在云枢之中。
+        网络暂时不可达。但请放心—— 已缓存的页面仍可浏览，你的数据仍在云枢之中。
       </p>
       <p className="text-caption text-text-tertiary italic">
         「守的是人，护的是信」—— 🛡️ 智云·守护
@@ -2631,9 +2614,7 @@ export function InstallPrompt() {
 
   return (
     <div className="fixed bottom-4 right-4 p-4 rounded-lg bg-bg-elevated border border-border-default shadow-lg max-w-sm">
-      <p className="text-body-sm mb-3">
-        🌹 将 YYC³ Console 添加到桌面，离线也可查看仪表盘
-      </p>
+      <p className="text-body-sm mb-3">🌹 将 YYC³ Console 添加到桌面，离线也可查看仪表盘</p>
       <div className="flex gap-2">
         <button
           onClick={async () => {
@@ -2659,26 +2640,26 @@ export function InstallPrompt() {
 
 ### 17.9 缓存策略矩阵
 
-| 资源类型 | 策略 | 缓存名 | 超时 | 降级 |
-| --- | --- | --- | :-: | --- |
-| App Shell (HTML/JS/CSS) | Precache | `serwist-precache` | — | 离线页 |
-| API `/v1/*` | NetworkFirst | `yyc3-api` | 10s | 缓存响应 |
-| 健康检查 `/health` | NetworkFirst | `yyc3-health` | 5s | 缓存响应 |
-| 徽章 `/badges/*` | CacheFirst | `yyc3-badges` | — | 永久缓存 |
-| 图片/字体 | StaleWhileRevalidate | `serwist-default` | — | 缓存 |
-| 水印 Canvas | 不缓存 | — | — | 无 |
+| 资源类型                | 策略                 | 缓存名             | 超时 | 降级     |
+| ----------------------- | -------------------- | ------------------ | :--: | -------- |
+| App Shell (HTML/JS/CSS) | Precache             | `serwist-precache` |  —   | 离线页   |
+| API `/v1/*`             | NetworkFirst         | `yyc3-api`         | 10s  | 缓存响应 |
+| 健康检查 `/health`      | NetworkFirst         | `yyc3-health`      |  5s  | 缓存响应 |
+| 徽章 `/badges/*`        | CacheFirst           | `yyc3-badges`      |  —   | 永久缓存 |
+| 图片/字体               | StaleWhileRevalidate | `serwist-default`  |  —   | 缓存     |
+| 水印 Canvas             | 不缓存               | —                  |  —   | 无       |
 
 ### 17.10 交付标准
 
-| 项 | 目标 | 验证 |
-| --- | :-: | --- |
-| Lighthouse PWA | ≥ 90 | Lighthouse CI |
-| 可安装 | ✅ | Chrome DevTools |
-| 离线访问 App Shell | ✅ | 断网测试 |
-| API 离线降级 | ✅ | 断网显示缓存 |
-| 徽章离线可用 | ✅ | 断网加载 |
-| iOS Safari 兼容 | ✅ | 真机测试 |
-| Android Chrome 兼容 | ✅ | 真机测试 |
+| 项                  | 目标 | 验证            |
+| ------------------- | :--: | --------------- |
+| Lighthouse PWA      | ≥ 90 | Lighthouse CI   |
+| 可安装              |  ✅  | Chrome DevTools |
+| 离线访问 App Shell  |  ✅  | 断网测试        |
+| API 离线降级        |  ✅  | 断网显示缓存    |
+| 徽章离线可用        |  ✅  | 断网加载        |
+| iOS Safari 兼容     |  ✅  | 真机测试        |
+| Android Chrome 兼容 |  ✅  | 真机测试        |
 
 ---
 
@@ -2935,9 +2916,7 @@ export default async function DashboardPage() {
   return (
     <div className="min-h-screen">
       <PageHeader title="今日预言" subtitle="见微知著，未卜先知" />
-      <DashboardIsland
-        flags={{ showBilling, showRealCost, showLogs }}
-      />
+      <DashboardIsland flags={{ showBilling, showRealCost, showLogs }} />
     </div>
   );
 }
@@ -2994,26 +2973,26 @@ jobs:
 
 ### 19.1 十八项交付物完整清单
 
-| # | 交付物 | 章节 | 家人归属 | 状态 |
-| :-: | --- | --- | --- | :-: |
-| ① | 8 域业务组件 | §1 | 8 位 | ✅ |
-| ② | MSW mock 契约 | §2 | 🧠 元启 | ✅ |
-| ③ | Next.js 16 路由/RSC | §3 | 🧠 元启 | ✅ |
-| ④ | 印刷级徽章 | §4 | 🎨 灵韵 | ✅ |
-| ⑤ | 开发文档 + CI/CD | §5 | 🧠 元启 | ✅ |
-| ⑥ | Playwright E2E | §6 | 🧠 元启 | ✅ |
-| ⑦ | 契约漂移检测 | §7 | 🔮 预见 | ✅ |
-| ⑧ | 移动端响应式 | §8 | 🎨 灵韵 | ✅ |
-| ⑨ | a11y axe-core | §9 | 📚 格物 | ✅ |
-| ⑩ | OpenAPI 类型 + 契约测试 | §10 | 🔮 预见 | ✅ |
-| ⑪ | 视觉回归 | §11 | 🎨 灵韵 | ✅ |
-| ⑫ | Storybook + Code Connect | §12 | 🧠 元启 | ✅ |
-| ⑬ | Turbopack 构建优化 | §13 | 🎨 灵韵 | ✅ |
-| ⑭ | 8 域 Storybook 演示 | §14 | 8 位 | ✅ |
-| ⑮ | SSE 压力测试（k6） | §15 | 🤔 语枢 | ✅ |
-| ⑯ | i18n 多语言（中/英/日） | §16 | 🧭 言启 | ✅ |
-| ⑰ | PWA + 离线缓存 | §17 | 🎨 灵韵 | ✅ |
-| ⑱ | 灰度发布 + 特性开关 | §18 | 🧠 元启 | ✅ |
+|  #  | 交付物                   | 章节 | 家人归属 | 状态 |
+| :-: | ------------------------ | ---- | -------- | :--: |
+|  ①  | 8 域业务组件             | §1   | 8 位     |  ✅  |
+|  ②  | MSW mock 契约            | §2   | 🧠 元启  |  ✅  |
+|  ③  | Next.js 16 路由/RSC      | §3   | 🧠 元启  |  ✅  |
+|  ④  | 印刷级徽章               | §4   | 🎨 灵韵  |  ✅  |
+|  ⑤  | 开发文档 + CI/CD         | §5   | 🧠 元启  |  ✅  |
+|  ⑥  | Playwright E2E           | §6   | 🧠 元启  |  ✅  |
+|  ⑦  | 契约漂移检测             | §7   | 🔮 预见  |  ✅  |
+|  ⑧  | 移动端响应式             | §8   | 🎨 灵韵  |  ✅  |
+|  ⑨  | a11y axe-core            | §9   | 📚 格物  |  ✅  |
+|  ⑩  | OpenAPI 类型 + 契约测试  | §10  | 🔮 预见  |  ✅  |
+|  ⑪  | 视觉回归                 | §11  | 🎨 灵韵  |  ✅  |
+|  ⑫  | Storybook + Code Connect | §12  | 🧠 元启  |  ✅  |
+|  ⑬  | Turbopack 构建优化       | §13  | 🎨 灵韵  |  ✅  |
+|  ⑭  | 8 域 Storybook 演示      | §14  | 8 位     |  ✅  |
+|  ⑮  | SSE 压力测试（k6）       | §15  | 🤔 语枢  |  ✅  |
+|  ⑯  | i18n 多语言（中/英/日）  | §16  | 🧭 言启  |  ✅  |
+|  ⑰  | PWA + 离线缓存           | §17  | 🎨 灵韵  |  ✅  |
+|  ⑱  | 灰度发布 + 特性开关      | §18  | 🧠 元启  |  ✅  |
 
 ### 19.2 全生命周期覆盖图
 

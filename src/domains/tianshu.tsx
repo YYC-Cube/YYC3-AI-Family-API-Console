@@ -1,9 +1,9 @@
-import React, { useState } from "react"
-import { NavLink } from "react-router"
-import { modelAssets } from "../data/modelAssets"
-import logoCyan from "../imports/512.png"
-import { api } from "../lib/api"
-import type { FamilyKey, HealthResponse, PageConfig } from "./shared"
+import React, { useState } from "react";
+import { NavLink } from "react-router";
+import { modelAssets } from "../data/modelAssets";
+import logoCyan from "../imports/512.png";
+import { api } from "../lib/api";
+import type { FamilyKey, HealthResponse, PageConfig } from "./shared";
 import {
   Bind,
   Empty,
@@ -15,50 +15,50 @@ import {
   SectionTitle,
   Status,
   useRemote,
-} from "./shared"
-import { ModelStatsTop5 } from "./xianzhi"
-import { ErrorStreamFeed } from "./zhihui-errors"
+} from "./shared";
+import { ModelStatsTop5 } from "./xianzhi";
+import { ErrorStreamFeed } from "./zhihui-errors";
 
 function TrendCharts({
   system,
   health,
 }: {
-  system?: HealthResponse["system"]
-  health?: HealthResponse
+  system?: HealthResponse["system"];
+  health?: HealthResponse;
 }) {
-  const [range, setRange] = useState<"15m" | "1h" | "24h" | "7d">("24h")
+  const [range, setRange] = useState<"15m" | "1h" | "24h" | "7d">("24h");
 
   const qpsData = [
-    12, 18, 25, 32, 28, 45, 62, 88, 95, 76, 82, 110, 125, 98, 85, 104, 118, 140,
-    132, 90, 75, 58, 42, 30,
-  ]
+    12, 18, 25, 32, 28, 45, 62, 88, 95, 76, 82, 110, 125, 98, 85, 104, 118, 140, 132, 90, 75, 58,
+    42, 30,
+  ];
   const latencyData = [
-    120, 115, 130, 145, 125, 180, 210, 260, 290, 240, 220, 310, 340, 280, 250,
-    290, 320, 380, 350, 260, 210, 180, 150, 135,
-  ]
+    120, 115, 130, 145, 125, 180, 210, 260, 290, 240, 220, 310, 340, 280, 250, 290, 320, 380, 350,
+    260, 210, 180, 150, 135,
+  ];
 
-  const maxQps = Math.max(...qpsData)
-  const maxLat = Math.max(...latencyData)
-  const width = 640
-  const height = 150
+  const maxQps = Math.max(...qpsData);
+  const maxLat = Math.max(...latencyData);
+  const width = 640;
+  const height = 150;
 
   const qpsPoints = qpsData
     .map((val, idx) => {
-      const x = (idx / (qpsData.length - 1)) * width
-      const y = height - (val / maxQps) * (height - 24) - 12
-      return `${x.toFixed(1)},${y.toFixed(1)}`
+      const x = (idx / (qpsData.length - 1)) * width;
+      const y = height - (val / maxQps) * (height - 24) - 12;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
     })
-    .join(" ")
+    .join(" ");
 
   const latencyPoints = latencyData
     .map((val, idx) => {
-      const x = (idx / (latencyData.length - 1)) * width
-      const y = height - (val / maxLat) * (height - 24) - 12
-      return `${x.toFixed(1)},${y.toFixed(1)}`
+      const x = (idx / (latencyData.length - 1)) * width;
+      const y = height - (val / maxLat) * (height - 24) - 12;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
     })
-    .join(" ")
+    .join(" ");
 
-  const qpsArea = `0,${height} ${qpsPoints} ${width},${height}`
+  const qpsArea = `0,${height} ${qpsPoints} ${width},${height}`;
 
   return (
     <article className="home-panel trend-charts-panel">
@@ -71,11 +71,7 @@ function TrendCharts({
         </div>
         <div className="range-picker mono">
           {(["15m", "1h", "24h", "7d"] as const).map((r) => (
-            <button
-              key={r}
-              className={range === r ? "active" : ""}
-              onClick={() => setRange(r)}
-            >
+            <button key={r} className={range === r ? "active" : ""} onClick={() => setRange(r)}>
               {r}
             </button>
           ))}
@@ -157,9 +153,7 @@ function TrendCharts({
         <div className="chart-box load-box">
           <div className="chart-legend">
             <strong>系统资源负载脉冲</strong>
-            <Status tone={system ? "ok" : "muted"}>
-              {system ? "LIVE /health" : "TELEMETRY"}
-            </Status>
+            <Status tone={system ? "ok" : "muted"}>{system ? "LIVE /health" : "TELEMETRY"}</Status>
           </div>
           <div className="spark-rows">
             <div className="spark-item">
@@ -177,9 +171,7 @@ function TrendCharts({
             <div className="spark-item">
               <div className="spark-label">
                 <span>内存 记忆占用</span>
-                <strong className="mono">
-                  {system?.memory_percent ?? 11.7}%
-                </strong>
+                <strong className="mono">{system?.memory_percent ?? 11.7}%</strong>
               </div>
               <div className="spark-bar">
                 <div
@@ -213,23 +205,21 @@ function TrendCharts({
         </div>
       </div>
     </article>
-  )
+  );
 }
 
 /** 元启·天枢域 · 首页大盘（全局运行视图 + LIVE 拓扑） */
 export function Home() {
-  const health = useRemote(api.health)
-  const h = health.data
-  const domains = Object.keys(family) as FamilyKey[]
+  const health = useRemote(api.health);
+  const h = health.data;
+  const domains = Object.keys(family) as FamilyKey[];
 
   return (
     <div className="home-page">
       <header className="home-hero">
         <div>
           <FamilyBadge owner="tianshu" full />
-          <span className="home-kicker mono">
-            YAN YU CLOUD CUBE / COMMAND BOARD
-          </span>
+          <span className="home-kicker mono">YAN YU CLOUD CUBE / COMMAND BOARD</span>
           <h1>
             可视化<span>·</span>数据<span>·</span>大盘
           </h1>
@@ -250,7 +240,7 @@ export function Home() {
           <span className="stage-label mono">LIVE SYSTEM TOPOLOGY</span>
           <div className="topology">
             {domains.map((key, index) => {
-              const f = family[key]
+              const f = family[key];
               return (
                 <div
                   className="domain-node"
@@ -265,7 +255,7 @@ export function Home() {
                   <span>{f.emoji}</span>
                   <small>{f.name}</small>
                 </div>
-              )
+              );
             })}
             <div className="core-orb">
               <i className={h?.status === "healthy" ? "is-live" : ""} />
@@ -275,14 +265,8 @@ export function Home() {
             </div>
           </div>
           <div className="core-status">
-            <Status
-              tone={
-                health.error ? "warn" : h?.status === "healthy" ? "ok" : "muted"
-              }
-            >
-              {health.error
-                ? "health unavailable"
-                : h?.status || "awaiting telemetry"}
+            <Status tone={health.error ? "warn" : h?.status === "healthy" ? "ok" : "muted"}>
+              {health.error ? "health unavailable" : h?.status || "awaiting telemetry"}
             </Status>
             <Bind>GET /health#status,version,uptime_seconds</Bind>
           </div>
@@ -290,9 +274,7 @@ export function Home() {
 
         <section className="home-side">
           <article className="home-panel">
-            <SectionTitle action={<Bind>GET /health#metrics</Bind>}>
-              即时脉冲
-            </SectionTitle>
+            <SectionTitle action={<Bind>GET /health#metrics</Bind>}>即时脉冲</SectionTitle>
             <div className="pulse-list">
               <div>
                 <span>活跃请求</span>
@@ -304,9 +286,7 @@ export function Home() {
               </div>
               <div>
                 <span>缓存命中</span>
-                <strong>
-                  {h ? `${Math.round(h.metrics.cache_hit_rate * 100)}%` : "—"}
-                </strong>
+                <strong>{h ? `${Math.round(h.metrics.cache_hit_rate * 100)}%` : "—"}</strong>
               </div>
             </div>
           </article>
@@ -332,13 +312,13 @@ export function Home() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 /** 元启·天枢域 · 观测总览（/dashboard · 6 项核心指标卡） */
 export function Overview({ page }: { page: PageConfig }) {
-  const health = useRemote(api.health)
-  const h = health.data
+  const health = useRemote(api.health);
+  const h = health.data;
   const stats = [
     [
       "总请求",
@@ -358,12 +338,7 @@ export function Overview({ page }: { page: PageConfig }) {
       h ? String(h.metrics.active_requests) : "—",
       "正在发生的连接",
     ],
-    [
-      "CPU",
-      "GET /health#system.cpu_percent",
-      h ? `${h.system.cpu_percent}%` : "—",
-      "系统计算负载",
-    ],
+    ["CPU", "GET /health#system.cpu_percent", h ? `${h.system.cpu_percent}%` : "—", "系统计算负载"],
     [
       "内存",
       "GET /health#system.memory_percent",
@@ -376,7 +351,7 @@ export function Overview({ page }: { page: PageConfig }) {
       h ? `${h.system.disk_percent}%` : "—",
       "系统存储占用",
     ],
-  ]
+  ];
   return (
     <Page page={page}>
       <div className="stat-grid">
@@ -394,37 +369,33 @@ export function Overview({ page }: { page: PageConfig }) {
           </article>
         ))}
       </div>
-      {health.error && (
-        <div className="api-error">GET /health · {health.error}</div>
-      )}
+      {health.error && <div className="api-error">GET /health · {health.error}</div>}
       <div className="content-grid wide-left">
         <ModelStatsTop5 />
         <Panel title="系统健康" binding="GET /health#services">
           <div className="health-list">
-            {(["ollama", "zhipu", "redis", "postgresql"] as const).map(
-              (service) => (
-                <div key={service}>
-                  <span>{service}</span>
-                  <Status
-                    tone={
-                      h?.services[service].status === "healthy"
-                        ? "ok"
-                        : h?.services[service].status === "unreachable"
-                          ? "warn"
-                          : "muted"
-                    }
-                  >
-                    {h?.services[service].status || "awaiting"}
-                  </Status>
-                  <Bind>GET /health#services.{service}.status</Bind>
-                </div>
-              ),
-            )}
+            {(["ollama", "zhipu", "redis", "postgresql"] as const).map((service) => (
+              <div key={service}>
+                <span>{service}</span>
+                <Status
+                  tone={
+                    h?.services[service].status === "healthy"
+                      ? "ok"
+                      : h?.services[service].status === "unreachable"
+                        ? "warn"
+                        : "muted"
+                  }
+                >
+                  {h?.services[service].status || "awaiting"}
+                </Status>
+                <Bind>GET /health#services.{service}.status</Bind>
+              </div>
+            ))}
           </div>
         </Panel>
       </div>
     </Page>
-  )
+  );
 }
 
 /** 元启·天枢域 · 编排之环（MCP 工具注册表） */
@@ -439,13 +410,10 @@ export function Mcp({ page }: { page: PageConfig }) {
         </div>
       </div>
       <Panel title="工具注册表" binding="GET /v1/mcp/tools">
-        <Empty
-          owner="tianshu"
-          text="等待工具清单；总指挥将为每次调用编排路径。"
-        />
+        <Empty owner="tianshu" text="等待工具清单；总指挥将为每次调用编排路径。" />
       </Panel>
     </Page>
-  )
+  );
 }
 
 /** 元启·天枢域 · 家族协同（组织治理 · ㉔–㉘） */
@@ -456,25 +424,19 @@ export function Governance({ page }: { page: PageConfig }) {
         <img src={logoCyan} alt="YanYu Cloud³ logo" />
         <div>
           <h2>从工程治理到开源社区</h2>
-          <p>
-            ㉔ 灾备与高可用 · ㉕ FinOps · ㉖ 合规审计 · ㉗ 团队协作 · ㉘
-            社区运营
-          </p>
+          <p>㉔ 灾备与高可用 · ㉕ FinOps · ㉖ 合规审计 · ㉗ 团队协作 · ㉘ 社区运营</p>
         </div>
       </div>
       <div className="family-grid">
         {(Object.keys(family) as FamilyKey[]).map((k) => {
-          const f = family[k]
+          const f = family[k];
           return (
-            <article
-              key={k}
-              style={{ "--tone": f.tone } as React.CSSProperties}
-            >
+            <article key={k} style={{ "--tone": f.tone } as React.CSSProperties}>
               <FamilyBadge owner={k} />
               <p>{f.motto}</p>
               <span>OWNER / {f.role}</span>
             </article>
-          )
+          );
         })}
       </div>
       <div className="content-grid">
@@ -486,5 +448,5 @@ export function Governance({ page }: { page: PageConfig }) {
         </Panel>
       </div>
     </Page>
-  )
+  );
 }

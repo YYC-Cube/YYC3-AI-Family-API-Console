@@ -1,4 +1,5 @@
 # YYC3-AI-Family-Token-Console-theme-system UI/UX 设计系统
+
 ---
 
 ## 🎨 设计理念
@@ -158,7 +159,8 @@
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
   50% {
@@ -236,18 +238,18 @@
 :root {
   /* 深色主题 */
   --color-background: oklch(0.15 0.02 160);
-  --color-card: oklch(0.20 0.02 160);
+  --color-card: oklch(0.2 0.02 160);
   --color-text-primary: oklch(0.95 0.01 160);
-  --color-text-secondary: oklch(0.70 0.02 160);
+  --color-text-secondary: oklch(0.7 0.02 160);
   --color-border: oklch(0.85 0.02 160);
 }
 
 [data-theme="light"] {
   /* 浅色主题 */
   --color-background: oklch(0.98 0.01 160);
-  --color-card: oklch(1.00 0.00 0);
+  --color-card: oklch(1 0 0);
   --color-text-primary: oklch(0.15 0.02 160);
-  --color-text-secondary: oklch(0.50 0.02 160);
+  --color-text-secondary: oklch(0.5 0.02 160);
   --color-border: oklch(0.85 0.02 160);
 }
 
@@ -255,18 +257,18 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --color-background: oklch(0.15 0.02 160);
-    --color-card: oklch(0.20 0.02 160);
+    --color-card: oklch(0.2 0.02 160);
     --color-text-primary: oklch(0.95 0.01 160);
-    --color-text-secondary: oklch(0.70 0.02 160);
+    --color-text-secondary: oklch(0.7 0.02 160);
   }
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     --color-background: oklch(0.98 0.01 160);
-    --color-card: oklch(1.00 0.00 0);
+    --color-card: oklch(1 0 0);
     --color-text-primary: oklch(0.15 0.02 160);
-    --color-text-secondary: oklch(0.50 0.02 160);
+    --color-text-secondary: oklch(0.5 0.02 160);
   }
 }
 ```
@@ -319,7 +321,9 @@ class AIColorGenerator {
 
     const max = Math.max(r, g, b);
     const min = Math.min(r, g, b);
-    let h, s, l = (max + min) / 2;
+    let h,
+      s,
+      l = (max + min) / 2;
 
     if (max === min) {
       h = s = 0;
@@ -327,9 +331,15 @@ class AIColorGenerator {
       const d = max - min;
       s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
       switch (max) {
-        case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
-        case g: h = ((b - r) / d + 2) / 6; break;
-        case b: h = ((r - g) / d + 4) / 6; break;
+        case r:
+          h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+          break;
+        case g:
+          h = ((b - r) / d + 2) / 6;
+          break;
+        case b:
+          h = ((r - g) / d + 4) / 6;
+          break;
       }
     }
 
@@ -338,7 +348,7 @@ class AIColorGenerator {
 }
 
 // 使用示例
-const scheme = AIColorGenerator.generateColorScheme('#00ff87');
+const scheme = AIColorGenerator.generateColorScheme("#00ff87");
 console.log(scheme);
 ```
 
@@ -358,11 +368,11 @@ console.log(scheme);
   /* 绿色环保主题 */
   --color-primary: oklch(0.65 0.22 160);
   --color-primary-foreground: oklch(0.98 0.01 160);
-  --color-secondary: oklch(0.70 0.18 180);
+  --color-secondary: oklch(0.7 0.18 180);
   --color-secondary-foreground: oklch(0.98 0.01 180);
   --color-accent: oklch(0.72 0.25 30);
   --color-background: oklch(0.15 0.02 160);
-  --color-card: oklch(0.20 0.02 160);
+  --color-card: oklch(0.2 0.02 160);
   --color-border: oklch(0.85 0.02 160);
 
   /* 节能模式 */
@@ -421,13 +431,13 @@ console.log(scheme);
 
 #### Logo 配置选项
 
-| 配置项 | 说明 | 默认值 |
-| -------- | ------ | -------- |
-| Logo 图片 | 上传的 Logo 文件 | 默认 Logo |
-| Logo 尺寸 | 显示尺寸 | 40px 高度 |
-| Logo 圆角 | Logo 圆角半径 | 8px |
-| Logo 透明度 | Logo 透明度 | 100% |
-| Logo 链接 | 点击 Logo 跳转链接 | 首页 |
+| 配置项      | 说明               | 默认值    |
+| ----------- | ------------------ | --------- |
+| Logo 图片   | 上传的 Logo 文件   | 默认 Logo |
+| Logo 尺寸   | 显示尺寸           | 40px 高度 |
+| Logo 圆角   | Logo 圆角半径      | 8px       |
+| Logo 透明度 | Logo 透明度        | 100%      |
+| Logo 链接   | 点击 Logo 跳转链接 | 首页      |
 
 #### Logo 应用位置
 
@@ -468,7 +478,8 @@ console.log(scheme);
 }
 
 @keyframes logoFloat {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotate(0deg);
   }
   50% {
@@ -496,15 +507,15 @@ console.log(scheme);
 
 #### 头像配置选项
 
-| 配置项 | 说明 | 默认值 |
-| -------- | ------ | -------- |
-| 头像图片 | 上传的头像文件 | 默认头像 |
-| 头像尺寸 | 显示尺寸 | 40px 宽度和高度 |
-| 头像圆角 | 头像圆角半径 | 9999px（圆形） |
-| 头像边框 | 头像边框宽度 | 2px |
-| 头像边框颜色 | 头像边框颜色 | rgba(255, 255, 255, 0.2) |
-| 头像透明度 | 头像透明度 | 100% |
-| 头像链接 | 点击头像跳转链接 | 个人中心 |
+| 配置项       | 说明             | 默认值                   |
+| ------------ | ---------------- | ------------------------ |
+| 头像图片     | 上传的头像文件   | 默认头像                 |
+| 头像尺寸     | 显示尺寸         | 40px 宽度和高度          |
+| 头像圆角     | 头像圆角半径     | 9999px（圆形）           |
+| 头像边框     | 头像边框宽度     | 2px                      |
+| 头像边框颜色 | 头像边框颜色     | rgba(255, 255, 255, 0.2) |
+| 头像透明度   | 头像透明度       | 100%                     |
+| 头像链接     | 点击头像跳转链接 | 个人中心                 |
 
 #### 头像应用位置
 
@@ -560,7 +571,7 @@ console.log(scheme);
 }
 
 .avatar-status::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   right: 0;
@@ -627,14 +638,14 @@ console.log(scheme);
 
 #### 用户信息配置选项
 
-| 配置项 | 说明 | 默认值 |
-| -------- | ------ | -------- |
-| 用户名 | 显示的用户名 | 用户昵称 |
+| 配置项   | 说明           | 默认值   |
+| -------- | -------------- | -------- |
+| 用户名   | 显示的用户名   | 用户昵称 |
 | 用户邮箱 | 显示的邮箱地址 | 用户邮箱 |
-| 用户简介 | 用户个人简介 | 暂无简介 |
-| 用户职位 | 用户职位/角色 | 开发者 |
-| 用户位置 | 用户所在地 | 未知 |
-| 个人网站 | 个人网站链接 | 无 |
+| 用户简介 | 用户个人简介   | 暂无简介 |
+| 用户职位 | 用户职位/角色  | 开发者   |
+| 用户位置 | 用户所在地     | 未知     |
+| 个人网站 | 个人网站链接   | 无       |
 
 #### 用户信息显示位置
 
@@ -724,12 +735,12 @@ console.log(scheme);
 
 #### 标语配置
 
-| 配置项 | 说明 | 限制 |
-| -------- | ------ | ------ |
-| 主标语 | 主要标语文字 | 最多 50 字符 |
-| 副标语 | 次要标语文字 | 最多 100 字符 |
-| 标语位置 | 显示位置 | 顶部导航栏 / 登录页 |
-| 标语样式 | 字体、颜色、大小 | 支持自定义 |
+| 配置项   | 说明             | 限制                |
+| -------- | ---------------- | ------------------- |
+| 主标语   | 主要标语文字     | 最多 50 字符        |
+| 副标语   | 次要标语文字     | 最多 100 字符       |
+| 标语位置 | 显示位置         | 顶部导航栏 / 登录页 |
+| 标语样式 | 字体、颜色、大小 | 支持自定义          |
 
 #### 标语示例
 
@@ -780,7 +791,9 @@ console.log(scheme);
   overflow: hidden;
   white-space: nowrap;
   border-right: 2px solid rgba(0, 255, 135, 0.8);
-  animation: typing 3s steps(40, end), blink 0.75s step-end infinite;
+  animation:
+    typing 3s steps(40, end),
+    blink 0.75s step-end infinite;
 }
 
 .slogan-secondary {
@@ -799,7 +812,8 @@ console.log(scheme);
 }
 
 @keyframes blink {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -812,21 +826,21 @@ console.log(scheme);
 
 #### 页面标题配置
 
-| 配置项 | 说明 | 示例 |
-| -------- | ------ | ------ |
-| 应用名称 | 应用主标题 | YYC³ CloudPivot Intelli-Matrix |
-| 页面标题格式 | 动态标题格式 | {pageName} - {appName} |
-| 浏览器标题 | 浏览器标签页标题 | 自动生成 |
-| SEO 标题 | SEO 优化标题 | 可自定义 |
+| 配置项       | 说明             | 示例                           |
+| ------------ | ---------------- | ------------------------------ |
+| 应用名称     | 应用主标题       | YYC³ CloudPivot Intelli-Matrix |
+| 页面标题格式 | 动态标题格式     | {pageName} - {appName}         |
+| 浏览器标题   | 浏览器标签页标题 | 自动生成                       |
+| SEO 标题     | SEO 优化标题     | 可自定义                       |
 
 #### 标题模板
 
 ```javascript
 // 默认标题模板
 const titleTemplate = {
-  default: '{appName}',
-  page: '{pageName} - {appName}',
-  withSubtitle: '{pageName} - {subtitle} - {appName}'
+  default: "{appName}",
+  page: "{pageName} - {appName}",
+  withSubtitle: "{pageName} - {subtitle} - {appName}",
 };
 
 // 使用示例
@@ -884,18 +898,13 @@ const titleTemplate = {
 }
 
 .page-title::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
@@ -969,30 +978,30 @@ const titleTemplate = {
 
 #### 语义化颜色变量
 
-| 变量名 | OKLch 值 | 前景色 OKLch | 说明 |
-| -------- | ----------- | ------------- | ------ |
-| 主色 | `oklch(0.65 0.22 160)` | `oklch(0.98 0.01 160)` | 主要交互元素、按钮、链接 |
-| 次色 | `oklch(0.70 0.18 180)` | `oklch(0.98 0.01 180)` | 次要交互元素、标签 |
-| 强调色 | `oklch(0.72 0.25 30)` | `oklch(0.98 0.01 30)` | 强调元素、通知、提示 |
-| 背景色 | `oklch(0.15 0.02 160)` | `oklch(0.95 0.01 160)` | 页面背景 |
-| 卡片色 | `oklch(0.20 0.02 160)` | `oklch(0.15 0.02 160)` | 卡片、容器背景 |
-| 弹窗色 | `oklch(0.20 0.02 160)` | `oklch(0.15 0.02 160)` | 模态框、下拉菜单 |
-| 辅和色 | `oklch(0.95 0.02 160)` | `oklch(0.20 0.02 160)` | 辅助背景、分隔线 |
-| 破坏性 | `oklch(0.60 0.25 25)` | `oklch(0.98 0.01 25)` | 删除、危险操作 |
-| 边框色 | `oklch(0.85 0.02 160)` | `oklch(0.15 0.02 160)` | 边框、分割线 |
-| 输入色 | `oklch(0.20 0.02 160)` | `oklch(0.15 0.02 160)` | 输入框背景 |
+| 变量名 | OKLch 值               | 前景色 OKLch           | 说明                     |
+| ------ | ---------------------- | ---------------------- | ------------------------ |
+| 主色   | `oklch(0.65 0.22 160)` | `oklch(0.98 0.01 160)` | 主要交互元素、按钮、链接 |
+| 次色   | `oklch(0.70 0.18 180)` | `oklch(0.98 0.01 180)` | 次要交互元素、标签       |
+| 强调色 | `oklch(0.72 0.25 30)`  | `oklch(0.98 0.01 30)`  | 强调元素、通知、提示     |
+| 背景色 | `oklch(0.15 0.02 160)` | `oklch(0.95 0.01 160)` | 页面背景                 |
+| 卡片色 | `oklch(0.20 0.02 160)` | `oklch(0.15 0.02 160)` | 卡片、容器背景           |
+| 弹窗色 | `oklch(0.20 0.02 160)` | `oklch(0.15 0.02 160)` | 模态框、下拉菜单         |
+| 辅和色 | `oklch(0.95 0.02 160)` | `oklch(0.20 0.02 160)` | 辅助背景、分隔线         |
+| 破坏性 | `oklch(0.60 0.25 25)`  | `oklch(0.98 0.01 25)`  | 删除、危险操作           |
+| 边框色 | `oklch(0.85 0.02 160)` | `oklch(0.15 0.02 160)` | 边框、分割线             |
+| 输入色 | `oklch(0.20 0.02 160)` | `oklch(0.15 0.02 160)` | 输入框背景               |
 
 ### 十六进制（HEX）
 
 #### 组件颜色
 
-| 用途 | 颜色 | 说明 |
-| ------ | ------ | ------ |
-| 主色 | `#00ff87` | 主要交互元素 |
-| 次色 | `#00d4ff` | 次要交互元素 |
-| 强调色 | `#00ffaa` | 强调元素 |
-| 背景色 | `#0a0f0a` | 页面背景 |
-| 卡片色 | `rgba(0, 255, 135, 0.08)` | 卡片背景 |
+| 用途   | 颜色                      | 说明         |
+| ------ | ------------------------- | ------------ |
+| 主色   | `#00ff87`                 | 主要交互元素 |
+| 次色   | `#00d4ff`                 | 次要交互元素 |
+| 强调色 | `#00ffaa`                 | 强调元素     |
+| 背景色 | `#0a0f0a`                 | 页面背景     |
+| 卡片色 | `rgba(0, 255, 135, 0.08)` | 卡片背景     |
 | 边框色 | `rgba(0, 255, 135, 0.15)` | 边框、分割线 |
 
 ---
@@ -1042,38 +1051,38 @@ const titleTemplate = {
 
 ### 圆角（Radius）
 
-| 变量名 | 值 | 说明 |
-| -------- | ----- | ------ |
-| radius-xs | 4px | 小元素（按钮、输入框） |
-| radius-sm | 8px | 中小元素（标签、徽章） |
-| radius-md | 12px | 中等元素（卡片、容器） |
-| radius-lg | 16px | 大元素（模态框、大型容器） |
-| radius-xl | 20px | 特大元素（特殊容器） |
-| radius-2xl | 24px | 超大元素（特殊容器） |
+| 变量名      | 值     | 说明                       |
+| ----------- | ------ | -------------------------- |
+| radius-xs   | 4px    | 小元素（按钮、输入框）     |
+| radius-sm   | 8px    | 中小元素（标签、徽章）     |
+| radius-md   | 12px   | 中等元素（卡片、容器）     |
+| radius-lg   | 16px   | 大元素（模态框、大型容器） |
+| radius-xl   | 20px   | 特大元素（特殊容器）       |
+| radius-2xl  | 24px   | 超大元素（特殊容器）       |
 | radius-full | 9999px | 圆形元素（头像、圆形按钮） |
 
 ### 阴影（Shadow）
 
-| 变量名 | X 偏移 | Y 偏移 | 模糊半径 | 传播距离 | 扩散颜色 | 说明 |
-| -------- | --------- | --------- | ---------- | ---------- | ---------- | ------ |
-| shadow-xs | 0px | 1px | 2px | 0px | rgba(0,0,0,0.05) | 轻微阴影 |
-| shadow-sm | 0px | 1px | 3px | 0px | rgba(0,0,0,0.10) | 小阴影 |
-| shadow-md | 0px | 4px | 6px | -1px | rgba(0,0,0,0.10) | 中等阴影 |
-| shadow-lg | 0px | 10px | 15px | -3px | rgba(0,0,0,0.10) | 大阴影 |
-| shadow-xl | 0px | 20px | 25px | -5px | rgba(0,0,0,0.10) | 特大阴影 |
+| 变量名    | X 偏移 | Y 偏移 | 模糊半径 | 传播距离 | 扩散颜色         | 说明     |
+| --------- | ------ | ------ | -------- | -------- | ---------------- | -------- |
+| shadow-xs | 0px    | 1px    | 2px      | 0px      | rgba(0,0,0,0.05) | 轻微阴影 |
+| shadow-sm | 0px    | 1px    | 3px      | 0px      | rgba(0,0,0,0.10) | 小阴影   |
+| shadow-md | 0px    | 4px    | 6px      | -1px     | rgba(0,0,0,0.10) | 中等阴影 |
+| shadow-lg | 0px    | 10px   | 15px     | -3px     | rgba(0,0,0,0.10) | 大阴影   |
+| shadow-xl | 0px    | 20px   | 25px     | -5px     | rgba(0,0,0,0.10) | 特大阴影 |
 
 ### 间距系统
 
-| 变量名 | 值 | 说明 |
-| -------- | ----- | ------ |
-| space-0 | 0px | 无间距 |
-| space-1 | 4px | 极小间距 |
-| space-2 | 8px | 小间距 |
-| space-3 | 12px | 中小间距 |
-| space-4 | 16px | 标准间距 |
-| space-5 | 20px | 中大间距 |
-| space-6 | 24px | 大间距 |
-| space-8 | 32px | 特大间距 |
+| 变量名   | 值   | 说明     |
+| -------- | ---- | -------- |
+| space-0  | 0px  | 无间距   |
+| space-1  | 4px  | 极小间距 |
+| space-2  | 8px  | 小间距   |
+| space-3  | 12px | 中小间距 |
+| space-4  | 16px | 标准间距 |
+| space-5  | 20px | 中大间距 |
+| space-6  | 24px | 大间距   |
+| space-8  | 32px | 特大间距 |
 | space-10 | 40px | 超大间距 |
 | space-12 | 48px | 页面边距 |
 
@@ -1088,11 +1097,7 @@ const titleTemplate = {
 ```css
 .btn-liquid {
   /* 渐变背景 */
-  background: linear-gradient(
-    135deg,
-    rgba(0, 255, 135, 0.8),
-    rgba(6, 182, 212, 0.8)
-  );
+  background: linear-gradient(135deg, rgba(0, 255, 135, 0.8), rgba(6, 182, 212, 0.8));
 
   /* 边框 */
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1115,11 +1120,7 @@ const titleTemplate = {
 
 .btn-liquid:hover {
   /* 悬停效果 */
-  background: linear-gradient(
-    135deg,
-    rgba(0, 255, 135, 0.9),
-    rgba(6, 182, 212, 0.9)
-  );
+  background: linear-gradient(135deg, rgba(0, 255, 135, 0.9), rgba(6, 182, 212, 0.9));
 
   /* 更强的阴影 */
   box-shadow:
@@ -1298,7 +1299,8 @@ const titleTemplate = {
 
 ```css
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) translateX(0);
   }
   25% {
@@ -1321,7 +1323,8 @@ const titleTemplate = {
 
 ```css
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     opacity: 1;
   }
@@ -1354,18 +1357,13 @@ const titleTemplate = {
 }
 
 .shimmer-effect::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
@@ -1426,8 +1424,8 @@ select:focus-visible {
   --color-border: rgba(0, 255, 135, 0.15);
 
   /* 字体变量 */
-  --font-sans-primary: 'Inter', -apple-system, BlinkMacSystemFont;
-  --font-mono-primary: 'Fira Code', 'Courier New', monospace;
+  --font-sans-primary: "Inter", -apple-system, BlinkMacSystemFont;
+  --font-mono-primary: "Fira Code", "Courier New", monospace;
 
   /* 间距变量 */
   --space-1: 4px;
@@ -1442,9 +1440,9 @@ select:focus-visible {
   --radius-xl: 20px;
 
   /* 阴影变量 */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.10);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.10);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.10);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
 
   /* 效果变量 */
   --glass-blur: 20px;
@@ -1491,15 +1489,15 @@ select:focus-visible {
 
 ### 断点系统
 
-| 断点名称 | 屏幕宽度 | 设备类型 |
-| ---------- | ---------- | ---------- |
-| xs | 0px - 375px | 小型手机 |
-| sm | 376px - 640px | 大型手机 |
-| md | 641px - 768px | 平板 |
-| lg | 769px - 1024px | 小型桌面 |
-| xl | 1025px - 1280px | 中型桌面 |
-| 2xl | 1281px - 1536px | 大型桌面 |
-| 3xl | 1537px+ | 超大屏幕 |
+| 断点名称 | 屏幕宽度        | 设备类型 |
+| -------- | --------------- | -------- |
+| xs       | 0px - 375px     | 小型手机 |
+| sm       | 376px - 640px   | 大型手机 |
+| md       | 641px - 768px   | 平板     |
+| lg       | 769px - 1024px  | 小型桌面 |
+| xl       | 1025px - 1280px | 中型桌面 |
+| 2xl      | 1281px - 1536px | 大型桌面 |
+| 3xl      | 1537px+         | 超大屏幕 |
 
 ### 响应式组件
 
@@ -1789,27 +1787,27 @@ export function LiquidBackground({ children, particles = true, glows = true }: L
 
 ### 设计质量指标
 
-| 指标 | 目标值 | 当前值 | 状态 |
-| ------ | -------- | -------- | ------ |
-| 色彩对比度 | >= 4.5:1 | 5.2:1 | ✅ 达标 |
-| 动画流畅度 | >= 60fps | 60fps | ✅ 达标 |
-| 页面加载时间 | <= 2s | 1.8s | ✅ 达标 |
-| 可访问性评分 | >= 90 | 92 | ✅ 达标 |
-| 用户满意度 | >= 85% | 88% | ✅ 达标 |
+| 指标         | 目标值   | 当前值 | 状态    |
+| ------------ | -------- | ------ | ------- |
+| 色彩对比度   | >= 4.5:1 | 5.2:1  | ✅ 达标 |
+| 动画流畅度   | >= 60fps | 60fps  | ✅ 达标 |
+| 页面加载时间 | <= 2s    | 1.8s   | ✅ 达标 |
+| 可访问性评分 | >= 90    | 92     | ✅ 达标 |
+| 用户满意度   | >= 85%   | 88%    | ✅ 达标 |
 
 ### 技术指标
 
-| 指标　　　　　 | 目标值 | 当前值 | 状态　 |
-| ----------------| --------| --------| --------|
-| CSS 变量覆盖率 | 100%　 | 95%　　| 🟡 接近 |
-| 组件复用率　　 | >= 80% | 75%　　| 🟡 接近 |
-| 性能评分　　　 | >= 90　| 88　　 | 🟡 接近 |
-| 代码质量　　　 | >= 85　| 82　　 | 🟡 接近 |
+| 指标　　　　　 | 目标值  | 当前值  | 状态　  |
+| -------------- | ------- | ------- | ------- |
+| CSS 变量覆盖率 | 100%　  | 95%　　 | 🟡 接近 |
+| 组件复用率　　 | >= 80%  | 75%　　 | 🟡 接近 |
+| 性能评分　　　 | >= 90　 | 88　　  | 🟡 接近 |
+| 代码质量　　　 | >= 85　 | 82　　  | 🟡 接近 |
 
 ---
 
 <div align="center">
 
-> 「***Words Initiate Quadrants, Language Serves as Core for Future***」
+> 「_**Words Initiate Quadrants, Language Serves as Core for Future**_」
 
 </div>

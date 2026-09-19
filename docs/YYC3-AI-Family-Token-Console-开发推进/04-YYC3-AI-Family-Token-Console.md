@@ -94,8 +94,7 @@ const CACHE_DIR = resolve(ROOT, ".openapi-cache");
 const CACHE_FILE = resolve(CACHE_DIR, "openapi.json");
 const HASH_FILE = resolve(ROOT, ".contract-hash");
 const OUT_FILE = resolve(ROOT, "domains/_shared/types.gen.ts");
-const OPENAPI_URL =
-  process.env.OPENAPI_URL ?? "https://api.0379.world/openapi.json";
+const OPENAPI_URL = process.env.OPENAPI_URL ?? "https://api.0379.world/openapi.json";
 
 async function fetchFresh(): Promise<any> {
   console.log(`🌹 拉取 ${OPENAPI_URL}`);
@@ -282,9 +281,7 @@ async function main() {
   }
 
   const generated = (await readFile(tmpFile, "utf-8")).trim();
-  const existing = (await readFile(OUT_FILE, "utf-8"))
-    .replace(/^\/\*[\s\S]*?\*\/\s*/m, "")
-    .trim();
+  const existing = (await readFile(OUT_FILE, "utf-8")).replace(/^\/\*[\s\S]*?\*\/\s*/m, "").trim();
 
   if (generated !== existing) {
     console.error(`🚫 类型文件与当前契约不一致`);
@@ -316,15 +313,12 @@ main().catch((err) => {
 import createClient from "openapi-fetch";
 import type { paths, components } from "./types.gen";
 
-const API_BASE =
-  process.env.NEXT_PUBLIC_API_BASE ?? "https://api.0379.world";
+const API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "https://api.0379.world";
 
 function getApiKey(): string | undefined {
   if (typeof window === "undefined") return undefined;
   return (
-    sessionStorage.getItem("yyc3_api_key") ??
-    localStorage.getItem("yyc3_api_key") ??
-    undefined
+    sessionStorage.getItem("yyc3_api_key") ?? localStorage.getItem("yyc3_api_key") ?? undefined
   );
 }
 
@@ -375,8 +369,7 @@ export const QianhangAPI = {
 export const BoleAPI = {
   models: () => api.GET("/v1/models"),
   modelStats: () => api.GET("/v1/models/stats"),
-  modelType: (params: { id: string }) =>
-    api.GET("/v1/model/type", { params: { query: params } }),
+  modelType: (params: { id: string }) => api.GET("/v1/model/type", { params: { query: params } }),
 } as const;
 
 // 🤔 语枢·万物
@@ -392,8 +385,7 @@ export const ZongshiAPI = {
     api.GET("/v1/documents", { params: { query: params } }),
   ragSearch: (body: { query: string; kb_ids: string[]; top_k?: number }) =>
     api.POST("/v1/rag/search", { body }),
-  ragAsk: (body: { query: string; kb_ids: string[] }) =>
-    api.POST("/v1/rag/ask", { body }),
+  ragAsk: (body: { query: string; kb_ids: string[] }) => api.POST("/v1/rag/ask", { body }),
   embeddings: (body: { input: string | string[]; model: string }) =>
     api.POST("/v1/embeddings", { body }),
 } as const;
@@ -401,8 +393,7 @@ export const ZongshiAPI = {
 // 🧠 元启·天枢
 export const TianshuAPI = {
   mcpTools: () => api.GET("/v1/mcp/tools"),
-  mcpSearch: (params: { q: string }) =>
-    api.GET("/v1/mcp/search", { params: { query: params } }),
+  mcpSearch: (params: { q: string }) => api.GET("/v1/mcp/search", { params: { query: params } }),
   mcpExecute: (body: { tool: string; params: Record<string, unknown> }) =>
     api.POST("/v1/mcp/execute", { body }),
 } as const;
@@ -444,27 +435,11 @@ import { z } from "zod";
 // ============================================================
 // 枚举（严格与 §1.2 一致）
 // ============================================================
-export const BackendSchema = z.enum([
-  "local",
-  "openai",
-  "zhipu",
-  "deepseek",
-  "ollama",
-  "upstream",
-]);
+export const BackendSchema = z.enum(["local", "openai", "zhipu", "deepseek", "ollama", "upstream"]);
 
-export const ErrorTypeSchema = z.enum([
-  "timeout",
-  "validation",
-  "quota",
-  "internal",
-]);
+export const ErrorTypeSchema = z.enum(["timeout", "validation", "quota", "internal"]);
 
-export const ServiceStatusSchema = z.enum([
-  "healthy",
-  "unreachable",
-  "configured",
-]);
+export const ServiceStatusSchema = z.enum(["healthy", "unreachable", "configured"]);
 
 // ============================================================
 // Schema
@@ -632,10 +607,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const SNAPSHOT = JSON.parse(
-  readFileSync(
-    resolve(__dirname, "../../.contract-snapshot.json"),
-    "utf-8",
-  ),
+  readFileSync(resolve(__dirname, "../../.contract-snapshot.json"), "utf-8"),
 );
 
 const REQUIRED_ENDPOINTS = [
@@ -744,10 +716,7 @@ import {
 } from "../../domains/_shared/types.zod";
 
 const SNAPSHOT = JSON.parse(
-  readFileSync(
-    resolve(__dirname, "../../.contract-snapshot.json"),
-    "utf-8",
-  ),
+  readFileSync(resolve(__dirname, "../../.contract-snapshot.json"), "utf-8"),
 );
 const schemas = SNAPSHOT.components?.schemas ?? {};
 
@@ -812,9 +781,7 @@ describe("契约 · ErrorRecord", () => {
 
   it("error_type 枚举仅 4 种", () => {
     const enumValues = schemas.ErrorRecord?.properties?.error_type?.enum ?? [];
-    expect(enumValues.sort()).toEqual(
-      ["internal", "quota", "timeout", "validation"].sort(),
-    );
+    expect(enumValues.sort()).toEqual(["internal", "quota", "timeout", "validation"].sort());
   });
 
   it("zod 拒绝 v3.0 废弃枚举（network/api）", () => {
@@ -842,18 +809,14 @@ describe("契约 · UsageSummary", () => {
 describe("契约 · HealthResponse", () => {
   it("services 含 4 个服务", () => {
     const props = schemas.HealthResponse?.properties?.services?.properties ?? {};
-    expect(Object.keys(props).sort()).toEqual(
-      ["ollama", "postgresql", "redis", "zhipu"].sort(),
-    );
+    expect(Object.keys(props).sort()).toEqual(["ollama", "postgresql", "redis", "zhipu"].sort());
   });
 
   it("service status 枚举 3 种", () => {
     const statusEnum =
-      schemas.HealthResponse?.properties?.services?.properties?.ollama
-        ?.properties?.status?.enum ?? [];
-    expect(statusEnum.sort()).toEqual(
-      ["configured", "healthy", "unreachable"].sort(),
-    );
+      schemas.HealthResponse?.properties?.services?.properties?.ollama?.properties?.status?.enum ??
+      [];
+    expect(statusEnum.sort()).toEqual(["configured", "healthy", "unreachable"].sort());
   });
 
   it("system 含 3 指标", () => {
@@ -935,9 +898,7 @@ describe("契约 · ModelStat", () => {
  * ============================================================
  */
 import { describe, it, expect } from "vitest";
-import {
-  FirstChunkExtrasSchema,
-} from "../../domains/_shared/types.zod";
+import { FirstChunkExtrasSchema } from "../../domains/_shared/types.zod";
 
 describe("契约 · SSE 协议", () => {
   it("首 chunk 允许 _yyc3_upstream 字段", () => {
@@ -1001,10 +962,7 @@ import { resolve } from "node:path";
 import { APIErrorSchema } from "../../domains/_shared/types.zod";
 
 const SNAPSHOT = JSON.parse(
-  readFileSync(
-    resolve(__dirname, "../../.contract-snapshot.json"),
-    "utf-8",
-  ),
+  readFileSync(resolve(__dirname, "../../.contract-snapshot.json"), "utf-8"),
 );
 const schemas = SNAPSHOT.components?.schemas ?? {};
 
@@ -1015,11 +973,8 @@ describe("契约 · 错误结构", () => {
   });
 
   it("error 枚举 4 种（network/api/timeout/validation）", () => {
-    const enumValues =
-      schemas.APIError?.properties?.detail?.properties?.error?.enum ?? [];
-    expect(enumValues.sort()).toEqual(
-      ["api", "network", "timeout", "validation"].sort(),
-    );
+    const enumValues = schemas.APIError?.properties?.detail?.properties?.error?.enum ?? [];
+    expect(enumValues.sort()).toEqual(["api", "network", "timeout", "validation"].sort());
   });
 
   it("zod 校验合法错误样本", () => {
@@ -1231,14 +1186,14 @@ jobs:
 
 ### 10.17 契约测试通过标准
 
-| 类别 | 用例数 | 是否阻断 PR |
-| --- | :-: | :-: |
-| 端点存在性 | 3 | ✅ |
-| Schema 字段 | 18 | ✅ |
-| SSE 协议 | 6 | ✅ |
-| 错误结构 | 4 | ✅ |
-| API 客户端 | 3 | ✅ |
-| **总计** | **34** | — |
+| 类别        | 用例数 | 是否阻断 PR |
+| ----------- | :----: | :---------: |
+| 端点存在性  |   3    |     ✅      |
+| Schema 字段 |   18   |     ✅      |
+| SSE 协议    |   6    |     ✅      |
+| 错误结构    |   4    |     ✅      |
+| API 客户端  |   3    |     ✅      |
+| **总计**    | **34** |      —      |
 
 ---
 
@@ -1306,10 +1261,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   workers: 1,
-  reporter: [
-    ["list"],
-    ["html", { outputFolder: "e2e/reports/visual", open: "never" }],
-  ],
+  reporter: [["list"], ["html", { outputFolder: "e2e/reports/visual", open: "never" }]],
   expect: {
     toHaveScreenshot: {
       // 允许的像素差异阈值
@@ -1455,11 +1407,7 @@ export function allMask(page: Page): Locator[] {
 /**
  * 定位家人徽章并断言截图
  */
-export async function expectBadgeScreenshot(
-  page: Page,
-  member: string,
-  name: string,
-) {
+export async function expectBadgeScreenshot(page: Page, member: string, name: string) {
   const badge = page.locator(`[data-family="${member}"]`).first();
   await expect(badge).toBeVisible();
   await expect(badge).toHaveScreenshot(`badges/${name}.png`, {
@@ -1481,12 +1429,7 @@ export async function expectBadgeScreenshot(
  * ============================================================
  */
 import { test, expect } from "@playwright/test";
-import {
-  injectApiKey,
-  stabilize,
-  expectBadgeScreenshot,
-  allMask,
-} from "../visual.utils";
+import { injectApiKey, stabilize, expectBadgeScreenshot, allMask } from "../visual.utils";
 
 test.describe("家人徽章 · 像素稳定", () => {
   test.beforeEach(async ({ page }) => {
@@ -1494,14 +1437,14 @@ test.describe("家人徽章 · 像素稳定", () => {
   });
 
   const BADGES = [
-    { path: "/",           member: "zhihui",   name: "01-zhihui-guardian" },
-    { path: "/routing",    member: "qianhang", name: "02-qianhang-qianhang" },
-    { path: "/models",     member: "bole",     name: "03-bole-bole" },
-    { path: "/playground", member: "wanyu",    name: "04-wanyu-allthings" },
-    { path: "/knowledge",  member: "zongshi",  name: "05-zongshi-grandmaster" },
-    { path: "/mcp",        member: "tianshu",  name: "06-tianshu-tianshu" },
-    { path: "/dashboard",  member: "xianzhi",  name: "07-xianzhi-prophet" },
-    { path: "/cache",      member: "lingyun",  name: "08-lingyun-grace" },
+    { path: "/", member: "zhihui", name: "01-zhihui-guardian" },
+    { path: "/routing", member: "qianhang", name: "02-qianhang-qianhang" },
+    { path: "/models", member: "bole", name: "03-bole-bole" },
+    { path: "/playground", member: "wanyu", name: "04-wanyu-allthings" },
+    { path: "/knowledge", member: "zongshi", name: "05-zongshi-grandmaster" },
+    { path: "/mcp", member: "tianshu", name: "06-tianshu-tianshu" },
+    { path: "/dashboard", member: "xianzhi", name: "07-xianzhi-prophet" },
+    { path: "/cache", member: "lingyun", name: "08-lingyun-grace" },
   ];
 
   for (const b of BADGES) {
@@ -1538,18 +1481,18 @@ import { test, expect } from "@playwright/test";
 import { injectApiKey, stabilize, allMask } from "../visual.utils";
 
 const PAGES = [
-  { path: "/",           name: "01-connect" },
-  { path: "/dashboard",  name: "02-dashboard" },
-  { path: "/models",     name: "03-model-hub" },
+  { path: "/", name: "01-connect" },
+  { path: "/dashboard", name: "02-dashboard" },
+  { path: "/models", name: "03-model-hub" },
   { path: "/playground", name: "04-playground" },
-  { path: "/routing",    name: "05-routing" },
-  { path: "/knowledge",  name: "06-knowledge" },
-  { path: "/mcp",        name: "07-mcp" },
-  { path: "/cache",      name: "08-cache" },
-  { path: "/monitor",    name: "09-monitor" },
-  { path: "/settings",   name: "10-settings" },
-  { path: "/docs",       name: "11-docs" },
-  { path: "/roadmap",    name: "12-roadmap" },
+  { path: "/routing", name: "05-routing" },
+  { path: "/knowledge", name: "06-knowledge" },
+  { path: "/mcp", name: "07-mcp" },
+  { path: "/cache", name: "08-cache" },
+  { path: "/monitor", name: "09-monitor" },
+  { path: "/settings", name: "10-settings" },
+  { path: "/docs", name: "11-docs" },
+  { path: "/roadmap", name: "12-roadmap" },
 ];
 
 test.describe("全站暗色视觉基线", () => {
@@ -1590,18 +1533,18 @@ test.describe("全站浅色视觉基线", () => {
   });
 
   const PAGES = [
-    { path: "/",           name: "01-connect" },
-    { path: "/dashboard",  name: "02-dashboard" },
-    { path: "/models",     name: "03-model-hub" },
+    { path: "/", name: "01-connect" },
+    { path: "/dashboard", name: "02-dashboard" },
+    { path: "/models", name: "03-model-hub" },
     { path: "/playground", name: "04-playground" },
-    { path: "/routing",    name: "05-routing" },
-    { path: "/knowledge",  name: "06-knowledge" },
-    { path: "/mcp",        name: "07-mcp" },
-    { path: "/cache",      name: "08-cache" },
-    { path: "/monitor",    name: "09-monitor" },
-    { path: "/settings",   name: "10-settings" },
-    { path: "/docs",       name: "11-docs" },
-    { path: "/roadmap",    name: "12-roadmap" },
+    { path: "/routing", name: "05-routing" },
+    { path: "/knowledge", name: "06-knowledge" },
+    { path: "/mcp", name: "07-mcp" },
+    { path: "/cache", name: "08-cache" },
+    { path: "/monitor", name: "09-monitor" },
+    { path: "/settings", name: "10-settings" },
+    { path: "/docs", name: "11-docs" },
+    { path: "/roadmap", name: "12-roadmap" },
   ];
 
   for (const p of PAGES) {
@@ -1632,12 +1575,12 @@ import { injectApiKey, stabilize, allMask } from "../visual.utils";
 
 // 关键页面 × 断点组合
 const KEY_PAGES = [
-  { path: "/",           name: "connect" },
-  { path: "/dashboard",  name: "dashboard" },
+  { path: "/", name: "connect" },
+  { path: "/dashboard", name: "dashboard" },
   { path: "/playground", name: "playground" }, // 三栏 → 两栏 → Tab
-  { path: "/models",     name: "models" },
-  { path: "/monitor",    name: "monitor" }, // 表格 → 卡片
-  { path: "/mcp",        name: "mcp" },     // 侧树 → 抽屉
+  { path: "/models", name: "models" },
+  { path: "/monitor", name: "monitor" }, // 表格 → 卡片
+  { path: "/mcp", name: "mcp" }, // 侧树 → 抽屉
 ];
 
 test.describe("响应式断点视觉", () => {
@@ -1651,13 +1594,10 @@ test.describe("响应式断点视觉", () => {
       const breakpoint = projectName.replace("visual-", "");
       await page.goto(p.path);
       await stabilize(page);
-      await expect(page).toHaveScreenshot(
-        `${breakpoint}/${p.name}.png`,
-        {
-          mask: allMask(page),
-          fullPage: true,
-        },
-      );
+      await expect(page).toHaveScreenshot(`${breakpoint}/${p.name}.png`, {
+        mask: allMask(page),
+        fullPage: true,
+      });
     });
   }
 });
@@ -1713,9 +1653,7 @@ test.describe("关键组件视觉基线", () => {
   test("Sidebar 暗色", async ({ page }) => {
     await page.goto("/dashboard");
     await stabilize(page);
-    await expect(page.locator("nav").first()).toHaveScreenshot(
-      "components/sidebar-dark.png",
-    );
+    await expect(page.locator("nav").first()).toHaveScreenshot("components/sidebar-dark.png");
   });
 
   test("空态（格物之阁）", async ({ page }) => {
@@ -1822,7 +1760,7 @@ echo "🌹 请审查 git diff 并提交变更"
 
 ### 11.11 差异报告 `scripts/visual/diff-report.ts`
 
-```typescript
+````typescript
 /*
  * ============================================================
  * @Module : scripts/visual/diff-report — 视觉差异 Markdown 报告
@@ -1867,7 +1805,9 @@ function main() {
   lines.push("## 摘要");
   lines.push("");
 
-  let total = 0, passed = 0, failed = 0;
+  let total = 0,
+    passed = 0,
+    failed = 0;
   const failedTests: TestResult[] = [];
 
   for (const suite of report.suites) {
@@ -1924,7 +1864,7 @@ function main() {
 }
 
 main();
-```
+````
 
 ### 11.12 NPM 脚本
 
@@ -2080,14 +2020,14 @@ jobs:
 
 ### 11.14 视觉回归通过标准
 
-| 类别 | 用例数 | 是否阻断 PR | 阈值 |
-| --- | :-: | :-: | :-: |
-| 8 位家人徽章 | 8 + 1（组合） | ✅ | maxDiffPixels: 20 |
-| 12 页暗色 | 12 | ⚠️ 提示 | maxDiffPixels: 100 |
-| 12 页浅色 | 12 | ⚠️ 提示 | maxDiffPixels: 100 |
-| 响应式（4 断点 × 6 页） | 24 | ⚠️ 提示 | maxDiffPixels: 100 |
-| 关键组件 | 6 | ✅ | maxDiffPixels: 50 |
-| **总计** | **63** | — | — |
+| 类别                    |    用例数     | 是否阻断 PR |        阈值        |
+| ----------------------- | :-----------: | :---------: | :----------------: |
+| 8 位家人徽章            | 8 + 1（组合） |     ✅      | maxDiffPixels: 20  |
+| 12 页暗色               |      12       |   ⚠️ 提示   | maxDiffPixels: 100 |
+| 12 页浅色               |      12       |   ⚠️ 提示   | maxDiffPixels: 100 |
+| 响应式（4 断点 × 6 页） |      24       |   ⚠️ 提示   | maxDiffPixels: 100 |
+| 关键组件                |       6       |     ✅      | maxDiffPixels: 50  |
+| **总计**                |    **63**     |      —      |         —          |
 
 **阈值策略**：
 
@@ -2205,19 +2145,19 @@ UI 不变        → ⑪ 视觉回归 63 快照通过
 
 ### 12.3 v5.1 交付物完整清单
 
-| # | 交付物 | 覆盖 | 状态 |
-| :-: | --- | --- | :-: |
-| ① | 8 域业务组件 | `domains/*` 20+ 组件 | ✅ |
-| ② | MSW mock 契约 | 8 域 handlers + SSE | ✅ |
-| ③ | Next.js 16 路由/RSC | 12 路由 + Island | ✅ |
-| ④ | 印刷级徽章 | SVG + CMYK 校对 | ✅ |
-| ⑤ | 开发文档 + CI/CD | 4 流水线 + 模板 | ✅ |
-| ⑥ | Playwright E2E | 11 specs · 60+ 用例 | ✅ |
-| ⑦ | 契约漂移检测 | 5 脚本 + CI 阻断 | ✅ |
-| ⑧ | 移动端响应式 | 4 断点 · 12 页 | ✅ |
-| ⑨ | a11y axe-core | 12 spec + 对比度 | ✅ |
-| ⑩ | OpenAPI 类型 + 契约测试 | 34 用例 + CI | ✅ |
-| ⑪ | 视觉回归 | 63 快照 + 审批 | ✅ |
+|  #  | 交付物                  | 覆盖                 | 状态 |
+| :-: | ----------------------- | -------------------- | :--: |
+|  ①  | 8 域业务组件            | `domains/*` 20+ 组件 |  ✅  |
+|  ②  | MSW mock 契约           | 8 域 handlers + SSE  |  ✅  |
+|  ③  | Next.js 16 路由/RSC     | 12 路由 + Island     |  ✅  |
+|  ④  | 印刷级徽章              | SVG + CMYK 校对      |  ✅  |
+|  ⑤  | 开发文档 + CI/CD        | 4 流水线 + 模板      |  ✅  |
+|  ⑥  | Playwright E2E          | 11 specs · 60+ 用例  |  ✅  |
+|  ⑦  | 契约漂移检测            | 5 脚本 + CI 阻断     |  ✅  |
+|  ⑧  | 移动端响应式            | 4 断点 · 12 页       |  ✅  |
+|  ⑨  | a11y axe-core           | 12 spec + 对比度     |  ✅  |
+|  ⑩  | OpenAPI 类型 + 契约测试 | 34 用例 + CI         |  ✅  |
+|  ⑪  | 视觉回归                | 63 快照 + 审批       |  ✅  |
 
 ### 12.4 五重守门人
 
@@ -2279,21 +2219,21 @@ pnpm ci:all                  # 全部守门
 
 ### 13.1 十二批交付总索引
 
-| 批次 | 交付物 | 章节 |
-| :-: | --- | --- |
-| 1 | 契约层审核报告 | v5.1 §0 |
-| 2 | 后端实况冻结 | v5.1 §1 |
-| 3 | Figma 提示词三批投喂 | v5.1 §2 |
-| 4 | 拟人化职能契约 | v5.1 §2.5 |
-| 5 | 技术栈 + Backlog + 路线图 | v5.1 §3-§5 |
-| 6 | 适配层 + QA 协议 + 验收 | v5.1 §6-§8 |
-| 7 | 8 域组件 | 落地补全① |
-| 8 | MSW mock | 落地补全② |
-| 9 | RSC 拆分 | 落地补全③ |
-| 10 | 印刷徽章 | 落地补全④ |
-| 11 | 开发文档/CICD | 落地补全⑤ |
-| 12 | E2E + 契约漂移 + 响应式 + a11y | 落地补全⑥⑦⑧⑨ |
-| 13 | **OpenAPI 类型 + 契约测试 + 视觉回归** | **本次⑩⑪** |
+| 批次 | 交付物                                 | 章节         |
+| :--: | -------------------------------------- | ------------ |
+|  1   | 契约层审核报告                         | v5.1 §0      |
+|  2   | 后端实况冻结                           | v5.1 §1      |
+|  3   | Figma 提示词三批投喂                   | v5.1 §2      |
+|  4   | 拟人化职能契约                         | v5.1 §2.5    |
+|  5   | 技术栈 + Backlog + 路线图              | v5.1 §3-§5   |
+|  6   | 适配层 + QA 协议 + 验收                | v5.1 §6-§8   |
+|  7   | 8 域组件                               | 落地补全①    |
+|  8   | MSW mock                               | 落地补全②    |
+|  9   | RSC 拆分                               | 落地补全③    |
+|  10  | 印刷徽章                               | 落地补全④    |
+|  11  | 开发文档/CICD                          | 落地补全⑤    |
+|  12  | E2E + 契约漂移 + 响应式 + a11y         | 落地补全⑥⑦⑧⑨ |
+|  13  | **OpenAPI 类型 + 契约测试 + 视觉回归** | **本次⑩⑪**   |
 
 ### 13.2 家训终章
 

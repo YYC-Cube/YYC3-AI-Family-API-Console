@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&display=swap');
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
 
 :root {
   --background: #080a10;
@@ -51,7 +51,7 @@ body {
   min-width: 320px;
   background: var(--background);
   color: var(--foreground);
-  font-family: Inter, 'Noto Sans SC', sans-serif;
+  font-family: Inter, "Noto Sans SC", sans-serif;
 }
 button,
 input {
@@ -82,10 +82,17 @@ a:focus-visible {
     auto;
 }
 .mono {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
 }
 .cut {
-  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  clip-path: polygon(
+    0 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% 100%,
+    10px 100%,
+    0 calc(100% - 10px)
+  );
 }
 .signal-border {
   box-shadow:
@@ -189,7 +196,7 @@ a:focus-visible {
   background: #101521;
   color: #aeb8ce;
   font:
-    10px 'JetBrains Mono',
+    10px "JetBrains Mono",
     monospace;
   padding: 7px 9px;
 }
@@ -234,7 +241,7 @@ a:focus-visible {
 }
 .header-side b {
   font:
-    10px 'JetBrains Mono',
+    10px "JetBrains Mono",
     monospace;
   color: #59dff8;
   font-weight: 500;
@@ -271,7 +278,14 @@ a:focus-visible {
 .model-card {
   background: #0d1019;
   border: 1px solid #283146;
-  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  clip-path: polygon(
+    0 0,
+    calc(100% - 10px) 0,
+    100% 10px,
+    100% 100%,
+    10px 100%,
+    0 calc(100% - 10px)
+  );
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.015);
 }
 .stat-card {
@@ -292,7 +306,7 @@ a:focus-visible {
 .stat-card strong {
   display: block;
   font:
-    500 32px 'JetBrains Mono',
+    500 32px "JetBrains Mono",
     monospace;
   margin: 22px 0 4px;
   color: #edf8ff;
@@ -308,7 +322,7 @@ a:focus-visible {
   gap: 5px;
   text-transform: uppercase;
   font:
-    9px 'JetBrains Mono',
+    9px "JetBrains Mono",
     monospace;
   letter-spacing: 0.03em;
   color: #85e7aa;
@@ -370,7 +384,7 @@ a:focus-visible {
   padding: 13px 0;
   border-bottom: 1px solid #20283a;
   font:
-    11px 'JetBrains Mono',
+    11px "JetBrains Mono",
     monospace;
   color: #c4ccdc;
 }
@@ -451,7 +465,7 @@ a:focus-visible {
 .phase-mini {
   color: #f5ba47;
   font:
-    10px 'JetBrains Mono',
+    10px "JetBrains Mono",
     monospace;
 }
 .phase p {
@@ -486,7 +500,7 @@ a:focus-visible {
   float: right;
   color: #dfe5f2;
   font:
-    10px 'JetBrains Mono',
+    10px "JetBrains Mono",
     monospace;
 }
 .param-panel input,
@@ -499,10 +513,10 @@ a:focus-visible {
   width: 100%;
   box-sizing: border-box;
   font:
-    11px 'JetBrains Mono',
+    11px "JetBrains Mono",
     monospace;
 }
-.param-panel input[type='range'] {
+.param-panel input[type="range"] {
   padding: 0;
   accent-color: #6c5ce7;
 }
@@ -514,7 +528,7 @@ a:focus-visible {
   background: none;
   color: #8e9ab1;
   font:
-    10px 'JetBrains Mono',
+    10px "JetBrains Mono",
     monospace;
   padding: 5px 0;
 }
@@ -588,7 +602,7 @@ a:focus-visible {
   color: #98e9f8;
   padding: 11px;
   font:
-    10px/1.7 'JetBrains Mono',
+    10px/1.7 "JetBrains Mono",
     monospace;
 }
 .debug-panel .section-title {
@@ -599,7 +613,7 @@ a:focus-visible {
   background: #17151a;
   padding: 10px;
   font:
-    10px 'JetBrains Mono',
+    10px "JetBrains Mono",
     monospace;
   color: #bfc5d0;
 }
@@ -617,7 +631,7 @@ a:focus-visible {
   border-bottom: 1px solid #20283a;
   padding: 13px 0;
   font:
-    11px 'JetBrains Mono',
+    11px "JetBrains Mono",
     monospace;
   color: #bdc7d9;
 }
@@ -668,7 +682,7 @@ a:focus-visible {
 .dropzone small {
   margin-top: 8px;
   font:
-    9px 'JetBrains Mono',
+    9px "JetBrains Mono",
     monospace;
 }
 .orchestration {
@@ -690,7 +704,7 @@ a:focus-visible {
   place-content: center;
   text-align: center;
   font:
-    10px 'JetBrains Mono',
+    10px "JetBrains Mono",
     monospace;
   color: #dfabff;
 }
@@ -728,13 +742,13 @@ a:focus-visible {
 }
 .metric-placeholder strong {
   font:
-    32px 'JetBrains Mono',
+    32px "JetBrains Mono",
     monospace;
   color: #edf8ff;
 }
 .metric-placeholder span {
   font:
-    10px 'JetBrains Mono',
+    10px "JetBrains Mono",
     monospace;
   color: #7a869d;
 }
@@ -756,7 +770,7 @@ a:focus-visible {
   color: #ff8f8f;
   padding: 9px 11px;
   font:
-    10px 'JetBrains Mono',
+    10px "JetBrains Mono",
     monospace;
 }
 .ops-grid {
@@ -781,7 +795,7 @@ a:focus-visible {
 }
 .check-list em {
   font:
-    9px 'JetBrains Mono',
+    9px "JetBrains Mono",
     monospace;
   color: #6beaa7;
   margin-left: auto;
@@ -794,7 +808,14 @@ a:focus-visible {
   border: 1px solid #31405b;
   background: linear-gradient(140deg, #101622, #0b0e16);
   text-align: center;
-  clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+  clip-path: polygon(
+    0 0,
+    calc(100% - 15px) 0,
+    100% 15px,
+    100% 100%,
+    15px 100%,
+    0 calc(100% - 15px)
+  );
 }
 .connect-card img {
   width: 90px;
@@ -870,7 +891,7 @@ a:focus-visible {
 }
 .family-grid article > span {
   font:
-    9px 'JetBrains Mono',
+    9px "JetBrains Mono",
     monospace;
   color: #657188;
 }
@@ -1015,7 +1036,8 @@ a:focus-visible {
 .app-shell {
   background:
     radial-gradient(circle at 80% 12%, rgba(0, 212, 255, 0.11), transparent 28rem),
-    radial-gradient(circle at 45% 87%, rgba(34, 197, 94, 0.07), transparent 34rem), var(--background);
+    radial-gradient(circle at 45% 87%, rgba(34, 197, 94, 0.07), transparent 34rem),
+    var(--background);
 }
 .stat-card,
 .panel,
@@ -1061,7 +1083,8 @@ a:focus-visible {
   border: 1px solid rgba(0, 212, 255, 0.28);
   background:
     radial-gradient(circle at 50% 25%, rgba(0, 212, 255, 0.18), transparent 35%),
-    radial-gradient(circle at 20% 85%, rgba(34, 197, 94, 0.12), transparent 42%), rgba(10, 16, 24, 0.7);
+    radial-gradient(circle at 20% 85%, rgba(34, 197, 94, 0.12), transparent 42%),
+    rgba(10, 16, 24, 0.7);
   backdrop-filter: blur(25px);
   overflow: hidden;
 }
@@ -1143,7 +1166,7 @@ a:focus-visible {
   border-top: 1px solid #263044;
   color: #728099;
   font:
-    10px 'JetBrains Mono',
+    10px "JetBrains Mono",
     monospace;
 }
 .brand-assets {
@@ -1223,7 +1246,7 @@ a:focus-visible {
 .baseline span {
   color: #7be8f8;
   font:
-    10px 'JetBrains Mono',
+    10px "JetBrains Mono",
     monospace;
 }
 .baseline strong {
@@ -1262,7 +1285,7 @@ a:focus-visible {
   padding: 11px 13px;
   color: #ffd08a;
   font:
-    11px 'JetBrains Mono',
+    11px "JetBrains Mono",
     monospace;
 }
 .model-meta {
@@ -1271,7 +1294,7 @@ a:focus-visible {
   margin: 14px 0;
   color: #9ca8bc;
   font:
-    10px 'JetBrains Mono',
+    10px "JetBrains Mono",
     monospace;
 }
 .model-meta b {
@@ -1332,7 +1355,7 @@ a:focus-visible {
 }
 .nim-grid b {
   font:
-    500 22px 'JetBrains Mono',
+    500 22px "JetBrains Mono",
     monospace;
   color: #f9c260;
 }
@@ -1359,7 +1382,7 @@ a:focus-visible {
   background: #111825;
   color: #7d8ba4;
   font:
-    10px 'JetBrains Mono',
+    10px "JetBrains Mono",
     monospace;
 }
 .asset-row {
@@ -1373,7 +1396,7 @@ a:focus-visible {
 .asset-row code {
   color: #72ddec;
   font:
-    9px 'JetBrains Mono',
+    9px "JetBrains Mono",
     monospace;
   white-space: nowrap;
 }
@@ -1438,7 +1461,12 @@ a:focus-visible {
   margin-bottom: 16px;
   padding: 24px 27px;
   border: 1px solid rgba(0, 212, 255, 0.28);
-  background: linear-gradient(120deg, rgba(0, 212, 255, 0.11), rgba(108, 92, 231, 0.09) 43%, rgba(8, 10, 16, 0.4));
+  background: linear-gradient(
+    120deg,
+    rgba(0, 212, 255, 0.11),
+    rgba(108, 92, 231, 0.09) 43%,
+    rgba(8, 10, 16, 0.4)
+  );
   overflow: hidden;
 }
 .home-kicker {
@@ -1488,7 +1516,8 @@ a:focus-visible {
   min-height: 400px;
   overflow: hidden;
   border: 1px solid #2e3d55;
-  background: radial-gradient(circle, rgba(0, 212, 255, 0.09), transparent 50%), rgba(10, 14, 23, 0.75);
+  background:
+    radial-gradient(circle, rgba(0, 212, 255, 0.09), transparent 50%), rgba(10, 14, 23, 0.75);
   backdrop-filter: blur(23px);
 }
 .stage-label {
@@ -1513,7 +1542,7 @@ a:focus-visible {
 }
 .topology:before,
 .topology:after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 42px;
   border: 1px dashed #6c5ce755;
@@ -1530,7 +1559,8 @@ a:focus-visible {
   top: 50%;
   width: 72px;
   text-align: center;
-  transform: rotate(calc(var(--i) * 45deg)) translateY(-164px) rotate(calc(var(--i) * -45deg)) translate(-50%, -50%);
+  transform: rotate(calc(var(--i) * 45deg)) translateY(-164px) rotate(calc(var(--i) * -45deg))
+    translate(-50%, -50%);
   color: var(--node-tone);
   font-size: 18px;
 }
@@ -1572,14 +1602,14 @@ a:focus-visible {
 .core-orb b {
   color: #ebfaff;
   font:
-    500 14px 'JetBrains Mono',
+    500 14px "JetBrains Mono",
     monospace;
 }
 .core-orb span,
 .core-orb small {
   color: #80deec;
   font:
-    8px 'JetBrains Mono',
+    8px "JetBrains Mono",
     monospace;
 }
 .core-status {
@@ -1618,7 +1648,7 @@ a:focus-visible {
 .pulse-list strong {
   color: #eaf7ff;
   font:
-    500 20px 'JetBrains Mono',
+    500 20px "JetBrains Mono",
     monospace;
 }
 .asset-summary {
@@ -1629,7 +1659,7 @@ a:focus-visible {
 }
 .asset-summary > strong {
   font:
-    500 43px 'JetBrains Mono',
+    500 43px "JetBrains Mono",
     monospace;
   color: #ffd276;
   margin-top: 8px;
@@ -1664,7 +1694,7 @@ a:focus-visible {
   border-bottom: 1px solid #253044;
   color: #c1cbd9;
   font:
-    11px 'JetBrains Mono',
+    11px "JetBrains Mono",
     monospace;
 }
 .quick-launch > div {
@@ -1699,7 +1729,7 @@ a:focus-visible {
   margin: 14px 0;
   color: #9ca9bd;
   font:
-    10px 'JetBrains Mono',
+    10px "JetBrains Mono",
     monospace;
 }
 .resource-bars i {
@@ -2026,7 +2056,7 @@ a:focus-visible {
   padding: 8px 14px;
   border-top: 1px solid #20283a;
   font:
-    9.5px 'JetBrains Mono',
+    9.5px "JetBrains Mono",
     monospace;
   color: #8b99b1;
 }
@@ -2071,33 +2101,33 @@ a:focus-visible {
   background: #0d1019;
   padding: 3px 9px;
   font:
-    9px 'JetBrains Mono',
+    9px "JetBrains Mono",
     monospace;
   color: #8b99b1;
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
-.phase-chip[data-phase='streaming'] {
+.phase-chip[data-phase="streaming"] {
   color: #85e7aa;
   border-color: #22c55e66;
 }
-.phase-chip[data-phase='connecting'] {
+.phase-chip[data-phase="connecting"] {
   color: #59dff8;
   border-color: #00d4ff66;
 }
-.phase-chip[data-phase='degraded'] {
+.phase-chip[data-phase="degraded"] {
   color: #f5ba47;
   border-color: #f59e0b66;
 }
-.phase-chip[data-phase='error'] {
+.phase-chip[data-phase="error"] {
   color: #ff9d9d;
   border-color: #ef444466;
 }
-.phase-chip[data-phase='paused'] {
+.phase-chip[data-phase="paused"] {
   color: #c0a9ff;
   border-color: #6c5ce766;
 }
-.phase-chip[data-phase='done'] {
+.phase-chip[data-phase="done"] {
   color: #9aa9c1;
 }
 .composer .secondary {
@@ -2196,7 +2226,7 @@ a:focus-visible {
   height: 24px;
   border-radius: 2px;
   font:
-    600 11px 'JetBrains Mono',
+    600 11px "JetBrains Mono",
     monospace;
   background: rgba(255, 255, 255, 0.06);
   color: #8291a7;

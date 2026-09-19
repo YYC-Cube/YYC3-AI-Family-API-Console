@@ -8,7 +8,7 @@
     "MD041": false,
     "MD024": false,
     "MD029": {
-      "style": "one_or_ordered"
+      "style": "one_or_ordered",
     },
     "MD036": false,
     "MD040": false,
@@ -26,16 +26,13 @@
     "MD009": false,
     "MD051": false,
     "MD055": false,
-    "MD056": false
+    "MD056": false,
   },
-  "globs": [
-    "*.md",
-    "docs/**/*.md"
-  ],
+  "globs": ["*.md", "docs/**/*.md"],
   "ignores": [
     "node_modules/**",
     "dist/**",
     "src/imports/pasted_text/**",
-    "docs/YYC3-AI-Family-Token-Console-团队规范/模版闭环/**"
-  ]
+    "docs/YYC3-AI-Family-Token-Console-团队规范/模版闭环/**",
+  ],
 }

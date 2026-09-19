@@ -1,5 +1,5 @@
-import { Bind, Empty, Page, Panel } from "./shared"
-import type { PageConfig } from "./shared"
+import { Bind, Empty, Page, Panel } from "./shared";
+import type { PageConfig } from "./shared";
 
 /** 格物·宗师域 · 格物之阁（知识库 / 文档检索 / 问答试验台 · 9 端点） */
 export function Knowledge({ page }: { page: PageConfig }) {
@@ -22,5 +22,5 @@ export function Knowledge({ page }: { page: PageConfig }) {
         </Panel>
       </div>
     </Page>
-  )
+  );
 }

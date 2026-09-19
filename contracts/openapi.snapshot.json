@@ -23,9 +23,7 @@
       "/v1/chat/completions": {
         "post": {
           "operationId": "chat_completion_v1_chat_completions_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -55,9 +53,7 @@
       "/v1/mcp/execute": {
         "post": {
           "operationId": "execute_mcp_tool_v1_mcp_execute_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -99,9 +95,7 @@
       "/v1/mcp/local/execute": {
         "post": {
           "operationId": "execute_local_mcp_tool_v1_mcp_local_execute_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -119,9 +113,7 @@
       "/v1/mcp/web/read": {
         "post": {
           "operationId": "read_webpage_v1_mcp_web_read_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -139,9 +131,7 @@
       "/v1/mcp/web/search": {
         "post": {
           "operationId": "search_web_v1_mcp_web_search_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -159,9 +149,7 @@
       "/v1/mcp/github/search": {
         "post": {
           "operationId": "search_github_v1_mcp_github_search_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -179,9 +167,7 @@
       "/v1/mcp/github/structure": {
         "post": {
           "operationId": "get_github_structure_v1_mcp_github_structure_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -199,9 +185,7 @@
       "/v1/mcp/filesystem/read": {
         "post": {
           "operationId": "read_file_v1_mcp_filesystem_read_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -219,9 +203,7 @@
       "/v1/mcp/filesystem/list": {
         "post": {
           "operationId": "list_directory_v1_mcp_filesystem_list_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -251,9 +233,7 @@
       "/v1/mcp/docker/logs": {
         "post": {
           "operationId": "get_container_logs_v1_mcp_docker_logs_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -271,9 +251,7 @@
       "/v1/mcp/database/query": {
         "post": {
           "operationId": "query_database_v1_mcp_database_query_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -303,9 +281,7 @@
       "/v1/mcp/search": {
         "post": {
           "operationId": "brave_search_v1_mcp_search_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -323,9 +299,7 @@
       "/v1/knowledge-bases": {
         "post": {
           "operationId": "create_knowledge_base_v1_knowledge_bases_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -373,9 +347,7 @@
         },
         "patch": {
           "operationId": "update_knowledge_base_v1_knowledge_bases__kb_id__patch",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -425,9 +397,7 @@
       "/v1/documents/upload": {
         "post": {
           "operationId": "upload_document_v1_documents_upload_post",
-          "requestBody": [
-            "multipart/form-data"
-          ],
+          "requestBody": ["multipart/form-data"],
           "responses": {
             "200": {
               "application/json": {
@@ -445,9 +415,7 @@
       "/v1/documents": {
         "post": {
           "operationId": "create_document_v1_documents_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -546,9 +514,7 @@
       "/v1/rag/search": {
         "post": {
           "operationId": "search_v1_rag_search_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -566,9 +532,7 @@
       "/v1/rag/ask": {
         "post": {
           "operationId": "ask_with_context_v1_rag_ask_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -586,9 +550,7 @@
       "/v1/embeddings": {
         "post": {
           "operationId": "embeddings_v1_embeddings_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -606,9 +568,7 @@
       "/v1/rerank": {
         "post": {
           "operationId": "rerank_v1_rerank_post",
-          "requestBody": [
-            "application/json"
-          ],
+          "requestBody": ["application/json"],
           "responses": {
             "200": {
               "application/json": {
@@ -626,9 +586,7 @@
       "/v1/audio/transcriptions": {
         "post": {
           "operationId": "transcriptions_v1_audio_transcriptions_post",
-          "requestBody": [
-            "multipart/form-data"
-          ],
+          "requestBody": ["multipart/form-data"],
           "responses": {
             "200": {
               "application/json": {
@@ -646,9 +604,7 @@
       "/v1/ocr": {
         "post": {
           "operationId": "ocr_v1_ocr_post",
-          "requestBody": [
-            "multipart/form-data"
-          ],
+          "requestBody": ["multipart/form-data"],
           "responses": {
             "200": {
               "application/json": {

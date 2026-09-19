@@ -1,24 +1,17 @@
-import { useState } from "react"
-import {
-  Bind,
-  CheckList,
-  FamilyBadge,
-  Page,
-  Panel,
-  Phase,
-} from "./shared"
-import type { PageConfig } from "./shared"
+import { useState } from "react";
+import { Bind, CheckList, FamilyBadge, Page, Panel, Phase } from "./shared";
+import type { PageConfig } from "./shared";
 
 /** 预见·先知域 · 质量脉冲（QA 自检 / 视觉回归 / 运维观测三视图） */
 export function Monitor({ page }: { page: PageConfig }) {
-  const [tab, setTab] = useState<"qa" | "visual" | "ops">("qa")
-  const [running, setRunning] = useState(false)
-  const [note, setNote] = useState("尚未在此控制台执行。")
+  const [tab, setTab] = useState<"qa" | "visual" | "ops">("qa");
+  const [running, setRunning] = useState(false);
+  const [note, setNote] = useState("尚未在此控制台执行。");
   const run = () => {
-    setRunning(true)
-    setNote("检查已排队；实际结果由 CI 生成。")
-    window.setTimeout(() => setRunning(false), 750)
-  }
+    setRunning(true);
+    setNote("检查已排队；实际结果由 CI 生成。");
+    window.setTimeout(() => setRunning(false), 750);
+  };
   const content =
     tab === "qa" ? (
       <div className="ops-grid">
@@ -111,7 +104,7 @@ export function Monitor({ page }: { page: PageConfig }) {
           />
         </Panel>
       </div>
-    )
+    );
 
   return (
     <Page page={page}>
@@ -123,16 +116,12 @@ export function Monitor({ page }: { page: PageConfig }) {
             ["ops", "运维观测"],
           ] as const
         ).map(([k, label]) => (
-          <button
-            key={k}
-            className={tab === k ? "active" : ""}
-            onClick={() => setTab(k)}
-          >
+          <button key={k} className={tab === k ? "active" : ""} onClick={() => setTab(k)}>
             {label}
           </button>
         ))}
       </div>
       {content}
     </Page>
-  )
+  );
 }

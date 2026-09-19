@@ -13,20 +13,20 @@ language: zh-CN
 
 # YYC³ AI Family Token Console · 文档中心
 
-> *言启千行 · 语枢万物智能* — 统一模型网关 · 可观测 · 可调试
+> _言启千行 · 语枢万物智能_ — 统一模型网关 · 可观测 · 可调试
 
 ## 🚀 快速通道 | Quick Paths
 
-| 我想… | 去哪里 |
-| ---- | ------ |
-| 5 分钟跑起来 | [README · Quick Start](../README.md#-快速开始--quick-start) |
-| 理解整体架构 | [ARCHITECTURE.md](./ARCHITECTURE.md) |
-| 完成第一个 PR | [CONTRIBUTING.md](../.github/CONTRIBUTING.md) |
-| 查 CI 为什么挂 | [CICD.md](./CICD.md) |
-| 查命令怎么敲 | [DEVELOPER-GUIDE.md](./DEVELOPER-GUIDE.md) + [Makefile](../Makefile) |
-| 打标签/分诊 | [LABELS.md](./LABELS.md) |
-| 找团队规范原文 | [CONVENTIONS.md](./CONVENTIONS.md) §六 索引 |
-| 报告安全漏洞 | [SECURITY.md](../.github/SECURITY.md)（私密渠道） |
+| 我想…          | 去哪里                                                               |
+| -------------- | -------------------------------------------------------------------- |
+| 5 分钟跑起来   | [README · Quick Start](../README.md#-快速开始--quick-start)          |
+| 理解整体架构   | [ARCHITECTURE.md](./ARCHITECTURE.md)                                 |
+| 完成第一个 PR  | [CONTRIBUTING.md](../.github/CONTRIBUTING.md)                        |
+| 查 CI 为什么挂 | [CICD.md](./CICD.md)                                                 |
+| 查命令怎么敲   | [DEVELOPER-GUIDE.md](./DEVELOPER-GUIDE.md) + [Makefile](../Makefile) |
+| 打标签/分诊    | [LABELS.md](./LABELS.md)                                             |
+| 找团队规范原文 | [CONVENTIONS.md](./CONVENTIONS.md) §六 索引                          |
+| 报告安全漏洞   | [SECURITY.md](../.github/SECURITY.md)（私密渠道）                    |
 
 ## 📚 文档地图 | Docs Map
 

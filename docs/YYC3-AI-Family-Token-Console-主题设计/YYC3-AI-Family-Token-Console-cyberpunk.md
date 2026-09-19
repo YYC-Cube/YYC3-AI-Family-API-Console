@@ -46,8 +46,8 @@ YYC3-AI-Family-Token-Console 支持以下品牌元素的完全自定义，用户
 export interface BrandingConfig {
   // Logo 配置
   logo: {
-    light: string;  // 浅色模式 logo 路径
-    dark: string;   // 深色模式 logo 路径
+    light: string; // 浅色模式 logo 路径
+    dark: string; // 深色模式 logo 路径
     width: number;
     height: number;
     animated?: boolean;
@@ -56,12 +56,12 @@ export interface BrandingConfig {
   // 标语配置
   slogan: {
     primary: {
-      zh: string;  // 主标语中文
-      en: string;  // 主标语英文
+      zh: string; // 主标语中文
+      en: string; // 主标语英文
     };
     secondary: {
-      zh: string;  // 副标语中文
-      en: string;  // 副标语英文
+      zh: string; // 副标语中文
+      en: string; // 副标语英文
     };
   };
 
@@ -93,35 +93,35 @@ export interface BrandingConfig {
 
 export const defaultBranding: BrandingConfig = {
   logo: {
-    light: '/assets/logo-light.svg',
-    dark: '/assets/logo-dark.svg',
+    light: "/assets/logo-light.svg",
+    dark: "/assets/logo-dark.svg",
     width: 40,
     height: 40,
     animated: true,
   },
   slogan: {
     primary: {
-      zh: '言启象限 | 语枢未来',
-      en: 'Words Initiate Quadrants, Language Serves as Core for Future',
+      zh: "言启象限 | 语枢未来",
+      en: "Words Initiate Quadrants, Language Serves as Core for Future",
     },
     secondary: {
-      zh: '万象归元于云枢 | 深栈智启新纪元',
-      en: 'All things converge in cloud pivot; Deep stacks ignite a new era of intelligence',
+      zh: "万象归元于云枢 | 深栈智启新纪元",
+      en: "All things converge in cloud pivot; Deep stacks ignite a new era of intelligence",
     },
   },
   seo: {
-    title: 'YYC³ AI Code Designer',
-    description: '智能AI代码设计器，支持实时协作、多设备预览、AI辅助开发',
-    keywords: ['AI', 'Code', 'Designer', 'Collaboration', 'Real-time'],
+    title: "YYC³ AI Code Designer",
+    description: "智能AI代码设计器，支持实时协作、多设备预览、AI辅助开发",
+    keywords: ["AI", "Code", "Designer", "Collaboration", "Real-time"],
   },
   contact: {
-    email: 'admin@0379.email',
-    website: 'https://yanyucloudcube.com',
+    email: "admin@0379.email",
+    website: "https://yanyucloudcube.com",
   },
   copyright: {
     year: new Date().getFullYear(),
-    owner: 'YanYuCloudCube Team',
-    license: 'MIT',
+    owner: "YanYuCloudCube Team",
+    license: "MIT",
   },
 };
 ```
@@ -130,10 +130,10 @@ export const defaultBranding: BrandingConfig = {
 
 ```tsx
 // src/components/branding/Logo.tsx
-import React from 'react';
-import { useBranding } from '@/hooks/useBranding';
+import React from "react";
+import { useBranding } from "@/hooks/useBranding";
 
-export const Logo: React.FC<{ size?: 'sm' | 'md' | 'lg' }> = ({ size = 'md' }) => {
+export const Logo: React.FC<{ size?: "sm" | "md" | "lg" }> = ({ size = "md" }) => {
   const { branding } = useBranding();
   const { logo } = branding;
 
@@ -151,26 +151,26 @@ export const Logo: React.FC<{ size?: 'sm' | 'md' | 'lg' }> = ({ size = 'md' }) =
       alt={branding.seo.title}
       width={sizeProps.width}
       height={sizeProps.height}
-      className={`logo logo-${size} ${logo.animated ? 'logo-animated' : ''}`}
+      className={`logo logo-${size} ${logo.animated ? "logo-animated" : ""}`}
       style={{
-        animation: logo.animated ? 'logoFloat 3s ease-in-out infinite' : undefined,
+        animation: logo.animated ? "logoFloat 3s ease-in-out infinite" : undefined,
       }}
     />
   );
 };
 
 // src/components/branding/Slogan.tsx
-import React from 'react';
-import { useBranding } from '@/hooks/useBranding';
-import { useLanguage } from '@/hooks/useLanguage';
+import React from "react";
+import { useBranding } from "@/hooks/useBranding";
+import { useLanguage } from "@/hooks/useLanguage";
 
 export const Slogan: React.FC = () => {
   const { branding } = useBranding();
   const { language } = useLanguage();
   const { slogan } = branding;
 
-  const currentSlogan = language === 'zh' ? slogan.primary.zh : slogan.primary.en;
-  const currentSecondary = language === 'zh' ? slogan.secondary.zh : slogan.secondary.en;
+  const currentSlogan = language === "zh" ? slogan.primary.zh : slogan.primary.en;
+  const currentSecondary = language === "zh" ? slogan.secondary.zh : slogan.secondary.en;
 
   return (
     <div className="slogan-container">
@@ -181,8 +181,8 @@ export const Slogan: React.FC = () => {
 };
 
 // src/components/branding/BrandingSettings.tsx
-import React, { useState } from 'react';
-import { useBranding, useUpdateBranding } from '@/hooks/useBranding';
+import React, { useState } from "react";
+import { useBranding, useUpdateBranding } from "@/hooks/useBranding";
 
 export const BrandingSettings: React.FC = () => {
   const { branding } = useBranding();
@@ -215,7 +215,7 @@ export const BrandingSettings: React.FC = () => {
         <input
           type="text"
           value={branding.slogan.primary.zh}
-          onChange={(e) => handleSloganChange('primary', 'zh', e.target.value)}
+          onChange={(e) => handleSloganChange("primary", "zh", e.target.value)}
         />
       </div>
 
@@ -224,7 +224,7 @@ export const BrandingSettings: React.FC = () => {
         <input
           type="text"
           value={branding.slogan.primary.en}
-          onChange={(e) => handleSloganChange('primary', 'en', e.target.value)}
+          onChange={(e) => handleSloganChange("primary", "en", e.target.value)}
         />
       </div>
 
@@ -234,7 +234,7 @@ export const BrandingSettings: React.FC = () => {
         <input
           type="text"
           value={branding.seo.title}
-          onChange={(e) => handleSeoChange('title', e.target.value)}
+          onChange={(e) => handleSeoChange("title", e.target.value)}
         />
       </div>
 
@@ -248,9 +248,9 @@ export const BrandingSettings: React.FC = () => {
 
 ```typescript
 // src/stores/brandingStore.ts
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import { BrandingConfig, defaultBranding } from '@/config/branding';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import { BrandingConfig, defaultBranding } from "@/config/branding";
 
 interface BrandingStore {
   branding: BrandingConfig;
@@ -266,9 +266,9 @@ export const useBrandingStore = create<BrandingStore>()(
       resetBranding: () => set({ branding: defaultBranding }),
     }),
     {
-      name: 'yyc3-branding',
-    }
-  )
+      name: "yyc3-branding",
+    },
+  ),
 );
 
 export const useBranding = () => useBrandingStore((state) => state.branding);
@@ -374,7 +374,7 @@ export const useUpdateBranding = () => useBrandingStore((state) => state.updateB
 ```typescript
 // 模式配置接口
 interface CyberpunkModeConfig {
-  mode: 'standalone' | 'widget';
+  mode: "standalone" | "widget";
   standaloneConfig?: StandaloneConfig;
   widgetConfig?: WidgetConfig;
 }
@@ -385,18 +385,18 @@ interface StandaloneConfig {
   showNavigation: boolean;
   showSidebar: boolean;
   enableAllModules: boolean;
-  neonIntensity: 'low' | 'medium' | 'high';
+  neonIntensity: "low" | "medium" | "high";
   glitchEffect: boolean;
 }
 
 // 浮窗插件配置
 interface WidgetConfig {
-  position: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
-  size: 'small' | 'medium' | 'large' | 'custom';
+  position: "bottom-right" | "bottom-left" | "top-right" | "top-left";
+  size: "small" | "medium" | "large" | "custom";
   enableDrag: boolean;
   enableResize: boolean;
   autoHide: boolean;
-  neonIntensity: 'low' | 'medium' | 'high';
+  neonIntensity: "low" | "medium" | "high";
   glitchEffect: boolean;
 }
 ```
@@ -554,7 +554,7 @@ interface ManagementModule {
 }
 
 interface SystemHealth {
-  status: 'healthy' | 'degraded' | 'unhealthy';
+  status: "healthy" | "degraded" | "unhealthy";
   metrics: HealthMetrics;
   alerts: Alert[];
 }
@@ -566,13 +566,13 @@ interface SystemHealth {
 
 ```typescript
 class StandaloneAppManager {
-  private mode: 'standalone' = 'standalone';
+  private mode: "standalone" = "standalone";
   private modules: CoreModules;
   private uiManager: UIManager;
 
   constructor() {
     this.modules = this.initializeModules();
-    this.uiManager = new UIManager('standalone');
+    this.uiManager = new UIManager("standalone");
   }
 
   async initialize() {
@@ -589,8 +589,8 @@ class StandaloneAppManager {
       showNavigation: true,
       showSidebar: true,
       enableAllModules: true,
-      neonIntensity: 'high',
-      glitchEffect: true
+      neonIntensity: "high",
+      glitchEffect: true,
     });
 
     // 启动性能监控
@@ -605,7 +605,7 @@ class StandaloneAppManager {
     const result = await this.modules.execution.executeTask({
       intent: analysis.intent,
       entities: analysis.entities,
-      context: analysis.context
+      context: analysis.context,
     });
 
     // 优化性能
@@ -615,7 +615,7 @@ class StandaloneAppManager {
     this.modules.learning.learnFromFeedback({
       input,
       result,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     });
 
     return result;
@@ -627,7 +627,7 @@ class StandaloneAppManager {
 
 ```typescript
 class WidgetPluginManager {
-  private mode: 'widget' = 'widget';
+  private mode: "widget" = "widget";
   private modules: CoreModules;
   private widgetManager: WidgetManager;
   private hostIntegration: HostIntegration;
@@ -646,13 +646,13 @@ class WidgetPluginManager {
 
     // 初始化浮窗
     this.widgetManager.initialize({
-      position: 'bottom-right',
-      size: 'medium',
+      position: "bottom-right",
+      size: "medium",
       enableDrag: true,
       enableResize: true,
       autoHide: false,
-      neonIntensity: 'medium',
-      glitchEffect: false
+      neonIntensity: "medium",
+      glitchEffect: false,
     });
 
     // 集成到宿主应用
@@ -671,13 +671,13 @@ class WidgetPluginManager {
       intent: analysis.intent,
       entities: analysis.entities,
       context: analysis.context,
-      priority: 'high'
+      priority: "high",
     });
 
     // 优化性能（浮窗模式优先级更高）
     this.modules.optimization.optimizePerformance({
-      priority: 'high',
-      mode: 'widget'
+      priority: "high",
+      mode: "widget",
     });
 
     // 学习用户行为
@@ -685,7 +685,7 @@ class WidgetPluginManager {
       input,
       result,
       timestamp: Date.now(),
-      mode: 'widget'
+      mode: "widget",
     });
 
     return result;
@@ -709,7 +709,7 @@ class WidgetPluginManager {
 
 ```typescript
 interface AppState {
-  mode: 'standalone' | 'widget';
+  mode: "standalone" | "widget";
   user: User;
   sessions: Session[];
   activeSession: Session | null;
@@ -721,7 +721,7 @@ interface AppState {
 }
 
 interface CyberpunkTheme {
-  neonIntensity: 'low' | 'medium' | 'high';
+  neonIntensity: "low" | "medium" | "high";
   glitchEffect: boolean;
   scanlines: boolean;
   circuitGrid: boolean;
@@ -823,8 +823,8 @@ interface CyberpunkTheme {
 /* 赛博朋克独立应用全屏布局 */
 .cyberpunk-standalone-app {
   display: grid;
-  grid-template-rows: 64px 1fr 40px;  /* 顶部导航 | 主内容 | 底部状态 */
-  grid-template-columns: 280px 1fr;    /* 侧边栏 | 主内容 */
+  grid-template-rows: 64px 1fr 40px; /* 顶部导航 | 主内容 | 底部状态 */
+  grid-template-columns: 280px 1fr; /* 侧边栏 | 主内容 */
   height: 100vh;
   overflow: hidden;
   background: var(--cyber-dark);
@@ -833,7 +833,7 @@ interface CyberpunkTheme {
 
 /* 电路网格背景 */
 .cyberpunk-standalone-app::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -849,7 +849,7 @@ interface CyberpunkTheme {
 
 /* 扫描线效果 */
 .cyberpunk-standalone-app::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -988,41 +988,41 @@ interface NavigationItem {
 
 const navigationItems: NavigationItem[] = [
   {
-    id: 'chat',
-    label: '聊天',
-    icon: 'MessageCircle',
-    path: '/chat',
+    id: "chat",
+    label: "聊天",
+    icon: "MessageCircle",
+    path: "/chat",
     active: true,
-    neonColor: '#00f0ff'
+    neonColor: "#00f0ff",
   },
   {
-    id: 'tools',
-    label: '工具',
-    icon: 'Tool',
-    path: '/tools',
+    id: "tools",
+    label: "工具",
+    icon: "Tool",
+    path: "/tools",
     badge: 3,
-    neonColor: '#ff00ff'
+    neonColor: "#ff00ff",
   },
   {
-    id: 'workflow',
-    label: '工作流',
-    icon: 'Workflow',
-    path: '/workflow',
-    neonColor: '#ffff00'
+    id: "workflow",
+    label: "工作流",
+    icon: "Workflow",
+    path: "/workflow",
+    neonColor: "#ffff00",
   },
   {
-    id: 'insights',
-    label: '洞察',
-    icon: 'BarChart3',
-    path: '/insights',
-    neonColor: '#00ff00'
+    id: "insights",
+    label: "洞察",
+    icon: "BarChart3",
+    path: "/insights",
+    neonColor: "#00ff00",
   },
   {
-    id: 'settings',
-    label: '设置',
-    icon: 'Settings',
-    path: '/settings',
-    neonColor: '#ff0000'
+    id: "settings",
+    label: "设置",
+    icon: "Settings",
+    path: "/settings",
+    neonColor: "#ff0000",
   },
 ];
 ```
@@ -1048,64 +1048,64 @@ interface SidebarItem {
 
 const sidebarSections: SidebarSection[] = [
   {
-    title: '主要功能',
+    title: "主要功能",
     glitchEffect: true,
     items: [
       {
-        id: 'chat',
-        label: 'AI聊天',
-        icon: 'MessageCircle',
-        path: '/chat',
+        id: "chat",
+        label: "AI聊天",
+        icon: "MessageCircle",
+        path: "/chat",
         active: true,
-        neonColor: '#00f0ff'
+        neonColor: "#00f0ff",
       },
       {
-        id: 'tools',
-        label: 'AI工具',
-        icon: 'Tool',
-        path: '/tools',
+        id: "tools",
+        label: "AI工具",
+        icon: "Tool",
+        path: "/tools",
         badge: 12,
-        neonColor: '#ff00ff'
+        neonColor: "#ff00ff",
       },
       {
-        id: 'workflow',
-        label: '工作流',
-        icon: 'Workflow',
-        path: '/workflow',
-        neonColor: '#ffff00'
+        id: "workflow",
+        label: "工作流",
+        icon: "Workflow",
+        path: "/workflow",
+        neonColor: "#ffff00",
       },
       {
-        id: 'insights',
-        label: '数据洞察',
-        icon: 'BarChart3',
-        path: '/insights',
-        neonColor: '#00ff00'
+        id: "insights",
+        label: "数据洞察",
+        icon: "BarChart3",
+        path: "/insights",
+        neonColor: "#00ff00",
       },
     ],
   },
   {
-    title: '个人中心',
+    title: "个人中心",
     items: [
       {
-        id: 'history',
-        label: '历史记录',
-        icon: 'History',
-        path: '/history',
-        neonColor: '#0000ff'
+        id: "history",
+        label: "历史记录",
+        icon: "History",
+        path: "/history",
+        neonColor: "#0000ff",
       },
       {
-        id: 'favorites',
-        label: '收藏夹',
-        icon: 'Star',
-        path: '/favorites',
-        neonColor: '#ff00ff'
+        id: "favorites",
+        label: "收藏夹",
+        icon: "Star",
+        path: "/favorites",
+        neonColor: "#ff00ff",
       },
       {
-        id: 'profile',
-        label: '个人资料',
-        icon: 'User',
-        path: '/profile',
-        neonColor: '#00f0ff'
+        id: "profile",
+        label: "个人资料",
+        icon: "User",
+        path: "/profile",
+        neonColor: "#00f0ff",
       },
     ],
   },
@@ -1198,7 +1198,7 @@ const sidebarSections: SidebarSection[] = [
 }
 
 .cyberpunk-tool-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -1329,7 +1329,7 @@ interface CyberpunkWidgetConfig {
   maxHeight: number;
 
   // 位置配置
-  position: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
+  position: "bottom-right" | "bottom-left" | "top-right" | "top-left";
   x: number;
   y: number;
 
@@ -1344,7 +1344,7 @@ interface CyberpunkWidgetConfig {
   autoHide: boolean;
 
   // 赛博朋克风格配置
-  neonIntensity: 'low' | 'medium' | 'high';
+  neonIntensity: "low" | "medium" | "high";
   glitchEffect: boolean;
   scanlines: boolean;
   circuitGrid: boolean;
@@ -1380,7 +1380,7 @@ interface CyberpunkWidgetConfig {
 
 /* 多层玻璃叠加效果 */
 .cyberpunk-widget-plugin::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -1396,18 +1396,13 @@ interface CyberpunkWidgetConfig {
 
 /* 边框高光效果 */
 .cyberpunk-widget-plugin::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -2px;
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(
-    45deg,
-    transparent 30%,
-    rgba(0, 240, 255, 0.5) 50%,
-    transparent 70%
-  );
+  background: linear-gradient(45deg, transparent 30%, rgba(0, 240, 255, 0.5) 50%, transparent 70%);
   border-radius: 22px;
   pointer-events: none;
   z-index: 1;
@@ -1455,12 +1450,7 @@ interface CyberpunkWidgetConfig {
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
   pointer-events: none;
   z-index: 4;
   animation: shimmer-move 3s ease-in-out infinite;
@@ -1493,13 +1483,22 @@ interface CyberpunkWidgetConfig {
 }
 
 @keyframes shimmer-rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes shimmer-move {
-  0% { left: -100%; }
-  50%, 100% { left: 200%; }
+  0% {
+    left: -100%;
+  }
+  50%,
+  100% {
+    left: 200%;
+  }
 }
 ```
 
@@ -1538,7 +1537,7 @@ interface CyberpunkWidgetConfig {
 }
 ```
 
-```
+````
 
 #### 尺寸配置
 
@@ -1565,7 +1564,7 @@ interface CyberpunkWidgetConfig {
 .cyberpunk-widget-plugin.size-custom {
   /* 用户自定义尺寸 */
 }
-```
+````
 
 ### 赛博朋克毛玻璃融合设计
 
@@ -1674,18 +1673,13 @@ interface CyberpunkWidgetConfig {
 }
 
 .shimmer-effect::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.15),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
   pointer-events: none;
   transition: left 0.5s ease;
 }
@@ -1813,34 +1807,17 @@ interface CyberpunkWidgetConfig {
 **1. ARIA 属性**
 
 ```tsx
-<div
-  className="cyberpunk-widget-plugin"
-  role="dialog"
-  aria-label="YYC³ AI 助手"
-  aria-modal="true"
->
+<div className="cyberpunk-widget-plugin" role="dialog" aria-label="YYC³ AI 助手" aria-modal="true">
   <div className="cyberpunk-widget-header">
     <h2 className="cyberpunk-widget-title">YYC³ AI</h2>
     <div className="cyberpunk-widget-controls">
-      <button
-        className="cyberpunk-widget-btn"
-        aria-label="最小化"
-        onClick={handleMinimize}
-      >
+      <button className="cyberpunk-widget-btn" aria-label="最小化" onClick={handleMinimize}>
         <MinimizeIcon />
       </button>
-      <button
-        className="cyberpunk-widget-btn"
-        aria-label="最大化"
-        onClick={handleMaximize}
-      >
+      <button className="cyberpunk-widget-btn" aria-label="最大化" onClick={handleMaximize}>
         <MaximizeIcon />
       </button>
-      <button
-        className="cyberpunk-widget-btn"
-        aria-label="关闭"
-        onClick={handleClose}
-      >
+      <button className="cyberpunk-widget-btn" aria-label="关闭" onClick={handleClose}>
         <CloseIcon />
       </button>
     </div>
@@ -1853,16 +1830,16 @@ interface CyberpunkWidgetConfig {
 ```typescript
 const handleKeyDown = (e: KeyboardEvent) => {
   switch (e.key) {
-    case 'Escape':
+    case "Escape":
       e.preventDefault();
       closeWidget();
       break;
-    case 'Tab':
+    case "Tab":
       e.preventDefault();
       focusNextElement();
       break;
-    case 'Enter':
-    case ' ':
+    case "Enter":
+    case " ":
       e.preventDefault();
       activateElement();
       break;
@@ -1956,7 +1933,8 @@ const handleKeyDown = (e: KeyboardEvent) => {
 }
 
 @keyframes logo-float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotate(0deg);
   }
   50% {
@@ -1967,7 +1945,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
 /* 标题 - 打字机效果 + 光标动画 */
 .cyberpunk-widget-title {
   color: #00f0ff;
-  font-family: 'Orbitron', monospace;
+  font-family: "Orbitron", monospace;
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
@@ -1982,15 +1960,20 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
 /* 光标动画 */
 .cyberpunk-widget-title::after {
-  content: '|';
+  content: "|";
   position: absolute;
   right: -8px;
   animation: cursor-blink 1s step-end infinite;
 }
 
 @keyframes cursor-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 /* 控制按钮 */
@@ -2017,18 +2000,13 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
 /* 按钮渐变 + 内光效果 */
 .cyberpunk-widget-btn::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(
-    135deg,
-    transparent 0%,
-    rgba(0, 240, 255, 0.1) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(135deg, transparent 0%, rgba(0, 240, 255, 0.1) 50%, transparent 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -2080,7 +2058,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
   border-radius: 8px;
   padding: 8px 16px;
   color: rgba(0, 240, 255, 0.7);
-  font-family: 'Orbitron', monospace;
+  font-family: "Orbitron", monospace;
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
@@ -2093,18 +2071,13 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
 /* 标签页光泽扫过效果 */
 .cyberpunk-widget-tab::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.15),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
   pointer-events: none;
   transition: left 0.5s ease;
 }
@@ -2166,7 +2139,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
   border-radius: 8px;
   padding: 8px 12px;
   color: rgba(0, 240, 255, 0.7);
-  font-family: 'Orbitron', monospace;
+  font-family: "Orbitron", monospace;
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
@@ -2183,18 +2156,13 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
 /* 快捷操作光泽扫过效果 */
 .cyberpunk-widget-action::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.15),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
   pointer-events: none;
   transition: left 0.5s ease;
 }
@@ -2250,7 +2218,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
   padding: 12px 16px;
   margin-bottom: 12px;
   color: #00f0ff;
-  font-family: 'Orbitron', monospace;
+  font-family: "Orbitron", monospace;
   font-size: 14px;
   line-height: 1.5;
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -2313,7 +2281,8 @@ const handleKeyDown = (e: KeyboardEvent) => {
 }
 
 @keyframes thinking-pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     opacity: 0.5;
     box-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
@@ -2361,7 +2330,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
   border: none;
   outline: none;
   color: #00f0ff;
-  font-family: 'Orbitron', monospace;
+  font-family: "Orbitron", monospace;
   font-size: 14px;
   padding: 12px 16px;
   width: 100%;
@@ -2380,7 +2349,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
   border-radius: 8px;
   padding: 10px 16px;
   color: #00f0ff;
-  font-family: 'Orbitron', monospace;
+  font-family: "Orbitron", monospace;
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
@@ -2393,7 +2362,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
 /* 发送按钮渐变 + 内光效果 */
 .cyberpunk-widget-send-btn::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -2434,16 +2403,16 @@ const handleKeyDown = (e: KeyboardEvent) => {
 ```
 
 .cyberpunk-widget-tab.active {
-  background: rgba(0, 240, 255, 0.2);
-  border-color: #00f0ff;
-  color: #00f0ff;
-  box-shadow:
-    0 0 10px #00f0ff,
-    0 0 20px rgba(0, 240, 255, 0.3),
-    inset 0 0 10px rgba(0, 240, 255, 0.1);
+background: rgba(0, 240, 255, 0.2);
+border-color: #00f0ff;
+color: #00f0ff;
+box-shadow:
+0 0 10px #00f0ff,
+0 0 20px rgba(0, 240, 255, 0.3),
+inset 0 0 10px rgba(0, 240, 255, 0.1);
 }
 
-```
+````
 
 #### 霓虹快捷操作栏
 
@@ -2487,7 +2456,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
     0 0 10px #00f0ff,
     0 0 20px rgba(0, 240, 255, 0.3);
 }
-```
+````
 
 ---
 
@@ -2511,7 +2480,8 @@ const handleKeyDown = (e: KeyboardEvent) => {
 }
 
 @keyframes neon-pulse {
-  0%, 100% {
+  0%,
+  100% {
     text-shadow:
       0 0 5px #00f0ff,
       0 0 10px #00f0ff,
@@ -2544,7 +2514,8 @@ const handleKeyDown = (e: KeyboardEvent) => {
 }
 
 @keyframes neon-border-pulse {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow:
       0 0 5px #ff00ff,
       0 0 10px #ff00ff,
@@ -2580,7 +2551,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
 }
 
 .circuit-lines::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -2594,8 +2565,12 @@ const handleKeyDown = (e: KeyboardEvent) => {
 }
 
 @keyframes circuit-flow {
-  0% { background-position: 0 0; }
-  100% { background-position: 40px 40px; }
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 40px 40px;
+  }
 }
 ```
 
@@ -2604,20 +2579,23 @@ const handleKeyDown = (e: KeyboardEvent) => {
 ```css
 /* 数据流背景 */
 .data-flow {
-  background:
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0, 240, 255, 0.03) 2px,
-      rgba(0, 240, 255, 0.03) 4px
-    );
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 240, 255, 0.03) 2px,
+    rgba(0, 240, 255, 0.03) 4px
+  );
   animation: data-scroll 10s linear infinite;
 }
 
 @keyframes data-scroll {
-  0% { background-position: 0 0; }
-  100% { background-position: 0 100px; }
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100px;
+  }
 }
 ```
 
@@ -2633,7 +2611,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
 }
 
 .scanlines::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -2651,8 +2629,12 @@ const handleKeyDown = (e: KeyboardEvent) => {
 }
 
 @keyframes scanline-move {
-  0% { background-position: 0 0; }
-  100% { background-position: 0 100%; }
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
 }
 ```
 
@@ -2676,8 +2658,13 @@ const handleKeyDown = (e: KeyboardEvent) => {
 }
 
 @keyframes hologram-flicker {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.95; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.95;
+  }
 }
 ```
 
@@ -2736,9 +2723,9 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
 ```css
 :root {
-  --font-primary: 'Orbitron', 'Rajdhani', 'Share Tech Mono', monospace;
-  --font-secondary: 'Exo 2', 'Chakra Petch', sans-serif;
-  --font-mono: 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+  --font-primary: "Orbitron", "Rajdhani", "Share Tech Mono", monospace;
+  --font-secondary: "Exo 2", "Chakra Petch", sans-serif;
+  --font-mono: "Fira Code", "JetBrains Mono", "Consolas", monospace;
 }
 ```
 
@@ -2870,7 +2857,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
 }
 
 .button-neon::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
@@ -2904,7 +2891,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
 }
 
 .button-scan::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -2936,7 +2923,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
   font-size: 16px;
   transition: all 0.3s ease;
   outline: none;
-  font-family: 'Orbitron', monospace;
+  font-family: "Orbitron", monospace;
 }
 
 .input-neon:focus {
@@ -3035,19 +3022,51 @@ const handleKeyDown = (e: KeyboardEvent) => {
 }
 
 @keyframes glitch-1 {
-  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
-  20% { clip-path: inset(20% 0 60% 0); transform: translate(-2px, 2px); }
-  40% { clip-path: inset(40% 0 40% 0); transform: translate(2px, -2px); }
-  60% { clip-path: inset(60% 0 20% 0); transform: translate(-2px, 2px); }
-  80% { clip-path: inset(80% 0 0 0); transform: translate(2px, -2px); }
+  0%,
+  100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0);
+  }
+  20% {
+    clip-path: inset(20% 0 60% 0);
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    clip-path: inset(40% 0 40% 0);
+    transform: translate(2px, -2px);
+  }
+  60% {
+    clip-path: inset(60% 0 20% 0);
+    transform: translate(-2px, 2px);
+  }
+  80% {
+    clip-path: inset(80% 0 0 0);
+    transform: translate(2px, -2px);
+  }
 }
 
 @keyframes glitch-2 {
-  0%, 100% { clip-path: inset(0 0 0 0); transform: translate(0); }
-  20% { clip-path: inset(60% 0 20% 0); transform: translate(2px, -2px); }
-  40% { clip-path: inset(40% 0 40% 0); transform: translate(-2px, 2px); }
-  60% { clip-path: inset(20% 0 60% 0); transform: translate(2px, -2px); }
-  80% { clip-path: inset(0 0 80% 0); transform: translate(-2px, 2px); }
+  0%,
+  100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0);
+  }
+  20% {
+    clip-path: inset(60% 0 20% 0);
+    transform: translate(2px, -2px);
+  }
+  40% {
+    clip-path: inset(40% 0 40% 0);
+    transform: translate(-2px, 2px);
+  }
+  60% {
+    clip-path: inset(20% 0 60% 0);
+    transform: translate(2px, -2px);
+  }
+  80% {
+    clip-path: inset(0 0 80% 0);
+    transform: translate(-2px, 2px);
+  }
 }
 ```
 
@@ -3272,9 +3291,9 @@ export const GlitchText: React.FC<GlitchTextProps> = ({
 #### 霓虹效果Hook
 
 ```typescript
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
-export const useNeonEffect = (color: string = '#00f0ff') => {
+export const useNeonEffect = (color: string = "#00f0ff") => {
   const elementRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -3284,13 +3303,13 @@ export const useNeonEffect = (color: string = '#00f0ff') => {
 
     // 添加脉冲发光效果
     const addPulseEffect = () => {
-      element.style.setProperty('--neon-glow', color);
+      element.style.setProperty("--neon-glow", color);
     };
 
     addPulseEffect();
 
     return () => {
-      element.style.removeProperty('--neon-glow');
+      element.style.removeProperty("--neon-glow");
     };
   }, [color]);
 
@@ -3301,7 +3320,7 @@ export const useNeonEffect = (color: string = '#00f0ff') => {
 #### 故障动画Hook
 
 ```typescript
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export const useGlitchAnimation = (enabled: boolean = true) => {
   const [isGlitching, setIsGlitching] = useState(false);
@@ -3358,11 +3377,7 @@ export const useGlitchAnimation = (enabled: boolean = true) => {
 #### ARIA属性
 
 ```tsx
-<div
-  className="card-neon"
-  role="article"
-  aria-label="霓虹卡片"
->
+<div className="card-neon" role="article" aria-label="霓虹卡片">
   <h2>卡片标题</h2>
   <p>卡片内容</p>
 </div>
@@ -3373,16 +3388,16 @@ export const useGlitchAnimation = (enabled: boolean = true) => {
 ```typescript
 const handleKeyDown = (e: KeyboardEvent) => {
   switch (e.key) {
-    case 'Tab':
+    case "Tab":
       e.preventDefault();
       focusNextElement();
       break;
-    case 'Enter':
-    case ' ':
+    case "Enter":
+    case " ":
       e.preventDefault();
       activateElement();
       break;
-    case 'Escape':
+    case "Escape":
       closeDropdown();
       break;
   }
@@ -3425,9 +3440,9 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
 <div align="center">
 
-> 「***YanYuCloudCube***」
-> 「***<admin@0379.email>***」
-> 「***Words Initiate Quadrants, Language Serves as Core for Future***」
-> 「***All things converge in cloud pivot; Deep stacks ignite a new era of intelligence***」
+> 「_**YanYuCloudCube**_」
+> 「_**<admin@0379.email>**_」
+> 「_**Words Initiate Quadrants, Language Serves as Core for Future**_」
+> 「_**All things converge in cloud pivot; Deep stacks ignite a new era of intelligence**_」
 
 </div>

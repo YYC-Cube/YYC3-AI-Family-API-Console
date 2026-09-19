@@ -1,30 +1,30 @@
-import { useEffect, useState } from "react"
-import { useReadonly } from "../lib/useReadonly"
-import { api, guardianErrorLine, getApiKey } from "../lib/api"
-import { Bind, Empty, FamilyBadge, Page, Panel } from "./shared"
-import type { PageConfig } from "./shared"
+import { useEffect, useState } from "react";
+import { useReadonly } from "../lib/useReadonly";
+import { api, guardianErrorLine, getApiKey } from "../lib/api";
+import { Bind, Empty, FamilyBadge, Page, Panel } from "./shared";
+import type { PageConfig } from "./shared";
 
 /** 言启·千行域 · 路径之眼（路由策略序列 + 上游池快照 · 只读 30s 轮询） */
 export function Routing({ page }: { page: PageConfig }) {
   const routerStats = useReadonly(() => api.routerStats(), {
     intervalMs: 30_000,
-  })
-  const [hasKey, setHasKey] = useState(() => Boolean(getApiKey()))
+  });
+  const [hasKey, setHasKey] = useState(() => Boolean(getApiKey()));
   // 门禁页存/清 Key 后回到本页时自动重查
   useEffect(() => {
-    const id = setInterval(() => setHasKey(Boolean(getApiKey())), 1_500)
-    return () => clearInterval(id)
-  }, [])
-  const authed = hasKey && routerStats.gate === "open"
+    const id = setInterval(() => setHasKey(Boolean(getApiKey())), 1_500);
+    return () => clearInterval(id);
+  }, []);
+  const authed = hasKey && routerStats.gate === "open";
   // 从 stats 扁平对象提取策略计数与上游池（宽松解析，契约未定 schema）
-  const raw = (routerStats.data ?? {}) as Record<string, unknown>
+  const raw = (routerStats.data ?? {}) as Record<string, unknown>;
   const strategies = Object.entries(raw)
     .filter(([, v]) => typeof v === "number")
     .slice(0, 5)
-    .map(([k, v], i) => ({ name: k, count: v as number, i }))
+    .map(([k, v], i) => ({ name: k, count: v as number, i }));
   const upstreams = Object.entries(raw)
     .filter(([, v]) => typeof v === "object" && v !== null)
-    .slice(0, 8)
+    .slice(0, 8);
 
   return (
     <Page page={page}>
@@ -39,8 +39,7 @@ export function Routing({ page }: { page: PageConfig }) {
         </div>
       )}
       <div className="notice">
-        路由策略为网关内置五种枚举，规则 CRUD{" "}
-        <span className="phase-mini">Phase 2</span> 开放。
+        路由策略为网关内置五种枚举，规则 CRUD <span className="phase-mini">Phase 2</span> 开放。
       </div>
       <div className="route-grid">
         <Panel title="策略序列" binding="GET /v1/router/stats">
@@ -57,19 +56,15 @@ export function Routing({ page }: { page: PageConfig }) {
             </div>
           ) : (
             <div className="policy-list">
-              {[
-                "ADAPTIVE",
-                "WEIGHTED_LATENCY",
-                "LEAST_CONNECTIONS",
-                "RANDOM",
-                "ROUND_ROBIN",
-              ].map((v, i) => (
-                <div key={v}>
-                  <span>{String(i + 1).padStart(2, "0")}</span>
-                  {v}
-                  <i />
-                </div>
-              ))}
+              {["ADAPTIVE", "WEIGHTED_LATENCY", "LEAST_CONNECTIONS", "RANDOM", "ROUND_ROBIN"].map(
+                (v, i) => (
+                  <div key={v}>
+                    <span>{String(i + 1).padStart(2, "0")}</span>
+                    {v}
+                    <i />
+                  </div>
+                ),
+              )}
             </div>
           )}
         </Panel>
@@ -86,13 +81,11 @@ export function Routing({ page }: { page: PageConfig }) {
           ) : (
             <Empty
               owner="qianxing"
-              text={
-                hasKey ? "等待上游池快照；路径将在此展开。" : "出示密钥后，上游池将在此展开。"
-              }
+              text={hasKey ? "等待上游池快照；路径将在此展开。" : "出示密钥后，上游池将在此展开。"}
             />
           )}
         </Panel>
       </div>
     </Page>
-  )
+  );
 }

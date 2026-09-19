@@ -1,10 +1,10 @@
 export type ModelAsset = {
-  name: string
-  family: string
-  location: "yyc3-22 主开发机" | "yyc3-45 NAS"
-  path: string
-  capability: string
-}
+  name: string;
+  family: string;
+  location: "yyc3-22 主开发机" | "yyc3-45 NAS";
+  path: string;
+  capability: string;
+};
 
 export const modelAssets: ModelAsset[] = [
   {
@@ -105,7 +105,7 @@ export const modelAssets: ModelAsset[] = [
     path: "/Volume1/yyc3_hd/data/Ring-2.6-1T",
     capability: "通用推理",
   },
-]
+];
 
 export const nimCategories = [
   ["大语言模型", 32],
@@ -118,4 +118,4 @@ export const nimCategories = [
   ["自动驾驶与物理 AI", 9],
   ["安全合规模型", 8],
   ["行业专用工具", 3],
-] as const
+] as const;

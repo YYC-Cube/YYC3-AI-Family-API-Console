@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
-import type { HealthResponse, ModelConfig } from "../lib/api"
+import React, { useEffect, useState } from "react";
+import type { HealthResponse, ModelConfig } from "../lib/api";
 
 /** 8 家人命名空间（v5.1 拟人化体系） */
 export type FamilyKey =
@@ -10,27 +10,27 @@ export type FamilyKey =
   | "zongshi"
   | "tianshu"
   | "xianzhi"
-  | "lingyun"
+  | "lingyun";
 
 export type PageConfig = {
-  path: string
-  nav: string
-  title: string
-  subtitle: string
-  family: FamilyKey
-  domain: string
-  alignment: string
-}
+  path: string;
+  nav: string;
+  title: string;
+  subtitle: string;
+  family: FamilyKey;
+  domain: string;
+  alignment: string;
+};
 
 export const family: Record<
   FamilyKey,
   {
-    emoji: string
-    name: string
-    role: string
-    phone: string
-    tone: string
-    motto: string
+    emoji: string;
+    name: string;
+    role: string;
+    phone: string;
+    tone: string;
+    motto: string;
   }
 > = {
   zhihui: {
@@ -97,7 +97,7 @@ export const family: Record<
     tone: "#ff8c00",
     motto: "灵韵一至，妙笔生花",
   },
-}
+};
 
 export const pages: PageConfig[] = [
   {
@@ -199,18 +199,12 @@ export const pages: PageConfig[] = [
     domain: "组织治理域",
     alignment: "📋 ㉔–㉘ 交付系统",
   },
-]
+];
 
 /* ── 共享 UI 原语 ── */
 
-export function FamilyBadge({
-  owner,
-  full = false,
-}: {
-  owner: FamilyKey
-  full?: boolean
-}) {
-  const f = family[owner]
+export function FamilyBadge({ owner, full = false }: { owner: FamilyKey; full?: boolean }) {
+  const f = family[owner];
   return (
     <div
       data-family={owner === "qianxing" ? "qianhang" : owner}
@@ -225,15 +219,15 @@ export function FamilyBadge({
         </span>
       )}
     </div>
-  )
+  );
 }
 
 export function Bind({ children }: { children: React.ReactNode }) {
-  return <span className="bind mono">[BIND:{children}]</span>
+  return <span className="bind mono">[BIND:{children}]</span>;
 }
 
 export function PageHeader({ page }: { page: PageConfig }) {
-  const f = family[page.family]
+  const f = family[page.family];
   return (
     <header className="page-header">
       <div>
@@ -246,37 +240,37 @@ export function PageHeader({ page }: { page: PageConfig }) {
         <b>{page.alignment}</b>
       </div>
     </header>
-  )
+  );
 }
 
 export function SectionTitle({
   children,
   action,
 }: {
-  children: React.ReactNode
-  action?: React.ReactNode
+  children: React.ReactNode;
+  action?: React.ReactNode;
 }) {
   return (
     <div className="section-title">
       <span className="mono">{children}</span>
       {action}
     </div>
-  )
+  );
 }
 
 export function Status({
   children,
   tone = "ok",
 }: {
-  children: React.ReactNode
-  tone?: "ok" | "muted" | "warn"
+  children: React.ReactNode;
+  tone?: "ok" | "muted" | "warn";
 }) {
   return (
     <span className={`status ${tone}`}>
       <i />
       {children}
     </span>
-  )
+  );
 }
 
 export function Panel({
@@ -284,31 +278,25 @@ export function Panel({
   binding,
   children,
 }: {
-  title: string
-  binding: string
-  children: React.ReactNode
+  title: string;
+  binding: string;
+  children: React.ReactNode;
 }) {
   return (
     <article className="panel">
       <SectionTitle action={<Bind>{binding}</Bind>}>{title}</SectionTitle>
       {children}
     </article>
-  )
+  );
 }
 
-export function Page({
-  page,
-  children,
-}: {
-  page: PageConfig
-  children: React.ReactNode
-}) {
+export function Page({ page, children }: { page: PageConfig; children: React.ReactNode }) {
   return (
     <div className="page">
       <PageHeader page={page} />
       {children}
     </div>
-  )
+  );
 }
 
 export function MetricPlaceholder({ label }: { label: string }) {
@@ -318,7 +306,7 @@ export function MetricPlaceholder({ label }: { label: string }) {
       <span>{label}</span>
       <Status tone="muted">awaiting</Status>
     </div>
-  )
+  );
 }
 
 export function CheckList({ labels }: { labels: string[] }) {
@@ -332,7 +320,7 @@ export function CheckList({ labels }: { labels: string[] }) {
         </li>
       ))}
     </ul>
-  )
+  );
 }
 
 export function Empty({ owner, text }: { owner: FamilyKey; text: string }) {
@@ -341,35 +329,27 @@ export function Empty({ owner, text }: { owner: FamilyKey; text: string }) {
       <FamilyBadge owner={owner} />
       <p>{text}</p>
     </div>
-  )
+  );
 }
 
-export function Phase({
-  code,
-  text,
-  owner,
-}: {
-  code: string
-  text: string
-  owner: FamilyKey
-}) {
+export function Phase({ code, text, owner }: { code: string; text: string; owner: FamilyKey }) {
   return (
     <div className="phase">
       <span>📋 {code}</span>
       <p>{text}</p>
       <FamilyBadge owner={owner} />
     </div>
-  )
+  );
 }
 
 export function useRemote<T>(load: () => Promise<T>) {
   const [state, setState] = useState<{
-    data?: T
-    error?: string
-    loading: boolean
-  }>({ loading: true })
+    data?: T;
+    error?: string;
+    loading: boolean;
+  }>({ loading: true });
   useEffect(() => {
-    let active = true
+    let active = true;
     load()
       .then((data) => active && setState({ data, loading: false }))
       .catch(
@@ -379,12 +359,12 @@ export function useRemote<T>(load: () => Promise<T>) {
             error: error instanceof Error ? error.message : "Request failed",
             loading: false,
           }),
-      )
+      );
     return () => {
-      active = false
-    }
-  }, [load])
-  return state
+      active = false;
+    };
+  }, [load]);
+  return state;
 }
 
-export type { HealthResponse, ModelConfig }
+export type { HealthResponse, ModelConfig };

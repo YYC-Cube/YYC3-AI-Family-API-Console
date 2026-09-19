@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "@playwright/test";
 
 /**
  * ♦ YYC³ 视觉基线 · 全 12 路由快照（P3 · 文档04 ⑪）
@@ -20,12 +20,12 @@ const ROUTES = [
   { path: "/security", name: "security" },
   { path: "/branding", name: "branding" },
   { path: "/governance", name: "governance" },
-] as const
+] as const;
 
 const THEMES = [
   { scheme: "dark" as const, label: "dark" },
   { scheme: "light" as const, label: "light" },
-]
+];
 
 test.describe("all routes · dark & light", () => {
   for (const route of ROUTES) {
@@ -34,22 +34,19 @@ test.describe("all routes · dark & light", () => {
         await page.emulateMedia({
           colorScheme: theme.scheme,
           reducedMotion: "reduce",
-        })
-        await page.goto(route.path)
+        });
+        await page.goto(route.path);
         // 等待字体与 health 状态稳定，规避竞态像素差
-        await page.waitForLoadState("networkidle")
-        await page.waitForTimeout(400)
-        await expect(page).toHaveScreenshot(
-          `route-${route.name}-${theme.label}.png`,
-          {
-            animations: "disabled",
-            caret: "hide",
-            maxDiffPixelRatio: 0.002,
-            // 首页拓扑脉冲为动态发光元素，放宽阈值
-            threshold: route.path === "/" ? 0.12 : 0.2,
-          },
-        )
-      })
+        await page.waitForLoadState("networkidle");
+        await page.waitForTimeout(400);
+        await expect(page).toHaveScreenshot(`route-${route.name}-${theme.label}.png`, {
+          animations: "disabled",
+          caret: "hide",
+          maxDiffPixelRatio: 0.002,
+          // 首页拓扑脉冲为动态发光元素，放宽阈值
+          threshold: route.path === "/" ? 0.12 : 0.2,
+        });
+      });
     }
   }
-})
+});

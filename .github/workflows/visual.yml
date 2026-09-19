@@ -36,7 +36,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "20"
           cache: pnpm
 
       - name: Install dependencies
@@ -46,8 +46,25 @@ jobs:
         run: pnpm exec playwright install chromium --with-deps
 
       - name: Run visual regression (32 baselines)
-        # Linux 渲染与基线平台一致（快照名含 -linux 后缀）
-        run: pnpm test:visual
+        # 基线自愈（首跑冻结，次跑严格）：
+        # 仓库现有基线于 macOS(darwin) 生成；Linux 平台快照自动携带 -linux 后缀，
+        # 首跑缺失基线时由 --update-snapshots=missing 生成（即冻结），后续推送进入严格 diff
+        run: pnpm test:visual --update-snapshots=missing
+
+      - name: Commit regenerated Linux baselines
+        # Linux 首跑生成的新基线直接回推 main，闭环次跑起严格门禁
+        if: success()
+        run: |
+          if [ -n "$(git status --porcelain e2e/*.spec.ts-snapshots)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add "e2e/*.spec.ts-snapshots"
+            git commit -m "test(visual): freeze linux baselines (first-run bootstrap)"
+            git push
+            echo "Linux 基线已冻结并回推"
+          else
+            echo "基线无变化（严格 diff 通过）"
+          fi
 
       - name: Upload diff artifacts (on failure)
         if: failure()

@@ -5,11 +5,11 @@
 
 ## 支持版本 | Supported Versions
 
-| 版本 Version | 支持状态 Status | 安全补丁 Security Fixes |
-|--------------|----------------|:---:|
-| latest (`main` / 最新 Release) | ✅ Full | ✅ |
-| 前 1 个 minor（如 `N-1`） | ✅ Maintenance | ✅ |
-| 更早版本 Earlier | ❌ EOL | ❌ |
+| 版本 Version                   | 支持状态 Status | 安全补丁 Security Fixes |
+| ------------------------------ | --------------- | :---------------------: |
+| latest (`main` / 最新 Release) | ✅ Full         |           ✅            |
+| 前 1 个 minor（如 `N-1`）      | ✅ Maintenance  |           ✅            |
+| 更早版本 Earlier               | ❌ EOL          |           ❌            |
 
 ## 报告内容 | What to Include
 
@@ -30,21 +30,21 @@ flowchart LR
   D --> C["📣 公开通告 + 致谢<br/>Advisory + credit"]
 ```
 
-| 阶段 Stage | 目标时限 Target SLA |
-|-----------|-------------------|
-| 确认收到 Acknowledgement | ≤ 48 小时 hours |
-| 初步评估 Initial assessment | ≤ 7 天 days |
-| 高危修复 High-severity fix | ≤ 30 天 days |
-| 公开通告 Public disclosure | 补丁发布后 90 天内 within 90 days after patch |
+| 阶段 Stage                  | 目标时限 Target SLA                           |
+| --------------------------- | --------------------------------------------- |
+| 确认收到 Acknowledgement    | ≤ 48 小时 hours                               |
+| 初步评估 Initial assessment | ≤ 7 天 days                                   |
+| 高危修复 High-severity fix  | ≤ 30 天 days                                  |
+| 公开通告 Public disclosure  | 补丁发布后 90 天内 within 90 days after patch |
 
 ## 严重度处理 | Severity Handling
 
-| CVSS | 处置 Handling |
-|------|--------------|
+| CVSS              | 处置 Handling                                                              |
+| ----------------- | -------------------------------------------------------------------------- |
 | 9.0-10.0 Critical | 立即应急：冻结发布窗 + 热修 + 全员通告 Immediate hotfix, freeze, broadcast |
-| 7.0-8.9 High | 30 天内补丁，扫描器自动建 Issue 指派 sec@ Patch in 30d, auto-issue to sec@ |
-| 4.0-6.9 Medium | 下一例行版本 Next regular release |
-| 0.1-3.9 Low | 积压清单 Backlog |
+| 7.0-8.9 High      | 30 天内补丁，扫描器自动建 Issue 指派 sec@ Patch in 30d, auto-issue to sec@ |
+| 4.0-6.9 Medium    | 下一例行版本 Next regular release                                          |
+| 0.1-3.9 Low       | 积压清单 Backlog                                                           |
 
 ## 安全编码基线 | Secure Coding Baseline
 
@@ -54,7 +54,7 @@ flowchart LR
   API tokens follow least-privilege + periodic rotation
 - CI 供应链安全：pnpm lockfile 冻结 + Trivy HIGH/CRITICAL 扫描 + Dependabot 建议
   Supply-chain security: frozen lockfile + Trivy scans + Dependabot
-- 内容三级过滤与零信任架构约定见 [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)
+- 内容三级过滤与零信任架构约定见 [docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md)
   3-tier content filter & zero-trust conventions in Architecture doc
 
 ---

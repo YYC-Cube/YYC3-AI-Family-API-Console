@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test"
+import { test, expect } from "@playwright/test";
 
 /**
  * ♦ YYC³ 视觉基线 · 家人徽章专项（P3 · 文档04 ⑪）
@@ -17,44 +17,40 @@ const FAMILY_KEYS = [
   "tianshu",
   "xianzhi",
   "lingyun",
-] as const
+] as const;
 
 test.describe("FamilyBadge matrix", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/governance")
-    await page.emulateMedia({ reducedMotion: "reduce" })
+    await page.goto("/governance");
+    await page.emulateMedia({ reducedMotion: "reduce" });
     // 等待家族卡片矩阵渲染完成
-    await page.locator(".family-grid article").first().waitFor()
-  })
+    await page.locator(".family-grid article").first().waitFor();
+  });
 
   for (const key of FAMILY_KEYS) {
     test(`badge baseline · ${key}`, async ({ page }) => {
-      const badge = page
-        .locator(`.family-grid article [data-family="${key}"]`)
-        .first()
-      await expect(badge).toBeVisible()
+      const badge = page.locator(`.family-grid article [data-family="${key}"]`).first();
+      await expect(badge).toBeVisible();
       await expect(badge).toHaveScreenshot(`badge-${key}.png`, {
         animations: "disabled",
         caret: "hide",
         maxDiffPixelRatio: 0.002,
-      })
-    })
+      });
+    });
   }
 
   test("full family grid baseline", async ({ page }) => {
-    const grid = page.locator(".family-grid")
+    const grid = page.locator(".family-grid");
     await expect(grid).toHaveScreenshot("family-grid.png", {
       animations: "disabled",
       caret: "hide",
       maxDiffPixelRatio: 0.005,
-    })
-  })
+    });
+  });
 
   test("all 8 badges render with family tone", async ({ page }) => {
     for (const key of FAMILY_KEYS) {
-      await expect(
-        page.locator(`.family-grid article [data-family="${key}"]`),
-      ).toHaveCount(1)
+      await expect(page.locator(`.family-grid article [data-family="${key}"]`)).toHaveCount(1);
     }
-  })
-})
+  });
+});

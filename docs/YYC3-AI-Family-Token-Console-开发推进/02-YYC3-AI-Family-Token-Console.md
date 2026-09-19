@@ -104,16 +104,10 @@ export class ApiError extends Error {
 
 function getApiKey(): string | null {
   if (typeof window === "undefined") return null;
-  return (
-    sessionStorage.getItem("yyc3_api_key") ??
-    localStorage.getItem("yyc3_api_key")
-  );
+  return sessionStorage.getItem("yyc3_api_key") ?? localStorage.getItem("yyc3_api_key");
 }
 
-export async function apiCall<T>(
-  path: string,
-  options: ApiCallOptions = {},
-): Promise<T> {
+export async function apiCall<T>(path: string, options: ApiCallOptions = {}): Promise<T> {
   const { params, ...rest } = options;
   const url = new URL(path, API_BASE);
   if (params) {
@@ -156,10 +150,7 @@ export async function apiCall<T>(
 import { ApiError } from "./ApiClient";
 import { MEMBERS, type MemberKey } from "@/lib/family/members";
 
-export function familyErrorLine(
-  member: MemberKey,
-  err: unknown,
-): string {
+export function familyErrorLine(member: MemberKey, err: unknown): string {
   const m = MEMBERS[member];
   if (err instanceof ApiError) {
     return m.errorLine(`${err.status}`, err.message);
@@ -259,12 +250,8 @@ export function ConnectForm() {
       <div className="flex flex-col items-center gap-4 mb-8">
         <FamilyBadge member="zhihui" size="lg" showExt showMotto />
         <h1 className="text-h2 font-semibold">YanYuCloudCube Console</h1>
-        <p className="text-body-sm text-text-secondary">
-          统一模型网关 · 可观测 · 可调试
-        </p>
-        <p className="text-caption italic text-text-tertiary">
-          「尚未建立信任，请出示密钥」
-        </p>
+        <p className="text-body-sm text-text-secondary">统一模型网关 · 可观测 · 可调试</p>
+        <p className="text-caption italic text-text-tertiary">「尚未建立信任，请出示密钥」</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -286,21 +273,12 @@ export function ConnectForm() {
         </button>
       </form>
 
-      <TrustBadge
-        ready={ready}
-        label={ready ? "连通 ✓" : "未连通"}
-      />
+      <TrustBadge ready={ready} label={ready ? "连通 ✓" : "未连通"} />
 
-      {err && (
-        <p className="mt-4 text-sm text-status-danger">
-          {familyErrorLine("zhihui", err)}
-        </p>
-      )}
+      {err && <p className="mt-4 text-sm text-status-danger">{familyErrorLine("zhihui", err)}</p>}
 
       {connect.isSuccess && (
-        <p className="mt-4 text-sm text-status-success">
-          「信任已建立，欢迎回家」
-        </p>
+        <p className="mt-4 text-sm text-status-success">「信任已建立，欢迎回家」</p>
       )}
     </div>
   );
@@ -326,7 +304,12 @@ export function TrustBadge({ ready, label }: { ready: boolean; label: string }) 
           : "bg-status-warning/10 text-status-warning",
       )}
     >
-      <span className={cn("w-2 h-2 rounded-full", ready ? "bg-status-success animate-pulse" : "bg-status-warning")} />
+      <span
+        className={cn(
+          "w-2 h-2 rounded-full",
+          ready ? "bg-status-success animate-pulse" : "bg-status-warning",
+        )}
+      />
       {label}
     </div>
   );
@@ -446,12 +429,8 @@ export function ModelCard({ model, onClick }: ModelCardProps) {
     >
       <header className="flex items-start justify-between gap-2 mb-2">
         <div>
-          <h3 className="text-body-md font-semibold text-text-primary">
-            {model.display_name}
-          </h3>
-          <code className="text-caption font-mono text-text-tertiary">
-            {model.id}
-          </code>
+          <h3 className="text-body-md font-semibold text-text-primary">{model.display_name}</h3>
+          <code className="text-caption font-mono text-text-tertiary">{model.id}</code>
         </div>
         <BackendBadge backend={model.backend} />
       </header>
@@ -463,9 +442,7 @@ export function ModelCard({ model, onClick }: ModelCardProps) {
         </div>
         <div>
           <dt className="text-text-tertiary">调用次数</dt>
-          <dd className="font-mono">
-            {(model.stat?.usage_count ?? 0).toLocaleString()}
-          </dd>
+          <dd className="font-mono">{(model.stat?.usage_count ?? 0).toLocaleString()}</dd>
         </div>
         <div>
           <dt className="text-text-tertiary">价格</dt>
@@ -476,11 +453,7 @@ export function ModelCard({ model, onClick }: ModelCardProps) {
         <div>
           <dt className="text-text-tertiary">状态</dt>
           <dd>
-            <span
-              className={
-                model.enabled ? "text-status-success" : "text-text-tertiary"
-              }
-            >
+            <span className={model.enabled ? "text-status-success" : "text-text-tertiary"}>
               {model.enabled ? "● 启用" : "○ 禁用"}
             </span>
           </dd>
@@ -500,20 +473,16 @@ export function ModelCard({ model, onClick }: ModelCardProps) {
 import type { ModelConfig } from "@/domains/_shared/types.gen";
 
 const COLOR: Record<ModelConfig["backend"], string> = {
-  local:    "bg-status-success/15 text-status-success",
-  ollama:   "bg-status-success/15 text-status-success",
-  zhipu:    "bg-blue-500/15 text-blue-400",
+  local: "bg-status-success/15 text-status-success",
+  ollama: "bg-status-success/15 text-status-success",
+  zhipu: "bg-blue-500/15 text-blue-400",
   deepseek: "bg-purple-500/15 text-purple-400",
-  openai:   "bg-cyan-500/15 text-cyan-400",
+  openai: "bg-cyan-500/15 text-cyan-400",
   upstream: "bg-cyan-500/15 text-cyan-400",
 };
 
 export function BackendBadge({ backend }: { backend: ModelConfig["backend"] }) {
-  return (
-    <span className={`px-2 py-0.5 rounded text-caption ${COLOR[backend]}`}>
-      {backend}
-    </span>
-  );
+  return <span className={`px-2 py-0.5 rounded text-caption ${COLOR[backend]}`}>{backend}</span>;
 }
 ```
 
@@ -527,13 +496,7 @@ export function BackendBadge({ backend }: { backend: ModelConfig["backend"] }) {
 
 import type { ModelConfig } from "@/domains/_shared/types.gen";
 
-export function RecommendCard({
-  model,
-  reason,
-}: {
-  model: ModelConfig;
-  reason: string;
-}) {
+export function RecommendCard({ model, reason }: { model: ModelConfig; reason: string }) {
   return (
     <aside className="p-3 rounded-md border border-family-bole-accent/30 bg-family-bole-primary/5">
       <div className="flex items-center gap-2 mb-1">
@@ -564,8 +527,7 @@ export function RecommendCard({
 import { useCallback, useRef, useState } from "react";
 
 export type ChatPhase =
-  | "idle" | "connecting" | "streaming"
-  | "paused" | "error" | "degraded" | "done";
+  "idle" | "connecting" | "streaming" | "paused" | "error" | "degraded" | "done";
 
 export interface ChatMessage {
   role: "system" | "user" | "assistant";
@@ -593,37 +555,34 @@ export function useWanyuChat() {
   const abortRef = useRef<AbortController | null>(null);
   const startedAtRef = useRef<number>(0);
 
-  const send = useCallback(async (body: {
-    model: string;
-    messages: ChatMessage[];
-    temperature?: number;
-    top_p?: number;
-    max_tokens?: number;
-    stream?: boolean;
-  }) => {
-    abortRef.current?.abort();
-    const ac = new AbortController();
-    abortRef.current = ac;
+  const send = useCallback(
+    async (body: {
+      model: string;
+      messages: ChatMessage[];
+      temperature?: number;
+      top_p?: number;
+      max_tokens?: number;
+      stream?: boolean;
+    }) => {
+      abortRef.current?.abort();
+      const ac = new AbortController();
+      abortRef.current = ac;
 
-    setState((s) => ({
-      ...s,
-      phase: "connecting",
-      buffer: "",
-      degraded: false,
-      error: undefined,
-      ttftMs: undefined,
-      totalMs: undefined,
-    }));
-    startedAtRef.current = performance.now();
+      setState((s) => ({
+        ...s,
+        phase: "connecting",
+        buffer: "",
+        degraded: false,
+        error: undefined,
+        ttftMs: undefined,
+        totalMs: undefined,
+      }));
+      startedAtRef.current = performance.now();
 
-    try {
-      const apiKey =
-        sessionStorage.getItem("yyc3_api_key") ??
-        localStorage.getItem("yyc3_api_key") ??
-        "";
-      const res = await fetch(
-        "https://api.0379.world/v1/chat/completions",
-        {
+      try {
+        const apiKey =
+          sessionStorage.getItem("yyc3_api_key") ?? localStorage.getItem("yyc3_api_key") ?? "";
+        const res = await fetch("https://api.0379.world/v1/chat/completions", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -632,104 +591,102 @@ export function useWanyuChat() {
           },
           body: JSON.stringify({ ...body, stream: true }),
           signal: ac.signal,
-        },
-      );
+        });
 
-      if (!res.ok) {
-        const errBody = await res.json().catch(() => ({}));
-        throw new Error(errBody?.detail?.message ?? `HTTP ${res.status}`);
-      }
+        if (!res.ok) {
+          const errBody = await res.json().catch(() => ({}));
+          throw new Error(errBody?.detail?.message ?? `HTTP ${res.status}`);
+        }
 
-      const upstream = res.headers.get("X-YYC3-Upstream") ?? undefined;
-      const degraded = res.headers.get("X-YYC3-Degraded") === "true";
+        const upstream = res.headers.get("X-YYC3-Upstream") ?? undefined;
+        const degraded = res.headers.get("X-YYC3-Degraded") === "true";
 
-      setState((s) => ({
-        ...s,
-        upstream,
-        degraded,
-        phase: degraded ? "degraded" : s.phase,
-      }));
+        setState((s) => ({
+          ...s,
+          upstream,
+          degraded,
+          phase: degraded ? "degraded" : s.phase,
+        }));
 
-      const reader = res.body?.getReader();
-      if (!reader) throw new Error("No reader");
-      const decoder = new TextDecoder();
-      let carry = "";
-      let firstByte = true;
-      let acc = "";
+        const reader = res.body?.getReader();
+        if (!reader) throw new Error("No reader");
+        const decoder = new TextDecoder();
+        let carry = "";
+        let firstByte = true;
+        let acc = "";
 
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        const text = decoder.decode(value, { stream: true });
-        carry += text;
-        const parts = carry.split("\n\n");
-        carry = parts.pop() ?? "";
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          const text = decoder.decode(value, { stream: true });
+          carry += text;
+          const parts = carry.split("\n\n");
+          carry = parts.pop() ?? "";
 
-        for (const part of parts) {
-          if (!part.startsWith("data: ")) continue;
-          const payload = part.slice(6).trim();
-          if (payload === "[DONE]") {
-            setState((s) => ({
-              ...s,
-              phase: "done",
-              totalMs: performance.now() - startedAtRef.current,
-              messages: [
-                ...s.messages,
-                { role: "assistant", content: acc },
-              ],
-              buffer: "",
-            }));
-            return;
-          }
-          try {
-            const chunk = JSON.parse(payload);
-            if (chunk.error) {
+          for (const part of parts) {
+            if (!part.startsWith("data: ")) continue;
+            const payload = part.slice(6).trim();
+            if (payload === "[DONE]") {
               setState((s) => ({
                 ...s,
-                phase: "error",
-                error: {
-                  message: chunk.error.message,
-                  type: chunk.error.type,
-                },
+                phase: "done",
+                totalMs: performance.now() - startedAtRef.current,
+                messages: [...s.messages, { role: "assistant", content: acc }],
+                buffer: "",
               }));
-              continue;
+              return;
             }
-            if (chunk._yyc3_upstream && !upstream) {
-              setState((s) => ({ ...s, upstream: chunk._yyc3_upstream }));
-            }
-            const delta = chunk?.choices?.[0]?.delta?.content ?? "";
-            if (delta) {
-              if (firstByte) {
-                firstByte = false;
+            try {
+              const chunk = JSON.parse(payload);
+              if (chunk.error) {
                 setState((s) => ({
                   ...s,
-                  phase: s.degraded ? "degraded" : "streaming",
-                  ttftMs: performance.now() - startedAtRef.current,
+                  phase: "error",
+                  error: {
+                    message: chunk.error.message,
+                    type: chunk.error.type,
+                  },
                 }));
+                continue;
               }
-              acc += delta;
-              setState((s) => ({ ...s, buffer: acc }));
+              if (chunk._yyc3_upstream && !upstream) {
+                setState((s) => ({ ...s, upstream: chunk._yyc3_upstream }));
+              }
+              const delta = chunk?.choices?.[0]?.delta?.content ?? "";
+              if (delta) {
+                if (firstByte) {
+                  firstByte = false;
+                  setState((s) => ({
+                    ...s,
+                    phase: s.degraded ? "degraded" : "streaming",
+                    ttftMs: performance.now() - startedAtRef.current,
+                  }));
+                }
+                acc += delta;
+                setState((s) => ({ ...s, buffer: acc }));
+              }
+            } catch {
+              /* skip malformed */
             }
-          } catch {
-            /* skip malformed */
           }
         }
+      } catch (err) {
+        if ((err as Error).name === "AbortError") {
+          setState((s) => ({ ...s, phase: "paused" }));
+          return;
+        }
+        setState((s) => ({
+          ...s,
+          phase: "error",
+          error: {
+            message: (err as Error).message,
+            type: "stream_error",
+          },
+        }));
       }
-    } catch (err) {
-      if ((err as Error).name === "AbortError") {
-        setState((s) => ({ ...s, phase: "paused" }));
-        return;
-      }
-      setState((s) => ({
-        ...s,
-        phase: "error",
-        error: {
-          message: (err as Error).message,
-          type: "stream_error",
-        },
-      }));
-    }
-  }, []);
+    },
+    [],
+  );
 
   const stop = useCallback(() => abortRef.current?.abort(), []);
 
@@ -805,9 +762,7 @@ export function MessageBubble({
     <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
       <div
         className={`max-w-[80%] px-3 py-2 rounded-lg text-body-sm ${
-          isUser
-            ? "bg-brand-primary text-white"
-            : "bg-bg-elevated text-text-primary"
+          isUser ? "bg-brand-primary text-white" : "bg-bg-elevated text-text-primary"
         }`}
       >
         <div className="whitespace-pre-wrap break-words">
@@ -963,8 +918,7 @@ export function useXianzhiAggregate() {
     services: health.data?.services,
     system: health.data?.system,
     topErrors: errors.data?.slice(0, 5) ?? [],
-    isLoading:
-      summary.isLoading || stats.isLoading || health.isLoading || errors.isLoading,
+    isLoading: summary.isLoading || stats.isLoading || health.isLoading || errors.isLoading,
   };
 }
 ```
@@ -993,22 +947,12 @@ const TONE = {
   danger: "text-status-danger",
 } as const;
 
-export function StatCard({
-  label,
-  value,
-  note,
-  tone = "default",
-  blBadge,
-}: StatCardProps) {
+export function StatCard({ label, value, note, tone = "default", blBadge }: StatCardProps) {
   return (
     <div className="p-4 rounded-lg border border-border-default bg-bg-subtle">
       <div className="text-caption text-text-tertiary mb-1">{label}</div>
       <div className={`text-h2 font-semibold ${TONE[tone]}`}>{value}</div>
-      {note && (
-        <div className="text-caption text-text-tertiary mt-1 italic">
-          {note}
-        </div>
-      )}
+      {note && <div className="text-caption text-text-tertiary mt-1 italic">{note}</div>}
       {blBadge && (
         <span className="inline-block mt-2 px-1.5 py-0.5 text-caption rounded bg-status-warning/20 text-status-warning">
           {blBadge}
@@ -1041,16 +985,8 @@ export function DashboardContent() {
     <div className="p-6 space-y-6">
       {/* StatCards */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-        <StatCard
-          label="总请求"
-          value={d.totalRequests.toLocaleString()}
-          note="累计感知到的召唤"
-        />
-        <StatCard
-          label="总 Token"
-          value={d.totalTokens.toLocaleString()}
-          note="累计交换的思想"
-        />
+        <StatCard label="总请求" value={d.totalRequests.toLocaleString()} note="累计感知到的召唤" />
+        <StatCard label="总 Token" value={d.totalTokens.toLocaleString()} note="累计交换的思想" />
         <StatCard
           label="总成本"
           value={`$${d.costUsd.toFixed(2)}`}
@@ -1061,13 +997,7 @@ export function DashboardContent() {
           label="平均延迟"
           value={`${Math.round(d.avgLatencyMs)}ms`}
           note="思考的速度"
-          tone={
-            d.avgLatencyMs <= 100
-              ? "success"
-              : d.avgLatencyMs <= 500
-              ? "warning"
-              : "danger"
-          }
+          tone={d.avgLatencyMs <= 100 ? "success" : d.avgLatencyMs <= 500 ? "warning" : "danger"}
         />
         <StatCard
           label="错误率"
@@ -1124,9 +1054,7 @@ export function HealthGrid({ services }: { services: HealthResponse["services"] 
           <li key={name} className="flex items-center gap-2 text-sm">
             <span className={`w-2 h-2 rounded-full ${COLOR[svc.status]}`} />
             <code className="font-mono">{name}</code>
-            <span className="ml-auto text-caption text-text-tertiary">
-              {LABEL[svc.status]}
-            </span>
+            <span className="ml-auto text-caption text-text-tertiary">{LABEL[svc.status]}</span>
           </li>
         ))}
       </ul>
@@ -1146,10 +1074,10 @@ export function HealthGrid({ services }: { services: HealthResponse["services"] 
 import type { ErrorRecord } from "@/domains/_shared/types.gen";
 
 const ERROR_COLOR = {
-  timeout:    "text-status-warning",
+  timeout: "text-status-warning",
   validation: "text-status-danger",
-  quota:      "text-yellow-400",
-  internal:   "text-text-tertiary",
+  quota: "text-yellow-400",
+  internal: "text-text-tertiary",
 } as const;
 
 export function ErrorTable({ errors }: { errors: ErrorRecord[] }) {
@@ -1169,19 +1097,13 @@ export function ErrorTable({ errors }: { errors: ErrorRecord[] }) {
       <ul className="space-y-2">
         {errors.map((e) => (
           <li key={e.id} className="text-caption flex items-start gap-2">
-            <span className={`font-mono ${ERROR_COLOR[e.error_type]}`}>
-              [{e.error_type}]
-            </span>
+            <span className={`font-mono ${ERROR_COLOR[e.error_type]}`}>[{e.error_type}]</span>
             <code className="text-text-secondary">{e.model_id}</code>
-            <span className="text-text-primary flex-1 truncate">
-              {e.message.slice(0, 60)}
-            </span>
+            <span className="text-text-primary flex-1 truncate">{e.message.slice(0, 60)}</span>
           </li>
         ))}
       </ul>
-      <p className="text-caption text-text-tertiary italic mt-3">
-        「异常已现 · 预言家已记录」
-      </p>
+      <p className="text-caption text-text-tertiary italic mt-3">「异常已现 · 预言家已记录」</p>
     </div>
   );
 }
@@ -1214,7 +1136,11 @@ export function LatencyBar({ ms }: { ms: number }) {
 export function ErrorRateBadge({ rate }: { rate: number }) {
   const pct = (rate * 100).toFixed(2);
   const tone =
-    rate < 0.01 ? "text-status-success" : rate < 0.05 ? "text-status-warning" : "text-status-danger";
+    rate < 0.01
+      ? "text-status-success"
+      : rate < 0.05
+        ? "text-status-warning"
+        : "text-status-danger";
   return <span className={`font-mono text-caption ${tone}`}>{pct}%</span>;
 }
 ```
@@ -1314,10 +1240,7 @@ export function UpstreamCard({ node }: { node: UpstreamNode }) {
       </dl>
 
       <div className="w-full h-1 rounded bg-bg-elevated overflow-hidden">
-        <div
-          className="h-full bg-brand-primary"
-          style={{ width: `${loadPct}%` }}
-        />
+        <div className="h-full bg-brand-primary" style={{ width: `${loadPct}%` }} />
       </div>
 
       {node.last_error && (
@@ -1339,8 +1262,8 @@ export function UpstreamCard({ node }: { node: UpstreamNode }) {
 "use client";
 
 const STYLE = {
-  closed:    "bg-status-success/15 text-status-success",
-  open:      "bg-status-danger/15 text-status-danger",
+  closed: "bg-status-success/15 text-status-success",
+  open: "bg-status-danger/15 text-status-danger",
   half_open: "bg-status-warning/15 text-status-warning",
 } as const;
 
@@ -1350,16 +1273,8 @@ const TEXT = {
   half_open: "半开",
 } as const;
 
-export function BreakerBadge({
-  state,
-}: {
-  state: "closed" | "open" | "half_open";
-}) {
-  return (
-    <span className={`px-2 py-0.5 rounded text-caption ${STYLE[state]}`}>
-      {TEXT[state]}
-    </span>
-  );
+export function BreakerBadge({ state }: { state: "closed" | "open" | "half_open" }) {
+  return <span className={`px-2 py-0.5 rounded text-caption ${STYLE[state]}`}>{TEXT[state]}</span>;
 }
 ```
 
@@ -1409,8 +1324,7 @@ export function useZongshiKBs() {
 export function useZongshiDocuments(kbId?: string) {
   return useQuery({
     queryKey: qk.zongshi.documents(kbId),
-    queryFn: () =>
-      apiCall<DocumentInfo[]>("/v1/documents", { params: { kb_id: kbId } }),
+    queryFn: () => apiCall<DocumentInfo[]>("/v1/documents", { params: { kb_id: kbId } }),
     enabled: !!kbId,
   });
 }
@@ -1558,10 +1472,10 @@ export function useTianshuMCPTools() {
 export function useTianshuMCPExecute() {
   return useMutation({
     mutationFn: (body: { tool: string; params: Record<string, unknown> }) =>
-      apiCall<{ result: unknown; latency_ms: number; status: string }>(
-        "/v1/mcp/execute",
-        { method: "POST", body: JSON.stringify(body) },
-      ),
+      apiCall<{ result: unknown; latency_ms: number; status: string }>("/v1/mcp/execute", {
+        method: "POST",
+        body: JSON.stringify(body),
+      }),
   });
 }
 ```
@@ -1586,11 +1500,7 @@ export function MCPExecutor({ tool }: { tool: MCPTool | null }) {
   const exec = useTianshuMCPExecute();
 
   if (!tool) {
-    return (
-      <div className="p-8 text-center text-text-tertiary">
-        「待命中，请选择一件工具」
-      </div>
-    );
+    return <div className="p-8 text-center text-text-tertiary">「待命中，请选择一件工具」</div>;
   }
 
   return (
@@ -1612,15 +1522,12 @@ export function MCPExecutor({ tool }: { tool: MCPTool | null }) {
 
       <p className="text-caption text-text-tertiary italic">
         {exec.isPending && `「调用 ${tool.name} · 参数已核 · 开始执行」`}
-        {exec.data &&
-          `「${tool.name} 执行完毕 · ${exec.data.latency_ms}ms · ${exec.data.status}」`}
+        {exec.data && `「${tool.name} 执行完毕 · ${exec.data.latency_ms}ms · ${exec.data.status}」`}
       </p>
 
       {exec.data && <JsonViewer data={exec.data.result} />}
       {exec.error && (
-        <p className="text-status-danger text-sm">
-          号令受阻 · {(exec.error as Error).message}
-        </p>
+        <p className="text-status-danger text-sm">号令受阻 · {(exec.error as Error).message}</p>
       )}
     </div>
   );
@@ -1674,8 +1581,7 @@ export function useLingyunCacheStats() {
 export function useLingyunInvalidate() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (model: string) =>
-      apiCall(`/v1/cache/invalidate/${model}`, { method: "POST" }),
+    mutationFn: (model: string) => apiCall(`/v1/cache/invalidate/${model}`, { method: "POST" }),
     onSuccess: () => qc.invalidateQueries({ queryKey: qk.lingyun.cacheStats() }),
   });
 }
@@ -1730,40 +1636,40 @@ export function CacheRipple({ trigger }: { trigger: number }) {
 export const qk = {
   guardian: {
     healthz: () => ["guardian", "healthz"] as const,
-    ping:    () => ["guardian", "ping"] as const,
-    keys:    () => ["guardian", "keys"] as const,
+    ping: () => ["guardian", "ping"] as const,
+    keys: () => ["guardian", "keys"] as const,
   },
   qianhang: {
-    routerStats:  () => ["qianhang", "router", "stats"] as const,
+    routerStats: () => ["qianhang", "router", "stats"] as const,
     routerHealth: () => ["qianhang", "router", "health"] as const,
   },
   bole: {
-    models:     () => ["bole", "models"] as const,
+    models: () => ["bole", "models"] as const,
     modelStats: () => ["bole", "models", "stats"] as const,
-    modelType:  (id: string) => ["bole", "models", id, "type"] as const,
+    modelType: (id: string) => ["bole", "models", id, "type"] as const,
   },
   wanyu: {
     chat: (id: string) => ["wanyu", "chat", id] as const,
   },
   zongshi: {
-    knowledgeBases:     () => ["zongshi", "kb"] as const,
+    knowledgeBases: () => ["zongshi", "kb"] as const,
     knowledgeBaseStats: (id: string) => ["zongshi", "kb", id, "stats"] as const,
-    documents:          (kbId?: string) => ["zongshi", "docs", kbId] as const,
+    documents: (kbId?: string) => ["zongshi", "docs", kbId] as const,
   },
   tianshu: {
-    mcpTools:  () => ["tianshu", "mcp", "tools"] as const,
+    mcpTools: () => ["tianshu", "mcp", "tools"] as const,
     mcpSearch: (q: string) => ["tianshu", "mcp", "search", q] as const,
   },
   xianzhi: {
-    health:       () => ["xianzhi", "health"] as const,
-    versions:     () => ["xianzhi", "versions"] as const,
+    health: () => ["xianzhi", "health"] as const,
+    versions: () => ["xianzhi", "versions"] as const,
     modelSummary: () => ["xianzhi", "models", "summary"] as const,
-    modelErrors:  (f?: ErrorFilter) => ["xianzhi", "models", "errors", f] as const,
+    modelErrors: (f?: ErrorFilter) => ["xianzhi", "models", "errors", f] as const,
     // 修正 D-01：移除 cacheStats（归属 lingyun）
   },
   lingyun: {
     cacheStats: () => ["lingyun", "cache", "stats"] as const,
-    cacheInfo:  () => ["lingyun", "cache", "info"] as const,
+    cacheInfo: () => ["lingyun", "cache", "info"] as const,
   },
 } as const;
 
@@ -1889,9 +1795,9 @@ export const HEALTH: HealthResponse = {
   version: "2.0.0",
   uptime_seconds: 86400 * 12,
   services: {
-    ollama:     { status: "healthy" },
-    zhipu:      { status: "healthy" },
-    redis:      { status: "healthy" },
+    ollama: { status: "healthy" },
+    zhipu: { status: "healthy" },
+    redis: { status: "healthy" },
     postgresql: { status: "healthy" },
   },
   system: {
@@ -2063,12 +1969,8 @@ const NODES = [
 ];
 
 export const qianhangHandlers = [
-  http.get(`${BASE}/v1/router/stats`, () =>
-    HttpResponse.json({ nodes: NODES }),
-  ),
-  http.get(`${BASE}/v1/router/health`, () =>
-    HttpResponse.json({ nodes: NODES }),
-  ),
+  http.get(`${BASE}/v1/router/stats`, () => HttpResponse.json({ nodes: NODES })),
+  http.get(`${BASE}/v1/router/health`, () => HttpResponse.json({ nodes: NODES })),
 ];
 ```
 
@@ -2088,8 +1990,7 @@ import { http } from "msw";
 
 const BASE = "https://api.0379.world";
 
-const SAMPLE_REPLY =
-  "语枢一启，万物皆明。这是一段模拟的流式回复，用于开发与测试阶段。";
+const SAMPLE_REPLY = "语枢一启，万物皆明。这是一段模拟的流式回复，用于开发与测试阶段。";
 
 export const wanyuHandlers = [
   http.post(`${BASE}/v1/chat/completions`, async ({ request }) => {
@@ -2114,9 +2015,7 @@ export const wanyuHandlers = [
     const stream = new ReadableStream({
       async start(controller) {
         const send = (payload: object) => {
-          controller.enqueue(
-            encoder.encode(`data: ${JSON.stringify(payload)}\n\n`),
-          );
+          controller.enqueue(encoder.encode(`data: ${JSON.stringify(payload)}\n\n`));
         };
 
         // 首 chunk 含 _yyc3_upstream
@@ -2168,14 +2067,14 @@ import { xianzhiHandlers } from "./xianzhi";
 import { lingyunHandlers } from "./lingyun";
 
 export const handlers = [
-  ...guardianHandlers,  // 🛡️
-  ...qianhangHandlers,  // 🧭
-  ...boleHandlers,      // 🎯
-  ...wanyuHandlers,     // 🤔
-  ...zongshiHandlers,   // 📚
-  ...tianshuHandlers,   // 🧠
-  ...xianzhiHandlers,   // 🔮
-  ...lingyunHandlers,   // 🎨
+  ...guardianHandlers, // 🛡️
+  ...qianhangHandlers, // 🧭
+  ...boleHandlers, // 🎯
+  ...wanyuHandlers, // 🤔
+  ...zongshiHandlers, // 📚
+  ...tianshuHandlers, // 🧠
+  ...xianzhiHandlers, // 🔮
+  ...lingyunHandlers, // 🎨
 ];
 ```
 
@@ -2214,12 +2113,8 @@ const BASE = "https://api.0379.world";
 export const guardianHandlers = [
   http.get(`${BASE}/healthz`, () => HttpResponse.json({ status: "ok" })),
   http.get(`${BASE}/v1/ping`, () => HttpResponse.json({ status: "ok" })),
-  http.get(`${BASE}/docs`, () =>
-    HttpResponse.html("<html><body>Swagger UI (mock)</body></html>"),
-  ),
-  http.get(`${BASE}/openapi.json`, () =>
-    HttpResponse.json({ openapi: "3.1.0", paths: {} }),
-  ),
+  http.get(`${BASE}/docs`, () => HttpResponse.html("<html><body>Swagger UI (mock)</body></html>")),
+  http.get(`${BASE}/openapi.json`, () => HttpResponse.json({ openapi: "3.1.0", paths: {} })),
 ];
 ```
 
@@ -2317,11 +2212,7 @@ export const metadata: Metadata = {
   description: `${FAMILY.motto} · ${FAMILY.creed}`,
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-CN" className="dark" suppressHydrationWarning>
       <body className="bg-bg-default text-text-primary">
@@ -2370,11 +2261,7 @@ export default async function DashboardPage() {
   return (
     <div className="min-h-screen">
       {/* RSC 部分：PageHeader 是纯展示（无 hooks） */}
-      <PageHeader
-        title="今日预言"
-        subtitle="见微知著，未卜先知 — 数据已就位"
-        alignment="✅"
-      />
+      <PageHeader title="今日预言" subtitle="见微知著，未卜先知 — 数据已就位" alignment="✅" />
 
       {/* Client Island：交互与数据拉取 */}
       <DashboardIsland initialHealthz={healthz} />
@@ -2394,11 +2281,7 @@ export default async function DashboardPage() {
 
 import { DashboardContent } from "@/domains/xianzhi/DashboardContent";
 
-export function DashboardIsland({
-  initialHealthz,
-}: {
-  initialHealthz: unknown;
-}) {
+export function DashboardIsland({ initialHealthz }: { initialHealthz: unknown }) {
   // 首屏如果有 SSR 数据，可注入 hydrate 初值（可选）
   return <DashboardContent />;
 }
@@ -2471,20 +2354,20 @@ export default function PlaygroundPage() {
 
 ### 3.7 RSC / Client 拆分矩阵
 
-| 页面 | RSC 部分 | Client 部分 | Suspense |
-| --- | --- | --- | :---: |
-| `/` | — | ConnectForm 全部 | — |
-| `/dashboard` | PageHeader + 骨架 | DashboardContent | ✅ loading.tsx |
-| `/models` | — | ModelGrid + FilterBar | — |
-| `/playground` | — | ParamPanel + SSEViewer | — |
-| `/routing` | — | UpstreamGrid + 轮询 | — |
-| `/knowledge` | — | KBGrid + QAPanel | — |
-| `/mcp` | — | MCPToolTree + Executor | — |
-| `/cache` | — | CacheStatCard + Actions | — |
-| `/monitor` | PageHeader + 骨架 | ErrorTable + HealthGrid | ✅ loading.tsx |
-| `/settings` | — | SettingsForm | — |
-| `/docs` | MDX 静态 | CodeBlock（交互复制） | ✅ |
-| `/roadmap` | 全 RSC 静态 | — | — |
+| 页面          | RSC 部分          | Client 部分             |    Suspense    |
+| ------------- | ----------------- | ----------------------- | :------------: |
+| `/`           | —                 | ConnectForm 全部        |       —        |
+| `/dashboard`  | PageHeader + 骨架 | DashboardContent        | ✅ loading.tsx |
+| `/models`     | —                 | ModelGrid + FilterBar   |       —        |
+| `/playground` | —                 | ParamPanel + SSEViewer  |       —        |
+| `/routing`    | —                 | UpstreamGrid + 轮询     |       —        |
+| `/knowledge`  | —                 | KBGrid + QAPanel        |       —        |
+| `/mcp`        | —                 | MCPToolTree + Executor  |       —        |
+| `/cache`      | —                 | CacheStatCard + Actions |       —        |
+| `/monitor`    | PageHeader + 骨架 | ErrorTable + HealthGrid | ✅ loading.tsx |
+| `/settings`   | —                 | SettingsForm            |       —        |
+| `/docs`       | MDX 静态          | CodeBlock（交互复制）   |       ✅       |
+| `/roadmap`    | 全 RSC 静态       | —                       |       —        |
 
 ### 3.8 导航（Sidebar · RSC 静态 + 客户端高亮）
 
@@ -2528,9 +2411,7 @@ export function Sidebar() {
             href={item.href}
             className={cn(
               "flex items-center gap-2 px-3 py-2 rounded-md text-body-sm transition-colors",
-              active
-                ? "bg-brand-primary text-white"
-                : "hover:bg-bg-elevated text-text-secondary",
+              active ? "bg-brand-primary text-white" : "hover:bg-bg-elevated text-text-secondary",
             )}
           >
             <span>{member.emoji}</span>
@@ -2549,14 +2430,14 @@ export function Sidebar() {
 
 ### 4.1 校准规格
 
-| 项目 | 规格 |
-| --- | --- |
-| 主 SVG 尺寸 | 400 × 80（家族）/ 380 × 80（成员） |
-| 印刷尺寸 | 4× 放大 → 1600 × 320 / 1520 × 320 |
-| 出血 | 四周各 4px（1608 × 328） |
-| 分辨率 | 300 DPI 对应 1600px = 5.33 英寸 ≈ 13.5cm |
-| 色彩空间 | SVG 内 sRGB → 印刷导出转 CMYK |
-| 字体 | 思源黑体（Noto Sans SC）嵌 SVG path 化 |
+| 项目        | 规格                                     |
+| ----------- | ---------------------------------------- |
+| 主 SVG 尺寸 | 400 × 80（家族）/ 380 × 80（成员）       |
+| 印刷尺寸    | 4× 放大 → 1600 × 320 / 1520 × 320        |
+| 出血        | 四周各 4px（1608 × 328）                 |
+| 分辨率      | 300 DPI 对应 1600px = 5.33 英寸 ≈ 13.5cm |
+| 色彩空间    | SVG 内 sRGB → 印刷导出转 CMYK            |
+| 字体        | 思源黑体（Noto Sans SC）嵌 SVG path 化   |
 
 ### 4.2 校对清单
 
@@ -2786,7 +2667,7 @@ for name, (w, h) in PRINT_SIZE.items():
 
 ### 5.1 开发者文档模板
 
-```markdown
+````markdown
 <!--
   ============================================================
   YYC³ AI Family — 人从众曌众从人
@@ -2838,6 +2719,7 @@ cp apps/console/.env.example apps/console/.env.local
 # 4. 启动
 pnpm dev
 ```
+````
 
 ## 四、API 契约
 
@@ -2856,20 +2738,20 @@ curl -X POST https://api.0379.world/v1/chat/completions \
 
 ### 4.2 响应字段
 
-| 字段 | 类型 | 说明 |
-| --- | --- | --- |
-| `choices[].delta.content` | string | 增量内容 |
-| `_yyc3_upstream` | string | 首 chunk 上游名 |
-| `X-YYC3-Upstream` | header | 实际服务上游 |
-| `X-YYC3-Degraded` | header | 是否降级路径 |
+| 字段                      | 类型   | 说明            |
+| ------------------------- | ------ | --------------- |
+| `choices[].delta.content` | string | 增量内容        |
+| `_yyc3_upstream`          | string | 首 chunk 上游名 |
+| `X-YYC3-Upstream`         | header | 实际服务上游    |
+| `X-YYC3-Degraded`         | header | 是否降级路径    |
 
 ### 4.3 错误处理
 
-| 状态码 | error_type | 家人口吻文案 |
-| :-: | --- | --- |
-| 401 | Unauthorized | 门禁拒绝：401 Unauthorized · API Key 无效或已过期 |
-| 429 | RATE_LIMITED | 节奏过急，请于 {retry_after}s 后再试 |
-| 5xx | internal | 天枢运转不畅，请稍后重试 |
+| 状态码 | error_type   | 家人口吻文案                                      |
+| :----: | ------------ | ------------------------------------------------- |
+|  401   | Unauthorized | 门禁拒绝：401 Unauthorized · API Key 无效或已过期 |
+|  429   | RATE_LIMITED | 节奏过急，请于 {retry_after}s 后再试              |
+|  5xx   | internal     | 天枢运转不畅，请稍后重试                          |
 
 ## 五、本地开发
 
@@ -3191,24 +3073,23 @@ docs/
 
 ### 6.1 本次交付物清单
 
-| # | 交付物 | 位置 |
-| :-: | --- | --- |
-| ① | 8 个域真实业务组件 | §1（含 `domains/` 全目录 + 20+ 组件） |
-| ② | MSW mock 契约 | §2（含 8 域 handlers + fixtures + SSE 模拟） |
-| ③ | Next.js 16 路由与 RSC 拆分 | §3（含布局/RSC 骨架/Client Island/loading） |
-| ④ | 印刷级徽章 SVG 矢量校对 | §4（含 CMYK 导出脚本 + 校对清单） |
-| ⑤ | 开发者文档模板 + CI/CD | §5（含 4 条流水线 + 文档目录） |
+|  #  | 交付物                     | 位置                                         |
+| :-: | -------------------------- | -------------------------------------------- |
+|  ①  | 8 个域真实业务组件         | §1（含 `domains/` 全目录 + 20+ 组件）        |
+|  ②  | MSW mock 契约              | §2（含 8 域 handlers + fixtures + SSE 模拟） |
+|  ③  | Next.js 16 路由与 RSC 拆分 | §3（含布局/RSC 骨架/Client Island/loading）  |
+|  ④  | 印刷级徽章 SVG 矢量校对    | §4（含 CMYK 导出脚本 + 校对清单）            |
+|  ⑤  | 开发者文档模板 + CI/CD     | §5（含 4 条流水线 + 文档目录）               |
 
 ### 6.2 v5.1 审核问题修复索引
 
-| 编号 | 修复位置 |
-| :-: | --- |
+| 编号 | 修复位置                                         |
+| :--: | ------------------------------------------------ |
 | D-01 | §1.11 `queryKeys.ts` 已移除 `xianzhi.cacheStats` |
-| D-02 | 建议 v5.1.1 修改 §2.2 Playground 协同标注 |
-| D-03 | 建议 v5.1.1 补充 §2.5.0 共享归属 |
-| D-04 | 建议 v5.1.1 补充 §8.4 → §7.2.3 映射 |
-| D-05 | 建议 v5.1.1 补合并时间窗 |
-
+| D-02 | 建议 v5.1.1 修改 §2.2 Playground 协同标注        |
+| D-03 | 建议 v5.1.1 补充 §2.5.0 共享归属                 |
+| D-04 | 建议 v5.1.1 补充 §8.4 → §7.2.3 映射              |
+| D-05 | 建议 v5.1.1 补合并时间窗                         |
 
 ---
 

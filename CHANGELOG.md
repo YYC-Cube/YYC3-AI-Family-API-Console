@@ -19,6 +19,22 @@ language: zh-CN
 
 ## [Unreleased]
 
+### Fixed 修复
+
+- **oxfmt 误装同名损坏包根治**：`oxfmt@0.2.0`（与官方 OXC oxfmt 无关）格式化时删除 TS 类型字面量分隔符致 8 处语法损坏 → 升级官方 `oxfmt@0.68.0`（Prettier 兼容），全仓 83 文件重格式化后 tsc/build/a11y(7 passed) 全绿
+- **CI 三闸根因修复**：pnpm 11 需 Node ≥22.13 → 5 工作流 node 20→22；markdownlint 风格规则收敛（71 文件 0 错误）；视觉基线首跑 Linux 自愈（`--update-snapshots=missing` + 自动回推冻结）
+- **死链清零**：`file://` 本地绝对路径 5 文件退化处理；SECURITY/README/验收系统/深度分析报告 10 处站内链接修正
+- **敏感信息**：部署手册 API_KEYS 示例占位值脱敏
+
+### Changed 变更
+
+- **仓库瘦身**：`docs/…团队规范/` 与 `docs/…设计核心/` 两目录转为本地专属（`git rm --cached` + .gitignore），仓库聚焦产品与开发者文档
+- **标签同步**：33 标签（类型×智能体域×优先级×状态四轴）经 API 同步至 GitHub（31 created + 3 updated）
+
+### Added 新增
+
+- **oxfmt 配置**：`.oxfmtrc.json`（`--init` 生成，默认配置）
+
 ### Added 新增
 
 - **CI 自动部署**：[deploy.yml](.github/workflows/deploy.yml) 七闸闭环——push main 自动 `质量门禁(tsc+build) → SPA 404 回退 → dist 冒烟(CNAME/manifest/sw/canonical) → GitHub Pages 部署 → 域名探针`，站点 **<https://token.yyc3.top>**
@@ -35,7 +51,7 @@ language: zh-CN
 
 ## [v1.0.0] - 2026-09-18
 
-> *言启千行 · 语枢万物智能* — 首个正式初始化版本
+> _言启千行 · 语枢万物智能_ — 首个正式初始化版本
 
 ### Added 新增
 

@@ -1,36 +1,68 @@
 [
-  { "name": "feature",                     "color": "0E8A16", "description": "新功能 New feature" },
-  { "name": "enhancement",                 "color": "A2EEEF", "description": "现有功能增强 Enhancement to existing behavior" },
-  { "name": "bug",                         "color": "D73A4A", "description": "缺陷 Defect / regression" },
-  { "name": "documentation",               "color": "0075CA", "description": "文档与知识库 Docs & knowledge base" },
-  { "name": "performance",                 "color": "FB9050", "description": "性能优化 Performance improvement" },
-  { "name": "security",                    "color": "B60205", "description": "安全与合规 Security & compliance" },
-  { "name": "ci",                          "color": "1D76DB", "description": "CI/CD 流水线 Pipeline & tooling" },
-  { "name": "breaking-change",             "color": "D93F0B", "description": "破坏性变更 Breaking change, needs migration notes" },
-  { "name": "priority:critical",           "color": "B60205", "description": "P0 立即处理 Handle immediately" },
-  { "name": "priority:high",               "color": "D93F0B", "description": "P1 高优先级 High priority" },
-  { "name": "priority:medium",             "color": "FBCA04", "description": "P2 中优先级 Medium priority" },
-  { "name": "priority:low",                "color": "0E8A16", "description": "P3 低优先级 Low priority" },
-  { "name": "status:needs-triage",         "color": "EDEDED", "description": "待分诊 Needs triage" },
-  { "name": "status:triaged",              "color": "C2E0C6", "description": "已分诊 Triaged" },
-  { "name": "status:in-progress",          "color": "29CD7E", "description": "进行中 Work in progress" },
-  { "name": "status:blocked",              "color": "8B0000", "description": "被阻塞 Blocked" },
-  { "name": "status:needs-review",         "color": "5D7FF5", "description": "待评审 Needs review" },
-  { "name": "status:awaiting-feedback",    "color": "F9D0C4", "description": "等待反馈 Awaiting author feedback" },
-  { "name": "status:duplicate",            "color": "CCCCCC", "description": "重复 Duplicate" },
-  { "name": "status:wontfix",              "color": "FFFFFF", "description": "不修复 Will not fix" },
-  { "name": "mod:tianshu",                 "color": "0EA5E9", "description": "天枢 · 首页/Dashboard/MCP/Governance" },
-  { "name": "mod:bole",                    "color": "8B5CF6", "description": "伯乐 · Models 模型资产" },
-  { "name": "mod:wanyu",                   "color": "EC4899", "description": "万语 · Playground 推理场" },
-  { "name": "mod:qianxing",                "color": "F59E0B", "description": "千行 · Routing 路由策略" },
-  { "name": "mod:zongshi",                 "color": "10B981", "description": "宗师 · Knowledge 知识库/RAG" },
-  { "name": "mod:lingyun",                 "color": "06B6D4", "description": "凌云 · Cache 缓存 / Branding 品牌" },
-  { "name": "mod:xianzhi",                 "color": "6366F1", "description": "仙知 · Monitor 监控" },
-  { "name": "mod:zhihui",                  "color": "EF4444", "description": "智绘 · Security 安全" },
-  { "name": "mod:contract",                "color": "1F4E79", "description": "契约 · src/lib/api.ts / openapi 快照" },
-  { "name": "mod:infra",                   "color": "0969DA", "description": "基础设施 Infra (.github/workflows/scripts)" },
-  { "name": "mod:docs",                    "color": "5319E7", "description": "文档 Dev docs (docs/ / README)" },
-  { "name": "mod:pwa",                     "color": "B700FF", "description": "多端 PWA (manifest / sw / icons)" },
-  { "name": "good-first-issue",            "color": "7057FF", "description": "新手友好 Good for newcomers" },
-  { "name": "help-wanted",                 "color": "008672", "description": "欢迎社区协助 Extra attention needed" }
+  { "name": "feature", "color": "0E8A16", "description": "新功能 New feature" },
+  {
+    "name": "enhancement",
+    "color": "A2EEEF",
+    "description": "现有功能增强 Enhancement to existing behavior"
+  },
+  { "name": "bug", "color": "D73A4A", "description": "缺陷 Defect / regression" },
+  {
+    "name": "documentation",
+    "color": "0075CA",
+    "description": "文档与知识库 Docs & knowledge base"
+  },
+  { "name": "performance", "color": "FB9050", "description": "性能优化 Performance improvement" },
+  { "name": "security", "color": "B60205", "description": "安全与合规 Security & compliance" },
+  { "name": "ci", "color": "1D76DB", "description": "CI/CD 流水线 Pipeline & tooling" },
+  {
+    "name": "breaking-change",
+    "color": "D93F0B",
+    "description": "破坏性变更 Breaking change, needs migration notes"
+  },
+  {
+    "name": "priority:critical",
+    "color": "B60205",
+    "description": "P0 立即处理 Handle immediately"
+  },
+  { "name": "priority:high", "color": "D93F0B", "description": "P1 高优先级 High priority" },
+  { "name": "priority:medium", "color": "FBCA04", "description": "P2 中优先级 Medium priority" },
+  { "name": "priority:low", "color": "0E8A16", "description": "P3 低优先级 Low priority" },
+  { "name": "status:needs-triage", "color": "EDEDED", "description": "待分诊 Needs triage" },
+  { "name": "status:triaged", "color": "C2E0C6", "description": "已分诊 Triaged" },
+  { "name": "status:in-progress", "color": "29CD7E", "description": "进行中 Work in progress" },
+  { "name": "status:blocked", "color": "8B0000", "description": "被阻塞 Blocked" },
+  { "name": "status:needs-review", "color": "5D7FF5", "description": "待评审 Needs review" },
+  {
+    "name": "status:awaiting-feedback",
+    "color": "F9D0C4",
+    "description": "等待反馈 Awaiting author feedback"
+  },
+  { "name": "status:duplicate", "color": "CCCCCC", "description": "重复 Duplicate" },
+  { "name": "status:wontfix", "color": "FFFFFF", "description": "不修复 Will not fix" },
+  {
+    "name": "mod:tianshu",
+    "color": "0EA5E9",
+    "description": "天枢 · 首页/Dashboard/MCP/Governance"
+  },
+  { "name": "mod:bole", "color": "8B5CF6", "description": "伯乐 · Models 模型资产" },
+  { "name": "mod:wanyu", "color": "EC4899", "description": "万语 · Playground 推理场" },
+  { "name": "mod:qianxing", "color": "F59E0B", "description": "千行 · Routing 路由策略" },
+  { "name": "mod:zongshi", "color": "10B981", "description": "宗师 · Knowledge 知识库/RAG" },
+  { "name": "mod:lingyun", "color": "06B6D4", "description": "凌云 · Cache 缓存 / Branding 品牌" },
+  { "name": "mod:xianzhi", "color": "6366F1", "description": "仙知 · Monitor 监控" },
+  { "name": "mod:zhihui", "color": "EF4444", "description": "智绘 · Security 安全" },
+  {
+    "name": "mod:contract",
+    "color": "1F4E79",
+    "description": "契约 · src/lib/api.ts / openapi 快照"
+  },
+  {
+    "name": "mod:infra",
+    "color": "0969DA",
+    "description": "基础设施 Infra (.github/workflows/scripts)"
+  },
+  { "name": "mod:docs", "color": "5319E7", "description": "文档 Dev docs (docs/ / README)" },
+  { "name": "mod:pwa", "color": "B700FF", "description": "多端 PWA (manifest / sw / icons)" },
+  { "name": "good-first-issue", "color": "7057FF", "description": "新手友好 Good for newcomers" },
+  { "name": "help-wanted", "color": "008672", "description": "欢迎社区协助 Extra attention needed" }
 ]

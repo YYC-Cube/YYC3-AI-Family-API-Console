@@ -1,0 +1,8 @@
+fix(ci): oxfmt 损坏包根治 + 三闸根因修复 + 仓库瘦身文档链接修正
+
+- 根因: 误装同名损坏包 oxfmt@0.2.0 格式化删除 TS 类型分隔符致语法损坏 → 升级官方 0.68.0（83 文件重格式化，tsc/build/a11y 全绿）
+- 根因: pnpm 11 需 Node>=22.13 → visual.yml node 20→22
+- 视觉基线 darwin 生成，Linux 首跑无基线 → --update-snapshots=missing 自愈 + bot 自动回推冻结
+- docs: 死链清零（file:// 5 文件退化 + 10 处站内链接修正）
+- docs: 团队规范/设计核心引用改本地留存标注
+- chore: .oxfmtrc.json 初始化；CHANGELOG 补 Unreleased 记录

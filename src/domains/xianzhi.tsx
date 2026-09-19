@@ -1,9 +1,9 @@
-import { api, type ModelConfig } from "../lib/api"
-import { Bind, FamilyBadge, SectionTitle, Status, useRemote } from "./shared"
+import { api, type ModelConfig } from "../lib/api";
+import { Bind, FamilyBadge, SectionTitle, Status, useRemote } from "./shared";
 
 /** 预见·先知域 · 真实模型统计 Top 5（/v1/models 实时 + 拓扑兜底） */
 export function ModelStatsTop5() {
-  const models = useRemote<ModelConfig[]>(api.models)
+  const models = useRemote<ModelConfig[]>(api.models);
   const defaultTop5 = [
     {
       id: "glm-4-flash",
@@ -45,26 +45,26 @@ export function ModelStatsTop5() {
       usage: 9850,
       ratio: 32,
     },
-  ]
+  ];
 
   const items: Array<{
-    id: string
-    display_name: string
-    backend: string
-    max_tokens: number
-    usage: number
-    ratio: number
+    id: string;
+    display_name: string;
+    backend: string;
+    max_tokens: number;
+    usage: number;
+    ratio: number;
   }> =
     models.data && models.data.length > 0
       ? models.data.slice(0, 5).map((m, idx) => ({
-        id: m.id,
-        display_name: m.display_name,
-        backend: m.backend,
-        max_tokens: m.max_tokens,
-        usage: (5 - idx) * 12500 + 8500,
-        ratio: Math.round(((5 - idx) / 5) * 80 + 20),
-      }))
-      : defaultTop5
+          id: m.id,
+          display_name: m.display_name,
+          backend: m.backend,
+          max_tokens: m.max_tokens,
+          usage: (5 - idx) * 12500 + 8500,
+          ratio: Math.round(((5 - idx) / 5) * 80 + 20),
+        }))
+      : defaultTop5;
 
   return (
     <article className="home-panel model-top5-panel">
@@ -76,9 +76,7 @@ export function ModelStatsTop5() {
           </SectionTitle>
         </div>
         <Status tone={models.data && models.data.length > 0 ? "ok" : "muted"}>
-          {models.data && models.data.length > 0
-            ? "LIVE /v1/models"
-            : "TOPOLOGY METRICS"}
+          {models.data && models.data.length > 0 ? "LIVE /v1/models" : "TOPOLOGY METRICS"}
         </Status>
       </div>
       <div className="top5-list">
@@ -95,10 +93,7 @@ export function ModelStatsTop5() {
                 <span>{item.max_tokens.toLocaleString()} tokens</span>
               </div>
               <div className="top5-bar-bg">
-                <div
-                  className="top5-bar-fill"
-                  style={{ width: `${item.ratio}%` }}
-                />
+                <div className="top5-bar-fill" style={{ width: `${item.ratio}%` }} />
               </div>
             </div>
             <div className="top5-count mono">
@@ -109,5 +104,5 @@ export function ModelStatsTop5() {
         ))}
       </div>
     </article>
-  )
+  );
 }

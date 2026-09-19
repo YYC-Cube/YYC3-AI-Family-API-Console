@@ -1,41 +1,28 @@
-import { useState } from "react"
-import { modelAssets, nimCategories } from "../data/modelAssets"
-import { api, type ModelConfig } from "../lib/api"
-import type { PageConfig } from "./shared"
-import {
-  Bind,
-  Empty,
-  FamilyBadge,
-  Page,
-  Phase,
-  useRemote
-} from "./shared"
+import { useState } from "react";
+import { modelAssets, nimCategories } from "../data/modelAssets";
+import { api, type ModelConfig } from "../lib/api";
+import type { PageConfig } from "./shared";
+import { Bind, Empty, FamilyBadge, Page, Phase, useRemote } from "./shared";
 
 /** 千里·伯乐域 · 知遇之殿（网关实时模型 + 本地/NAS 资产库） */
 export function Models({ page }: { page: PageConfig }) {
-  const models = useRemote(api.models)
-  const [view, setView] = useState<"gateway" | "assets">("gateway")
+  const models = useRemote(api.models);
+  const [view, setView] = useState<"gateway" | "assets">("gateway");
   return (
     <Page page={page}>
       <div className="model-switch">
-        <button
-          className={view === "gateway" ? "active" : ""}
-          onClick={() => setView("gateway")}
-        >
+        <button className={view === "gateway" ? "active" : ""} onClick={() => setView("gateway")}>
           网关实时模型
         </button>
-        <button
-          className={view === "assets" ? "active" : ""}
-          onClick={() => setView("assets")}
-        >
+        <button className={view === "assets" ? "active" : ""} onClick={() => setView("assets")}>
           本地 / NAS 资产库
         </button>
       </div>
       {view === "gateway" ? (
         <>
           <div className="notice">
-            上游池动态注入的模型随{" "}
-            <span className="mono">OPENAI_COMPATIBLE_UPSTREAMS</span> 实时变化。
+            上游池动态注入的模型随 <span className="mono">OPENAI_COMPATIBLE_UPSTREAMS</span>{" "}
+            实时变化。
           </div>
           <div className="toolbar">
             <div className="filter-chip">
@@ -57,15 +44,15 @@ export function Models({ page }: { page: PageConfig }) {
           <div className="model-grid">
             {models.loading
               ? [0, 1, 2].map((i) => (
-                <article className="model-card" key={i}>
-                  <div className="skeleton-line w1" />
-                  <div className="skeleton-line w2" />
-                  <div className="skeleton-line w3" />
-                </article>
-              ))
+                  <article className="model-card" key={i}>
+                    <div className="skeleton-line w1" />
+                    <div className="skeleton-line w2" />
+                    <div className="skeleton-line w3" />
+                  </article>
+                ))
               : models.data?.map((model: ModelConfig) => (
-                <ModelItem key={model.id} model={model} />
-              ))}
+                  <ModelItem key={model.id} model={model} />
+                ))}
           </div>
           {models.data?.length === 0 && (
             <Empty owner="bole" text="暂无可用模型，请检查 /v1/models" />
@@ -76,7 +63,7 @@ export function Models({ page }: { page: PageConfig }) {
         <AssetInventory />
       )}
     </Page>
-  )
+  );
 }
 
 function ModelItem({ model }: { model: ModelConfig }) {
@@ -92,7 +79,7 @@ function ModelItem({ model }: { model: ModelConfig }) {
       </div>
       <Bind>GET /v1/models#display_name,id,backend,max_tokens,enabled</Bind>
     </article>
-  )
+  );
 }
 
 function AssetInventory() {
@@ -130,5 +117,5 @@ function AssetInventory() {
         ))}
       </div>
     </>
-  )
+  );
 }

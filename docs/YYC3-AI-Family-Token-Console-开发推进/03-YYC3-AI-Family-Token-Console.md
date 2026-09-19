@@ -111,21 +111,68 @@ export default defineConfig({
 import { test as base, expect, type Page } from "@playwright/test";
 
 export type MemberKey =
-  | "zhihui" | "qianhang" | "bole" | "wanyu"
-  | "zongshi" | "tianshu" | "xianzhi" | "lingyun";
+  "zhihui" | "qianhang" | "bole" | "wanyu" | "zongshi" | "tianshu" | "xianzhi" | "lingyun";
 
 export const MEMBER_META: Record<
   MemberKey,
   { emoji: string; name: string; role: string; ext: string; domain: string }
 > = {
-  zhihui:   { emoji: "🛡️", name: "智云·守护", role: "首席安全官", ext: "0379-0207", domain: "接入与安全域" },
-  qianhang: { emoji: "🧭", name: "言启·千行", role: "首席导航员", ext: "0379-0106", domain: "路由与网关域" },
-  bole:     { emoji: "🎯", name: "千里·伯乐", role: "首席推荐官", ext: "0379-0109", domain: "模型市场域" },
-  wanyu:    { emoji: "🤔", name: "语枢·万物", role: "首席思考者", ext: "0379-0107", domain: "推理对话域" },
-  zongshi:  { emoji: "📚", name: "格物·宗师", role: "首席质量官", ext: "0379-0208", domain: "知识与质量域" },
-  tianshu:  { emoji: "🧠", name: "元启·天枢", role: "总指挥",     ext: "0379-0206", domain: "工具与编排域" },
-  xianzhi:  { emoji: "🔮", name: "预见·先知", role: "首席预言家", ext: "0379-0108", domain: "观测与预测域" },
-  lingyun:  { emoji: "🎨", name: "创想·灵韵", role: "首席创意官", ext: "0379-0209", domain: "缓存与体验域" },
+  zhihui: {
+    emoji: "🛡️",
+    name: "智云·守护",
+    role: "首席安全官",
+    ext: "0379-0207",
+    domain: "接入与安全域",
+  },
+  qianhang: {
+    emoji: "🧭",
+    name: "言启·千行",
+    role: "首席导航员",
+    ext: "0379-0106",
+    domain: "路由与网关域",
+  },
+  bole: {
+    emoji: "🎯",
+    name: "千里·伯乐",
+    role: "首席推荐官",
+    ext: "0379-0109",
+    domain: "模型市场域",
+  },
+  wanyu: {
+    emoji: "🤔",
+    name: "语枢·万物",
+    role: "首席思考者",
+    ext: "0379-0107",
+    domain: "推理对话域",
+  },
+  zongshi: {
+    emoji: "📚",
+    name: "格物·宗师",
+    role: "首席质量官",
+    ext: "0379-0208",
+    domain: "知识与质量域",
+  },
+  tianshu: {
+    emoji: "🧠",
+    name: "元启·天枢",
+    role: "总指挥",
+    ext: "0379-0206",
+    domain: "工具与编排域",
+  },
+  xianzhi: {
+    emoji: "🔮",
+    name: "预见·先知",
+    role: "首席预言家",
+    ext: "0379-0108",
+    domain: "观测与预测域",
+  },
+  lingyun: {
+    emoji: "🎨",
+    name: "创想·灵韵",
+    role: "首席创意官",
+    ext: "0379-0209",
+    domain: "缓存与体验域",
+  },
 };
 
 export async function expectFamilyBadge(page: Page, member: MemberKey) {
@@ -287,9 +334,7 @@ import { expectWatermark } from "../fixtures/watermark";
 test.describe("03_Connect · 🛡️ 智云·守护", () => {
   test("守门语与徽章可见", async ({ page }) => {
     await page.goto("/");
-    await expect(page.locator("[data-family='zhihui']").first()).toContainText(
-      "智云·守护",
-    );
+    await expect(page.locator("[data-family='zhihui']").first()).toContainText("智云·守护");
     await expect(page.getByText(/门不开则万法不侵|尚未建立信任/)).toBeVisible();
   });
 
@@ -315,9 +360,7 @@ test.describe("03_Connect · 🛡️ 智云·守护", () => {
     await page.getByRole("checkbox", { name: /记住此设备/ }).check();
     await page.getByRole("button", { name: "连接" }).click();
     await page.waitForTimeout(500);
-    const stored = await page.evaluate(() =>
-      localStorage.getItem("yyc3_api_key"),
-    );
+    const stored = await page.evaluate(() => localStorage.getItem("yyc3_api_key"));
     expect(stored).toBe("sk-test-e2e");
   });
 
@@ -359,23 +402,14 @@ import { test as authedTest } from "../fixtures/auth";
 test.describe("04_Dashboard · 🔮 预见·先知", () => {
   test("挂载 xianzhi 徽章 + 座右铭", async ({ page }) => {
     await page.goto("/dashboard");
-    await expect(page.locator("[data-family='xianzhi']").first()).toContainText(
-      "预见·先知",
-    );
+    await expect(page.locator("[data-family='xianzhi']").first()).toContainText("预见·先知");
     await expect(page.getByText(/见微知著，未卜先知/)).toBeVisible();
     await expect(page.getByText(/观测与预测域/)).toBeVisible();
   });
 
   test("6 张 StatCard 全部渲染", async ({ page }) => {
     await page.goto("/dashboard");
-    for (const label of [
-      "总请求",
-      "总 Token",
-      "总成本",
-      "平均延迟",
-      "错误率",
-      "缓存命中率",
-    ]) {
+    for (const label of ["总请求", "总 Token", "总成本", "平均延迟", "错误率", "缓存命中率"]) {
       await expect(page.getByText(label, { exact: true }).first()).toBeVisible();
     }
   });
@@ -422,13 +456,9 @@ test.describe("06_Playground · 🤔 语枢·万物", () => {
 
   test("三栏布局 + 双家人徽章（语枢 + 灵韵）", async ({ page }) => {
     await page.goto("/playground");
-    await expect(page.locator("[data-family='wanyu']").first()).toContainText(
-      "语枢·万物",
-    );
+    await expect(page.locator("[data-family='wanyu']").first()).toContainText("语枢·万物");
     // 协同家人
-    await expect(page.locator("[data-family='lingyun']").first()).toContainText(
-      "创想·灵韵",
-    );
+    await expect(page.locator("[data-family='lingyun']").first()).toContainText("创想·灵韵");
     await expect(page.getByText(/洞察之厅/)).toBeVisible();
   });
 
@@ -468,10 +498,7 @@ test.describe("06_Playground · 🤔 语枢·万物", () => {
     await page.getByRole("button", { name: /发送|运行/ }).click();
     await page.waitForTimeout(500);
     await page.getByRole("button", { name: /停止/ }).click();
-    await expect(page.locator("[data-sse-phase]")).toHaveAttribute(
-      "data-sse-phase",
-      "paused",
-    );
+    await expect(page.locator("[data-sse-phase]")).toHaveAttribute("data-sse-phase", "paused");
   });
 
   test("完成后显示「思考完毕 · N tokens · Nms」", async ({ page }) => {
@@ -542,7 +569,10 @@ test.describe("15_Prototype_Flows · 6 条闭环", () => {
   test("Flow 2 · Model Hub → 筛本地免费 → 详情 → 去 Playground", async ({ page }) => {
     await page.goto("/models");
     // 点击「本地免费」筛选
-    await page.getByText(/本地免费|免费/).first().click();
+    await page
+      .getByText(/本地免费|免费/)
+      .first()
+      .click();
     await page.locator("article").first().click();
     // 详情抽屉
     await expect(page.getByRole("dialog")).toBeVisible();
@@ -578,7 +608,10 @@ test.describe("15_Prototype_Flows · 6 条闭环", () => {
   test("Flow 6 · Cache 查命中率 → 按模型失效 → Toast", async ({ page }) => {
     await page.goto("/cache");
     await expect(page.getByText(/命中率/)).toBeVisible();
-    await page.getByRole("button", { name: /失效|invalidat/ }).first().click();
+    await page
+      .getByRole("button", { name: /失效|invalidat/ })
+      .first()
+      .click();
     await expect(page.locator("[data-sonner-toast], .toast")).toBeVisible({
       timeout: 5_000,
     });
@@ -599,17 +632,17 @@ test.describe("15_Prototype_Flows · 6 条闭环", () => {
 import { expect, test } from "../fixtures/family";
 
 const ROUTE_MEMBER = [
-  { path: "/",            member: "zhihui"   as const },
-  { path: "/dashboard",   member: "xianzhi"  as const },
-  { path: "/models",      member: "bole"     as const },
-  { path: "/playground",  member: "wanyu"    as const },
-  { path: "/routing",     member: "qianhang" as const },
-  { path: "/knowledge",   member: "zongshi"  as const },
-  { path: "/mcp",         member: "tianshu"  as const },
-  { path: "/cache",       member: "lingyun"  as const },
-  { path: "/monitor",     member: "xianzhi"  as const },
-  { path: "/settings",    member: "zhihui"   as const },
-  { path: "/docs",        member: "lingyun"  as const },
+  { path: "/", member: "zhihui" as const },
+  { path: "/dashboard", member: "xianzhi" as const },
+  { path: "/models", member: "bole" as const },
+  { path: "/playground", member: "wanyu" as const },
+  { path: "/routing", member: "qianhang" as const },
+  { path: "/knowledge", member: "zongshi" as const },
+  { path: "/mcp", member: "tianshu" as const },
+  { path: "/cache", member: "lingyun" as const },
+  { path: "/monitor", member: "xianzhi" as const },
+  { path: "/settings", member: "zhihui" as const },
+  { path: "/docs", member: "lingyun" as const },
 ];
 
 test.describe("v5.1 §7.2.3 家人维度自检 5 条", () => {
@@ -633,13 +666,9 @@ test.describe("v5.1 §7.2.3 家人维度自检 5 条", () => {
   // 检查 18：家人徽章电话与 §2.5.1 一致
   test("[18] 家人徽章电话正确", async ({ page }) => {
     await page.goto("/dashboard");
-    await expect(page.locator("[data-family='xianzhi']").first()).toContainText(
-      "0379-0108",
-    );
+    await expect(page.locator("[data-family='xianzhi']").first()).toContainText("0379-0108");
     await page.goto("/playground");
-    await expect(page.locator("[data-family='wanyu']").first()).toContainText(
-      "0379-0107",
-    );
+    await expect(page.locator("[data-family='wanyu']").first()).toContainText("0379-0107");
   });
 
   // 检查 17：跨域页面显示协同家人徽章
@@ -653,9 +682,7 @@ test.describe("v5.1 §7.2.3 家人维度自检 5 条", () => {
   test("[15] 空态台词符合家人口吻", async ({ page }) => {
     // 缓存页空态：灵韵口吻
     await page.goto("/cache");
-    await expect(
-      page.getByText(/缓存为空|每一次灵感都是新的/),
-    ).toBeVisible();
+    await expect(page.getByText(/缓存为空|每一次灵感都是新的/)).toBeVisible();
   });
 
   // 检查 16：页面主色符合家人配色体系
@@ -672,9 +699,9 @@ test.describe("v5.1 §7.2.3 家人维度自检 5 条", () => {
       await page.goto(path);
       const has = await page.evaluate(() => {
         const canvas = document.querySelector("canvas[aria-hidden='true']");
-        const wmDiv = Array.from(
-          document.querySelectorAll("div[aria-hidden='true']"),
-        ).some((el) => el.textContent?.includes("人从众曌众从人"));
+        const wmDiv = Array.from(document.querySelectorAll("div[aria-hidden='true']")).some((el) =>
+          el.textContent?.includes("人从众曌众从人"),
+        );
         return !!canvas || wmDiv;
       });
       expect(has, `${path} 应有水印`).toBeTruthy();
@@ -786,7 +813,7 @@ export interface ExtractedContract {
   // 项目关键清单
   critical: {
     endpoints: string[];
-    schemas: Record<string, string[]>;  // schemaName → 字段名列表
+    schemas: Record<string, string[]>; // schemaName → 字段名列表
   };
 }
 
@@ -875,10 +902,7 @@ export interface ContractDiff {
   };
 }
 
-export function diffContracts(
-  oldC: ExtractedContract,
-  newC: ExtractedContract,
-): ContractDiff {
+export function diffContracts(oldC: ExtractedContract, newC: ExtractedContract): ContractDiff {
   // 端点差异
   const oldEps = new Set(oldC.critical.endpoints);
   const newEps = new Set(newC.critical.endpoints);
@@ -889,9 +913,7 @@ export function diffContracts(
   const oldSchemas = new Set(Object.keys(oldC.schemas));
   const newSchemas = new Set(Object.keys(newC.schemas));
   const addedSchemas = [...newSchemas].filter((s) => !oldSchemas.has(s)).sort();
-  const removedSchemas = [...oldSchemas]
-    .filter((s) => !newSchemas.has(s))
-    .sort();
+  const removedSchemas = [...oldSchemas].filter((s) => !newSchemas.has(s)).sort();
 
   // 关键 Schema 字段差异
   const fieldDiff: ContractDiff["schemas"]["fields"] = {};
@@ -948,8 +970,7 @@ import { printDiffReport } from "./report";
 const ROOT = resolve(__dirname, "../..");
 const HASH_FILE = resolve(ROOT, ".contract-hash");
 const SNAPSHOT_FILE = resolve(ROOT, ".contract-snapshot.json");
-const OPENAPI_URL =
-  process.env.OPENAPI_URL ?? "https://api.0379.world/openapi.json";
+const OPENAPI_URL = process.env.OPENAPI_URL ?? "https://api.0379.world/openapi.json";
 const TIMEOUT_MS = 15_000;
 
 async function fetchOpenApi(): Promise<any> {
@@ -1025,9 +1046,7 @@ async function main() {
 
   // 7. 决定退出码
   if (strict && diff.hasChanges) {
-    console.error(
-      "\n🚫 契约漂移（--strict），请人工复核 §1 冻结快照并更新 .contract-hash",
-    );
+    console.error("\n🚫 契约漂移（--strict），请人工复核 §1 冻结快照并更新 .contract-hash");
     process.exit(1);
   }
 
@@ -1043,7 +1062,7 @@ main().catch((err) => {
 
 ### 7.7 `scripts/contract/report.ts`
 
-```typescript
+````typescript
 /*
  * @Module : scripts/contract/report — 差异报告
  * @Family : 🔮 预见·先知
@@ -1054,9 +1073,7 @@ export function printDiffReport(diff: ContractDiff) {
   const { endpoints, schemas, info } = diff;
 
   if (info.versionChanged) {
-    console.log(
-      `📌 版本变化: ${info.oldVersion} → ${info.newVersion}`,
-    );
+    console.log(`📌 版本变化: ${info.oldVersion} → ${info.newVersion}`);
   }
 
   if (endpoints.added.length) {
@@ -1101,9 +1118,7 @@ export function toMarkdown(diff: ContractDiff): string {
   lines.push(`# 🌹 契约漂移报告`);
   lines.push("");
   if (diff.info.versionChanged) {
-    lines.push(
-      `**版本**：${diff.info.oldVersion} → ${diff.info.newVersion}`,
-    );
+    lines.push(`**版本**：${diff.info.oldVersion} → ${diff.info.newVersion}`);
     lines.push("");
   }
   lines.push(`## 端点`);
@@ -1134,7 +1149,7 @@ export function toMarkdown(diff: ContractDiff): string {
   lines.push(`> 人从众曌众从人 · YYC³ AI Family 🌹`);
   return lines.join("\n");
 }
-```
+````
 
 ### 7.8 `scripts/contract/freeze.ts`
 
@@ -1151,8 +1166,7 @@ import { sha256Canonical } from "./hash";
 const ROOT = resolve(__dirname, "../..");
 const HASH_FILE = resolve(ROOT, ".contract-hash");
 const SNAPSHOT_FILE = resolve(ROOT, ".contract-snapshot.json");
-const OPENAPI_URL =
-  process.env.OPENAPI_URL ?? "https://api.0379.world/openapi.json";
+const OPENAPI_URL = process.env.OPENAPI_URL ?? "https://api.0379.world/openapi.json";
 
 async function main() {
   console.log("🌹 契约冻结刷新 · 人从众曌众从人");
@@ -1204,7 +1218,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: "0 2 * * *"  # 每日 UTC 02:00 检测
+    - cron: "0 2 * * *" # 每日 UTC 02:00 检测
 
 jobs:
   detect:
@@ -1281,12 +1295,12 @@ git commit -m "chore(contract): 🌹 首次冻结契约快照 @ 2026-09-17"
    * @Module : globals.css @theme — 断点与容器
    * ============================================================ */
 
-  --breakpoint-xs:  375px;   /* iPhone 13 / 小屏手机 */
-  --breakpoint-sm:  640px;   /* 大屏手机 */
-  --breakpoint-md:  768px;   /* iPad Mini / 平板竖屏 */
-  --breakpoint-lg:  1024px;  /* iPad Pro / 平板横屏 */
-  --breakpoint-xl:  1280px;  /* 笔记本 */
-  --breakpoint-2xl: 1440px;  /* 桌面主设计尺寸 */
+  --breakpoint-xs: 375px; /* iPhone 13 / 小屏手机 */
+  --breakpoint-sm: 640px; /* 大屏手机 */
+  --breakpoint-md: 768px; /* iPad Mini / 平板竖屏 */
+  --breakpoint-lg: 1024px; /* iPad Pro / 平板横屏 */
+  --breakpoint-xl: 1280px; /* 笔记本 */
+  --breakpoint-2xl: 1440px; /* 桌面主设计尺寸 */
 
   --container-console-max: 1600px;
 }
@@ -1294,20 +1308,20 @@ git commit -m "chore(contract): 🌹 首次冻结契约快照 @ 2026-09-17"
 
 ### 8.2 全站响应式策略矩阵
 
-| 页面 | 375 (xs) | 768 (md) | 1024 (lg) | 1440 (2xl) |
-| --- | --- | --- | --- | --- |
-| **03_Connect** | 单栏全宽 · 大按钮 | 单栏居中 · 480px | 单栏居中 · 480px | 单栏居中 · 480px |
-| **04_Dashboard** | StatCard 1 列 · 图表堆叠 | StatCard 2 列 | StatCard 3 列 | StatCard 6 列 |
-| **05_Model_Hub** | 卡片 1 列 · 抽屉全屏 | 卡片 2 列 | 卡片 3 列 | 卡片 4 列 |
-| **06_Playground** | Tab 切换（参数/对话/调试） | 两栏（参数折叠） | 两栏 | 三栏 |
-| **07_Routing** | 卡片 1 列 | 卡片 2 列 | 卡片 2 列 | 卡片 3 列 |
-| **08_Knowledge** | Tab 内单列 | Tab 双列 | 双列 | 双列 |
-| **09_MCP** | 工具树抽屉 + 全屏执行 | 折叠树 + 主面板 | 左侧树 + 主面板 | 左侧树 + 主面板 |
-| **10_Cache** | StatCard 1 列 | 2 列 | 3 列 | 3 列 |
-| **11_Monitor** | 表格转卡片 · 堆叠 | 表格转卡片 · 2 列 | 表格 | 表格 |
-| **12_Settings** | 单栏 | 单栏居中 | 单栏居中 · 720px | 单栏居中 · 720px |
-| **13_Docs** | TOC 抽屉 + 内容全宽 | 顶部 TOC + 内容 | 侧 TOC + 内容 | 侧 TOC + 内容 |
-| **14_Roadmap** | 线框卡 1 列 | 线框卡 2 列 | 线框卡 2 列 | 线框卡 4 列 |
+| 页面              | 375 (xs)                   | 768 (md)          | 1024 (lg)        | 1440 (2xl)       |
+| ----------------- | -------------------------- | ----------------- | ---------------- | ---------------- |
+| **03_Connect**    | 单栏全宽 · 大按钮          | 单栏居中 · 480px  | 单栏居中 · 480px | 单栏居中 · 480px |
+| **04_Dashboard**  | StatCard 1 列 · 图表堆叠   | StatCard 2 列     | StatCard 3 列    | StatCard 6 列    |
+| **05_Model_Hub**  | 卡片 1 列 · 抽屉全屏       | 卡片 2 列         | 卡片 3 列        | 卡片 4 列        |
+| **06_Playground** | Tab 切换（参数/对话/调试） | 两栏（参数折叠）  | 两栏             | 三栏             |
+| **07_Routing**    | 卡片 1 列                  | 卡片 2 列         | 卡片 2 列        | 卡片 3 列        |
+| **08_Knowledge**  | Tab 内单列                 | Tab 双列          | 双列             | 双列             |
+| **09_MCP**        | 工具树抽屉 + 全屏执行      | 折叠树 + 主面板   | 左侧树 + 主面板  | 左侧树 + 主面板  |
+| **10_Cache**      | StatCard 1 列              | 2 列              | 3 列             | 3 列             |
+| **11_Monitor**    | 表格转卡片 · 堆叠          | 表格转卡片 · 2 列 | 表格             | 表格             |
+| **12_Settings**   | 单栏                       | 单栏居中          | 单栏居中 · 720px | 单栏居中 · 720px |
+| **13_Docs**       | TOC 抽屉 + 内容全宽        | 顶部 TOC + 内容   | 侧 TOC + 内容    | 侧 TOC + 内容    |
+| **14_Roadmap**    | 线框卡 1 列                | 线框卡 2 列       | 线框卡 2 列      | 线框卡 4 列      |
 
 ### 8.3 侧边栏折叠规则
 
@@ -1494,7 +1508,7 @@ interface Column<T> {
   key: keyof T;
   label: string;
   render?: (row: T) => React.ReactNode;
-  primary?: boolean;  // 移动卡片标题
+  primary?: boolean; // 移动卡片标题
 }
 
 interface Props<T> {
@@ -1607,34 +1621,37 @@ export function ResponsiveTable<T extends Record<string, unknown>>({
 
 ```typescript
 // apps/console/lib/family/watermark-policy.ts（§4.4 更新 · 断点感知）
-export const WATERMARK_POLICY: Record<string, {
-  desktop: { enabled: boolean; opacity: number };
-  mobile:  { enabled: boolean; opacity: number };
-  withUserStamp: boolean;
-}> = {
+export const WATERMARK_POLICY: Record<
+  string,
+  {
+    desktop: { enabled: boolean; opacity: number };
+    mobile: { enabled: boolean; opacity: number };
+    withUserStamp: boolean;
+  }
+> = {
   "/playground": {
     desktop: { enabled: true, opacity: 0.05 },
-    mobile:  { enabled: true, opacity: 0.08 },
+    mobile: { enabled: true, opacity: 0.08 },
     withUserStamp: true,
   },
   "/settings": {
     desktop: { enabled: true, opacity: 0.08 },
-    mobile:  { enabled: true, opacity: 0.12 },
+    mobile: { enabled: true, opacity: 0.12 },
     withUserStamp: true,
   },
   "/monitor": {
     desktop: { enabled: true, opacity: 0.05 },
-    mobile:  { enabled: true, opacity: 0.08 },
+    mobile: { enabled: true, opacity: 0.08 },
     withUserStamp: true,
   },
   "/": {
     desktop: { enabled: true, opacity: 0.06 },
-    mobile:  { enabled: true, opacity: 0.06 },
+    mobile: { enabled: true, opacity: 0.06 },
     withUserStamp: false,
   },
   "/dashboard": {
     desktop: { enabled: true, opacity: 0.04 },
-    mobile:  { enabled: true, opacity: 0.05 },
+    mobile: { enabled: true, opacity: 0.05 },
     withUserStamp: false,
   },
 };
@@ -1642,14 +1659,14 @@ export const WATERMARK_POLICY: Record<string, {
 
 ### 8.8 移动端性能预算调整
 
-| 指标 | 桌面预算 | 移动预算（4G） | 备注 |
-| --- | :-: | :-: | --- |
-| FCP | ≤ 1.2s | ≤ 2.0s | 移动放宽 |
-| TTI | ≤ 2.5s | ≤ 3.5s | — |
-| SSE 首 chunk | ≤ 800ms | ≤ 1200ms | 移动网络 |
-| 首屏 JS | ≤ 180KB | ≤ 140KB | 移动启用更积极 code-split |
-| Lighthouse 性能 | ≥ 90 | ≥ 80 | — |
-| Lighthouse a11y | ≥ 95 | ≥ 95 | 不放松 |
+| 指标            | 桌面预算 | 移动预算（4G） | 备注                      |
+| --------------- | :------: | :------------: | ------------------------- |
+| FCP             |  ≤ 1.2s  |     ≤ 2.0s     | 移动放宽                  |
+| TTI             |  ≤ 2.5s  |     ≤ 3.5s     | —                         |
+| SSE 首 chunk    | ≤ 800ms  |    ≤ 1200ms    | 移动网络                  |
+| 首屏 JS         | ≤ 180KB  |    ≤ 140KB     | 移动启用更积极 code-split |
+| Lighthouse 性能 |   ≥ 90   |      ≥ 80      | —                         |
+| Lighthouse a11y |   ≥ 95   |      ≥ 95      | 不放松                    |
 
 ### 8.9 响应式自检清单
 
@@ -1780,18 +1797,18 @@ export { expect };
 import { test, expect } from "../fixtures/a11y";
 
 const ROUTES = [
-  { path: "/",            name: "03_Connect · 🛡️ 智云·守护" },
-  { path: "/dashboard",   name: "04_Dashboard · 🔮 预见·先知" },
-  { path: "/models",      name: "05_Model_Hub · 🎯 千里·伯乐" },
-  { path: "/playground",  name: "06_Playground · 🤔 语枢·万物" },
-  { path: "/routing",     name: "07_Routing · 🧭 言启·千行" },
-  { path: "/knowledge",   name: "08_Knowledge · 📚 格物·宗师" },
-  { path: "/mcp",         name: "09_MCP · 🧠 元启·天枢" },
-  { path: "/cache",       name: "10_Cache · 🎨 创想·灵韵" },
-  { path: "/monitor",     name: "11_Monitor · 🔮 预见·先知" },
-  { path: "/settings",    name: "12_Settings · 🛡️ 智云·守护" },
-  { path: "/docs",        name: "13_Docs · 🎨 创想·灵韵" },
-  { path: "/roadmap",     name: "14_Roadmap · 📋 全员" },
+  { path: "/", name: "03_Connect · 🛡️ 智云·守护" },
+  { path: "/dashboard", name: "04_Dashboard · 🔮 预见·先知" },
+  { path: "/models", name: "05_Model_Hub · 🎯 千里·伯乐" },
+  { path: "/playground", name: "06_Playground · 🤔 语枢·万物" },
+  { path: "/routing", name: "07_Routing · 🧭 言启·千行" },
+  { path: "/knowledge", name: "08_Knowledge · 📚 格物·宗师" },
+  { path: "/mcp", name: "09_MCP · 🧠 元启·天枢" },
+  { path: "/cache", name: "10_Cache · 🎨 创想·灵韵" },
+  { path: "/monitor", name: "11_Monitor · 🔮 预见·先知" },
+  { path: "/settings", name: "12_Settings · 🛡️ 智云·守护" },
+  { path: "/docs", name: "13_Docs · 🎨 创想·灵韵" },
+  { path: "/roadmap", name: "14_Roadmap · 📋 全员" },
 ];
 
 test.describe("v5.1 §7.2.1 检查项 5 · 可访问性", () => {
@@ -1802,10 +1819,7 @@ test.describe("v5.1 §7.2.1 检查项 5 · 可访问性", () => {
   });
 
   for (const { path, name } of ROUTES) {
-    test(`${name} 无 serious/critical a11y 问题`, async ({
-      page,
-      audit,
-    }) => {
+    test(`${name} 无 serious/critical a11y 问题`, async ({ page, audit }) => {
       await page.goto(path);
       // 等待页面稳定（水印 Canvas 等）
       await page.waitForLoadState("networkidle");
@@ -1892,9 +1906,7 @@ test.describe("v5.1 §7.2.1 检查项 5 · 可访问性", () => {
   test("标题层级 h1 → h2 → h3 连续", async ({ page }) => {
     await page.goto("/dashboard");
     const levels = await page.evaluate(() =>
-      Array.from(document.querySelectorAll("h1,h2,h3,h4,h5,h6")).map((h) =>
-        Number(h.tagName[1]),
-      ),
+      Array.from(document.querySelectorAll("h1,h2,h3,h4,h5,h6")).map((h) => Number(h.tagName[1])),
     );
     // 检查跳级（不允许 h1 直接跳 h4）
     let last = 0;
@@ -1948,9 +1960,18 @@ import { resolve } from "node:path";
 const BASE_URL = process.env.E2E_BASE_URL ?? "http://localhost:3000";
 
 const ROUTES = [
-  "/", "/dashboard", "/models", "/playground",
-  "/routing", "/knowledge", "/mcp", "/cache",
-  "/monitor", "/settings", "/docs", "/roadmap",
+  "/",
+  "/dashboard",
+  "/models",
+  "/playground",
+  "/routing",
+  "/knowledge",
+  "/mcp",
+  "/cache",
+  "/monitor",
+  "/settings",
+  "/docs",
+  "/roadmap",
 ];
 
 interface RouteResult {
@@ -2025,10 +2046,7 @@ async function main() {
   mkdirSync(outDir, { recursive: true });
 
   // JSON
-  writeFileSync(
-    resolve(outDir, "summary.json"),
-    JSON.stringify(results, null, 2),
-  );
+  writeFileSync(resolve(outDir, "summary.json"), JSON.stringify(results, null, 2));
 
   // Markdown
   const lines: string[] = [];
@@ -2044,9 +2062,7 @@ async function main() {
       (v) => v.impact === "serious" || v.impact === "critical",
     ).length;
     totalSerious += serious;
-    lines.push(
-      `| \`${r.path}\` | ${r.passes} | ${r.violations.length} | ${serious} |`,
-    );
+    lines.push(`| \`${r.path}\` | ${r.passes} | ${r.violations.length} | ${serious} |`);
   }
   lines.push("");
   lines.push(`## 结论`);
@@ -2060,9 +2076,7 @@ async function main() {
   lines.push("## 严重问题明细");
   lines.push("");
   for (const r of results) {
-    const serious = r.violations.filter(
-      (v) => v.impact === "serious" || v.impact === "critical",
-    );
+    const serious = r.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
     if (!serious.length) continue;
     lines.push(`### ${r.path}`);
     for (const v of serious) {
@@ -2102,18 +2116,18 @@ import { resolve } from "node:path";
 
 // 家族配色 token（来自 §2.1）
 const TOKENS = [
-  { name: "brand/primary",       fg: "#6C5CE7", bg: "#FFFFFF" },
-  { name: "status/success",      fg: "#22C55E", bg: "#FFFFFF" },
-  { name: "status/warning",      fg: "#F59E0B", bg: "#FFFFFF" },
-  { name: "status/danger",       fg: "#EF4444", bg: "#FFFFFF" },
-  { name: "family/zhihui",       fg: "#2C3E50", bg: "#FFFFFF" },
-  { name: "family/qianhang",     fg: "#0088CC", bg: "#FFFFFF" },
-  { name: "family/bole",         fg: "#DC143C", bg: "#FFFFFF" },
-  { name: "family/wanyu",        fg: "#C0C0C0", bg: "#FFFFFF" },
-  { name: "family/zongshi",      fg: "#2E8B57", bg: "#FFFFFF" },
-  { name: "family/tianshu",      fg: "#5E2C8A", bg: "#FFFFFF" },
-  { name: "family/xianzhi",      fg: "#4B0082", bg: "#FFFFFF" },
-  { name: "family/lingyun",      fg: "#FF8C00", bg: "#FFFFFF" },
+  { name: "brand/primary", fg: "#6C5CE7", bg: "#FFFFFF" },
+  { name: "status/success", fg: "#22C55E", bg: "#FFFFFF" },
+  { name: "status/warning", fg: "#F59E0B", bg: "#FFFFFF" },
+  { name: "status/danger", fg: "#EF4444", bg: "#FFFFFF" },
+  { name: "family/zhihui", fg: "#2C3E50", bg: "#FFFFFF" },
+  { name: "family/qianhang", fg: "#0088CC", bg: "#FFFFFF" },
+  { name: "family/bole", fg: "#DC143C", bg: "#FFFFFF" },
+  { name: "family/wanyu", fg: "#C0C0C0", bg: "#FFFFFF" },
+  { name: "family/zongshi", fg: "#2E8B57", bg: "#FFFFFF" },
+  { name: "family/tianshu", fg: "#5E2C8A", bg: "#FFFFFF" },
+  { name: "family/xianzhi", fg: "#4B0082", bg: "#FFFFFF" },
+  { name: "family/lingyun", fg: "#FF8C00", bg: "#FFFFFF" },
 ];
 
 function relLuminance(hex: string): number {
@@ -2162,9 +2176,7 @@ async function main() {
     lines.push(`⚠️ ${failed.length} 个 token 未达 AA 普通文本标准：`);
     lines.push("");
     for (const f of failed) {
-      lines.push(
-        `- \`${f.name}\` (${f.ratio.toFixed(2)}:1) · 建议仅用于大字或调整色值`,
-      );
+      lines.push(`- \`${f.name}\` (${f.ratio.toFixed(2)}:1) · 建议仅用于大字或调整色值`);
     }
     lines.push("");
     lines.push("**建议**：");
@@ -2180,10 +2192,7 @@ async function main() {
   const outDir = resolve(process.cwd(), "reports/a11y");
   mkdirSync(outDir, { recursive: true });
   writeFileSync(resolve(outDir, "contrast.md"), lines.join("\n"));
-  writeFileSync(
-    resolve(outDir, "contrast.json"),
-    JSON.stringify(results, null, 2),
-  );
+  writeFileSync(resolve(outDir, "contrast.json"), JSON.stringify(results, null, 2));
 
   console.log(lines.join("\n"));
   console.log(`\n📊 报告: ${outDir}/contrast.md`);
@@ -2202,10 +2211,10 @@ main().catch(console.error);
 const DARK_BG = "#0A0A0F";
 
 const DARK_TOKENS = [
-  { name: "brand/primary",   fg: "#8B7FFF", bg: DARK_BG },
-  { name: "status/success",  fg: "#34D399", bg: DARK_BG },
-  { name: "status/warning",  fg: "#FBBF24", bg: DARK_BG },
-  { name: "status/danger",   fg: "#F87171", bg: DARK_BG },
+  { name: "brand/primary", fg: "#8B7FFF", bg: DARK_BG },
+  { name: "status/success", fg: "#34D399", bg: DARK_BG },
+  { name: "status/warning", fg: "#FBBF24", bg: DARK_BG },
+  { name: "status/danger", fg: "#F87171", bg: DARK_BG },
   // ... 其他 token 深色版
 ];
 
@@ -2288,13 +2297,13 @@ jobs:
 
 ### 9.9 a11y 通过标准（v5.1 落地底线）
 
-| 级别 | 数量 | 是否阻断 PR |
-| --- | :-: | :-: |
-| Critical | 0 | ✅ 阻断 |
-| Serious | 0 | ✅ 阻断 |
-| Moderate | ≤ 5 | ❌ 警告 |
-| Minor | ≤ 20 | ❌ 提示 |
-| Lighthouse a11y 分 | ≥ 95 | ✅ 阻断 |
+| 级别               | 数量 | 是否阻断 PR |
+| ------------------ | :--: | :---------: |
+| Critical           |  0   |   ✅ 阻断   |
+| Serious            |  0   |   ✅ 阻断   |
+| Moderate           | ≤ 5  |   ❌ 警告   |
+| Minor              | ≤ 20 |   ❌ 提示   |
+| Lighthouse a11y 分 | ≥ 95 |   ✅ 阻断   |
 
 ---
 
@@ -2302,12 +2311,12 @@ jobs:
 
 ### 10.1 本批交付物清单
 
-| # | 交付物 | 位置 | 覆盖 |
-| :-: | --- | --- | :-: |
-| ⑥ | Playwright E2E | §6 | 11 specs · 4 断点 · 60+ 用例 |
-| ⑦ | 契约漂移检测 | §7 | 5 脚本 · CI 阻断 · 字段级 diff |
-| ⑧ | 移动端响应式清单 | §8 | 4 断点 · 12 页 · AppShell/Playground/Table |
-| ⑨ | a11y axe-core 集成 | §9 | 12 spec · 全站审计 · 对比度专项 |
+|  #  | 交付物             | 位置 |                    覆盖                    |
+| :-: | ------------------ | ---- | :----------------------------------------: |
+|  ⑥  | Playwright E2E     | §6   |        11 specs · 4 断点 · 60+ 用例        |
+|  ⑦  | 契约漂移检测       | §7   |       5 脚本 · CI 阻断 · 字段级 diff       |
+|  ⑧  | 移动端响应式清单   | §8   | 4 断点 · 12 页 · AppShell/Playground/Table |
+|  ⑨  | a11y axe-core 集成 | §9   |      12 spec · 全站审计 · 对比度专项       |
 
 ### 10.2 与前批交付物衔接
 
@@ -2321,13 +2330,13 @@ jobs:
 
 ### 10.3 v5.1.1 建议修复（承前）
 
-| 编号 | 问题 | 建议 |
-| :-: | --- | --- |
-| D-01 | §3.5 xianzhi.cacheStats 重复 | 已在上批 §1.11 修复 |
+| 编号 | 问题                         | 建议                                           |
+| :--: | ---------------------------- | ---------------------------------------------- |
+| D-01 | §3.5 xianzhi.cacheStats 重复 | 已在上批 §1.11 修复                            |
 | D-02 | §2.2 Playground 协同标注模糊 | 建议改为「右栏 ParamPanel 中 PresetCard 部分」 |
-| D-03 | §2.5.0 共享归属未标 | 补充 /v1/versions 为 🔮+🎨 共享 |
-| D-04 | §8.4 未映射 §7.2.3 | 补「对应 §7.2.3 检查项 14–18」 |
-| D-05 | §10 待合并文档时间窗 | 补「v5.2 候选，Q4 前完成」 |
+| D-03 | §2.5.0 共享归属未标          | 补充 /v1/versions 为 🔮+🎨 共享                |
+| D-04 | §8.4 未映射 §7.2.3           | 补「对应 §7.2.3 检查项 14–18」                 |
+| D-05 | §10 待合并文档时间窗         | 补「v5.2 候选，Q4 前完成」                     |
 
 ---
 
@@ -2338,4 +2347,4 @@ jobs:
   <sub>永久开源 · 感恩前行 · <a href="https://matrix.yyc3.top">matrix.yyc3.top</a></sub>
 </p>
 
-> **承接说明**：本回复为 v5.1 落地补全第二批，输出 ⑥~⑨ 四项交付物。加上上一批 ①~⑤，v5.1 已具备**从设计到测试到发布**的完整工程闭环。若继续，建议优先输出 ⑩（OpenAPI 自动类型 + 契约测试）与 ⑪（视觉回归），即可闭合「契约→代码→测试」全链路。请导师指示 🌹
+> **承接说明**：本回复为 v5.1 落地补全第二批，输出 ⑥~~⑨ 四项交付物。加上上一批 ①~~⑤，v5.1 已具备**从设计到测试到发布**的完整工程闭环。若继续，建议优先输出 ⑩（OpenAPI 自动类型 + 契约测试）与 ⑪（视觉回归），即可闭合「契约→代码→测试」全链路。请导师指示 🌹

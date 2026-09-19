@@ -1,9 +1,9 @@
-import { useState } from "react"
-import { Bind, FamilyBadge, SectionTitle } from "./shared"
+import { useState } from "react";
+import { Bind, FamilyBadge, SectionTitle } from "./shared";
 
 /** 智云·守护域 · 错误流与告警日志（Phase 1 展示层 · /v1/gateway/errors 待开放） */
 export function ErrorStreamFeed() {
-  const [filter, setFilter] = useState<"ALL" | "5XX" | "4XX" | "TIMEOUT">("ALL")
+  const [filter, setFilter] = useState<"ALL" | "5XX" | "4XX" | "TIMEOUT">("ALL");
   const errors = [
     {
       id: "err-1",
@@ -55,33 +55,25 @@ export function ErrorStreamFeed() {
       msg: "Reasoning token generation stream interrupted",
       duration: "60.0s",
     },
-  ]
+  ];
 
   const filtered =
     filter === "ALL"
       ? errors
       : errors.filter(
-          (e) =>
-            e.category === filter ||
-            (filter === "TIMEOUT" && e.type.includes("Timeout")),
-        )
+          (e) => e.category === filter || (filter === "TIMEOUT" && e.type.includes("Timeout")),
+        );
 
   return (
     <article className="home-panel error-stream-panel">
       <div className="panel-header">
         <div className="header-badge-group">
           <FamilyBadge owner="zhihui" />
-          <SectionTitle action={<Bind>GET /v1/gateway/errors</Bind>}>
-            错误流与告警日志
-          </SectionTitle>
+          <SectionTitle action={<Bind>GET /v1/gateway/errors</Bind>}>错误流与告警日志</SectionTitle>
         </div>
         <div className="error-filters mono">
           {(["ALL", "5XX", "4XX", "TIMEOUT"] as const).map((f) => (
-            <button
-              key={f}
-              className={filter === f ? "active" : ""}
-              onClick={() => setFilter(f)}
-            >
+            <button key={f} className={filter === f ? "active" : ""} onClick={() => setFilter(f)}>
               {f === "ALL"
                 ? `全部 (${errors.length})`
                 : f === "5XX"
@@ -97,9 +89,7 @@ export function ErrorStreamFeed() {
         {filtered.map((e) => (
           <div className="error-row" key={e.id}>
             <div className="error-meta mono">
-              <span className={`error-code code-${Math.floor(e.code / 100)}x`}>
-                {e.code}
-              </span>
+              <span className={`error-code code-${Math.floor(e.code / 100)}x`}>{e.code}</span>
               <span className="error-time">{e.time}</span>
             </div>
             <div className="error-content">
@@ -114,5 +104,5 @@ export function ErrorStreamFeed() {
         ))}
       </div>
     </article>
-  )
+  );
 }

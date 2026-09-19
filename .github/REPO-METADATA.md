@@ -43,12 +43,12 @@ gh repo edit YYC-Cube/YYC3-AI-Family-API-Console \
 
 ### Topic 分层说明（五维驱动）
 
-| 层 | Topics | 作用 |
-| --- | --- | --- |
+| 层     | Topics                                                                       | 作用                       |
+| ------ | ---------------------------------------------------------------------------- | -------------------------- |
 | 领域域 | `ai-gateway` `model-gateway` `llm-console` `multi-agent` `openai-compatible` | 检索主路径：AI 网关/控制台 |
-| 技术栈 | `react` `typescript` `vite` `tailwindcss` `radix-ui` `shadcn-ui` `pwa` `sse` | GitHub Topic 精确匹配生态 |
-| 质量域 | `observability` `playwright` `axe-core` `ci-cd` `github-actions` | 五标体系：自动化/可视化 |
-| 品牌域 | `yyc3` `yanyucloudcube` | 生态化：组织内互链 |
+| 技术栈 | `react` `typescript` `vite` `tailwindcss` `radix-ui` `shadcn-ui` `pwa` `sse` | GitHub Topic 精确匹配生态  |
+| 质量域 | `observability` `playwright` `axe-core` `ci-cd` `github-actions`             | 五标体系：自动化/可视化    |
+| 品牌域 | `yyc3` `yanyucloudcube`                                                      | 生态化：组织内互链         |
 
 ## Releases 标签规范
 

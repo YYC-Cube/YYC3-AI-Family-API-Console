@@ -15,7 +15,7 @@ complexity: basic
 
 # 开发者指南 | Developer Guide
 
-> *不盲猜、不盲测、不盲从 —— 以代码为准绳，以文档为纽带*
+> _不盲猜、不盲测、不盲从 —— 以代码为准绳，以文档为纽带_
 
 ## 一、环境初始化 | One-Time Setup
 
@@ -98,13 +98,13 @@ VITE_FAMILY_BUS_TOKEN=...  # FamilyBus 令牌（⚠️ 会打进客户端产物�
 
 ## 四、调试技巧 | Debugging
 
-| 场景 | 方法 |
-| ---- | ---- |
-| SSE 流式不更新 | DevTools Network → 该请求 EventStream 面板核对 chunk；确认网关 `/healthz` |
-| 品牌未持久化 | Application → Local Storage 检查 branding key；隐身窗口不共享 |
+| 场景                       | 方法                                                                             |
+| -------------------------- | -------------------------------------------------------------------------------- |
+| SSE 流式不更新             | DevTools Network → 该请求 EventStream 面板核对 chunk；确认网关 `/healthz`        |
+| 品牌未持久化               | Application → Local Storage 检查 branding key；隐身窗口不共享                    |
 | 视觉测试本地失败但 CI 通过 | 字体渲染差异：确认关闭系统级字体平滑差异；以 `--update-snapshots` 后再 diff 审阅 |
-| 端口被占 | `PORT=3031 pnpm dev`（strictPort: false 会自动顺延） |
-| PWA SW 缓存旧资源 | DevTools → Application → Service Workers → Unregister，或硬刷新 |
+| 端口被占                   | `PORT=3031 pnpm dev`（strictPort: false 会自动顺延）                             |
+| PWA SW 缓存旧资源          | DevTools → Application → Service Workers → Unregister，或硬刷新                  |
 
 ## 五、代码评审锚点 | Review Anchors
 
@@ -118,7 +118,7 @@ VITE_FAMILY_BUS_TOKEN=...  # FamilyBus 令牌（⚠️ 会打进客户端产物�
 
 ## 六、新会话 AI 导师衔接 | AI Tutor Handoff
 
-遵循 [YYC3-团队通用-开发文档](./YYC3-AI-Family-Token-Console-团队规范/标规文档/YYC3-团队通用-开发文档.md) 衔接协议：
+遵循 YYC3-团队通用-开发文档（本地留存：`./YYC3-AI-Family-Token-Console-团队规范/标规文档/YYC3-团队通用-开发文档.md`） 衔接协议：
 
 ```bash
 # 快速恢复上下文

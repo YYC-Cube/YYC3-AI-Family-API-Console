@@ -1,15 +1,15 @@
-import { NavLink, Outlet, RouterProvider, createBrowserRouter } from "react-router"
-import logoCyan from "./imports/512.png"
-import { family, pages, Status } from "./domains/shared"
-import { Home, Overview, Mcp, Governance } from "./domains/tianshu"
-import { Models } from "./domains/bole"
-import { Playground } from "./domains/wanyu"
-import { Routing } from "./domains/qianxing"
-import { Knowledge } from "./domains/zongshi-knowledge"
-import { Cache } from "./domains/lingyun-cache"
-import { Monitor } from "./domains/xianzhi-monitor"
-import { Security } from "./domains/zhihui"
-import { Branding } from "./domains/lingyun-branding"
+import { NavLink, Outlet, RouterProvider, createBrowserRouter } from "react-router";
+import logoCyan from "./imports/512.png";
+import { family, pages, Status } from "./domains/shared";
+import { Home, Overview, Mcp, Governance } from "./domains/tianshu";
+import { Models } from "./domains/bole";
+import { Playground } from "./domains/wanyu";
+import { Routing } from "./domains/qianxing";
+import { Knowledge } from "./domains/zongshi-knowledge";
+import { Cache } from "./domains/lingyun-cache";
+import { Monitor } from "./domains/xianzhi-monitor";
+import { Security } from "./domains/zhihui";
+import { Branding } from "./domains/lingyun-branding";
 
 function Shell() {
   return (
@@ -20,11 +20,7 @@ function Shell() {
           <span className="mono">CONSOLE</span>
         </div>
         <nav>
-          <NavLink
-            to="/"
-            end
-            className={({ isActive }) => (isActive ? "active" : "")}
-          >
+          <NavLink to="/" end className={({ isActive }) => (isActive ? "active" : "")}>
             <span>◈</span>首页大盘
           </NavLink>
           {pages.map((p) => (
@@ -56,7 +52,7 @@ function Shell() {
         <Outlet />
       </section>
     </main>
-  )
+  );
 }
 
 const router = createBrowserRouter([
@@ -78,8 +74,8 @@ const router = createBrowserRouter([
       { path: "governance", Component: () => <Governance page={pages[10]} /> },
     ],
   },
-])
+]);
 
 export default function App() {
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 }

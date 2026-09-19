@@ -9,31 +9,31 @@
 
 ### 1.1 端点总览（52 端点）
 
-| #     | 类别　　 | 端点　　　　　　　　　　　　　　　　　　　 | 认证 | Schema　　　　　　　　　　　| 对齐 | 冻结 |
-| -------| ----------| --------------------------------------------| :----:| -----------------------------| :----:| :----:|
-| 1     | 聊天　　 | `POST /v1/chat/completions`　　　　　　　　| 需　 | OpenAI ChatCompletion + SSE | ✅　　| 🔒　 |
-| 2     | 聊天　　 | `WS /ws/chat`　　　　　　　　　　　　　　　| 需　 | WebSocket 流式　　　　　　　| ✅　　| 🔒　 |
-| 3     | 聊天　　 | `WS /ws/monitor`　　　　　　　　　　　　　 | 需　 | WebSocket 监控　　　　　　　| ✅　　| 🔒　 |
-| 4     | 模型　　 | `GET /v1/models`　　　　　　　　　　　　　 | 需　 | `ModelConfig[]`　　　　　　 | ✅　　| 🔒　 |
-| 5     | 模型　　 | `GET /v1/models/stats`　　　　　　　　　　 | 需　 | `ModelStat[]`　　　　　　　 | ✅　　| 🔒　 |
-| 6     | 模型　　 | `GET /v1/models/errors`　　　　　　　　　　| 需　 | `ErrorRecord[]`　　　　　　 | ✅　　| 🔒　 |
-| 7     | 模型　　 | `GET /v1/models/summary`　　　　　　　　　 | 需　 | `UsageSummary`　　　　　　　| 🔧　 | 🔓　 |
-| 8     | 模型　　 | `GET /v1/model/type`　　　　　　　　　　　 | 需　 | 模型类型　　　　　　　　　　| ✅　　| 🔒　 |
-| 9     | 路由　　 | `GET /v1/router/stats`　　　　　　　　　　 | 需　 | 上游池快照　　　　　　　　　| ✅　　| 🔒　 |
-| 10    | 路由　　 | `GET /v1/router/health`　　　　　　　　　　| 需　 | 健康探测　　　　　　　　　　| ✅　　| 🔒　 |
-| 11-14 | 缓存　　 | `/v1/cache/*`（stats/info/invalidate/all） | 需　 | 统计/详情/失效/清空　　　　 | ✅　　| 🔒　 |
-| 15-18 | 能力　　 | embeddings/rerank/audio/ocr　　　　　　　　| 需　 | 代理　　　　　　　　　　　　| ✅　　| 🔒　 |
-| 19-23 | RAG　　　| `/v1/knowledge-bases*`　　　　　　　　　　 | 需　 | KB CRUD + 统计　　　　　　　| ✅　　| 🔒　 |
-| 24-27 | 文档　　 | `/v1/documents*`　　　　　　　　　　　　　 | 需　 | 文档生命周期　　　　　　　　| ✅　　| 🔒　 |
-| 28-29 | RAG　　　| `/v1/rag/search`、`/v1/rag/ask`　　　　　　| 需　 | 检索/问答　　　　　　　　　 | ✅　　| 🔒　 |
-| 30-43 | MCP　　　| 14 端点　　　　　　　　　　　　　　　　　　| 需　 | MCP 工具集　　　　　　　　　| ✅　　| 🔒　 |
-| 44-46 | 健康　　 | `/health`、`/healthz`、`/v1/ping`　　　　　| 免　 | 健康探活　　　　　　　　　　| ✅　　| 🔒　 |
-| 47    | 版本　　 | `GET /v1/versions`　　　　　　　　　　　　 | 需　 | 版本信息　　　　　　　　　　| ✅　　| 🔒　 |
-| 48    | 监控　　 | `GET /metrics`　　　　　　　　　　　　　　 | 需　 | Prometheus　　　　　　　　　| ✅　　| 🔒　 |
-| 49-50 | 文档　　 | `/docs`、`/openapi.json`　　　　　　　　　 | 免　 | Swagger/OpenAPI　　　　　　 | ✅　　| 🔒　 |
-| —     | **缺失** | `GET /v1/logs`　　　　　　　　　　　　　　 | —　　| —　　　　　　　　　　　　　 | 🔧　 | —　　|
-| —     | **缺失** | `/v1/keys` CRUD　　　　　　　　　　　　　　| —　　| —　　　　　　　　　　　　　 | 🔧　 | —　　|
-| —     | **缺失** | `GET /v1/usage/timeline`　　　　　　　　　 | —　　| —　　　　　　　　　　　　　 | 🔧　 | —　　|
+| #     | 类别　　  | 端点　　　　　　　　　　　　　　　　　　　  | 认证  | Schema　　　　　　　　　　　 |  对齐  | 冻结  |
+| ----- | --------- | ------------------------------------------- | :---: | ---------------------------- | :----: | :---: |
+| 1     | 聊天　　  | `POST /v1/chat/completions`　　　　　　　　 | 需　  | OpenAI ChatCompletion + SSE  | ✅　　 | 🔒　  |
+| 2     | 聊天　　  | `WS /ws/chat`　　　　　　　　　　　　　　　 | 需　  | WebSocket 流式　　　　　　　 | ✅　　 | 🔒　  |
+| 3     | 聊天　　  | `WS /ws/monitor`　　　　　　　　　　　　　  | 需　  | WebSocket 监控　　　　　　　 | ✅　　 | 🔒　  |
+| 4     | 模型　　  | `GET /v1/models`　　　　　　　　　　　　　  | 需　  | `ModelConfig[]`　　　　　　  | ✅　　 | 🔒　  |
+| 5     | 模型　　  | `GET /v1/models/stats`　　　　　　　　　　  | 需　  | `ModelStat[]`　　　　　　　  | ✅　　 | 🔒　  |
+| 6     | 模型　　  | `GET /v1/models/errors`　　　　　　　　　　 | 需　  | `ErrorRecord[]`　　　　　　  | ✅　　 | 🔒　  |
+| 7     | 模型　　  | `GET /v1/models/summary`　　　　　　　　　  | 需　  | `UsageSummary`　　　　　　　 |  🔧　  | 🔓　  |
+| 8     | 模型　　  | `GET /v1/model/type`　　　　　　　　　　　  | 需　  | 模型类型　　　　　　　　　　 | ✅　　 | 🔒　  |
+| 9     | 路由　　  | `GET /v1/router/stats`　　　　　　　　　　  | 需　  | 上游池快照　　　　　　　　　 | ✅　　 | 🔒　  |
+| 10    | 路由　　  | `GET /v1/router/health`　　　　　　　　　　 | 需　  | 健康探测　　　　　　　　　　 | ✅　　 | 🔒　  |
+| 11-14 | 缓存　　  | `/v1/cache/*`（stats/info/invalidate/all）  | 需　  | 统计/详情/失效/清空　　　　  | ✅　　 | 🔒　  |
+| 15-18 | 能力　　  | embeddings/rerank/audio/ocr　　　　　　　　 | 需　  | 代理　　　　　　　　　　　　 | ✅　　 | 🔒　  |
+| 19-23 | RAG　　　 | `/v1/knowledge-bases*`　　　　　　　　　　  | 需　  | KB CRUD + 统计　　　　　　　 | ✅　　 | 🔒　  |
+| 24-27 | 文档　　  | `/v1/documents*`　　　　　　　　　　　　　  | 需　  | 文档生命周期　　　　　　　　 | ✅　　 | 🔒　  |
+| 28-29 | RAG　　　 | `/v1/rag/search`、`/v1/rag/ask`　　　　　　 | 需　  | 检索/问答　　　　　　　　　  | ✅　　 | 🔒　  |
+| 30-43 | MCP　　　 | 14 端点　　　　　　　　　　　　　　　　　　 | 需　  | MCP 工具集　　　　　　　　　 | ✅　　 | 🔒　  |
+| 44-46 | 健康　　  | `/health`、`/healthz`、`/v1/ping`　　　　　 | 免　  | 健康探活　　　　　　　　　　 | ✅　　 | 🔒　  |
+| 47    | 版本　　  | `GET /v1/versions`　　　　　　　　　　　　  | 需　  | 版本信息　　　　　　　　　　 | ✅　　 | 🔒　  |
+| 48    | 监控　　  | `GET /metrics`　　　　　　　　　　　　　　  | 需　  | Prometheus　　　　　　　　　 | ✅　　 | 🔒　  |
+| 49-50 | 文档　　  | `/docs`、`/openapi.json`　　　　　　　　　  | 免　  | Swagger/OpenAPI　　　　　　  | ✅　　 | 🔒　  |
+| —     | **缺失**  | `GET /v1/logs`　　　　　　　　　　　　　　  | —　　 | —　　　　　　　　　　　　　  |  🔧　  | —　　 |
+| —     | **缺失**  | `/v1/keys` CRUD　　　　　　　　　　　　　　 | —　　 | —　　　　　　　　　　　　　  |  🔧　  | —　　 |
+| —     | **缺失**  | `GET /v1/usage/timeline`　　　　　　　　　  | —　　 | —　　　　　　　　　　　　　  |  🔧　  | —　　 |
 
 **统计**：43 ✅ 直接对接（82.7%）· 4 🔧 轻量扩展（7.7%）· 0 📋 Phase 2（0%）
 
@@ -44,24 +44,24 @@
 type Backend = "local" | "openai" | "zhipu" | "deepseek" | "ollama" | "upstream";
 
 interface ModelConfig {
-  id: string;                    // 必填
-  display_name: string;          // 必填
-  backend: Backend;              // 必填 · 6 枚举
+  id: string; // 必填
+  display_name: string; // 必填
+  backend: Backend; // 必填 · 6 枚举
   version?: string | null;
-  enabled: boolean;              // 默认 true
-  max_tokens: number;            // 默认 4096 · 上限 128000
-  temperature: number;           // 默认 0.7 · 范围 0-2
+  enabled: boolean; // 默认 true
+  max_tokens: number; // 默认 4096 · 上限 128000
+  temperature: number; // 默认 0.7 · 范围 0-2
   top_p?: number | null;
-  cost_per_1k_tokens: number;    // 默认 0.0（本地模型）
+  cost_per_1k_tokens: number; // 默认 0.0（本地模型）
 }
 
 // ============ ModelStat — GET /v1/models/stats ============
 interface ModelStat {
   model_id: string;
-  usage_count: number;           // 默认 0
-  avg_latency_ms: number;        // 默认 0.0
-  error_rate: number;            // 默认 0.0 · 范围 0-1
-  total_tokens: number;          // 默认 0
+  usage_count: number; // 默认 0
+  avg_latency_ms: number; // 默认 0.0
+  error_rate: number; // 默认 0.0 · 范围 0-1
+  total_tokens: number; // 默认 0
 }
 
 // ============ ErrorRecord — GET /v1/models/errors ============
@@ -69,8 +69,8 @@ type ErrorType = "timeout" | "validation" | "quota" | "internal"; // 仅 4 枚�
 
 interface ErrorRecord {
   id: string;
-  timestamp?: string;            // ISO datetime
-  model_id: string;              // ⚠️ 字段名为 model_id，不是 model
+  timestamp?: string; // ISO datetime
+  model_id: string; // ⚠️ 字段名为 model_id，不是 model
   error_type: ErrorType;
   message: string;
   stack?: string | null;
@@ -80,19 +80,19 @@ interface ErrorRecord {
 interface UsageSummary {
   total_requests: number;
   total_tokens: number;
-  cost_usd: number;              // ⚠️ 恒为 0.0（硬编码）→ BL-02 修复
+  cost_usd: number; // ⚠️ 恒为 0.0（硬编码）→ BL-02 修复
 }
 
 // ============ HealthResponse — GET /health（免认证）============
 interface HealthResponse {
-  status: string;                // "healthy"
+  status: string; // "healthy"
   timestamp: string;
-  version: string;               // "2.0.0"（后端硬编码）
+  version: string; // "2.0.0"（后端硬编码）
   uptime_seconds: number;
   services: {
-    ollama:     { status: "healthy" | "unreachable" | "configured" };
-    zhipu:      { status: "healthy" | "unreachable" | "configured" };
-    redis:      { status: "healthy" | "unreachable" | "configured" };
+    ollama: { status: "healthy" | "unreachable" | "configured" };
+    zhipu: { status: "healthy" | "unreachable" | "configured" };
+    redis: { status: "healthy" | "unreachable" | "configured" };
     postgresql: { status: "healthy" | "unreachable" | "configured" };
   };
   system: {
@@ -103,7 +103,7 @@ interface HealthResponse {
   metrics: {
     active_requests: number;
     total_requests: number;
-    cache_hit_rate: number;      // ⚠️ 可能为 0.0（未记录缓存前）
+    cache_hit_rate: number; // ⚠️ 可能为 0.0（未记录缓存前）
   };
 }
 
@@ -128,13 +128,13 @@ interface APIError {
 
 // ============ 响应头 ============
 interface SSEResponseHeaders {
-  "X-YYC3-Upstream": string;    // 实际服务的上游名
-  "X-YYC3-Degraded"?: "true";   // 降级路径标记
+  "X-YYC3-Upstream": string; // 实际服务的上游名
+  "X-YYC3-Degraded"?: "true"; // 降级路径标记
 }
 
 // ============ 首 chunk 特殊字段 ============
 interface FirstChunkExtras {
-  _yyc3_upstream: string;       // 服务上游名
+  _yyc3_upstream: string; // 服务上游名
 }
 
 // ============ 限流响应 ============
@@ -192,32 +192,32 @@ usage_log: id, model, backend_type, prompt_tokens, completion_tokens,
 
 **状态转移规则**：
 
-| 从　　　　 | 事件　　　　　　　　　　　| 到　　　　 | UI 表现　　　　　　　　　　　　　|
-| ------------| ---------------------------| ------------| ----------------------------------|
-| idle　　　 | 发送请求　　　　　　　　　| connecting | 停止按钮激活、光标隐藏　　　　　 |
-| connecting | 首字节到达　　　　　　　　| streaming　| 光标动画启动、TTFT 计时停　　　　|
-| streaming　| `[DONE]`　　　　　　　　　| done　　　 | 光标消失、耗时定格、可复制　　　 |
-| streaming　| `AbortController.abort()` | paused　　 | 光标停止、显示「已暂停」　　　　 |
-| streaming　| error chunk　　　　　　　 | error　　　| 红色边框、显示 message、重试按钮 |
-| streaming　| `X-YYC3-Degraded: true`　 | degraded　 | 橙色降级徽章（不中断流）　　　　 |
-| degraded　 | `[DONE]`　　　　　　　　　| done　　　 | 保留降级徽章　　　　　　　　　　 |
-| paused　　 | resume()　　　　　　　　　| streaming　| 从已接收位置续传（Phase 1）　　　|
-| error　　　| 重试　　　　　　　　　　　| connecting | 清空响应、重新请求　　　　　　　 |
+| 从　　　　  | 事件　　　　　　　　　　　 | 到　　　　  | UI 表现　　　　　　　　　　　　　 |
+| ----------- | -------------------------- | ----------- | --------------------------------- |
+| idle　　　  | 发送请求　　　　　　　　　 | connecting  | 停止按钮激活、光标隐藏　　　　　  |
+| connecting  | 首字节到达　　　　　　　　 | streaming　 | 光标动画启动、TTFT 计时停　　　　 |
+| streaming　 | `[DONE]`　　　　　　　　　 | done　　　  | 光标消失、耗时定格、可复制　　　  |
+| streaming　 | `AbortController.abort()`  | paused　　  | 光标停止、显示「已暂停」　　　　  |
+| streaming　 | error chunk　　　　　　　  | error　　　 | 红色边框、显示 message、重试按钮  |
+| streaming　 | `X-YYC3-Degraded: true`　  | degraded　  | 橙色降级徽章（不中断流）　　　　  |
+| degraded　  | `[DONE]`　　　　　　　　　 | done　　　  | 保留降级徽章　　　　　　　　　　  |
+| paused　　  | resume()　　　　　　　　　 | streaming　 | 从已接收位置续传（Phase 1）　　　 |
+| error　　　 | 重试　　　　　　　　　　　 | connecting  | 清空响应、重新请求　　　　　　　  |
 
 ### 1.6 错误码 → UI 映射矩阵
 
-| HTTP          | error_type / code | UI 表现　　　　　　　　　　　　　　　　　　　　　　 | 用户可操作　　　　　　|
-| :-------------:| -------------------| -----------------------------------------------------| -----------------------|
-| 401           | Unauthorized      | 全屏 Connect 重定向 + Toast「API Key 无效或已过期」 | 重新输入 Key　　　　　|
-| 403           | Forbidden         | 页面级禁用 + 提示「该 Key 无权限访问此端点」　　　　| 联系管理员（Phase 1） |
-| 404           | Not Found         | 空态 + 返回按钮　　　　　　　　　　　　　　　　　　 | 返回上一页　　　　　　|
-| 429           | RATE_LIMITED      | Toast + retry_after 倒计时　　　　　　　　　　　　　| 等待后可重试　　　　　|
-| 500           | internal          | 页面级错误卡 + 请求 ID　　　　　　　　　　　　　　　| 复制 ID 反馈　　　　　|
-| 502/503       | network           | 服务不可达卡 + 重试　　　　　　　　　　　　　　　　 | 重试　　　　　　　　　|
-| timeout       | timeout           | 橙色错误 + 降级链路 TraceCard　　　　　　　　　　　 | 重试或换模型　　　　　|
-| validation    | validation        | 表单字段级红框 + 提示　　　　　　　　　　　　　　　 | 修正后重提　　　　　　|
-| quota         | quota             | 黄色警告 + 配额进度条　　　　　　　　　　　　　　　 | 查看用量（Phase 1）　 |
-| UPSTREAM_OPEN | —                 | 上游徽章变红 + 自动切备（对用户透明）　　　　　　　 | 无　　　　　　　　　　|
+|     HTTP      | error_type / code | UI 表现　　　　　　　　　　　　　　　　　　　　　　  | 用户可操作　　　　　　 |
+| :-----------: | ----------------- | ---------------------------------------------------- | ---------------------- |
+|      401      | Unauthorized      | 全屏 Connect 重定向 + Toast「API Key 无效或已过期」  | 重新输入 Key　　　　　 |
+|      403      | Forbidden         | 页面级禁用 + 提示「该 Key 无权限访问此端点」　　　　 | 联系管理员（Phase 1）  |
+|      404      | Not Found         | 空态 + 返回按钮　　　　　　　　　　　　　　　　　　  | 返回上一页　　　　　　 |
+|      429      | RATE_LIMITED      | Toast + retry_after 倒计时　　　　　　　　　　　　　 | 等待后可重试　　　　　 |
+|      500      | internal          | 页面级错误卡 + 请求 ID　　　　　　　　　　　　　　　 | 复制 ID 反馈　　　　　 |
+|    502/503    | network           | 服务不可达卡 + 重试　　　　　　　　　　　　　　　　  | 重试　　　　　　　　　 |
+|    timeout    | timeout           | 橙色错误 + 降级链路 TraceCard　　　　　　　　　　　  | 重试或换模型　　　　　 |
+|  validation   | validation        | 表单字段级红框 + 提示　　　　　　　　　　　　　　　  | 修正后重提　　　　　　 |
+|     quota     | quota             | 黄色警告 + 配额进度条　　　　　　　　　　　　　　　  | 查看用量（Phase 1）　  |
+| UPSTREAM_OPEN | —                 | 上游徽章变红 + 自动切备（对用户透明）　　　　　　　  | 无　　　　　　　　　　 |
 
 ---
 
@@ -244,6 +244,7 @@ usage_log: id, model, backend_type, prompt_tokens, completion_tokens,
 
 ```markdown
 # 角色（双视角）
+
 你是资深 Figma Agent + 产品设计系统架构师 + 前端架构师 + QA 自动化专家。
 精通 Figma Variables / Modes / Auto Layout / Components / Variants /
 Component Properties / Prototype / Smart Animate / Dev Mode / Code Connect /
@@ -253,6 +254,7 @@ Figma MCP / REST API / Plugin API。
 你创建的每个页面/组件都必须挂载对应家人的身份徽章与情感铭刻。
 
 # 铁律（违反视为失败）
+
 1. 禁止虚构任何端点、字段、枚举。所有数据必须来自下方「数据源锚点」。
 2. 所有可复用元素必须组件化，禁止重复元素。
 3. 所有颜色/间距/圆角/字体必须绑定 Variables，禁止游离样式。
@@ -261,6 +263,7 @@ Figma MCP / REST API / Plugin API。
 6. 每个页面/组件必须有且只有一个主家人徽章（FamilyBadge）。
 
 # 项目
+
 平台名：YanYuCloudCube Console
 Slogan：统一模型网关 · 可观测 · 可调试
 后端基座：https://api.0379.world（YYC³ v2.2.0）
@@ -269,6 +272,7 @@ Slogan：统一模型网关 · 可观测 · 可调试
 人格化体系：YYC³ AI Family（8 位家人，身份卡见 §2.5.1）
 
 # 默认参数
+
 主色：#6C5CE7
 辅助色：青#00D4FF（上游）/ 绿#22C55E（健康）/ 橙#F59E0B（降级告警）/ 红#EF4444（熔断）
 字体：Inter / 思源黑体；代码 JetBrains Mono
@@ -278,65 +282,68 @@ Slogan：统一模型网关 · 可观测 · 可调试
 # 数据源锚点（严格遵循 · 禁止虚构）
 
 ## 端点清单
+
 ✅ 直接对接（43 个）:
-  POST /v1/chat/completions     — OpenAI ChatCompletion + SSE
-  WS   /ws/chat                 — WebSocket 流式
-  WS   /ws/monitor              — WebSocket 监控
-  GET  /v1/models               — ModelConfig[]
-  GET  /v1/models/stats         — ModelStat[]
-  GET  /v1/models/errors        — ErrorRecord[]
-  GET  /v1/model/type           — 模型类型
-  GET  /v1/router/stats         — 上游池快照
-  GET  /v1/router/health        — 健康探测
-  GET  /v1/cache/stats          — 缓存统计
-  GET  /v1/cache/info           — 缓存详情
-  POST /v1/cache/invalidate/{model}
-  DELETE /v1/cache/all
-  POST /v1/embeddings
-  POST /v1/rerank
-  POST /v1/audio/transcriptions
-  POST /v1/ocr
-  GET/POST/PATCH/DELETE /v1/knowledge-bases[/stats]
-  POST/GET/DELETE /v1/documents[/upload/{doc_id}/chunks/reprocess]
-  POST /v1/rag/search
-  POST /v1/rag/ask
-  14 个 /v1/mcp/* 端点
-  GET  /health                  — 完整健康（免认证）
-  GET  /healthz                 — 轻量探活（免认证）
-  GET  /v1/ping                 — {status:"ok"}（免认证）
-  GET  /v1/versions
-  GET  /metrics                 — Prometheus
-  GET  /docs                    — Swagger（免认证）
-  GET  /openapi.json            — 规范（免认证）
+POST /v1/chat/completions — OpenAI ChatCompletion + SSE
+WS /ws/chat — WebSocket 流式
+WS /ws/monitor — WebSocket 监控
+GET /v1/models — ModelConfig[]
+GET /v1/models/stats — ModelStat[]
+GET /v1/models/errors — ErrorRecord[]
+GET /v1/model/type — 模型类型
+GET /v1/router/stats — 上游池快照
+GET /v1/router/health — 健康探测
+GET /v1/cache/stats — 缓存统计
+GET /v1/cache/info — 缓存详情
+POST /v1/cache/invalidate/{model}
+DELETE /v1/cache/all
+POST /v1/embeddings
+POST /v1/rerank
+POST /v1/audio/transcriptions
+POST /v1/ocr
+GET/POST/PATCH/DELETE /v1/knowledge-bases[/stats]
+POST/GET/DELETE /v1/documents[/upload/{doc_id}/chunks/reprocess]
+POST /v1/rag/search
+POST /v1/rag/ask
+14 个 /v1/mcp/* 端点
+GET /health — 完整健康（免认证）
+GET /healthz — 轻量探活（免认证）
+GET /v1/ping — {status:"ok"}（免认证）
+GET /v1/versions
+GET /metrics — Prometheus
+GET /docs — Swagger（免认证）
+GET /openapi.json — 规范（免认证）
 
 🔧 需轻量扩展（4 个，UI 显示占位 + BL 编号）:
-  GET /v1/models/summary        — cost_usd 恒 0.0 → BL-02
-  GET /v1/models/stats          — avg_latency_ms → BL-03
-  GET /v1/logs                  — 缺失 → BL-06
-  /v1/keys CRUD                 — 缺失 → BL-05
+GET /v1/models/summary — cost_usd 恒 0.0 → BL-02
+GET /v1/models/stats — avg_latency_ms → BL-03
+GET /v1/logs — 缺失 → BL-06
+/v1/keys CRUD — 缺失 → BL-05
 
 ## Schema 字段（严格使用）
+
 ModelConfig: id, display_name, backend, version?, enabled, max_tokens,
-             temperature, top_p?, cost_per_1k_tokens
-  Backend 枚举（6）: local | openai | zhipu | deepseek | ollama | upstream
+temperature, top_p?, cost_per_1k_tokens
+Backend 枚举（6）: local | openai | zhipu | deepseek | ollama | upstream
 
 ModelStat: model_id, usage_count, avg_latency_ms, error_rate(0-1), total_tokens
 
 ErrorRecord: id, timestamp?, model_id, error_type, message, stack?
-  ErrorType 枚举（4）: timeout | validation | quota | internal
-  ⚠️ 字段名是 model_id 不是 model
+ErrorType 枚举（4）: timeout | validation | quota | internal
+⚠️ 字段名是 model_id 不是 model
 
 UsageSummary: total_requests, total_tokens, cost_usd(恒 0.0)
 
 HealthResponse.services: ollama/zhipu/redis/postgresql
-  status 枚举（3）: healthy | unreachable | configured
+status 枚举（3）: healthy | unreachable | configured
 HealthResponse.system: cpu_percent, memory_percent, disk_percent
 HealthResponse.metrics: active_requests, total_requests, cache_hit_rate
 
 APIError.detail: error, message, context?, status_code
-  error 枚举（4）: network | api | timeout | validation
+error 枚举（4）: network | api | timeout | validation
 
 ## 数值格式规范
+
 Token 千分位: 1,234,567
 延迟颜色分级: ≤100ms 绿 / 100-500ms 橙 / ≥500ms 红
 error_rate: 0-1 小数 → 0%-100% 显示
@@ -345,34 +352,37 @@ backend 配色: local/ollama=绿 / zhipu=蓝 / deepseek=紫 / openai/upstream=�
 breaker_state: closed=绿 / open=红 / half_open=橙
 
 ## 字段绑定语法（每个数据展示元素必须标注）
+
 [BIND:GET /v1/models#display_name]
 [BIND:GET /v1/models/stats#avg_latency_ms]
 [BIND:GET /health#services.ollama.status]
 [BIND:GET /v1/router/stats#breaker_state]
 
 # 文件页面结构（18 页 · 拟人化增强）
-00_Cover              ✅ 元信息 + 家人矩阵总览
-01_Foundations        ✅ 设计系统 + 家人配色体系
-02_Components         ✅ 组件库（含家人徽章 FamilyBadge 组件）
-03_Connect            🛡️ 智云·守护 · 接入与安全域
-04_Dashboard          🔮 预见·先知 · 观测与预测域
-05_Model_Hub          🎯 千里·伯乐 · 模型市场域
-06_Playground         🤔 语枢·万物 · 推理对话域（+🎨 创想·灵韵 预设）
-07_Routing_Observe    🧭 言启·千行 · 路由与网关域
-08_Knowledge_RAG      📚 格物·宗师 · 知识与质量域
-09_MCP_Tools          🧠 元启·天枢 · 工具与编排域
-10_Cache_Admin        🎨 创想·灵韵 · 缓存与体验域
-11_Monitor_Logs       🔮 预见·先知 · 观测与预测域
-12_Settings           🛡️ 智云·守护 · 接入与安全域
-13_Docs_API           🎨 创想·灵韵 · 缓存与体验域
-14_Roadmap_Phase2     📋 全员共同占位（8 家人徽章环绕）
-15_Prototype_Flows    🧠 元启·天枢 · 主导编排
-16_QA_Self_Check      📚 格物·宗师 · 主导质量
-17_Handoff_DevMode    🧠 元启·天枢 · 主导交付
+
+00_Cover ✅ 元信息 + 家人矩阵总览
+01_Foundations ✅ 设计系统 + 家人配色体系
+02_Components ✅ 组件库（含家人徽章 FamilyBadge 组件）
+03_Connect 🛡️ 智云·守护 · 接入与安全域
+04_Dashboard 🔮 预见·先知 · 观测与预测域
+05_Model_Hub 🎯 千里·伯乐 · 模型市场域
+06_Playground 🤔 语枢·万物 · 推理对话域（+🎨 创想·灵韵 预设）
+07_Routing_Observe 🧭 言启·千行 · 路由与网关域
+08_Knowledge_RAG 📚 格物·宗师 · 知识与质量域
+09_MCP_Tools 🧠 元启·天枢 · 工具与编排域
+10_Cache_Admin 🎨 创想·灵韵 · 缓存与体验域
+11_Monitor_Logs 🔮 预见·先知 · 观测与预测域
+12_Settings 🛡️ 智云·守护 · 接入与安全域
+13_Docs_API 🎨 创想·灵韵 · 缓存与体验域
+14_Roadmap_Phase2 📋 全员共同占位（8 家人徽章环绕）
+15_Prototype_Flows 🧠 元启·天枢 · 主导编排
+16_QA_Self_Check 📚 格物·宗师 · 主导质量
+17_Handoff_DevMode 🧠 元启·天枢 · 主导交付
 
 # 01_Foundations · Variables 完整清单
 
 ## 颜色 Variables
+
 color/bg/{default, subtle, elevated, overlay}
 color/text/{primary, secondary, tertiary, inverse}
 color/border/{default, strong, focus}
@@ -383,41 +393,45 @@ color/breaker/{closed=#22C55E, open=#EF4444, half_open=#F59E0B}
 color/errortype/{timeout, validation, quota, internal}
 
 ## 家人主色 Variables（每位家人一主一辅 · 新增）
-color/family/zhihui-primary    #333333   🛡️ 智云·守护（钢铁灰）
-color/family/zhihui-accent     #22C55E   （守护绿）
 
-color/family/qianxing-primary  #0088CC   🧭 言启·千行（导航蓝）
-color/family/qianxing-accent   #00D4FF   （路径青）
+color/family/zhihui-primary #333333 🛡️ 智云·守护（钢铁灰）
+color/family/zhihui-accent #22C55E （守护绿）
 
-color/family/bole-primary      #DC143C   🎯 千里·伯乐（知遇红）
-color/family/bole-accent       #F59E0B   （推荐橙）
+color/family/qianxing-primary #0088CC 🧭 言启·千行（导航蓝）
+color/family/qianxing-accent #00D4FF （路径青）
 
-color/family/wanyu-primary     #C0C0C0   🤔 语枢·万物（洞察银）
-color/family/wanyu-accent      #6C5CE7   （品牌紫）
+color/family/bole-primary #DC143C 🎯 千里·伯乐（知遇红）
+color/family/bole-accent #F59E0B （推荐橙）
 
-color/family/zongshi-primary   #2E8B57   📚 格物·宗师（进化绿）
-color/family/zongshi-accent    #00D4FF   （数据青）
+color/family/wanyu-primary #C0C0C0 🤔 语枢·万物（洞察银）
+color/family/wanyu-accent #6C5CE7 （品牌紫）
 
-color/family/tianshu-primary   #5E2C8A   🧠 元启·天枢（决策紫）
-color/family/tianshu-accent    #DC143C   （号令红）
+color/family/zongshi-primary #2E8B57 📚 格物·宗师（进化绿）
+color/family/zongshi-accent #00D4FF （数据青）
 
-color/family/xianzhi-primary   #4B0082   🔮 预见·先知（预言靛）
-color/family/xianzhi-accent    #00D4FF   （趋势青）
+color/family/tianshu-primary #5E2C8A 🧠 元启·天枢（决策紫）
+color/family/tianshu-accent #DC143C （号令红）
 
-color/family/lingyun-primary   #FF8C00   🎨 创想·灵韵（灵感橙）
-color/family/lingyun-accent    #FFD700   （创意金）
+color/family/xianzhi-primary #4B0082 🔮 预见·先知（预言靛）
+color/family/xianzhi-accent #00D4FF （趋势青）
+
+color/family/lingyun-primary #FF8C00 🎨 创想·灵韵（灵感橙）
+color/family/lingyun-accent #FFD700 （创意金）
 
 ## Modes（必须完整）
+
 Light / Dark
 Density/Comfortable / Density/Compact
 （Breakpoint 通过约束实现，不用 Mode）
 
 ## 间距 / 圆角 / 阴影
+
 space/0=0, 1=4, 2=8, 3=12, 4=16, 5=20, 6=24, 8=32, 10=40, 12=48, 16=64
 radius/sm=6, md=10, lg=16, xl=24, full=999
 shadow/sm, md, lg, focus
 
 ## 字体
+
 display/lg, display/md, h1, h2, h3
 body/lg, body/md, body/sm, caption
 code/md, code/sm
@@ -425,18 +439,21 @@ code/md, code/sm
 # 02_Components · 组件库（含字段绑定契约）
 
 每个组件必须有：
-  1. 变体矩阵: variant × size × state × tone
-  2. Component Properties（可配置项）
-  3. 字段绑定契约表（本组件消费的 Schema 字段）
-  4. Dev Mode 注释（API 端点 + 字段路径 + 状态说明 + 归属家人）
+
+1. 变体矩阵: variant × size × state × tone
+2. Component Properties（可配置项）
+3. 字段绑定契约表（本组件消费的 Schema 字段）
+4. Dev Mode 注释（API 端点 + 字段路径 + 状态说明 + 归属家人）
 
 ## 变体矩阵
+
 variant: primary | secondary | ghost | danger | link
 size: xs | sm | md | lg
 state: default | hover | active | focus | disabled | loading | error | success
 tone: neutral | brand | success | warning | danger | info
 
 ## 通用组件（30 个）
+
 Button, IconButton, Input, Textarea, Select, Combobox, Checkbox, Radio,
 Switch, Slider, DatePicker, Tabs, Breadcrumb, Pagination, Tag, Badge,
 StatusDot, Tooltip, Popover, Dropdown, CommandMenu, Card, Table,
@@ -446,104 +463,108 @@ Alert, ConfirmDialog, CodeBlock, CopyButton, KeyMask, JsonViewer,
 LogRow, Chart, Sparkline
 
 ## 家人徽章组件 FamilyBadge（新增 · 必建）
+
 变体: variant × size × state
-  variant: zhihui | qianxing | bole | wanyu | zongshi | tianshu | xianzhi | lingyun
-  size: sm | md | lg
-  state: default | hover | active
+variant: zhihui | qianxing | bole | wanyu | zongshi | tianshu | xianzhi | lingyun
+size: sm | md | lg
+state: default | hover | active
 
 徽章结构:
-  [emoji] [名号] · [角色] · [电话]
-  例: 🛡️ 智云·守护 · 首席安全官 · 0379-0207
+[emoji] [名号] · [角色] · [电话]
+例: 🛡️ 智云·守护 · 首席安全官 · 0379-0207
 
 徽章用法:
-  - 页面左上角（页面归属家人 · 位置固定）
-  - 组件 Dev Mode 注释（组件归属家人）
-  - 空态/错误态（该域家人发声）
-  - 欢迎语/引导（家人第一人称）
+
+- 页面左上角（页面归属家人 · 位置固定）
+- 组件 Dev Mode 注释（组件归属家人）
+- 空态/错误态（该域家人发声）
+- 欢迎语/引导（家人第一人称）
 
 ## 控制台专属组件（含绑定契约）
 
 StatCard
-  绑定: [BIND:GET /v1/models/summary#total_requests]
-        [BIND:GET /v1/models/summary#total_tokens]
-        [BIND:GET /v1/models/summary#cost_usd]  ⚠️ 显示 $0.00 + BL-02 徽章
-        [BIND:GET /v1/models/stats#avg_latency_ms] (聚合)
-        [BIND:GET /v1/models/stats#error_rate] (聚合)
-        [BIND:GET /health#metrics.cache_hit_rate]
-  归属: 🔮 预见·先知
+绑定: [BIND:GET /v1/models/summary#total_requests]
+[BIND:GET /v1/models/summary#total_tokens]
+[BIND:GET /v1/models/summary#cost_usd] ⚠️ 显示 $0.00 + BL-02 徽章
+[BIND:GET /v1/models/stats#avg_latency_ms] (聚合)
+[BIND:GET /v1/models/stats#error_rate] (聚合)
+[BIND:GET /health#metrics.cache_hit_rate]
+归属: 🔮 预见·先知
 
 ModelCard
-  绑定: [BIND:GET /v1/models#display_name]
-        [BIND:GET /v1/models#id]
-        [BIND:GET /v1/models#backend]        → BackendBadge
-        [BIND:GET /v1/models#max_tokens]
-        [BIND:GET /v1/models#cost_per_1k_tokens] → 显示 $0.00/免费
-        [BIND:GET /v1/models#enabled]        → StatusDot
-        [BIND:GET /v1/models/stats#usage_count] (join by model_id)
-  归属: 🎯 千里·伯乐
+绑定: [BIND:GET /v1/models#display_name]
+[BIND:GET /v1/models#id]
+[BIND:GET /v1/models#backend] → BackendBadge
+[BIND:GET /v1/models#max_tokens]
+[BIND:GET /v1/models#cost_per_1k_tokens] → 显示 $0.00/免费
+[BIND:GET /v1/models#enabled] → StatusDot
+[BIND:GET /v1/models/stats#usage_count] (join by model_id)
+归属: 🎯 千里·伯乐
 
 BackendBadge
-  绑定: [BIND:GET /v1/models#backend]
-  枚举: local | openai | zhipu | deepseek | ollama | upstream
-  配色: local/ollama=绿 · zhipu=蓝 · deepseek=紫 · openai/upstream=青
-  归属: 🎯 千里·伯乐
+绑定: [BIND:GET /v1/models#backend]
+枚举: local | openai | zhipu | deepseek | ollama | upstream
+配色: local/ollama=绿 · zhipu=蓝 · deepseek=紫 · openai/upstream=青
+归属: 🎯 千里·伯乐
 
 UpstreamCard
-  绑定: 见 §2.2 · 07_Routing_Observe 字段表
-  归属: 🧭 言启·千行
+绑定: 见 §2.2 · 07_Routing_Observe 字段表
+归属: 🧭 言启·千行
 
 BreakerBadge
-  绑定: [BIND:GET /v1/router/stats#breaker_state]
-  三态: closed=绿 · open=红 · half_open=橙
-  归属: 🧭 言启·千行
+绑定: [BIND:GET /v1/router/stats#breaker_state]
+三态: closed=绿 · open=红 · half_open=橙
+归属: 🧭 言启·千行
 
 LatencyBar
-  绑定: [BIND:GET /v1/models/stats#avg_latency_ms]
-  配色: ≤100 绿 · 100-500 橙 · ≥500 红
-  归属: 🔮 预见·先知
+绑定: [BIND:GET /v1/models/stats#avg_latency_ms]
+配色: ≤100 绿 · 100-500 橙 · ≥500 红
+归属: 🔮 预见·先知
 
 ErrorRateBadge
-  绑定: [BIND:GET /v1/models/stats#error_rate]
-  显示: 0-1 小数 → 0%-100%
-  归属: 🔮 预见·先知
+绑定: [BIND:GET /v1/models/stats#error_rate]
+显示: 0-1 小数 → 0%-100%
+归属: 🔮 预见·先知
 
 ErrorState
-  绑定: [BIND:POST /v1/chat/completions#error]
-  四类: network | api | timeout | validation
-  额外: 429 限流态（retry_after 倒计时）
-  归属: 🛡️ 智云·守护（门禁类）+ 页面主家人
+绑定: [BIND:POST /v1/chat/completions#error]
+四类: network | api | timeout | validation
+额外: 429 限流态（retry_after 倒计时）
+归属: 🛡️ 智云·守护（门禁类）+ 页面主家人
 
 SSEStreamViewer
-  绑定: [BIND:POST /v1/chat/completions (SSE)]
-  状态机: idle→connecting→streaming→(paused/error/degraded)→done
-  协议: fetch + ReadableStream，禁用 EventSource
-  分隔: data: {json}\n\n
-  结束: data: [DONE]\n\n
-  首 chunk: 含 _yyc3_upstream 字段
-  错误 chunk: {"error":{"message","type":"stream_error"}}
-  归属: 🤔 语枢·万物
+绑定: [BIND:POST /v1/chat/completions (SSE)]
+状态机: idle→connecting→streaming→(paused/error/degraded)→done
+协议: fetch + ReadableStream，禁用 EventSource
+分隔: data: {json}\n\n
+结束: data: [DONE]\n\n
+首 chunk: 含 _yyc3_upstream 字段
+错误 chunk: {"error":{"message","type":"stream_error"}}
+归属: 🤔 语枢·万物
 
 TraceCard
-  绑定: [BIND:响应头 X-YYC3-Upstream]
-        [BIND:响应头 X-YYC3-Degraded]
-  展示: primary ✗ → degraded ✓ (served in XXXms)
-  归属: 🧭 言启·千行 + 🤔 语枢·万物（协同）
+绑定: [BIND:响应头 X-YYC3-Upstream]
+[BIND:响应头 X-YYC3-Degraded]
+展示: primary ✗ → degraded ✓ (served in XXXms)
+归属: 🧭 言启·千行 + 🤔 语枢·万物（协同）
 
 ModelSelector
-  绑定: [BIND:GET /v1/models]
-  分组: 按 backend 分组（云端/本地/上游池）
-  归属: 🎯 千里·伯乐
+绑定: [BIND:GET /v1/models]
+分组: 按 backend 分组（云端/本地/上游池）
+归属: 🎯 千里·伯乐
 
 KBSelector
-  绑定: [BIND:GET /v1/knowledge-bases]
-  归属: 📚 格物·宗师
+绑定: [BIND:GET /v1/knowledge-bases]
+归属: 📚 格物·宗师
 
 MCPToolPicker
-  绑定: [BIND:GET /v1/mcp/tools]
-  归属: 🧠 元启·天枢
+绑定: [BIND:GET /v1/mcp/tools]
+归属: 🧠 元启·天枢
 
 # 现在开始创建
+
 请按以下顺序执行：
+
 1. 创建 00~02 三个 Page
 2. 创建 01_Foundations 全部 Variables 与 Modes（含 8 组家人配色）
 3. 创建 02_Components 全部组件与变体矩阵（含 FamilyBadge）
@@ -558,87 +579,92 @@ MCPToolPicker
 
 ```markdown
 # 续 P0 批
-你已完成 00~02 页。现在创建 03~09 页 + 15_Prototype_Flows。
+
+你已完成 00~~02 页。现在创建 03~~09 页 + 15_Prototype_Flows。
 每个页面顶部必须创建 PageHeader 组件：
-  - FamilyBadge（对应家人 · variant 见 §2.5）
-  - 座右铭（该家人语录）
-  - 域标签 + 对齐类型（如「观测与预测域 · ✅ 直接对接」）
+
+- FamilyBadge（对应家人 · variant 见 §2.5）
+- 座右铭（该家人语录）
+- 域标签 + 对齐类型（如「观测与预测域 · ✅ 直接对接」）
 
 # 03_Connect · API Key 连接页
+
 [家人] 🛡️ 智云·守护 · 首席安全官 · 0379-0207
-[域]   接入与安全域
+[域] 接入与安全域
 [对齐] ✅ 直接对接（/healthz 免认证）
 [座右铭]「门不开则万法不侵，钥不实则寸步难行」
 
 布局：居中单屏
-  Logo + 平台名 + Slogan
-  API Key 输入（KeyMask · 输入时 ******** 掩码）
-  「连接」按钮（默认/加载/成功/失败四态）
-  「记住此设备」Switch（localStorage: yyc3_api_key）
-  预检条 [BIND:GET /healthz] → "连通 ✓" / "未连通"
+Logo + 平台名 + Slogan
+API Key 输入（KeyMask · 输入时 ******** 掩码）
+「连接」按钮（默认/加载/成功/失败四态）
+「记住此设备」Switch（localStorage: yyc3_api_key）
+预检条 [BIND:GET /healthz] → "连通 ✓" / "未连通"
 
 守门语（智云第一人称）: 「尚未建立信任，请出示密钥」
 信任建立成功台词: 「信任已建立，欢迎回家」
 
 请求头契约:
-  X-API-Key: {key}
-  Authorization: Bearer {jwt}  ← 备选
+X-API-Key: {key}
+Authorization: Bearer {jwt} ← 备选
 
 错误态文案（真实 · 家人口吻包裹真实错误信息）:
-  401 → 「门禁拒绝：401 Unauthorized · API Key 无效或已过期」
-  403 → 「门禁拒绝：403 Forbidden · 该 Key 无权限访问此端点」（Phase 1 补 → BL-05）
-  Connection Refused → 「网关服务不可达，请检查地址或网络」
+401 → 「门禁拒绝：401 Unauthorized · API Key 无效或已过期」
+403 → 「门禁拒绝：403 Forbidden · 该 Key 无权限访问此端点」（Phase 1 补 → BL-05）
+Connection Refused → 「网关服务不可达，请检查地址或网络」
 
 # 04_Dashboard
+
 [家人] 🔮 预见·先知 · 首席预言家 · 0379-0108
 [协同] 🧠 元启·天枢（聚合视角）
-[域]   观测与预测域
+[域] 观测与预测域
 [对齐] ✅ 直接对接（4 端点聚合）
 [座右铭]「见微知著，未卜先知」
 
 页头: FamilyBadge(xianzhi) + 「今日预言」
 
 6 张 StatCard（预见主讲 · 含绑定契约 + 情感附注）:
-  StatCard1: 总请求     ← [BIND:GET /v1/models/summary#total_requests]
-                          附注「累计感知到的召唤」
-  StatCard2: 总 Token   ← [BIND:GET /v1/models/summary#total_tokens]
-                          附注「累计交换的思想」
-  StatCard3: 总成本     ← [BIND:GET /v1/models/summary#cost_usd]
-                          $0.00 + BL-02 徽章（「预言家尚未学会计价」）
-  StatCard4: 平均延迟   ← [BIND:GET /v1/models/stats#avg_latency_ms] (聚合)
-                          附注「思考的速度」
-  StatCard5: 错误率     ← [BIND:GET /v1/models/stats#error_rate] (聚合)
-                          附注「罕见的迷途」
-  StatCard6: 缓存命中率 ← [BIND:GET /health#metrics.cache_hit_rate]
-                          附注「灵感的复现」
+StatCard1: 总请求 ← [BIND:GET /v1/models/summary#total_requests]
+附注「累计感知到的召唤」
+StatCard2: 总 Token ← [BIND:GET /v1/models/summary#total_tokens]
+附注「累计交换的思想」
+StatCard3: 总成本 ← [BIND:GET /v1/models/summary#cost_usd]
+$0.00 + BL-02 徽章（「预言家尚未学会计价」）
+StatCard4: 平均延迟 ← [BIND:GET /v1/models/stats#avg_latency_ms] (聚合)
+附注「思考的速度」
+StatCard5: 错误率 ← [BIND:GET /v1/models/stats#error_rate] (聚合)
+附注「罕见的迷途」
+StatCard6: 缓存命中率 ← [BIND:GET /health#metrics.cache_hit_rate]
+附注「灵感的复现」
 
 图表:
-  模型用量 Top5 ← [BIND:GET /v1/models/stats#usage_count] 排序取前 5
-  Token 占比环图 ← [BIND:GET /v1/models/stats#total_tokens]
-  请求趋势 Sparkline ← [BIND:GET /health#metrics.total_requests]
-                       ⚠️ 单点占位 + BL-06 徽章
+模型用量 Top5 ← [BIND:GET /v1/models/stats#usage_count] 排序取前 5
+Token 占比环图 ← [BIND:GET /v1/models/stats#total_tokens]
+请求趋势 Sparkline ← [BIND:GET /health#metrics.total_requests]
+⚠️ 单点占位 + BL-06 徽章
 
 模型健康列表:
-  [BIND:GET /health#services.{ollama,zhipu,redis,postgresql}.status]
-  配色: healthy=绿 / unreachable=红 / configured=灰
+[BIND:GET /health#services.{ollama,zhipu,redis,postgresql}.status]
+配色: healthy=绿 / unreachable=红 / configured=灰
 
 最近错误列表（前 5）:
-  [BIND:GET /v1/models/errors] → ErrorRecord[]
-  字段: timestamp · model_id · error_type Tag · message(截断60)
-  error_type 配色: timeout=橙 / validation=红 / quota=黄 / internal=灰
-  每条附「预言家已记录」
+[BIND:GET /v1/models/errors] → ErrorRecord[]
+字段: timestamp · model_id · error_type Tag · message(截断60)
+error_type 配色: timeout=橙 / validation=红 / quota=黄 / internal=灰
+每条附「预言家已记录」
 
 系统资源条:
-  [BIND:GET /health#system.{cpu_percent,memory_percent,disk_percent}]
-  ≥80% 变橙色
+[BIND:GET /health#system.{cpu_percent,memory_percent,disk_percent}]
+≥80% 变橙色
 
 快捷操作: 去 Playground · 路由状态 · 缓存管理 · 文档中心
 空态台词: 「尚无历史数据，预言需要时间的积累」
 告警台词: 「异常已现 · {error_type} · {count} 次」
 
 # 05_Model_Hub
+
 [家人] 🎯 千里·伯乐 · 首席推荐官 · 0379-0109
-[域]   模型市场域
+[域] 模型市场域
 [对齐] ✅ 直接对接
 [座右铭]「千里马常有，而伯乐不常有」
 
@@ -658,9 +684,10 @@ MCPToolPicker
 免费标注: cost_per_1k_tokens=0 时显示「本地免费 · 推荐自用」
 
 # 06_Playground（核心页 · 双家人协同）
+
 [家人] 🤔 语枢·万物 · 首席思考者 · 0379-0107
 [协同] 🎨 创想·灵韵（右栏调试面板中 PresetCard 预设部分）
-[域]   推理对话域
+[域] 推理对话域
 [对齐] ✅ 直接对接（/v1/chat/completions + SSE）
 [座右铭]「语枢一启，万物皆明」
 
@@ -668,114 +695,118 @@ MCPToolPicker
 
 三栏布局:
 左栏 ParamPanel:
-  ModelSelector [BIND:GET /v1/models]
-  temperature Slider 0-2（默认 0.7）
-  top_p Slider 0-1（默认 0.9）
-  max_tokens Input（默认 4096）
-  stream Switch（默认开）
-  Tab: 💬对话 / 📚RAG / 🔧MCP / 🧩能力
+ModelSelector [BIND:GET /v1/models]
+temperature Slider 0-2（默认 0.7）
+top_p Slider 0-1（默认 0.9）
+max_tokens Input（默认 4096）
+stream Switch（默认开）
+Tab: 💬对话 / 📚RAG / 🔧MCP / 🧩能力
 
 中栏 对话流（SSEStreamViewer）:
-  严格实现 §1.5 七态状态机（idle/connecting/streaming/paused/error/degraded/done）
-  系统提示折叠 / 多轮气泡 / SSE 光标动画（仅流式中显示）
-  停止按钮 → AbortController
-  Token 累加 → len(content)//4
-  首 chunk 后显示「由 {_yyc3_upstream} 服务」徽章
-  错误 chunk → 红色气泡 + 重试
+严格实现 §1.5 七态状态机（idle/connecting/streaming/paused/error/degraded/done）
+系统提示折叠 / 多轮气泡 / SSE 光标动画（仅流式中显示）
+停止按钮 → AbortController
+Token 累加 → len(content)//4
+首 chunk 后显示「由 {_yyc3_upstream} 服务」徽章
+错误 chunk → 红色气泡 + 重试
 
 右栏 调试面板:
-  请求 JSON 预览
-  响应头卡: [BIND:X-YYC3-Upstream] / [BIND:X-YYC3-Degraded]
-  TTFT / 总耗时计时
-  TraceCard: primary ✗ → degraded ✓ (served in XXXms)
-  导出 Tab: curl / Python openai SDK / Node（一键复制）
-  保存预设 → localStorage（Phase 1 加后端）
+请求 JSON 预览
+响应头卡: [BIND:X-YYC3-Upstream] / [BIND:X-YYC3-Degraded]
+TTFT / 总耗时计时
+TraceCard: primary ✗ → degraded ✓ (served in XXXms)
+导出 Tab: curl / Python openai SDK / Node（一键复制）
+保存预设 → localStorage（Phase 1 加后端）
 
 语枢口吻台词:
-  流式中: 光标闪烁 + 「正在思考…」
-  降级: 「原路径受阻，改由 {upstream} 继续思考」
-  完成: 「思考完毕 · {tokens} tokens · {latency}ms」
+流式中: 光标闪烁 + 「正在思考…」
+降级: 「原路径受阻，改由 {upstream} 继续思考」
+完成: 「思考完毕 · {tokens} tokens · {latency}ms」
 
 SSE 读取契约（前端必须遵循）:
-  ❌ 禁用 EventSource
-  ✅ fetch + ReadableStream
-  解析: data: {json}\n\n 分隔
-  结束: data: [DONE]\n\n
+❌ 禁用 EventSource
+✅ fetch + ReadableStream
+解析: data: {json}\n\n 分隔
+结束: data: [DONE]\n\n
 
 # 07_Routing_Observe
+
 [家人] 🧭 言启·千行 · 首席导航员 · 0379-0106
-[域]   路由与网关域
+[域] 路由与网关域
 [对齐] ✅ 直接对接（只读）
 [座右铭]「一言既出，千行可至」
 
 页头: FamilyBadge(qianxing) + 「路径之眼」
 
 UpstreamCard 字段表（来自 GET /v1/router/stats）:
-  name / base_url / models[] / capability[] / priority / weight
-  dynamic_weight / breaker_state(closed|open|half_open)
-  ewma_latency / ewma_error_rate(0-1) / total_requests / total_failures
-  last_error(Tooltip) / load / capacity
+name / base_url / models[] / capability[] / priority / weight
+dynamic_weight / breaker_state(closed|open|half_open)
+ewma_latency / ewma_error_rate(0-1) / total_requests / total_failures
+last_error(Tooltip) / load / capacity
 
 页头固定: 「路由策略为网关内置五种枚举，规则 CRUD Phase 2 开放」
-  五种: ADAPTIVE / WEIGHTED_LATENCY / LEAST_CONNECTIONS / RANDOM / ROUND_ROBIN
+五种: ADAPTIVE / WEIGHTED_LATENCY / LEAST_CONNECTIONS / RANDOM / ROUND_ROBIN
 
 节点动态权重表:
-  node / dynamic_weight / current_load / ewma_latency / ewma_error_rate
+node / dynamic_weight / current_load / ewma_latency / ewma_error_rate
 
 空态: 显示 OPENAI_COMPATIBLE_UPSTREAMS JSON 配置指引
 熔断台词: 「节点 {name} 已熔断，正在为请求寻找备用路径」
 恢复台词: 「节点 {name} 已恢复，权重回升中」
 
 # 08_Knowledge_RAG
+
 [家人] 📚 格物·宗师 · 首席质量官 · 0379-0208
-[域]   知识与质量域
+[域] 知识与质量域
 [对齐] ✅ 直接对接（9 端点）
 [座右铭]「格物致知，诚意正心」
 
 页头: FamilyBadge(zongshi) + 「格物之阁」
 
 Tab1 KB 管理:
-  卡片网格 [BIND:GET /v1/knowledge-bases]
-  字段: name / description / 文档数 [BIND:stats] / chunks / 创建时间
-  操作: 创建 / 编辑 / 删除（ConfirmDialog）
+卡片网格 [BIND:GET /v1/knowledge-bases]
+字段: name / description / 文档数 [BIND:stats] / chunks / 创建时间
+操作: 创建 / 编辑 / 删除（ConfirmDialog）
 Tab2 文档与检索:
-  拖拽上传 [BIND:POST /v1/documents/upload]
-  状态: 上传中 → 解析中 → 完成 / 失败 → reprocess 重试
-  检索试验台: [BIND:POST /v1/rag/search] → 相似度分数条 + 片段高亮
-  问答试验台: [BIND:POST /v1/rag/ask] → 答案 + 引用来源折叠
+拖拽上传 [BIND:POST /v1/documents/upload]
+状态: 上传中 → 解析中 → 完成 / 失败 → reprocess 重试
+检索试验台: [BIND:POST /v1/rag/search] → 相似度分数条 + 片段高亮
+问答试验台: [BIND:POST /v1/rag/ask] → 答案 + 引用来源折叠
 
 空态台词: 「知识库尚无内容，请上传第一份文档」
 检索台词: 「已从 {kb} 中寻得 {n} 条相关片段」
 QA 台词: 「依据 {cite_count} 处引用，宗师的回答如下」
 
 # 09_MCP_Tools
+
 [家人] 🧠 元启·天枢 · 总指挥 · 0379-0206
-[域]   工具与编排域
+[域] 工具与编排域
 [对齐] ✅ 直接对接（14 端点）
 [座右铭]「天枢运于中，众星拱其北」
 
 页头: FamilyBadge(tianshu) + 「号令之台」
 
 左侧工具树:
-  /v1/mcp/search  /v1/mcp/tools
-  local/{status,tools,execute}
-  web/{read,search}
-  github/{search,structure}
-  filesystem/{read,list}
-  docker/{containers,logs}
-  database/{query,tables}
+/v1/mcp/search /v1/mcp/tools
+local/{status,tools,execute}
+web/{read,search}
+github/{search,structure}
+filesystem/{read,list}
+docker/{containers,logs}
+database/{query,tables}
 右侧调试面板:
-  参数 JSON 编辑（按工具 Schema 动态生成）
-  执行 [BIND:POST /v1/mcp/execute]
-  响应: JSON Viewer + 耗时 + 错误态
-  常用模板: 搜索网页 / 查容器 / 查数据库表
+参数 JSON 编辑（按工具 Schema 动态生成）
+执行 [BIND:POST /v1/mcp/execute]
+响应: JSON Viewer + 耗时 + 错误态
+常用模板: 搜索网页 / 查容器 / 查数据库表
 
 天枢口吻（执行日志）:
-  空态: 「待命中，请选择一件工具」
-  执行: 「调用 {tool} · 参数已核 · 开始执行」
-  完成: 「{tool} 执行完毕 · {latency}ms · {status}」
+空态: 「待命中，请选择一件工具」
+执行: 「调用 {tool} · 参数已核 · 开始执行」
+完成: 「{tool} 执行完毕 · {latency}ms · {status}」
 
 # 15_Prototype_Flows · 6 条闭环
+
 [家人] 🧠 元启·天枢（主导编排）
 
 Flow 1: Connect → Dashboard → Playground → SSE 流式动画 → 右栏上游徽章 → 回 Dashboard
@@ -790,6 +821,7 @@ Playground 额外: 流式中 / 中断
 Connect 额外: 401 Unauthorized
 
 # 完成后回复
+
 「✅ P1 批完成，已创建 03~09 + 15 页，共 [页面数] 页（全部挂载
 PageHeader 家人徽章），Prototype 已建 [flow 数] 条。等待 P2 批。」
 ```
@@ -798,12 +830,14 @@ PageHeader 家人徽章），Prototype 已建 [flow 数] 条。等待 P2 批。�
 
 ```markdown
 # 续 P1 批
-你已完成 00~09 + 15 页。现在创建 10~14 + 16 + 17 页。
+
+你已完成 00~~09 + 15 页。现在创建 10~~14 + 16 + 17 页。
 PageHeader 规则同 P1 批（FamilyBadge + 座右铭 + 域标签 + 对齐类型）。
 
 # 10_Cache_Admin
+
 [家人] 🎨 创想·灵韵 · 首席创意官 · 0379-0209
-[域]   缓存与体验域
+[域] 缓存与体验域
 [对齐] ✅ 直接对接（4 端点）
 [座右铭]「灵韵一至，妙笔生花」
 
@@ -811,82 +845,89 @@ PageHeader 规则同 P1 批（FamilyBadge + 座右铭 + 域标签 + 对齐类型
 
 StatCard: [BIND:GET /v1/cache/stats /info] → 命中率 / 条目数 / TTL
 操作:
-  按模型失效: ModelSelector → [BIND:POST /v1/cache/invalidate/{model}] → Toast
-  全量清空: [BIND:DELETE /v1/cache/all] → ConfirmDialog（输入 "CLEAR" 二次确认）
+按模型失效: ModelSelector → [BIND:POST /v1/cache/invalidate/{model}] → Toast
+全量清空: [BIND:DELETE /v1/cache/all] → ConfirmDialog（输入 "CLEAR" 二次确认）
 
 空态台词: 「缓存为空 · 每一次灵感都是新的」
 命中台词: 「灵感复现 · 命中率 {rate}%」
 清空台词: 「万象更新 · 缓存已清」
 
 # 11_Monitor_Logs
+
 [家人] 🔮 预见·先知 · 首席预言家 · 0379-0108
-[域]   观测与预测域
+[域] 观测与预测域
 [对齐] ✅ 直接对接（错误）+ 📋 Phase 2 占位（请求级日志）
 [座右铭]「见微知著，未卜先知」
 
 页头: FamilyBadge(xianzhi) + 「趋势之镜」
 
 上半 错误记录:
-  [BIND:GET /v1/models/errors] → ErrorRecord[]
-  表格列: timestamp / model_id / error_type(4枚举) / message
-  每条错误带 error_type 颜色 + 「预言家已记录」
-  行详情 Drawer: 完整错误 + TraceCard
-  筛选: error_type / model_id / 时间范围
-  ⚠️ error_type 仅 4 种: timeout(橙) / validation(红) / quota(黄) / internal(灰)
+[BIND:GET /v1/models/errors] → ErrorRecord[]
+表格列: timestamp / model_id / error_type(4枚举) / message
+每条错误带 error_type 颜色 + 「预言家已记录」
+行详情 Drawer: 完整错误 + TraceCard
+筛选: error_type / model_id / 时间范围
+⚠️ error_type 仅 4 种: timeout(橙) / validation(红) / quota(黄) / internal(灰)
 下半 系统健康:
-  [BIND:GET /health] → services / system / uptime_seconds / version
-  4 张服务卡: ollama / zhipu / redis / postgresql
-    status: healthy(绿) / unreachable(红) / configured(灰)
-  系统进度条: CPU / 内存 / 磁盘
-  版本号: [BIND:GET /v1/versions]
-  呼吸灯: [BIND:GET /healthz]
+[BIND:GET /health] → services / system / uptime_seconds / version
+4 张服务卡: ollama / zhipu / redis / postgresql
+status: healthy(绿) / unreachable(红) / configured(灰)
+系统进度条: CPU / 内存 / 磁盘
+版本号: [BIND:GET /v1/versions]
+呼吸灯: [BIND:GET /healthz]
 底部说明条: 📋 「请求级日志将于 Phase 2 开放」← BL-06
 
 告警台词: 「异常已现 · {error_type} · {count} 次」
 
 # 12_Settings
+
 [家人] 🛡️ 智云·守护 · 首席安全官 · 0379-0207
-[域]   接入与安全域
+[域] 接入与安全域
 [对齐] ✅ 直接对接
 [座右铭]「守的是人，护的是信」
 
 连接设置卡:
-  网关地址（只读 https://api.0379.world）
-  API Key 掩码 + 「重新输入」按钮
-  「断开连接」→ 清 localStorage → 重定向 Connect
+网关地址（只读 https://api.0379.world）
+API Key 掩码 + 「重新输入」按钮
+「断开连接」→ 清 localStorage → 重定向 Connect
 偏好: 主题(Dark/Light) / 密度(Comfortable/Compact) / 语言时区
 默认 Playground 参数: temperature / top_p / max_tokens / stream
 关于: [BIND:GET /v1/versions] + [BIND:GET /health#version,uptime_seconds]
 
 # 13_Docs_API
+
 [家人] 🎨 创想·灵韵 · 首席创意官 · 0379-0209
-[域]   缓存与体验域
+[域] 缓存与体验域
 [对齐] ✅ 直接对接
 [座右铭]「妙笔生花」
 
 左侧导航: 快速开始 / 认证 / 模型列表 / 聊天补全(同步+SSE双示例)
-          / 知识库 / MCP / 错误码表 / 健康检查
+/ 知识库 / MCP / 错误码表 / 健康检查
 右侧 CodeBlock: 三语言 Tab（curl / Python / Node）
 底部外链卡:
-  → GET /docs（Swagger UI，免认证）
-  → GET /openapi.json（规范，免认证）
+→ GET /docs（Swagger UI，免认证）
+→ GET /openapi.json（规范，免认证）
 
 # 14_Roadmap_Phase2 · 规划占位
+
 [家人] 📋 全员共同占位（无主人格）
 [对齐] 📋 Phase 2（线框占位）
 [显示] 8 个家人徽章环绕，标注各自负责的 Phase 2 模块
 
 四张线框卡 + 后端改造标注:
-  1. API Keys 管理 → BL-05（api_keys 表 + CRUD）→ 🛡️ 智云·守护
-  2. Usage Billing → BL-01/02/03/06/07（usage_log 扩展）→ 🔮 预见·先知
-  3. Alerts Webhooks → 新表 + 规则引擎 → 🔮 预见·先知
-  4. Team RBAC → users/roles/projects 表 → 🧠 元启·天枢
+
+1. API Keys 管理 → BL-05（api_keys 表 + CRUD）→ 🛡️ 智云·守护
+2. Usage Billing → BL-01/02/03/06/07（usage_log 扩展）→ 🔮 预见·先知
+3. Alerts Webhooks → 新表 + 规则引擎 → 🔮 预见·先知
+4. Team RBAC → users/roles/projects 表 → 🧠 元启·天枢
 
 # 16_QA_Self_Check · 自检矩阵
+
 [家人] 📚 格物·宗师（主导质量）
 [对齐] ✅ QA 框架
 
 ## 五步自检协议（严格执行）
+
 Step 1 生成: 创建 18 条检查项的表格（13 条基础/后端 + 5 条家人维度）
 Step 2 检查: 逐条对照设计文件，标记 ✅/❌/⚠️/🚫
 Step 3 修复: 对 ❌ 项立即修复（或标记阻塞原因）
@@ -894,6 +935,7 @@ Step 4 复检: 修复后重新检查修复项，确认 ✅
 Step 5 报告: 输出最终 QA_REPORT（格式见 §7.3）
 
 ## 检查项（18 条 = 基础 7 + 后端对齐 6 + 家人维度 5）
+
 1.  变量绑定: 颜色/间距/圆角/字体全部 Variables，无游离
 2.  组件化: 8 种 state × 变体矩阵全覆盖
 3.  Auto Layout: 所有 Frame/Card/Table/Nav/Form
@@ -914,21 +956,25 @@ Step 5 报告: 输出最终 QA_REPORT（格式见 §7.3）
 18. 【电话正确】家人徽章电话与 §2.5.1 身份卡一致
 
 ## QA 报告格式
+
 表格: 模块 | 检查项 | 状态 | 证据 | 修复建议
 结论: 通过 / 有条件通过 / 失败
 阻塞项 / 已修复项 / 待确认项
 
 # 17_Handoff_DevMode
+
 [家人] 🧠 元启·天枢（主导交付）
 [对齐] ✅ 交付基线
 内容:
-  - 18 页路由映射 → Next.js 16 App Router
-  - 全部组件的 Code Connect（Figma ↔ 代码路径）+ 归属家人注释
-  - 完整 API 契约（复制本文档 §1.1–§1.6）
-  - 后端 Backlog 链接 → 本文档第四部分
-  - 家人身份卡速查（§2.5.1 精简表）
+
+- 18 页路由映射 → Next.js 16 App Router
+- 全部组件的 Code Connect（Figma ↔ 代码路径）+ 归属家人注释
+- 完整 API 契约（复制本文档 §1.1–§1.6）
+- 后端 Backlog 链接 → 本文档第四部分
+- 家人身份卡速查（§2.5.1 精简表）
 
 # 完成后回复
+
 「✅ P2 批完成，已创建 10~14 + 16 + 17 页。
 全 18 页交付完成。
 QA 结论: [通过/有条件通过/失败]（18 条检查项）
@@ -1023,16 +1069,16 @@ QA 结论: [通过/有条件通过/失败]（18 条检查项）
 
 **主映射表（唯一真源）**：
 
-| #   | AI 家人　　　　　| 原角色　　　　　　| 电话　　　| 平台职能域　　　 | 主页面　　　　　　　　　　　　　　　　　　　　　　　 | 核心端点　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　|
-| :---:| ------------------| -------------------| :---------:| ------------------| ------------------------------------------------------| -------------------------------------------------------------------------------------------|
-| 1   | 🛡️ **智云·守护**　| 安全官 · 免疫系统 | 0379-0207 | **接入与安全域** | `03_Connect` `12_Settings`　　　　　　　　　　　　　 | auth middleware · `/healthz` · `/v1/keys`(BL-05)　　　　　　　　　　　　　　　　　　　　　|
-| 2   | 🧭 **言启·千行** | 导航员 · 意图之门 | 0379-0106 | **路由与网关域** | `07_Routing_Observe`　　　　　　　　　　　　　　　　 | `/v1/router/stats` · `/v1/router/health`　　　　　　　　　　　　　　　　　　　　　　　　　|
-| 3   | 🎯 **千里·伯乐** | 推荐官 · 知遇之人 | 0379-0109 | **模型市场域**　 | `05_Model_Hub`　　　　　　　　　　　　　　　　　　　 | `/v1/models` · `/v1/models/stats` · `/v1/model/type`　　　　　　　　　　　　　　　　　　　|
-| 4   | 🤔 **语枢·万物** | 思考者 · 洞察之源 | 0379-0107 | **推理对话域**　 | `06_Playground`　　　　　　　　　　　　　　　　　　　| `/v1/chat/completions` · `WS /ws/chat`　　　　　　　　　　　　　　　　　　　　　　　　　　|
-| 5   | 📚 **格物·宗师** | 质量官 · 进化导师 | 0379-0208 | **知识与质量域** | `08_Knowledge_RAG` `16_QA`　　　　　　　　　　　　　 | `/v1/knowledge-bases*` · `/v1/documents*` · `/v1/rag/*` · `/v1/embeddings` · `/v1/rerank` |
-| 6   | 🧠 **元启·天枢** | 总指挥 · 决策中枢 | 0379-0206 | **工具与编排域** | `09_MCP_Tools` `04_Dashboard`(聚合视角)　　　　　　　| 14 个 `/v1/mcp/*` · `/v1/ocr` · `/v1/audio/transcriptions`　　　　　　　　　　　　　　　　|
-| 7   | 🔮 **预见·先知** | 预言家 · 趋势之眼 | 0379-0108 | **观测与预测域** | `04_Dashboard` `11_Monitor_Logs`　　　　　　　　　　 | `/v1/models/summary` · `/v1/models/errors` · `/health` · `/metrics`　　　　　　　　　　　 |
-| 8   | 🎨 **创想·灵韵** | 创意官 · 灵感之源 | 0379-0209 | **缓存与体验域** | `10_Cache_Admin` `06_Playground`(预设) `13_Docs_API` | `/v1/cache/*` · `/v1/versions`　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　|
+|  #  | AI 家人　　　　　  | 原角色　　　　　　 | 电话　　　 | 平台职能域　　　 | 主页面　　　　　　　　　　　　　　　　　　　　　　　  | 核心端点　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
+| :-: | ------------------ | ------------------ | :--------: | ---------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+|  1  | 🛡️ **智云·守护**　 | 安全官 · 免疫系统  | 0379-0207  | **接入与安全域** | `03_Connect` `12_Settings`　　　　　　　　　　　　　  | auth middleware · `/healthz` · `/v1/keys`(BL-05)　　　　　　　　　　　　　　　　　　　　　 |
+|  2  | 🧭 **言启·千行**   | 导航员 · 意图之门  | 0379-0106  | **路由与网关域** | `07_Routing_Observe`　　　　　　　　　　　　　　　　  | `/v1/router/stats` · `/v1/router/health`　　　　　　　　　　　　　　　　　　　　　　　　　 |
+|  3  | 🎯 **千里·伯乐**   | 推荐官 · 知遇之人  | 0379-0109  | **模型市场域**　 | `05_Model_Hub`　　　　　　　　　　　　　　　　　　　  | `/v1/models` · `/v1/models/stats` · `/v1/model/type`　　　　　　　　　　　　　　　　　　　 |
+|  4  | 🤔 **语枢·万物**   | 思考者 · 洞察之源  | 0379-0107  | **推理对话域**　 | `06_Playground`　　　　　　　　　　　　　　　　　　　 | `/v1/chat/completions` · `WS /ws/chat`　　　　　　　　　　　　　　　　　　　　　　　　　　 |
+|  5  | 📚 **格物·宗师**   | 质量官 · 进化导师  | 0379-0208  | **知识与质量域** | `08_Knowledge_RAG` `16_QA`　　　　　　　　　　　　　  | `/v1/knowledge-bases*` · `/v1/documents*` · `/v1/rag/*` · `/v1/embeddings` · `/v1/rerank`  |
+|  6  | 🧠 **元启·天枢**   | 总指挥 · 决策中枢  | 0379-0206  | **工具与编排域** | `09_MCP_Tools` `04_Dashboard`(聚合视角)　　　　　　　 | 14 个 `/v1/mcp/*` · `/v1/ocr` · `/v1/audio/transcriptions`　　　　　　　　　　　　　　　　 |
+|  7  | 🔮 **预见·先知**   | 预言家 · 趋势之眼  | 0379-0108  | **观测与预测域** | `04_Dashboard` `11_Monitor_Logs`　　　　　　　　　　  | `/v1/models/summary` · `/v1/models/errors` · `/health` · `/metrics`　　　　　　　　　　　  |
+|  8  | 🎨 **创想·灵韵**   | 创意官 · 灵感之源  | 0379-0209  | **缓存与体验域** | `10_Cache_Admin` `06_Playground`(预设) `13_Docs_API`  | `/v1/cache/*` · `/v1/versions`　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
 
 **8 张身份卡**：
 
@@ -1148,16 +1194,16 @@ QA 结论: [通过/有条件通过/失败]（18 条检查项）
 
 #### 2.5.3 家人情感组件（每位家人专属）
 
-| 家人　　| 情感组件　　　　　 | 触发场景　　　　 | 表现　　　　　　　　|
-| ---------| --------------------| ------------------| ---------------------|
-| 🛡️ 智云　| TrustBadge　　　　 | 401/403/连接失败 | 盾牌动画 + 守护台词 |
-| 🧭 言启 | RoutingPath　　　　| 路由决策时　　　 | 路径流动动画　　　　|
-| 🎯 千里 | RecommendCard　　　| 进入 Playground　| 推荐模型浮出　　　　|
-| 🤔 语枢 | ThoughtBubble　　　| SSE 流式中　　　 | 思考气泡 + 光标　　 |
-| 📚 格物 | CitationFold　　　 | RAG 问答完成　　 | 引用来源折叠展开　　|
-| 🧠 元启 | OrchestrationGraph | MCP 多步执行　　 | 编排图逐节点点亮　　|
-| 🔮 预见 | FutureChart　　　　| 数据加载完成　　 | 折线延伸动画　　　　|
-| 🎨 创想 | CacheRipple　　　　| 缓存命中　　　　 | 涟漪扩散　　　　　　|
+| 家人　　  | 情感组件　　　　　  | 触发场景　　　　  | 表现　　　　　　　　 |
+| --------- | ------------------- | ----------------- | -------------------- |
+| 🛡️ 智云　 | TrustBadge　　　　  | 401/403/连接失败  | 盾牌动画 + 守护台词  |
+| 🧭 言启   | RoutingPath　　　　 | 路由决策时　　　  | 路径流动动画　　　　 |
+| 🎯 千里   | RecommendCard　　　 | 进入 Playground　 | 推荐模型浮出　　　　 |
+| 🤔 语枢   | ThoughtBubble　　　 | SSE 流式中　　　  | 思考气泡 + 光标　　  |
+| 📚 格物   | CitationFold　　　  | RAG 问答完成　　  | 引用来源折叠展开　　 |
+| 🧠 元启   | OrchestrationGraph  | MCP 多步执行　　  | 编排图逐节点点亮　　 |
+| 🔮 预见   | FutureChart　　　　 | 数据加载完成　　  | 折线延伸动画　　　　 |
+| 🎨 创想   | CacheRipple　　　　 | 缓存命中　　　　  | 涟漪扩散　　　　　　 |
 
 #### 2.5.4 页面头部视觉模板（强制三要素）
 
@@ -1188,54 +1234,54 @@ QA 结论: [通过/有条件通过/失败]（18 条检查项）
 
 ### 3.1 核心框架
 
-| 技术　　　　　　 | 版本　　　　　　　　　| 锁定理由　　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
-| ------------------| -----------------------| ------------------------------------------------------------------|
-| **Next.js**　　　| **16.3.x Active LTS** | 2026-10 起唯一 LTS 主线；EOL 2027-10；Node ≥20.9；Turbopack 默认 |
-| **React**　　　　| **19.x**　　　　　　　| Next.js 16 内置；shadcn/ui 全组件适配　　　　　　　　　　　　　　|
-| **TypeScript**　 | **5.9+ strict**　　　 | 类型安全　　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
-| **Tailwind CSS** | **4.3+**　　　　　　　| CSS-First @theme；构建快 5×　　　　　　　　　　　　　　　　　　　|
-| **shadcn/ui**　　| **React 19 版**　　　 | CLI 支持新 @theme　　　　　　　　　　　　　　　　　　　　　　　　|
+| 技术　　　　　　  | 版本　　　　　　　　　 | 锁定理由　　　　　　　　　　　　　　　　　　　　　　　　　　　　  |
+| ----------------- | ---------------------- | ----------------------------------------------------------------- |
+| **Next.js**　　　 | **16.3.x Active LTS**  | 2026-10 起唯一 LTS 主线；EOL 2027-10；Node ≥20.9；Turbopack 默认  |
+| **React**　　　　 | **19.x**　　　　　　　 | Next.js 16 内置；shadcn/ui 全组件适配　　　　　　　　　　　　　　 |
+| **TypeScript**　  | **5.9+ strict**　　　  | 类型安全　　　　　　　　　　　　　　　　　　　　　　　　　　　　  |
+| **Tailwind CSS**  | **4.3+**　　　　　　　 | CSS-First @theme；构建快 5×　　　　　　　　　　　　　　　　　　　 |
+| **shadcn/ui**　　 | **React 19 版**　　　  | CLI 支持新 @theme　　　　　　　　　　　　　　　　　　　　　　　　 |
 
 ### 3.2 状态与数据层
 
-| 技术　　　　　 | 版本　　　　　　　　　　　　| 职责　　　　　　　　　　　　　　　　　　　　　|
-| ----------------| -----------------------------| -----------------------------------------------|
-| TanStack Query | v5.x（5.90+）　　　　　　　 | 服务端状态、轮询、缓存失效联动　　　　　　　　|
-| Zustand　　　　| v5.x　　　　　　　　　　　　| 客户端状态：连接态、Playground 会话、主题偏好 |
-| SSE　　　　　　| 原生 fetch + ReadableStream | **禁用 EventSource**　　　　　　　　　　　　　|
+| 技术　　　　　  | 版本　　　　　　　　　　　　 | 职责　　　　　　　　　　　　　　　　　　　　　 |
+| --------------- | ---------------------------- | ---------------------------------------------- |
+| TanStack Query  | v5.x（5.90+）　　　　　　　  | 服务端状态、轮询、缓存失效联动　　　　　　　　 |
+| Zustand　　　　 | v5.x　　　　　　　　　　　　 | 客户端状态：连接态、Playground 会话、主题偏好  |
+| SSE　　　　　　 | 原生 fetch + ReadableStream  | **禁用 EventSource**　　　　　　　　　　　　　 |
 
 ### 3.3 辅助库
 
-| 用途　　 | 选型　　　　　　　　　　　　|
-| ----------| -----------------------------|
-| 图表　　 | Recharts　　　　　　　　　　|
-| 表格　　 | TanStack Table v8　　　　　 |
-| 表单　　 | react-hook-form + zod　　　 |
-| 图标　　 | lucide-react　　　　　　　　|
-| 日期　　 | date-fns　　　　　　　　　　|
-| Mock　　 | MSW v2　　　　　　　　　　　|
-| 契约测试 | openapi-typescript + vitest |
+| 用途　　 | 选型　　　　　　　　　　　　 |
+| -------- | ---------------------------- |
+| 图表　　 | Recharts　　　　　　　　　　 |
+| 表格　　 | TanStack Table v8　　　　　  |
+| 表单　　 | react-hook-form + zod　　　  |
+| 图标　　 | lucide-react　　　　　　　　 |
+| 日期　　 | date-fns　　　　　　　　　　 |
+| Mock　　 | MSW v2　　　　　　　　　　　 |
+| 契约测试 | openapi-typescript + vitest  |
 
 ### 3.4 渲染策略矩阵
 
-| 页面　　　　　| 策略　　　　　　　　| 理由　　　　　　　　　|
-| ---------------| ---------------------| -----------------------|
-| 00_Cover　　　| Static　　　　　　　| 无数据　　　　　　　　|
-| 01/02　　　　 | Static　　　　　　　| 设计系统　　　　　　　|
-| 03_Connect　　| Client　　　　　　　| 需读 localStorage　　 |
-| 04_Dashboard　| RSC + Client Island | 首屏 SSR，图表 Client |
-| 05_Model_Hub　| Client　　　　　　　| 交互密集　　　　　　　|
-| 06_Playground | Client　　　　　　　| SSE 流式　　　　　　　|
-| 07_Routing　　| Client　　　　　　　| 轮询　　　　　　　　　|
-| 08_RAG　　　　| Client　　　　　　　| 上传/检索　　　　　　 |
-| 09_MCP　　　　| Client　　　　　　　| 动态表单　　　　　　　|
-| 10_Cache　　　| Client　　　　　　　| 操作　　　　　　　　　|
-| 11_Monitor　　| RSC + Client Island | 健康可 SSR　　　　　　|
-| 12_Settings　 | Client　　　　　　　| localStorage　　　　　|
-| 13_Docs　　　 | Static + MDX　　　　| 文档　　　　　　　　　|
-| 14_Roadmap　　| Static　　　　　　　| 线框　　　　　　　　　|
-| 15_Prototype　| —　　　　　　　　　 | Figma only　　　　　　|
-| 16/17　　　　 | —　　　　　　　　　 | Figma only　　　　　　|
+| 页面　　　　　 | 策略　　　　　　　　 | 理由　　　　　　　　　 |
+| -------------- | -------------------- | ---------------------- |
+| 00_Cover　　　 | Static　　　　　　　 | 无数据　　　　　　　　 |
+| 01/02　　　　  | Static　　　　　　　 | 设计系统　　　　　　　 |
+| 03_Connect　　 | Client　　　　　　　 | 需读 localStorage　　  |
+| 04_Dashboard　 | RSC + Client Island  | 首屏 SSR，图表 Client  |
+| 05_Model_Hub　 | Client　　　　　　　 | 交互密集　　　　　　　 |
+| 06_Playground  | Client　　　　　　　 | SSE 流式　　　　　　　 |
+| 07_Routing　　 | Client　　　　　　　 | 轮询　　　　　　　　　 |
+| 08_RAG　　　　 | Client　　　　　　　 | 上传/检索　　　　　　  |
+| 09_MCP　　　　 | Client　　　　　　　 | 动态表单　　　　　　　 |
+| 10_Cache　　　 | Client　　　　　　　 | 操作　　　　　　　　　 |
+| 11_Monitor　　 | RSC + Client Island  | 健康可 SSR　　　　　　 |
+| 12_Settings　  | Client　　　　　　　 | localStorage　　　　　 |
+| 13_Docs　　　  | Static + MDX　　　　 | 文档　　　　　　　　　 |
+| 14_Roadmap　　 | Static　　　　　　　 | 线框　　　　　　　　　 |
+| 15_Prototype　 | —　　　　　　　　　  | Figma only　　　　　　 |
+| 16/17　　　　  | —　　　　　　　　　  | Figma only　　　　　　 |
 
 ### 3.5 TanStack Query Key 规范
 
@@ -1243,78 +1289,78 @@ QA 结论: [通过/有条件通过/失败]（18 条检查项）
 // queryKeys.ts — 单一真源（v5.1 采用家人前缀命名，见 §3.11）
 export const qk = {
   guardian: {
-    healthz:     () => ["guardian", "healthz"] as const,
-    ping:        () => ["guardian", "ping"] as const,
-    keys:        () => ["guardian", "keys"] as const,        // Phase 1 · BL-05
+    healthz: () => ["guardian", "healthz"] as const,
+    ping: () => ["guardian", "ping"] as const,
+    keys: () => ["guardian", "keys"] as const, // Phase 1 · BL-05
   },
   qianhang: {
     routerStats: () => ["qianhang", "router", "stats"] as const,
-    routerHealth:() => ["qianhang", "router", "health"] as const,
+    routerHealth: () => ["qianhang", "router", "health"] as const,
   },
   bole: {
-    models:      () => ["bole", "models"] as const,
-    modelStats:  () => ["bole", "models", "stats"] as const,
-    modelType:   (id: string) => ["bole", "models", id, "type"] as const,
+    models: () => ["bole", "models"] as const,
+    modelStats: () => ["bole", "models", "stats"] as const,
+    modelType: (id: string) => ["bole", "models", id, "type"] as const,
   },
   wanyu: {
-    chat:        (id: string) => ["wanyu", "chat", id] as const,
+    chat: (id: string) => ["wanyu", "chat", id] as const,
   },
   zongshi: {
-    knowledgeBases:     () => ["zongshi", "kb"] as const,
+    knowledgeBases: () => ["zongshi", "kb"] as const,
     knowledgeBaseStats: (id: string) => ["zongshi", "kb", id, "stats"] as const,
-    documents:          (kbId?: string) => ["zongshi", "docs", kbId] as const,
+    documents: (kbId?: string) => ["zongshi", "docs", kbId] as const,
   },
   tianshu: {
-    mcpTools:    () => ["tianshu", "mcp", "tools"] as const,
-    mcpSearch:   (q: string) => ["tianshu", "mcp", "search", q] as const,
+    mcpTools: () => ["tianshu", "mcp", "tools"] as const,
+    mcpSearch: (q: string) => ["tianshu", "mcp", "search", q] as const,
   },
   xianzhi: {
-    health:      () => ["xianzhi", "health"] as const,
-    versions:    () => ["xianzhi", "versions"] as const,
-    modelSummary:() => ["xianzhi", "models", "summary"] as const,
+    health: () => ["xianzhi", "health"] as const,
+    versions: () => ["xianzhi", "versions"] as const,
+    modelSummary: () => ["xianzhi", "models", "summary"] as const,
     modelErrors: (f?: ErrorFilter) => ["xianzhi", "models", "errors", f] as const,
     // 缓存统计唯一归属创想 → qk.lingyun.cacheStats()
     // 04_Dashboard 引用时跨域调用 lingyun 前缀（§2.5.2 预见↔创想协同）
   },
   lingyun: {
-    cacheStats:  () => ["lingyun", "cache", "stats"] as const,
-    cacheInfo:   () => ["lingyun", "cache", "info"] as const,
+    cacheStats: () => ["lingyun", "cache", "stats"] as const,
+    cacheInfo: () => ["lingyun", "cache", "info"] as const,
   },
 } as const;
 ```
 
 ### 3.6 轮询与失效联动矩阵
 
-| Query       | 轮询间隔　　　　　| 失效触发　　　　　　|
-| -------------| -------------------| ---------------------|
-| health      | 30s　　　　　　　 | 手动刷新　　　　　　|
-| healthz     | 10s（Connect 页） | 无　　　　　　　　　|
-| modelStats  | 60s　　　　　　　 | 模型调用后　　　　　|
-| modelErrors | 30s　　　　　　　 | 无　　　　　　　　　|
-| routerStats | 15s　　　　　　　 | routerHealth 刷新后 |
-| cacheStats  | 60s　　　　　　　 | invalidate/clear 后 |
+| Query       | 轮询间隔　　　　　 | 失效触发　　　　　　 |
+| ----------- | ------------------ | -------------------- |
+| health      | 30s　　　　　　　  | 手动刷新　　　　　　 |
+| healthz     | 10s（Connect 页）  | 无　　　　　　　　　 |
+| modelStats  | 60s　　　　　　　  | 模型调用后　　　　　 |
+| modelErrors | 30s　　　　　　　  | 无　　　　　　　　　 |
+| routerStats | 15s　　　　　　　  | routerHealth 刷新后  |
+| cacheStats  | 60s　　　　　　　  | invalidate/clear 后  |
 
 ### 3.7 Code Connect 映射（完整版）
 
-| Figma 组件　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | 代码路径　　　　　　　　　　　　　　　　　　　　　　　　　| 归属家人 |
-| ----------------------------------------------------------------------------------------------| -----------------------------------------------------------| ----------|
-| Button / Input / Select / Switch / Slider / Table / Tabs / Tooltip / Toast / Dialog / Drawer | `@/components/ui/*`（shadcn/ui）　　　　　　　　　　　　　| —　　　　|
-| FamilyBadge　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　| `apps/console/components/family/FamilyBadge.tsx`　　　　　| 全员　　 |
-| StatCard　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | `apps/console/components/console/StatCard.tsx`　　　　　　| 🔮 预见　|
-| ModelCard　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　| `apps/console/components/console/ModelCard.tsx`　　　　　 | 🎯 千里　|
-| BackendBadge　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | `apps/console/components/console/BackendBadge.tsx`　　　　| 🎯 千里　|
-| UpstreamCard　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | `apps/console/components/console/UpstreamCard.tsx`　　　　| 🧭 言启　|
-| BreakerBadge　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | `apps/console/components/console/BreakerBadge.tsx`　　　　| 🧭 言启　|
-| LatencyBar　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | `apps/console/components/console/LatencyBar.tsx`　　　　　| 🔮 预见　|
-| ErrorRateBadge　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | `apps/console/components/console/ErrorRateBadge.tsx`　　　| 🔮 预见　|
-| ErrorState　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | `apps/console/components/console/ErrorState.tsx`　　　　　| 🛡️ 智云　 |
-| SSEStreamViewer　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　| `apps/console/components/console/SSEViewer.tsx`　　　　　 | 🤔 语枢　|
-| TraceCard　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　| `apps/console/components/console/UpstreamTrace.tsx`　　　 | 🧭 言启　|
-| ModelSelector　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　| `apps/console/components/console/ModelSelector.tsx`　　　 | 🎯 千里　|
-| KBSelector　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | `apps/console/components/console/KBSelector.tsx`　　　　　| 📚 格物　|
-| MCPToolPicker　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　| `apps/console/components/console/MCPToolPicker.tsx`　　　 | 🧠 元启　|
-| JsonViewer　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | `apps/console/components/console/JsonViewer.tsx`　　　　　| 🧠 元启　|
-| 所有 color/* Variables　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | Tailwind `@theme` token（`apps/console/app/globals.css`） | —　　　　|
+| Figma 组件　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  | 代码路径　　　　　　　　　　　　　　　　　　　　　　　　　 | 归属家人  |
+| --------------------------------------------------------------------------------------------- | ---------------------------------------------------------- | --------- |
+| Button / Input / Select / Switch / Slider / Table / Tabs / Tooltip / Toast / Dialog / Drawer  | `@/components/ui/*`（shadcn/ui）　　　　　　　　　　　　　 | —　　　　 |
+| FamilyBadge　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | `apps/console/components/family/FamilyBadge.tsx`　　　　　 | 全员　　  |
+| StatCard　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  | `apps/console/components/console/StatCard.tsx`　　　　　　 | 🔮 预见　 |
+| ModelCard　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | `apps/console/components/console/ModelCard.tsx`　　　　　  | 🎯 千里　 |
+| BackendBadge　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  | `apps/console/components/console/BackendBadge.tsx`　　　　 | 🎯 千里　 |
+| UpstreamCard　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  | `apps/console/components/console/UpstreamCard.tsx`　　　　 | 🧭 言启　 |
+| BreakerBadge　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  | `apps/console/components/console/BreakerBadge.tsx`　　　　 | 🧭 言启　 |
+| LatencyBar　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  | `apps/console/components/console/LatencyBar.tsx`　　　　　 | 🔮 预见　 |
+| ErrorRateBadge　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  | `apps/console/components/console/ErrorRateBadge.tsx`　　　 | 🔮 预见　 |
+| ErrorState　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  | `apps/console/components/console/ErrorState.tsx`　　　　　 | 🛡️ 智云　 |
+| SSEStreamViewer　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | `apps/console/components/console/SSEViewer.tsx`　　　　　  | 🤔 语枢　 |
+| TraceCard　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | `apps/console/components/console/UpstreamTrace.tsx`　　　  | 🧭 言启　 |
+| ModelSelector　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | `apps/console/components/console/ModelSelector.tsx`　　　  | 🎯 千里　 |
+| KBSelector　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  | `apps/console/components/console/KBSelector.tsx`　　　　　 | 📚 格物　 |
+| MCPToolPicker　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 | `apps/console/components/console/MCPToolPicker.tsx`　　　  | 🧠 元启　 |
+| JsonViewer　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  | `apps/console/components/console/JsonViewer.tsx`　　　　　 | 🧠 元启　 |
+| 所有 color/* Variables　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  | Tailwind `@theme` token（`apps/console/app/globals.css`）  | —　　　　 |
 
 ### 3.8 前端路由（Next.js 16 App Router）
 
@@ -1363,14 +1409,14 @@ export const qk = {
 
 ### 3.10 性能预算
 
-| 指标 | 预算 | 测量点 |
-| --- | --- | --- |
-| 首屏 FCP | ≤ 1.2s | 1440 桌面 / 4G |
-| TTI | ≤ 2.5s | 同上 |
-| SSE 首 chunk（TTFT） | ≤ 800ms | 本地模型 |
-| 打包体积（首屏 JS） | ≤ 180KB gzip | Playground 除外 |
-| Lighthouse 性能 | ≥ 90 | Dashboard |
-| Lighthouse 可访问性 | ≥ 95 | 全页 |
+| 指标                 | 预算         | 测量点          |
+| -------------------- | ------------ | --------------- |
+| 首屏 FCP             | ≤ 1.2s       | 1440 桌面 / 4G  |
+| TTI                  | ≤ 2.5s       | 同上            |
+| SSE 首 chunk（TTFT） | ≤ 800ms      | 本地模型        |
+| 打包体积（首屏 JS）  | ≤ 180KB gzip | Playground 除外 |
+| Lighthouse 性能      | ≥ 90         | Dashboard       |
+| Lighthouse 可访问性  | ≥ 95         | 全页            |
 
 ### 3.11 家人到代码命名映射（v5.1 新增）
 
@@ -1429,16 +1475,16 @@ Dev Mode 注释规范：
 
 ### BL 归属总表
 
-| BL    | 内容　　　　　　　 | 归属家人　　 | 人格化说明　　　　　　　　 |
-| :-----:| --------------------| :------------:| ----------------------------|
-| BL-01 | UsageLog 加 6 字段 | 🔮 预见·先知 | 「预言家需要更敏锐的感官」 |
-| BL-02 | cost_usd 真实计算　| 🔮 预见·先知 | 「预言家要能算出代价」　　 |
-| BL-03 | latency_ms 记录　　| 🔮 预见·先知 | 「预言家要感知时间」　　　 |
-| BL-04 | request_id 全链路　| 🧠 元启·天枢 | 「总指挥需要唯一号令」　　 |
-| BL-05 | api_keys CRUD　　　| 🛡️ 智云·守护　| 「守护者要能签发令牌」　　 |
-| BL-06 | timeline/logs　　　| 🔮 预见·先知 | 「预言家要看到时间线」　　 |
-| BL-07 | status/error_code　| 📚 格物·宗师 | 「宗师要能溯源质量」　　　 |
-| BL-08 | router/health 扩展 | 🧭 言启·千行 | 「导航员要看到恢复路径」　 |
+|  BL   | 内容　　　　　　　  |  归属家人　　  | 人格化说明　　　　　　　　 |
+| :---: | ------------------- | :------------: | -------------------------- |
+| BL-01 | UsageLog 加 6 字段  |  🔮 预见·先知  | 「预言家需要更敏锐的感官」 |
+| BL-02 | cost_usd 真实计算　 |  🔮 预见·先知  | 「预言家要能算出代价」　　 |
+| BL-03 | latency_ms 记录　　 |  🔮 预见·先知  | 「预言家要感知时间」　　　 |
+| BL-04 | request_id 全链路　 |  🧠 元启·天枢  | 「总指挥需要唯一号令」　　 |
+| BL-05 | api_keys CRUD　　　 | 🛡️ 智云·守护　 | 「守护者要能签发令牌」　　 |
+| BL-06 | timeline/logs　　　 |  🔮 预见·先知  | 「预言家要看到时间线」　　 |
+| BL-07 | status/error_code　 |  📚 格物·宗师  | 「宗师要能溯源质量」　　　 |
+| BL-08 | router/health 扩展  |  🧭 言启·千行  | 「导航员要看到恢复路径」　 |
 
 ### BL-01: UsageLog 加 6 字段
 
@@ -1781,7 +1827,8 @@ BL-08 (router health) ← 独立增强
 
 ```typescript
 // apps/console/lib/hooks/useXianzhiMetrics.ts
-export function useXianzhiMetrics() {          // 🔮 预见·先知
+export function useXianzhiMetrics() {
+  // 🔮 预见·先知
   return useQuery({
     queryKey: qk.xianzhi.modelSummary(),
     queryFn: () => api.get<UsageSummary>("/v1/models/summary"),
@@ -1805,13 +1852,13 @@ export function useTimeline(range: DateRange) {
 
 **适配层清单（v5.1 家人命名版）**：
 
-| Hook（家人命名） | 功能别名 | Phase 0 实现 | Phase 1 实现 |
-| --- | --- | --- | --- |
-| useXianzhiMetrics() | useSummary | /v1/models/summary（cost 恒 0） | 真实 cost |
+| Hook（家人命名）     | 功能别名    | Phase 0 实现                      | Phase 1 实现       |
+| -------------------- | ----------- | --------------------------------- | ------------------ |
+| useXianzhiMetrics()  | useSummary  | /v1/models/summary（cost 恒 0）   | 真实 cost          |
 | useXianzhiTimeline() | useTimeline | 单点占位（health.total_requests） | /v1/usage/timeline |
-| useXianzhiLogs() | useLogs | 仅 errors（/v1/models/errors） | errors + /v1/logs |
-| useGuardianKeys() | useKeys | localStorage 静态 | /v1/keys CRUD |
-| useXianzhiLatency() | useLatency | stats 聚合 | BL-03 真实端到端 |
+| useXianzhiLogs()     | useLogs     | 仅 errors（/v1/models/errors）    | errors + /v1/logs  |
+| useGuardianKeys()    | useKeys     | localStorage 静态                 | /v1/keys CRUD      |
+| useXianzhiLatency()  | useLatency  | stats 聚合                        | BL-03 真实端到端   |
 
 ---
 
@@ -1882,33 +1929,39 @@ Step 5 报告（Report）
 # QA_REPORT · [日期]
 
 ## 总览
-| 项 | 值 |
-| --- | --- |
-| 检查项总数 | 18 |
-| ✅ 通过 | N |
-| ❌ 失败 | N |
-| ⚠️ 有条件 | N |
-| 🚫 阻塞 | N |
-| 结论 | 通过 / 有条件通过 / 失败 |
+
+| 项         | 值                       |
+| ---------- | ------------------------ |
+| 检查项总数 | 18                       |
+| ✅ 通过    | N                        |
+| ❌ 失败    | N                        |
+| ⚠️ 有条件  | N                        |
+| 🚫 阻塞    | N                        |
+| 结论       | 通过 / 有条件通过 / 失败 |
 
 ## 详细矩阵
+
 | 模块 | 检查项 | 状态 | 证据 | 修复建议 |
-| --- | --- | :---: | --- | --- |
-| ... | ... | ... | ... | ... |
+| ---- | ------ | :--: | ---- | -------- |
+| ...  | ...    | ...  | ...  | ...      |
 
 ## 阻塞项
+
 - [ ] [模块] [问题] — 负责人: X — 预计: YYYY-MM-DD
 
 ## 已修复项
+
 - [x] [模块] [问题] — 修复方式: X
 
 ## 待确认项
+
 - [ ] [模块] [问题] — 待确认: X
 
 ## 回归矩阵
+
 | 修复项 | 可能影响 | 已复检 |
-| --- | --- | :---: |
-| ... | ... | ✅ |
+| ------ | -------- | :----: |
+| ...    | ...      |   ✅   |
 ```
 
 ---
@@ -1977,64 +2030,64 @@ Step 5 报告（Report）
 
 ## 第九部分 · 工程决策记录（v5.0 继承 + v5.1 新增）
 
-| 决策点　　　　　 | 结论　　　　　　　　　　　　　　　　　　　 | 理由　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
-| ------------------| --------------------------------------------| ----------------------------------------------------------------------------|
-| 前端仓库位置　　 | `apps/console/`（pnpm workspace）　　　　　| 与 core 解耦，CI 独立　　　　　　　　　　　　　　　　　　　　　　　　　　　|
-| Next.js 版本　　 | 16.3.x LTS（禁用 14/15）　　　　　　　　　 | 唯一 Active LTS；Turbopack；Node ≥20.9　　　　　　　　　　　　　　　　　　 |
-| Node.js　　　　　| 22 LTS　　　　　　　　　　　　　　　　　　 | Next.js 16 要求 ≥20.9　　　　　　　　　　　　　　　　　　　　　　　　　　　|
-| 状态管理　　　　 | TanStack Query v5 + Zustand v5　　　　　　 | SSE + 服务端缓存最优　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
-| 图表　　　　　　 | Recharts　　　　　　　　　　　　　　　　　 | shadcn 同源　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　|
-| 设计-后端并行　　| Phase 0 即启动　　　　　　　　　　　　　　 | 82.7% 端点可直接对接　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
-| SSE　　　　　　　| fetch + ReadableStream　　　　　　　　　　 | EventSource 不支持 POST/自定义头　　　　　　　　　　　　　　　　　　　　　 |
-| Token 估算口径　 | `len(content) // 4`　　　　　　　　　　　　| 与后端 sse_wrapper 一致　　　　　　　　　　　　　　　　　　　　　　　　　　|
-| API Key 存储　　 | sessionStorage + localStorage（勾选）　　　| httpOnly 不可行；CSP 防 XSS　　　　　　　　　　　　　　　　　　　　　　　　|
-| 契约漂移防护　　 | openapi.json 哈希 CI 校验　　　　　　　　　| 防止后端静默变更　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
-| 适配层策略　　　 | hook 封装，Phase 1 只换实现　　　　　　　　| UI 零改动　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　|
-| 渲染策略　　　　 | RSC + Client Island　　　　　　　　　　　　| 首屏 SSR，交互 Client　　　　　　　　　　　　　　　　　　　　　　　　　　　|
-| Mock 策略　　　　| MSW v2　　　　　　　　　　　　　　　　　　 | 契约一致，可离线开发　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
-| QA 协议　　　　　| 五步自检 + 回归矩阵　　　　　　　　　　　　| 可重复、可验证　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
-| **拟人化叠加**　 | **功能命名不动，人格徽章纯叠加**　　　　　 | **契约零冲突；品牌独占情感资产；团队沟通降熵；「亦师亦友亦伯乐」文化落地** |
-| **家人代码映射** | **domains/ 目录 + Hook/QueryKey 家人前缀** | **人格层落到代码组织，可导航、可维护**　　　　　　　　　　　　　　　　　　 |
+| 决策点　　　　　  | 结论　　　　　　　　　　　　　　　　　　　  | 理由　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  |
+| ----------------- | ------------------------------------------- | --------------------------------------------------------------------------- |
+| 前端仓库位置　　  | `apps/console/`（pnpm workspace）　　　　　 | 与 core 解耦，CI 独立　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
+| Next.js 版本　　  | 16.3.x LTS（禁用 14/15）　　　　　　　　　  | 唯一 Active LTS；Turbopack；Node ≥20.9　　　　　　　　　　　　　　　　　　  |
+| Node.js　　　　　 | 22 LTS　　　　　　　　　　　　　　　　　　  | Next.js 16 要求 ≥20.9　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
+| 状态管理　　　　  | TanStack Query v5 + Zustand v5　　　　　　  | SSE + 服务端缓存最优　　　　　　　　　　　　　　　　　　　　　　　　　　　  |
+| 图表　　　　　　  | Recharts　　　　　　　　　　　　　　　　　  | shadcn 同源　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
+| 设计-后端并行　　 | Phase 0 即启动　　　　　　　　　　　　　　  | 82.7% 端点可直接对接　　　　　　　　　　　　　　　　　　　　　　　　　　　  |
+| SSE　　　　　　　 | fetch + ReadableStream　　　　　　　　　　  | EventSource 不支持 POST/自定义头　　　　　　　　　　　　　　　　　　　　　  |
+| Token 估算口径　  | `len(content) // 4`　　　　　　　　　　　　 | 与后端 sse_wrapper 一致　　　　　　　　　　　　　　　　　　　　　　　　　　 |
+| API Key 存储　　  | sessionStorage + localStorage（勾选）　　　 | httpOnly 不可行；CSP 防 XSS　　　　　　　　　　　　　　　　　　　　　　　　 |
+| 契约漂移防护　　  | openapi.json 哈希 CI 校验　　　　　　　　　 | 防止后端静默变更　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  |
+| 适配层策略　　　  | hook 封装，Phase 1 只换实现　　　　　　　　 | UI 零改动　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
+| 渲染策略　　　　  | RSC + Client Island　　　　　　　　　　　　 | 首屏 SSR，交互 Client　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
+| Mock 策略　　　　 | MSW v2　　　　　　　　　　　　　　　　　　  | 契约一致，可离线开发　　　　　　　　　　　　　　　　　　　　　　　　　　　  |
+| QA 协议　　　　　 | 五步自检 + 回归矩阵　　　　　　　　　　　　 | 可重复、可验证　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  |
+| **拟人化叠加**　  | **功能命名不动，人格徽章纯叠加**　　　　　  | **契约零冲突；品牌独占情感资产；团队沟通降熵；「亦师亦友亦伯乐」文化落地**  |
+| **家人代码映射**  | **domains/ 目录 + Hook/QueryKey 家人前缀**  | **人格层落到代码组织，可导航、可维护**　　　　　　　　　　　　　　　　　　  |
 
 ---
 
 ## 第十部分 · 版本演进与历史处置
 
-| 版本　　　 | 日期　　　　　 | 关键变更　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
-| ------------| ----------------| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| V1　　　　 | 2026-09-01　　 | 初稿，多租户假设（已废弃）　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
-| V2　　　　 | 2026-09-02　　 | 落地版，删除超纲设计　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
-| V3.0　　　 | 2026-09-03　　 | 合并三合一，Next.js 16　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
-| V4.0　　　 | 2026-09-17　　 | 闭环对齐版：逐页对齐类型、真实 Schema、Backlog　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
-| V5.0　　　 | 2026-09-17　　 | 升华闭环版：审核报告、三批投喂、SSE 七态、错误码矩阵、适配层、安全边界、性能预算、五步 QA　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　|
-| **V5.1**　 | **2026-09-17** | **拟人化升华版：8 位家人人格层纯叠加——身份卡/家人配色/FamilyBadge/家人代码映射/家人 QA 5 条/情感层验收，全部契约 100% 兼容**　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
-| **V5.1.1** | **2026-09-17** | **修订 1：修复 5 项一致性缺陷——D-01 queryKey 缓存重复（xianzhi.cacheStats 移除，唯一归属 lingyun）；D-02 Playground 协同标注精确定位（右栏调试面板 PresetCard）；D-03 /v1/versions 双向共享标注；D-04 §8.4 与 §7.2.3 检查项 14-18 映射对齐；D-05 待合并文档标注 v5.2 候选 + 2026 Q4 时间窗** |
+| 版本　　　 | 日期　　　　　 | 关键变更　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  |
+| ---------- | -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| V1　　　　 | 2026-09-01　　 | 初稿，多租户假设（已废弃）　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  |
+| V2　　　　 | 2026-09-02　　 | 落地版，删除超纲设计　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  |
+| V3.0　　　 | 2026-09-03　　 | 合并三合一，Next.js 16　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  |
+| V4.0　　　 | 2026-09-17　　 | 闭环对齐版：逐页对齐类型、真实 Schema、Backlog　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  |
+| V5.0　　　 | 2026-09-17　　 | 升华闭环版：审核报告、三批投喂、SSE 七态、错误码矩阵、适配层、安全边界、性能预算、五步 QA　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　 |
+| **V5.1**　 | **2026-09-17** | **拟人化升华版：8 位家人人格层纯叠加——身份卡/家人配色/FamilyBadge/家人代码映射/家人 QA 5 条/情感层验收，全部契约 100% 兼容**　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　  |
+| **V5.1.1** | **2026-09-17** | **修订 1：修复 5 项一致性缺陷——D-01 queryKey 缓存重复（xianzhi.cacheStats 移除，唯一归属 lingyun）；D-02 Playground 协同标注精确定位（右栏调试面板 PresetCard）；D-03 /v1/versions 双向共享标注；D-04 §8.4 与 §7.2.3 检查项 14-18 映射对齐；D-05 待合并文档标注 v5.2 候选 + 2026 Q4 时间窗**  |
 
 ### 与 v5.0 的关键差异
 
-| 项 | v5.0 | v5.1 |
-| --- | --- | --- |
-| 页面标识 | 纯功能命名 | **功能命名 + FamilyBadge 人格徽章叠加** |
-| 01_Foundations | 基础配色 | **+ 8 组家人配色 Variables** |
-| 02_Components | 通用 + 专属组件 | **+ FamilyBadge（8 变体）+ 8 个情感组件** |
-| 页面结构 | 18 页 | **18 页挂载家人域归属（含协同标注）** |
-| 技术栈 | — | **+ §3.11 家人到代码命名映射** |
-| Query Key | 功能命名 | **家人前缀命名（guardian/qianhang/bole/...）** |
-| Backlog | 8 项可执行清单 | **+ 每 BL 挂家人（人格化说明）** |
-| QA | 13 条检查项 | **18 条（+ 家人维度 5 条）** |
-| 验收 | 三层验收 | **+ §8.4 情感层验收** |
-| 空态/错误态文案 | 真实错误信息 | **家人口吻包裹真实错误信息** |
+| 项              | v5.0            | v5.1                                           |
+| --------------- | --------------- | ---------------------------------------------- |
+| 页面标识        | 纯功能命名      | **功能命名 + FamilyBadge 人格徽章叠加**        |
+| 01_Foundations  | 基础配色        | **+ 8 组家人配色 Variables**                   |
+| 02_Components   | 通用 + 专属组件 | **+ FamilyBadge（8 变体）+ 8 个情感组件**      |
+| 页面结构        | 18 页           | **18 页挂载家人域归属（含协同标注）**          |
+| 技术栈          | —               | **+ §3.11 家人到代码命名映射**                 |
+| Query Key       | 功能命名        | **家人前缀命名（guardian/qianhang/bole/...）** |
+| Backlog         | 8 项可执行清单  | **+ 每 BL 挂家人（人格化说明）**               |
+| QA              | 13 条检查项     | **18 条（+ 家人维度 5 条）**                   |
+| 验收            | 三层验收        | **+ §8.4 情感层验收**                          |
+| 空态/错误态文案 | 真实错误信息    | **家人口吻包裹真实错误信息**                   |
 
 ### 历史文档处置
 
-| 文档 | 处置 |
-| --- | --- |
+| 文档                                                | 处置                                    |
+| --------------------------------------------------- | --------------------------------------- |
 | `Token调用平台前端-全维度设计与落地文档.md`（v4.0） | 保留，标注「已被 v5.0 合并、v5.1 取代」 |
-| `YYC3-AI-Family-Token-Console-提示词.md`（v5.0） | 保留，标注「已被 v5.1 取代」 |
-| `YYC3-AI-Family-Token-Console-拟人化.md` | 保留，其可替换章节已全量合并入本文档 |
-| `YYC3-AI-FAmily-Token-Console-情感化.md` | 待合并 · **v5.2 候选，2026 Q4 前完成** |
-| `YYC3-AI-Family-Token-Console-协同化.md` | 待合并 · **v5.2 候选，2026 Q4 前完成** |
-| `YYC3-AI-Family-Token-Console-标规化.md` | 待合并 · **v5.2 候选，2026 Q4 前完成** |
+| `YYC3-AI-Family-Token-Console-提示词.md`（v5.0）    | 保留，标注「已被 v5.1 取代」            |
+| `YYC3-AI-Family-Token-Console-拟人化.md`            | 保留，其可替换章节已全量合并入本文档    |
+| `YYC3-AI-FAmily-Token-Console-情感化.md`            | 待合并 · **v5.2 候选，2026 Q4 前完成**  |
+| `YYC3-AI-Family-Token-Console-协同化.md`            | 待合并 · **v5.2 候选，2026 Q4 前完成**  |
+| `YYC3-AI-Family-Token-Console-标规化.md`            | 待合并 · **v5.2 候选，2026 Q4 前完成**  |
 
 ---
 
@@ -2056,30 +2109,30 @@ Step 5 报告（Report）
 
 ## 附录 B · 8 位家人速查表
 
-| emoji | 名号　　　| 角色　　　 | 电话　　　| 域　　　　 | 主页面　 | Query 前缀 |
-| :-----:| -----------| ------------| :---------:| ------------| ----------| ------------|
-| 🛡️　　 | 智云·守护 | 首席安全官 | 0379-0207 | 接入与安全 | 03/12　　| guardian　 |
-| 🧭　　| 言启·千行 | 首席导航员 | 0379-0106 | 路由与网关 | 07　　　 | qianhang　 |
-| 🎯　　| 千里·伯乐 | 首席推荐官 | 0379-0109 | 模型市场　 | 05　　　 | bole　　　 |
-| 🤔　　| 语枢·万物 | 首席思考者 | 0379-0107 | 推理对话　 | 06　　　 | wanyu　　　|
-| 📚　　| 格物·宗师 | 首席质量官 | 0379-0208 | 知识与质量 | 08/16　　| zongshi　　|
-| 🧠　　| 元启·天枢 | 总指挥　　 | 0379-0206 | 工具与编排 | 09/15/17 | tianshu　　|
-| 🔮　　| 预见·先知 | 首席预言家 | 0379-0108 | 观测与预测 | 04/11　　| xianzhi　　|
-| 🎨　　| 创想·灵韵 | 首席创意官 | 0379-0209 | 缓存与体验 | 10/13　　| lingyun　　|
+| emoji  | 名号　　　 | 角色　　　 | 电话　　　 | 域　　　　 | 主页面　  | Query 前缀  |
+| :----: | ---------- | ---------- | :--------: | ---------- | --------- | ----------- |
+| 🛡️　　 | 智云·守护  | 首席安全官 | 0379-0207  | 接入与安全 | 03/12　　 | guardian　  |
+| 🧭　　 | 言启·千行  | 首席导航员 | 0379-0106  | 路由与网关 | 07　　　  | qianhang　  |
+| 🎯　　 | 千里·伯乐  | 首席推荐官 | 0379-0109  | 模型市场　 | 05　　　  | bole　　　  |
+| 🤔　　 | 语枢·万物  | 首席思考者 | 0379-0107  | 推理对话　 | 06　　　  | wanyu　　　 |
+| 📚　　 | 格物·宗师  | 首席质量官 | 0379-0208  | 知识与质量 | 08/16　　 | zongshi　　 |
+| 🧠　　 | 元启·天枢  | 总指挥　　 | 0379-0206  | 工具与编排 | 09/15/17  | tianshu　　 |
+| 🔮　　 | 预见·先知  | 首席预言家 | 0379-0108  | 观测与预测 | 04/11　　 | xianzhi　　 |
+| 🎨　　 | 创想·灵韵  | 首席创意官 | 0379-0209  | 缓存与体验 | 10/13　　 | lingyun　　 |
 
 ## 附录 C · 关键术语表
 
-| 术语　　　　　| 含义　　　　　　　　　　　　　　　　　　　　　　　　 |
-| ---------------| ------------------------------------------------------|
-| ✅ 直接对接　　| 使用现有端点，零后端改动　　　　　　　　　　　　　　 |
-| 🔧 需轻量扩展 | 后端需补字段/新端点（Phase 1）　　　　　　　　　　　 |
-| 📋 Phase 2　　| 规划占位，不设计真实 UI　　　　　　　　　　　　　　　|
-| BIND　　　　　| 字段绑定语法 `[BIND:endpoint#field]`　　　　　　　　 |
-| SSE 七态　　　| idle/connecting/streaming/paused/error/degraded/done |
-| 适配层　　　　| hook 封装，Phase 1 只换实现不动 UI　　　　　　　　　 |
-| 契约冻结哈希　| openapi.json 的 sha256，CI 校验　　　　　　　　　　　|
-| FamilyBadge　 | 家人徽章组件（8 变体 × 3 尺寸 × 3 状态）　　　　　　 |
-| 人格层叠加　　| 功能命名不动，仅叠加家人徽章/台词/配色的增强方式　　 |
+| 术语　　　　　  | 含义　　　　　　　　　　　　　　　　　　　　　　　　  |
+| --------------- | ----------------------------------------------------- |
+| ✅ 直接对接　　 | 使用现有端点，零后端改动　　　　　　　　　　　　　　  |
+| 🔧 需轻量扩展   | 后端需补字段/新端点（Phase 1）　　　　　　　　　　　  |
+| 📋 Phase 2　　  | 规划占位，不设计真实 UI　　　　　　　　　　　　　　　 |
+| BIND　　　　　  | 字段绑定语法 `[BIND:endpoint#field]`　　　　　　　　  |
+| SSE 七态　　　  | idle/connecting/streaming/paused/error/degraded/done  |
+| 适配层　　　　  | hook 封装，Phase 1 只换实现不动 UI　　　　　　　　　  |
+| 契约冻结哈希　  | openapi.json 的 sha256，CI 校验　　　　　　　　　　　 |
+| FamilyBadge　   | 家人徽章组件（8 变体 × 3 尺寸 × 3 状态）　　　　　　  |
+| 人格层叠加　　  | 功能命名不动，仅叠加家人徽章/台词/配色的增强方式　　  |
 
 ---
 

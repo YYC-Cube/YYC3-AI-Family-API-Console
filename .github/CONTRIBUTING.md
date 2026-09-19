@@ -36,13 +36,13 @@ git push origin feat/your-topic
 
 ## 2. 环境要求 | Prerequisites
 
-| 依赖 Dependency | 版本 Version | 必需 Required |
-|-----------------|-------------|:---:|
-| Git | 2.40+ | ✅ |
-| Node.js | 20+（22 LTS 推荐） | ✅ |
-| pnpm（经 Corepack） | 11+（`packageManager` 锁定） | ✅ |
-| Playwright 浏览器 | chromium | ⬜（跑测试 testing） |
-| GNU Make | 4.0+ | ⬜（快捷命令 shortcuts） |
+| 依赖 Dependency     | 版本 Version                 |      必需 Required       |
+| ------------------- | ---------------------------- | :----------------------: |
+| Git                 | 2.40+                        |            ✅            |
+| Node.js             | 20+（22 LTS 推荐）           |            ✅            |
+| pnpm（经 Corepack） | 11+（`packageManager` 锁定） |            ✅            |
+| Playwright 浏览器   | chromium                     |   ⬜（跑测试 testing）   |
+| GNU Make            | 4.0+                         | ⬜（快捷命令 shortcuts） |
 
 ```bash
 # 测试浏览器安装（一次性）
@@ -82,16 +82,16 @@ main (protected 生产分支)
 <footer 可选 optional>   # e.g. BREAKING CHANGE: migration note / Closes #123
 ```
 
-| type | 用途 Usage | 对应标签 Label |
-|------|-----------|----------------|
-| `feat` | 新功能 new feature | `feature` |
-| `fix` | 缺陷修复 bug fix | `bug` |
-| `docs` | 文档 documentation | `documentation` |
-| `perf` | 性能 performance | `performance` |
-| `refactor` | 重构（不改行为）refactor w/o behavior change | `enhancement` |
-| `test` | 测试 tests | — |
-| `ci` | 流水线 pipeline | `ci` |
-| `chore` | 杂项 chores | — |
+| type       | 用途 Usage                                   | 对应标签 Label  |
+| ---------- | -------------------------------------------- | --------------- |
+| `feat`     | 新功能 new feature                           | `feature`       |
+| `fix`      | 缺陷修复 bug fix                             | `bug`           |
+| `docs`     | 文档 documentation                           | `documentation` |
+| `perf`     | 性能 performance                             | `performance`   |
+| `refactor` | 重构（不改行为）refactor w/o behavior change | `enhancement`   |
+| `test`     | 测试 tests                                   | —               |
+| `ci`       | 流水线 pipeline                              | `ci`            |
+| `chore`    | 杂项 chores                                  | —               |
 
 **scope 建议 suggested scopes**: 智能体域名（`tianshu`/`bole`/`wanyu`/`qianxing`/`lingyun`/`xianzhi`/`zhihui`/`zongshi`）、`infra`、`docs`、`contract`。
 
@@ -124,11 +124,11 @@ Pick labels per [`labels.json`](./labels.json): type + module + priority for Iss
 
 ## 7. 三大专项门禁 | Specialized Gates
 
-| 门禁 Gate | 触发路径 | 处理方式 Handling |
-|-----------|---------|------------------|
-| ♿ [a11y.yml](./workflows/a11y.yml) | `src/**` `e2e/**` | axe-core WCAG 2.2 AA，serious/critical → 必须修复 |
-| 🎨 [visual.yml](./workflows/visual.yml) | `src/**` 视觉相关 | diff 报告审阅 → 预期变更则 `pnpm test:visual:update` 冻结新基线 |
-| 📜 [contract.yml](./workflows/contract.yml) | `src/lib/api.ts` `contracts/**` | 漂移 → 复核 `src/lib/api.ts` 类型同步 → `pnpm contract:freeze` |
+| 门禁 Gate                                   | 触发路径                        | 处理方式 Handling                                               |
+| ------------------------------------------- | ------------------------------- | --------------------------------------------------------------- |
+| ♿ [a11y.yml](./workflows/a11y.yml)         | `src/**` `e2e/**`               | axe-core WCAG 2.2 AA，serious/critical → 必须修复               |
+| 🎨 [visual.yml](./workflows/visual.yml)     | `src/**` 视觉相关               | diff 报告审阅 → 预期变更则 `pnpm test:visual:update` 冻结新基线 |
+| 📜 [contract.yml](./workflows/contract.yml) | `src/lib/api.ts` `contracts/**` | 漂移 → 复核 `src/lib/api.ts` 类型同步 → `pnpm contract:freeze`  |
 
 ---
 
@@ -156,12 +156,12 @@ Do **not** open public issues for security vulnerabilities — see [`SECURITY.md
 
 参与本项目即表示您同意 [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md)。
 
-| 事项 Topic | 邮箱 Email |
-|-----------|------------|
-| 开发问题 Development | dev@0379.email |
-| 文档 Documentation | docs@0379.email |
-| 技术支持 Support | support@0379.email |
-| 安全 Security | sec@0379.email |
+| 事项 Topic           | 邮箱 Email         |
+| -------------------- | ------------------ |
+| 开发问题 Development | dev@0379.email     |
+| 文档 Documentation   | docs@0379.email    |
+| 技术支持 Support     | support@0379.email |
+| 安全 Security        | sec@0379.email     |
 
 ---
 

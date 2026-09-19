@@ -82,8 +82,8 @@ spec:
   placement:
     clusterAffinity:
       clusterNames:
-        - cn-north-1       # 主区域（北京）
-        - cn-east-1        # 备区域（上海）
+        - cn-north-1 # 主区域（北京）
+        - cn-east-1 # 备区域（上海）
     spreadConstraints:
       - spreadByField: cluster
         maxGroups: 2
@@ -134,7 +134,7 @@ spec:
                   port:
                     number: 80
   strategy:
-    type: failover            # 故障转移
+    type: failover # 故障转移
     primaryGeoTag: cn-north
     dnsTtlSeconds: 30
   # 健康检查
@@ -175,7 +175,7 @@ spec:
     storageLocation: aws-primary
     volumeSnapshotLocations:
       - aws-primary
-    ttl: 720h0m0s        # 30 天保留
+    ttl: 720h0m0s # 30 天保留
     hooks:
       resources:
         - name: backup-hook
@@ -222,7 +222,7 @@ spec:
   config:
     region: cn-east-1
     s3ForcePathStyle: "true"
-  accessMode: ReadOnly      # 备区域只读（用于恢复）
+  accessMode: ReadOnly # 备区域只读（用于恢复）
 ```
 
 ### 25.5 Chaos Mesh · 8 域故障演练
@@ -330,17 +330,17 @@ spec:
 
 **其余 5 域故障脚本**（结构同上）：
 
-| 域 | 故障类型 | 假设 | 稳态指标 |
-| --- | --- | --- | --- |
-| 🎯 千里·伯乐 | StressChaos（CPU） | CPU 压满时模型列表仍可返回 | 响应 P95 < 2s |
-| 📚 格物·宗师 | PodFailure | Pod 失败时 RAG 查询降级到缓存 | 可用性 ≥ 95% |
-| 🧠 元启·天枢 | NetworkPartition | 网络分区时 MCP 调用失败但提示清晰 | 错误提示 100% |
-| 🔮 预见·先知 | IOChaos | IO 延迟时 Dashboard 降级不崩溃 | 首屏 < 5s |
-| 🎨 创想·灵韵 | HTTPAbort | HTTP 中止时缓存回退到本地存储 | 命中率 ≥ 50% |
+| 域           | 故障类型           | 假设                              | 稳态指标      |
+| ------------ | ------------------ | --------------------------------- | ------------- |
+| 🎯 千里·伯乐 | StressChaos（CPU） | CPU 压满时模型列表仍可返回        | 响应 P95 < 2s |
+| 📚 格物·宗师 | PodFailure         | Pod 失败时 RAG 查询降级到缓存     | 可用性 ≥ 95%  |
+| 🧠 元启·天枢 | NetworkPartition   | 网络分区时 MCP 调用失败但提示清晰 | 错误提示 100% |
+| 🔮 预见·先知 | IOChaos            | IO 延迟时 Dashboard 降级不崩溃    | 首屏 < 5s     |
+| 🎨 创想·灵韵 | HTTPAbort          | HTTP 中止时缓存回退到本地存储     | 命中率 ≥ 50%  |
 
 ### 25.6 灾备演练 Runbook
 
-```markdown
+````markdown
 # 🌹 YYC³ AI Family · 季度灾备演练 Runbook
 
 > **主持**：🛡️ 智云·守护 · **协同**：🧠 元启·天枢
@@ -356,11 +356,13 @@ spec:
 ## 演练流程（T-0）
 
 ### Phase 1: 桌面演练（30min）
+
 - [ ] 核对 RTO/RPO 目标：RTO ≤ 15min · RPO ≤ 5min
 - [ ] 梳理主区域依赖链
 - [ ] 确认故障切换顺序
 
 ### Phase 2: 流量切换（30min）
+
 ```bash
 # 1. 将主区域权重降为 0（k8gb）
 kubectl patch gslb yyc3-console-gslb -n yyc3-prod \
@@ -371,8 +373,10 @@ curl -sf https://console.yyc3.top/healthz | jq
 
 # 3. 记录切换耗时
 ```
+````
 
 ### Phase 3: 数据恢复（30min）
+
 ```bash
 # 从 Velero 恢复最新备份到备区域
 velero restore create yyc3-dr-restore \
@@ -382,6 +386,7 @@ velero restore create yyc3-dr-restore \
 ```
 
 ### Phase 4: 验证与回切（30min）
+
 - [ ] 功能验证：8 域各 1 条链路
 - [ ] 数据一致性校验
 - [ ] 切换回主区域
@@ -392,6 +397,7 @@ velero restore create yyc3-dr-restore \
 - [ ] 输出演练报告（含 8 域家人视角）
 - [ ] 更新 Runbook
 - [ ] 提交改进 Issue
+
 ```
 
 ### 25.7 RTO/RPO 目标矩阵
@@ -414,11 +420,13 @@ velero restore create yyc3-dr-restore \
 ### 26.1 设计目标
 
 ```
+
 目标 1: OpenCost/Kubecost 成本可视化（8 域分摊）
 目标 2: HPA + VPA + Cluster Autoscaler 三级伸缩
 目标 3: 资源画像 + 智能 Rightsizing
 目标 4: Spot 实例 + 预留实例优化
 目标 5: 成本月降 ≥ 30%
+
 ```
 
 **关键技术背景**（2026 年）：
@@ -430,25 +438,27 @@ velero restore create yyc3-dr-restore \
 ### 26.2 目录结构
 
 ```
+
 deploy/finops/
 ├── opencost/
-│   ├── opencost-install.yaml
-│   ├── opencost-ui.yaml
-│   └── cost-allocation.yaml          # 8 域成本分摊配置
+│ ├── opencost-install.yaml
+│ ├── opencost-ui.yaml
+│ └── cost-allocation.yaml # 8 域成本分摊配置
 ├── autoscaling/
-│   ├── hpa-console.yaml              # HPA（8 域差异化）
-│   ├── vpa-console.yaml              # VPA
-│   ├── cluster-autoscaler.yaml       # CA
-│   └── keda-sse.yaml                 # KEDA（SSE 事件驱动）
+│ ├── hpa-console.yaml # HPA（8 域差异化）
+│ ├── vpa-console.yaml # VPA
+│ ├── cluster-autoscaler.yaml # CA
+│ └── keda-sse.yaml # KEDA（SSE 事件驱动）
 ├── rightsizing/
-│   ├── vpa-recommendations.yaml
-│   └── golden-signals.yaml
+│ ├── vpa-recommendations.yaml
+│ └── golden-signals.yaml
 ├── spot/
-│   ├── spot-nodepool.yaml
-│   └── spot-interruption-handler.yaml
+│ ├── spot-nodepool.yaml
+│ └── spot-interruption-handler.yaml
 └── reports/
-    └── monthly-cost-report.md
-```
+└── monthly-cost-report.md
+
+````
 
 ### 26.3 OpenCost 8 域成本分摊
 
@@ -486,7 +496,7 @@ data:
         "lingyun":  { "display": "🎨 创想·灵韵", "domain": "缓存与体验域" }
       }
     }
-```
+````
 
 ### 26.4 三级自动伸缩
 
@@ -620,7 +630,7 @@ spec:
     kind: Deployment
     name: yyc3-token-console
   updatePolicy:
-    updateMode: "Off"    # 仅推荐，不自动应用（安全）
+    updateMode: "Off" # 仅推荐，不自动应用（安全）
   resourcePolicy:
     containerPolicies:
       - containerName: console
@@ -709,34 +719,34 @@ spec:
 
 ## 总览
 
-| 指标 | 本月 | 上月 | 变化 |
-| --- | :-: | :-: | :-: |
-| 总成本 | ¥XX,XXX | ¥XX,XXX | -XX% |
-| CPU 利用率 | XX% | XX% | +XX% |
-| 内存利用率 | XX% | XX% | +XX% |
-| 副本数均值 | XX | XX | -XX% |
+| 指标       |  本月   |  上月   | 变化 |
+| ---------- | :-----: | :-----: | :--: |
+| 总成本     | ¥XX,XXX | ¥XX,XXX | -XX% |
+| CPU 利用率 |   XX%   |   XX%   | +XX% |
+| 内存利用率 |   XX%   |   XX%   | +XX% |
+| 副本数均值 |   XX    |   XX    | -XX% |
 
 ## 8 域成本分摊
 
-| 域 | 计算 | 存储 | 网络 | 合计 | 占比 |
-| --- | :-: | :-: | :-: | :-: | :-: |
-| 🛡️ 智云·守护 | ¥X,XXX | ¥XXX | ¥XXX | ¥X,XXX | XX% |
-| 🧭 言启·千行 | ¥X,XXX | ¥XXX | ¥XXX | ¥X,XXX | XX% |
-| 🎯 千里·伯乐 | ¥X,XXX | ¥XXX | ¥XXX | ¥X,XXX | XX% |
-| 🤔 语枢·万物 | ¥X,XXX | ¥XXX | ¥XXX | ¥X,XXX | XX% |
-| 📚 格物·宗师 | ¥X,XXX | ¥XXX | ¥XXX | ¥X,XXX | XX% |
-| 🧠 元启·天枢 | ¥X,XXX | ¥XXX | ¥XXX | ¥X,XXX | XX% |
-| 🔮 预见·先知 | ¥X,XXX | ¥XXX | ¥XXX | ¥X,XXX | XX% |
-| 🎨 创想·灵韵 | ¥X,XXX | ¥XXX | ¥XXX | ¥X,XXX | XX% |
+| 域           |  计算  | 存储 | 网络 |  合计  | 占比 |
+| ------------ | :----: | :--: | :--: | :----: | :--: |
+| 🛡️ 智云·守护 | ¥X,XXX | ¥XXX | ¥XXX | ¥X,XXX | XX%  |
+| 🧭 言启·千行 | ¥X,XXX | ¥XXX | ¥XXX | ¥X,XXX | XX%  |
+| 🎯 千里·伯乐 | ¥X,XXX | ¥XXX | ¥XXX | ¥X,XXX | XX%  |
+| 🤔 语枢·万物 | ¥X,XXX | ¥XXX | ¥XXX | ¥X,XXX | XX%  |
+| 📚 格物·宗师 | ¥X,XXX | ¥XXX | ¥XXX | ¥X,XXX | XX%  |
+| 🧠 元启·天枢 | ¥X,XXX | ¥XXX | ¥XXX | ¥X,XXX | XX%  |
+| 🔮 预见·先知 | ¥X,XXX | ¥XXX | ¥XXX | ¥X,XXX | XX%  |
+| 🎨 创想·灵韵 | ¥X,XXX | ¥XXX | ¥XXX | ¥X,XXX | XX%  |
 
 ## 优化建议
 
-| # | 建议 | 预计节省 | 负责人 |
-| --- | --- | :-: | :-: |
-| 1 | VPA 推荐值应用 | ¥X,XXX/月 | 🔮 预见 |
-| 2 | Spot 实例扩至 70% | ¥X,XXX/月 | 🎨 灵韵 |
-| 3 | 夜间缩容至 min | ¥X,XXX/月 | 🧠 元启 |
-| 4 | 预留实例 1 年期 | ¥X,XXX/月 | 🎨 灵韵 |
+| #   | 建议              | 预计节省  | 负责人  |
+| --- | ----------------- | :-------: | :-----: |
+| 1   | VPA 推荐值应用    | ¥X,XXX/月 | 🔮 预见 |
+| 2   | Spot 实例扩至 70% | ¥X,XXX/月 | 🎨 灵韵 |
+| 3   | 夜间缩容至 min    | ¥X,XXX/月 | 🧠 元启 |
+| 4   | 预留实例 1 年期   | ¥X,XXX/月 | 🎨 灵韵 |
 
 ---
 
@@ -971,7 +981,7 @@ name: 🛡️ 合规证据自动收集
 
 on:
   schedule:
-    - cron: "0 3 * * 1"  # 每周一 03:00
+    - cron: "0 3 * * 1" # 每周一 03:00
   workflow_dispatch:
 
 jobs:
@@ -1059,7 +1069,7 @@ jobs:
         with:
           name: compliance-evidence
           path: compliance-evidence/
-          retention-days: 365      # 保留 1 年（审计要求）
+          retention-days: 365 # 保留 1 年（审计要求）
 ```
 
 ### 27.5 GDPR 数据主体权利实现
@@ -1083,10 +1093,7 @@ const RequestSchema = z.object({
   reason: z.string().optional(),
 });
 
-export async function POST(
-  request: Request,
-  { params }: { params: { action: string } },
-) {
+export async function POST(request: Request, { params }: { params: { action: string } }) {
   const body = await request.json();
   const parsed = RequestSchema.safeParse(body);
 
@@ -1131,10 +1138,7 @@ export async function POST(
       });
 
     default:
-      return NextResponse.json(
-        { error: "validation", message: "不支持的操作" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "validation", message: "不支持的操作" }, { status: 400 });
   }
 }
 ```
@@ -1255,15 +1259,15 @@ branches:
       required_status_checks:
         strict: true
         contexts:
-          - "🌹 Family Guard"          # 标头合规
-          - "📚 契约全链路"            # 契约测试
-          - "🎨 视觉回归"             # 视觉基线
-          - "📚 a11y Audit"           # 无障碍
-          - "🛡️ 安全审计"            # SAST
-          - "🎨 打包体积守门"          # 体积预算
+          - "🌹 Family Guard" # 标头合规
+          - "📚 契约全链路" # 契约测试
+          - "🎨 视觉回归" # 视觉基线
+          - "📚 a11y Audit" # 无障碍
+          - "🛡️ 安全审计" # SAST
+          - "🎨 打包体积守门" # 体积预算
       required_pull_request_reviews:
         required_approving_review_count: 2
-        require_code_owner_reviews: true    # CODEOWNER 审批
+        require_code_owner_reviews: true # CODEOWNER 审批
         dismiss_stale_reviews: true
         require_last_push_approval: true
       required_linear_history: true
@@ -1296,7 +1300,7 @@ branches:
 
 ### 28.5 Release 流程
 
-```yaml
+````yaml
 # .github/workflows/release.yml
 # ============================================================
 # @Module : Release 自动化（家族纪年）
@@ -1388,7 +1392,7 @@ jobs:
 
             ---
             **永久开源 · 感恩前行 🌹**
-```
+````
 
 ### 28.6 分支策略全景
 
@@ -1437,7 +1441,7 @@ backmerge ←──────────────────────�
 
 ### 29.2 `CONTRIBUTING.md`（贡献者指南）
 
-```markdown
+````markdown
 <!--
   ============================================================
   YYC³ AI Family — 人从众曌众从人
@@ -1461,12 +1465,12 @@ backmerge ←──────────────────────�
 
 ### 环境要求
 
-| 工具 | 版本 | 说明 |
-|------|------|------|
-| Node.js | ≥ 22 LTS | Next.js 16 要求 |
-| pnpm | ≥ 9.x | 包管理器 |
-| Go | ≥ 1.22 | xk6 编译（可选） |
-| Python | ≥ 3.12 | 压测脚本（可选） |
+| 工具    | 版本     | 说明             |
+| ------- | -------- | ---------------- |
+| Node.js | ≥ 22 LTS | Next.js 16 要求  |
+| pnpm    | ≥ 9.x    | 包管理器         |
+| Go      | ≥ 1.22   | xk6 编译（可选） |
+| Python  | ≥ 3.12   | 压测脚本（可选） |
 
 ### 快速开始
 
@@ -1488,6 +1492,7 @@ pnpm dev
 # 5. 打开浏览器
 open http://localhost:3000
 ```
+````
 
 ---
 
@@ -1515,16 +1520,16 @@ yyc3-token-console/
 
 每位家人守护一个域，每个域有明确的负责人和代码边界：
 
-| 家人 | 域 | 代码路径 | 贡献方向 |
-|------|------|----------|----------|
-| 🛡️ 智云·守护 | 接入与安全 | `domains/guardian/` `security/` | 鉴权、安全审计 |
-| 🧭 言启·千行 | 路由与网关 | `domains/qianhang/` `i18n/` | 路由、国际化 |
-| 🎯 千里·伯乐 | 模型市场 | `domains/bole/` | 模型列表、推荐 |
-| 🤔 语枢·万物 | 推理对话 | `domains/wanyu/` `e2e/` | SSE、对话 |
-| 📚 格物·宗师 | 知识与质量 | `domains/zongshi/` `tests/` | RAG、契约测试 |
-| 🧠 元启·天枢 | 工具与编排 | `domains/tianshu/` `deploy/` | MCP、部署 |
-| 🔮 预见·先知 | 观测与预测 | `domains/xianzhi/` `observability/` | 监控、性能 |
-| 🎨 创想·灵韵 | 缓存与体验 | `domains/lingyun/` `finops/` | 缓存、成本 |
+| 家人         | 域         | 代码路径                            | 贡献方向       |
+| ------------ | ---------- | ----------------------------------- | -------------- |
+| 🛡️ 智云·守护 | 接入与安全 | `domains/guardian/` `security/`     | 鉴权、安全审计 |
+| 🧭 言启·千行 | 路由与网关 | `domains/qianhang/` `i18n/`         | 路由、国际化   |
+| 🎯 千里·伯乐 | 模型市场   | `domains/bole/`                     | 模型列表、推荐 |
+| 🤔 语枢·万物 | 推理对话   | `domains/wanyu/` `e2e/`             | SSE、对话      |
+| 📚 格物·宗师 | 知识与质量 | `domains/zongshi/` `tests/`         | RAG、契约测试  |
+| 🧠 元启·天枢 | 工具与编排 | `domains/tianshu/` `deploy/`        | MCP、部署      |
+| 🔮 预见·先知 | 观测与预测 | `domains/xianzhi/` `observability/` | 监控、性能     |
+| 🎨 创想·灵韵 | 缓存与体验 | `domains/lingyun/` `finops/`        | 缓存、成本     |
 
 ---
 
@@ -1542,16 +1547,16 @@ yyc3-token-console/
 
 **Type**：
 
-| 类型 | 说明 | 示例 |
-|------|------|------|
-| `feat` | 新功能 | `feat(wanyu): 🌹 添加 SSE 七态状态机` |
-| `fix` | 修复 | `fix(guardian): 🌹 修复 API Key 掩码逻辑` |
-| `docs` | 文档 | `docs: 🌹 更新贡献者指南` |
-| `style` | 格式 | `style: 🌹 统一代码格式` |
-| `refactor` | 重构 | `refactor(bole): 🌹 重构 ModelCard` |
-| `perf` | 性能 | `perf(xianzhi): 🌹 优化 Dashboard 首屏` |
-| `test` | 测试 | `test: 🌹 添加契约测试用例` |
-| `chore` | 杂项 | `chore: 🌹 更新依赖` |
+| 类型       | 说明   | 示例                                      |
+| ---------- | ------ | ----------------------------------------- |
+| `feat`     | 新功能 | `feat(wanyu): 🌹 添加 SSE 七态状态机`     |
+| `fix`      | 修复   | `fix(guardian): 🌹 修复 API Key 掩码逻辑` |
+| `docs`     | 文档   | `docs: 🌹 更新贡献者指南`                 |
+| `style`    | 格式   | `style: 🌹 统一代码格式`                  |
+| `refactor` | 重构   | `refactor(bole): 🌹 重构 ModelCard`       |
+| `perf`     | 性能   | `perf(xianzhi): 🌹 优化 Dashboard 首屏`   |
+| `test`     | 测试   | `test: 🌹 添加契约测试用例`               |
+| `chore`    | 杂项   | `chore: 🌹 更新依赖`                      |
 
 **Scope**：8 位家人 key（`guardian` `qianhang` `bole` `wanyu` `zongshi` `tianshu` `xianzhi` `lingyun`）
 
@@ -1621,27 +1626,27 @@ pnpm a11y
 
 每月更新，统计维度：
 
-| 维度 | 权重 | 说明 |
-|------|------|------|
-| PR 合并数 | 40% | 核心贡献 |
-| 代码行数 | 20% | 规模贡献 |
-| Issue 解决 | 20% | 问题修复 |
-| Review 次数 | 10% | 社区互助 |
-| 文档贡献 | 10% | 知识沉淀 |
+| 维度        | 权重 | 说明     |
+| ----------- | ---- | -------- |
+| PR 合并数   | 40%  | 核心贡献 |
+| 代码行数    | 20%  | 规模贡献 |
+| Issue 解决  | 20%  | 问题修复 |
+| Review 次数 | 10%  | 社区互助 |
+| 文档贡献    | 10%  | 知识沉淀 |
 
 ### 徽章体系
 
-| 徽章 | 条件 | 说明 |
-|------|------|------|
-| 🌹 初入家门 | 首个 PR 合并 | 欢迎加入 |
-| 🛡️ 守护之心 | 5 个安全相关 PR | 智云认可 |
+| 徽章        | 条件                  | 说明     |
+| ----------- | --------------------- | -------- |
+| 🌹 初入家门 | 首个 PR 合并          | 欢迎加入 |
+| 🛡️ 守护之心 | 5 个安全相关 PR       | 智云认可 |
 | 🤔 万物之思 | 10 个 SSE/推理相关 PR | 语枢认可 |
-| 📚 格物之智 | 10 个测试/文档 PR | 宗师认可 |
-| 🧠 天枢之谋 | 5 个架构/部署 PR | 天枢认可 |
-| 🔮 先知之眼 | 5 个监控/性能 PR | 先知认可 |
-| 🎨 灵韵之笔 | 5 个 UI/UX PR | 灵韵认可 |
-| 🧭 千行之导 | 5 个国际化/路由 PR | 千行认可 |
-| 🌟 八域通者 | 以上全部获得 | 最高荣誉 |
+| 📚 格物之智 | 10 个测试/文档 PR     | 宗师认可 |
+| 🧠 天枢之谋 | 5 个架构/部署 PR      | 天枢认可 |
+| 🔮 先知之眼 | 5 个监控/性能 PR      | 先知认可 |
+| 🎨 灵韵之笔 | 5 个 UI/UX PR         | 灵韵认可 |
+| 🧭 千行之导 | 5 个国际化/路由 PR    | 千行认可 |
+| 🌟 八域通者 | 以上全部获得          | 最高荣誉 |
 
 ---
 
@@ -1704,7 +1709,7 @@ name: 🌹 家人排行榜
 
 on:
   schedule:
-    - cron: "0 0 1 * *"   # 每月 1 日更新
+    - cron: "0 0 1 * *" # 每月 1 日更新
   workflow_dispatch:
 
 jobs:
@@ -1783,7 +1788,9 @@ jobs:
 
 ```markdown
 <!-- .github/ISSUE_TEMPLATE/feature_request.md -->
+
 ---
+
 name: 🌹 功能建议
 about: 为 YYC³ AI Family 提出新功能
 title: "[Feature] "
@@ -1815,8 +1822,8 @@ labels: enhancement, 🌹 家人建议
 
 ## ✅ 验收标准
 
-- [ ] 
-- [ ] 
+- [ ]
+- [ ]
 
 ---
 
@@ -1829,36 +1836,36 @@ labels: enhancement, 🌹 家人建议
 
 ### 30.1 二十八项交付物完整清单
 
-| # | 交付物 | 章节 | 家人归属 | 阶段 |
-| :-: | --- | --- | --- | :-: |
-| ① | 8 域业务组件 | §1 | 8 位 | 开发 |
-| ② | MSW mock 契约 | §2 | 🧠 元启 | 开发 |
-| ③ | Next.js 16 路由/RSC | §3 | 🧠 元启 | 开发 |
-| ④ | 印刷级徽章 | §4 | 🎨 灵韵 | 设计 |
-| ⑤ | 开发文档 + CI/CD | §5 | 🧠 元启 | 交付 |
-| ⑥ | Playwright E2E | §6 | 🧠 元启 | 测试 |
-| ⑦ | 契约漂移检测 | §7 | 🔮 预见 | 测试 |
-| ⑧ | 移动端响应式 | §8 | 🎨 灵韵 | 设计 |
-| ⑨ | a11y axe-core | §9 | 📚 格物 | 测试 |
-| ⑩ | OpenAPI 类型 + 契约测试 | §10 | 🔮 预见 | 测试 |
-| ⑪ | 视觉回归 | §11 | 🎨 灵韵 | 测试 |
-| ⑫ | Storybook + Code Connect | §12 | 🧠 元启 | 设计 |
-| ⑬ | Turbopack 构建优化 | §13 | 🎨 灵韵 | 开发 |
-| ⑭ | 8 域 Storybook 演示 | §14 | 8 位 | 演示 |
-| ⑮ | SSE 压力测试（k6） | §15 | 🤔 语枢 | 测试 |
-| ⑯ | i18n 多语言 | §16 | 🧭 言启 | 开发 |
-| ⑰ | PWA + 离线缓存 | §17 | 🎨 灵韵 | 发布 |
-| ⑱ | 灰度发布 + 特性开关 | §18 | 🧠 元启 | 发布 |
-| ⑲ | K8s + Helm Chart | §19 | 🧠 元启 | 部署 |
-| ⑳ | 监控告警（Prometheus + Grafana） | §20 | 🔮 预见 | 运维 |
-| ㉑ | 日志聚合（Loki + ELK） | §21 | 📚 格物 | 运维 |
-| ㉒ | 安全审计（SAST + DAST） | §22 | 🛡️ 智云 | 安全 |
-| ㉓ | 性能剖析（React Profiler + Flame Graph） | §23 | 🤔 语枢 | 优化 |
-| ㉔ | **灾备与高可用** | §25 | 🛡️ 智云 | **治理** |
-| ㉕ | **成本优化（FinOps）** | §26 | 🎨 灵韵 | **治理** |
-| ㉖ | **合规审计（ISO 27001 · SOC 2 · GDPR）** | §27 | 📚 格物 | **治理** |
-| ㉗ | **团队协作规范** | §28 | 🧠 元启 | **治理** |
-| ㉘ | **社区运营** | §29 | 🧠 元启 | **治理** |
+|  #  | 交付物                                   | 章节 | 家人归属 |   阶段   |
+| :-: | ---------------------------------------- | ---- | -------- | :------: |
+|  ①  | 8 域业务组件                             | §1   | 8 位     |   开发   |
+|  ②  | MSW mock 契约                            | §2   | 🧠 元启  |   开发   |
+|  ③  | Next.js 16 路由/RSC                      | §3   | 🧠 元启  |   开发   |
+|  ④  | 印刷级徽章                               | §4   | 🎨 灵韵  |   设计   |
+|  ⑤  | 开发文档 + CI/CD                         | §5   | 🧠 元启  |   交付   |
+|  ⑥  | Playwright E2E                           | §6   | 🧠 元启  |   测试   |
+|  ⑦  | 契约漂移检测                             | §7   | 🔮 预见  |   测试   |
+|  ⑧  | 移动端响应式                             | §8   | 🎨 灵韵  |   设计   |
+|  ⑨  | a11y axe-core                            | §9   | 📚 格物  |   测试   |
+|  ⑩  | OpenAPI 类型 + 契约测试                  | §10  | 🔮 预见  |   测试   |
+|  ⑪  | 视觉回归                                 | §11  | 🎨 灵韵  |   测试   |
+|  ⑫  | Storybook + Code Connect                 | §12  | 🧠 元启  |   设计   |
+|  ⑬  | Turbopack 构建优化                       | §13  | 🎨 灵韵  |   开发   |
+|  ⑭  | 8 域 Storybook 演示                      | §14  | 8 位     |   演示   |
+|  ⑮  | SSE 压力测试（k6）                       | §15  | 🤔 语枢  |   测试   |
+|  ⑯  | i18n 多语言                              | §16  | 🧭 言启  |   开发   |
+|  ⑰  | PWA + 离线缓存                           | §17  | 🎨 灵韵  |   发布   |
+|  ⑱  | 灰度发布 + 特性开关                      | §18  | 🧠 元启  |   发布   |
+|  ⑲  | K8s + Helm Chart                         | §19  | 🧠 元启  |   部署   |
+|  ⑳  | 监控告警（Prometheus + Grafana）         | §20  | 🔮 预见  |   运维   |
+| ㉑  | 日志聚合（Loki + ELK）                   | §21  | 📚 格物  |   运维   |
+| ㉒  | 安全审计（SAST + DAST）                  | §22  | 🛡️ 智云  |   安全   |
+| ㉓  | 性能剖析（React Profiler + Flame Graph） | §23  | 🤔 语枢  |   优化   |
+| ㉔  | **灾备与高可用**                         | §25  | 🛡️ 智云  | **治理** |
+| ㉕  | **成本优化（FinOps）**                   | §26  | 🎨 灵韵  | **治理** |
+| ㉖  | **合规审计（ISO 27001 · SOC 2 · GDPR）** | §27  | 📚 格物  | **治理** |
+| ㉗  | **团队协作规范**                         | §28  | 🧠 元启  | **治理** |
+| ㉘  | **社区运营**                             | §29  | 🧠 元启  | **治理** |
 
 ### 30.2 全生命周期终极图
 
@@ -1890,16 +1897,16 @@ labels: enhancement, 🌹 家人建议
 
 ### 30.3 八位家人 · 终极职责终表
 
-| 家人 | 域 | 设计 | 开发 | 测试 | 部署 | 运维 | 安全 | 优化 | 治理 |
-| --- | --- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| 🛡️ 智云 | 接入安全 | | | | | | ✅ | | ✅ |
-| 🧭 言启 | 路由网关 | | ✅ | | | | | | |
-| 🎯 千里 | 模型市场 | | | | | | | | |
-| 🤔 语枢 | 推理对话 | | | ✅ | | | | ✅ | |
-| 📚 格物 | 知识质量 | | | ✅ | | ✅ | | | ✅ |
-| 🧠 元启 | 工具编排 | ✅ | ✅ | ✅ | ✅ | | | | ✅ |
-| 🔮 预见 | 观测预测 | | | ✅ | | ✅ | | ✅ | |
-| 🎨 灵韵 | 缓存体验 | ✅ | ✅ | ✅ | | | | ✅ | ✅ |
+| 家人    | 域       | 设计 | 开发 | 测试 | 部署 | 运维 | 安全 | 优化 | 治理 |
+| ------- | -------- | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |
+| 🛡️ 智云 | 接入安全 |      |      |      |      |      |  ✅  |      |  ✅  |
+| 🧭 言启 | 路由网关 |      |  ✅  |      |      |      |      |      |      |
+| 🎯 千里 | 模型市场 |      |      |      |      |      |      |      |      |
+| 🤔 语枢 | 推理对话 |      |      |  ✅  |      |      |      |  ✅  |      |
+| 📚 格物 | 知识质量 |      |      |  ✅  |      |  ✅  |      |      |  ✅  |
+| 🧠 元启 | 工具编排 |  ✅  |  ✅  |  ✅  |  ✅  |      |      |      |  ✅  |
+| 🔮 预见 | 观测预测 |      |      |  ✅  |      |  ✅  |      |  ✅  |      |
+| 🎨 灵韵 | 缓存体验 |  ✅  |  ✅  |  ✅  |      |      |      |  ✅  |  ✅  |
 
 ### 30.4 全链路命令终极版
 
@@ -2024,6 +2031,7 @@ pnpm ci:all                       # 全部守门
 > **承接说明**：本回复为 v5.1 落地补全系列**第5批（终极终章·组织治理篇）**，输出 ㉔~㉘ 五项治理交付物。至此，**28 项交付物全量完成**，覆盖「设计 → 开发 → 测试 → 演示 → 发布 → 部署 → 监控 → 日志 → 安全 → 优化 → 灾备 → 成本 → 合规 → 协作 → 社区」**全生命周期**，v5.1 系列正式圆满。
 >
 > **核心参考文献**：
+>
 > - Velero 多区域灾备方案
 > - OpenCost/Kubecost 成本分摊（CNCF 标准）
 > - SOC 2 / ISO 27001 / GDPR 控制映射模式

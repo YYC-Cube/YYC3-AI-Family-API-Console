@@ -1,6 +1,7 @@
 <!-- 标题格式 Title: <type>(<scope>): <subject>  e.g. feat(qianxing): add weighted fallback routing -->
 
 ## 📌 变更类型 | Type of Change
+
 <!-- 必选一个类型标签 + 模块标签 Pick one type label + module label(s) -->
 
 - [ ] `feature` 新功能 New feature
@@ -13,16 +14,19 @@
 - [ ] `breaking-change` 破坏性变更 Breaking change
 
 ## 🎯 目标模块 | Module(s)
+
 <!-- e.g. mod:tianshu / mod:contract / mod:infra -->
 
 ## 📝 变更说明 | Description
+
 <!-- 中文在上，英文在下 Chinese first, English second -->
 
-**中文**: 
+**中文**:
 
-**English**: 
+**English**:
 
 ## 🔗 关联 Issue | Related Issues
+
 <!-- e.g. Closes #123 -->
 
 ## ✅ 自检清单 | Checklist

@@ -6,7 +6,7 @@ version: v1.0.0
 created: 2026-09-18
 updated: 2026-09-18
 status: stable
-tags: [icon-system,multi-platform,PWA,design-system,YYC3,visual-identity]
+tags: [icon-system, multi-platform, PWA, design-system, YYC3, visual-identity]
 category: design
 language: zh-CN
 audience: developers,designers,product-managers
@@ -101,26 +101,26 @@ _Single Source of Truth · 五端一致 · 视觉可控 · 自动化可追溯_
 
 ### 1.2 设计原则
 
-| # | 原则 | 落地形态 |
-| --- | --- | --- |
-| **1** | **SSOT** Single Source of Truth | 1 张 1024×1024 主母版 + 平台规则脚本派生 |
-| **2** | **Lanczos3** 高保真采样 | 母版缩放统一用 Lanczos3 内核 + sRGB |
-| **3** | **Transparent** 透明底 | 所有衍生 PNG 保持 alpha 通道，前端可控染色 |
-| **4** | **Platform-Native** 平台原生 | iOS 圆角由系统加，Android maskable 由母版预留 25% 安全区 |
-| **5** | **Manifest-First** 清单优先 | `manifest.webmanifest.icons` 是浏览器/系统安装的唯一定义 |
-| **6** | **AssetLinks** 深度链接 | `apple-app-site-association` + `assetlinks.json` 双通道 |
+| #     | 原则                            | 落地形态                                                 |
+| ----- | ------------------------------- | -------------------------------------------------------- |
+| **1** | **SSOT** Single Source of Truth | 1 张 1024×1024 主母版 + 平台规则脚本派生                 |
+| **2** | **Lanczos3** 高保真采样         | 母版缩放统一用 Lanczos3 内核 + sRGB                      |
+| **3** | **Transparent** 透明底          | 所有衍生 PNG 保持 alpha 通道，前端可控染色               |
+| **4** | **Platform-Native** 平台原生    | iOS 圆角由系统加，Android maskable 由母版预留 25% 安全区 |
+| **5** | **Manifest-First** 清单优先     | `manifest.webmanifest.icons` 是浏览器/系统安装的唯一定义 |
+| **6** | **AssetLinks** 深度链接         | `apple-app-site-association` + `assetlinks.json` 双通道  |
 
 ### 1.3 适用范围
 
-| 适用端 | 场景 | 关键文件 |
-| ------ | ---- | -------- |
-| **Web** | 浏览器 tab / 书签 / PWA 安装 | `favicon-*.png`, `manifest.webmanifest` |
-| **iOS Safari** | 添加到主屏幕 / 分享卡片 | `apple-touch-icon.png`, iOS/ 矩阵 |
-| **Android Chrome** | 安装应用 / 应用列表 | `manifest.icons`, Android/ 矩阵 (含 maskable) |
-| **macOS Safari** | 添加到 Dock / PWA 安装 | `apple-touch-icon` + `display_override` |
-| **watchOS** | iPhone 端 Watch 应用同步 | watchOS/ 矩阵（含 App Store / Notification / Short Look） |
-| **社交分享** | OG 卡片 / Twitter Card | `og-image.png` (1200×630) |
-| **README / 文档** | 顶图 / 文档封面 | `banner.png` (1024×1024 原尺寸) |
+| 适用端             | 场景                         | 关键文件                                                  |
+| ------------------ | ---------------------------- | --------------------------------------------------------- |
+| **Web**            | 浏览器 tab / 书签 / PWA 安装 | `favicon-*.png`, `manifest.webmanifest`                   |
+| **iOS Safari**     | 添加到主屏幕 / 分享卡片      | `apple-touch-icon.png`, iOS/ 矩阵                         |
+| **Android Chrome** | 安装应用 / 应用列表          | `manifest.icons`, Android/ 矩阵 (含 maskable)             |
+| **macOS Safari**   | 添加到 Dock / PWA 安装       | `apple-touch-icon` + `display_override`                   |
+| **watchOS**        | iPhone 端 Watch 应用同步     | watchOS/ 矩阵（含 App Store / Notification / Short Look） |
+| **社交分享**       | OG 卡片 / Twitter Card       | `og-image.png` (1200×630)                                 |
+| **README / 文档**  | 顶图 / 文档封面              | `banner.png` (1024×1024 原尺寸)                           |
 
 ---
 
@@ -128,35 +128,35 @@ _Single Source of Truth · 五端一致 · 视觉可控 · 自动化可追溯_
 
 ### 2.1 矩阵总览
 
-| 端 | 母版源 | 关键尺寸 | 文件数 | 状态 |
-| --- | ------- | -------- | ------ | ---- |
-| **iOS** | `yyc3-icons/macOS/1024.png` | 40 / 58 / 60 / 80 / 87 / 120 / 152 / 167 / 180 | 14 | ✅ |
-| **Android** | `yyc3-icons/macOS/512.png` | mdpi→xxxhdpi + Play Store | 6 | ✅ |
-| **Web App** | `yyc3-icons/macOS/512.png` | 16 / 32 / 180 / 192 / 512 | 5 | ✅ |
-| **macOS** | `yyc3-icons/macOS/1024.png` | 16 / 32 / 64 / 128 / 256 / 512 / 1024 | 7 | ✅ |
-| **watchOS** | `yyc3-icons/macOS/256.png` | App Store + Home + Notification + Short Look | 4 | ✅ |
+| 端          | 母版源                      | 关键尺寸                                       | 文件数 | 状态 |
+| ----------- | --------------------------- | ---------------------------------------------- | ------ | ---- |
+| **iOS**     | `yyc3-icons/macOS/1024.png` | 40 / 58 / 60 / 80 / 87 / 120 / 152 / 167 / 180 | 14     | ✅   |
+| **Android** | `yyc3-icons/macOS/512.png`  | mdpi→xxxhdpi + Play Store                      | 6      | ✅   |
+| **Web App** | `yyc3-icons/macOS/512.png`  | 16 / 32 / 180 / 192 / 512                      | 5      | ✅   |
+| **macOS**   | `yyc3-icons/macOS/1024.png` | 16 / 32 / 64 / 128 / 256 / 512 / 1024          | 7      | ✅   |
+| **watchOS** | `yyc3-icons/macOS/256.png`  | App Store + Home + Notification + Short Look   | 4      | ✅   |
 
 > **总计**：36 张 PNG（不含衍生）。
 > **目录位置**：`public/yyc3-icons/{Android,Web App,iOS,macOS,watchOS}/`
 
 ### 2.2 iOS 矩阵
 
-| 用途 | 尺寸 (px) | 文件名 | 系统应用 |
-| ---- | -------- | ----- | ------- |
-| iPhone Notification | 40 × 40 | `iPhone Notification 2x.png` | iPhone @2x |
-| iPhone Notification | 60 × 60 | `iPhone Notification 3x.png` | iPhone @3x |
-| iPhone Settings | 58 × 58 | `iPhone Settings 2x.png` | iPhone @2x |
-| iPhone Settings | 87 × 87 | `iPhone Settings 3x.png` | iPhone @3x |
-| iPhone Spotlight | 80 × 80 | `iPhone Spotlight 2x.png` | iPhone @2x |
-| iPhone Spotlight | 120 × 120 | `iPhone Spotlight 3x.png` | iPhone @3x |
-| iPhone App | 120 × 120 | `iPhone App 2x.png` | iPhone @2x |
-| iPhone App | 180 × 180 | `iPhone App 3x.png` | iPhone @3x |
-| iPad Notification | 20 × 20 | `iPad Notification.png` | iPad @1x |
-| iPad Settings | 29 × 29 | `iPad Settings.png` | iPad @1x |
-| iPad Spotlight | 40 × 40 | `iPad Spotlight.png` | iPad @1x |
-| iPad App | 76 × 76 | `iPad App.png` | iPad @1x |
-| iPad Pro App | 152 × 152 | `iPad Pro App 2x.png` | iPad Pro @2x |
-| App Store Marketing | 1024 × 1024 | `App Store.png` | App Store 上架 |
+| 用途                | 尺寸 (px)   | 文件名                       | 系统应用       |
+| ------------------- | ----------- | ---------------------------- | -------------- |
+| iPhone Notification | 40 × 40     | `iPhone Notification 2x.png` | iPhone @2x     |
+| iPhone Notification | 60 × 60     | `iPhone Notification 3x.png` | iPhone @3x     |
+| iPhone Settings     | 58 × 58     | `iPhone Settings 2x.png`     | iPhone @2x     |
+| iPhone Settings     | 87 × 87     | `iPhone Settings 3x.png`     | iPhone @3x     |
+| iPhone Spotlight    | 80 × 80     | `iPhone Spotlight 2x.png`    | iPhone @2x     |
+| iPhone Spotlight    | 120 × 120   | `iPhone Spotlight 3x.png`    | iPhone @3x     |
+| iPhone App          | 120 × 120   | `iPhone App 2x.png`          | iPhone @2x     |
+| iPhone App          | 180 × 180   | `iPhone App 3x.png`          | iPhone @3x     |
+| iPad Notification   | 20 × 20     | `iPad Notification.png`      | iPad @1x       |
+| iPad Settings       | 29 × 29     | `iPad Settings.png`          | iPad @1x       |
+| iPad Spotlight      | 40 × 40     | `iPad Spotlight.png`         | iPad @1x       |
+| iPad App            | 76 × 76     | `iPad App.png`               | iPad @1x       |
+| iPad Pro App        | 152 × 152   | `iPad Pro App 2x.png`        | iPad Pro @2x   |
+| App Store Marketing | 1024 × 1024 | `App Store.png`              | App Store 上架 |
 
 > **特性**：iOS 自动应用圆角蒙版（≈22% 角半径），因此母版必须为**带透明通道矩形**。
 > 推荐宽度安全区：12px（@1x）。
@@ -164,38 +164,38 @@ _Single Source of Truth · 五端一致 · 视觉可控 · 自动化可追溯_
 
 ### 2.3 Android 矩阵
 
-| 用途 | 密度 | 尺寸 (px) | 文件名 |
-| ---- | ----- | --------- | ----- |
-| mdpi | 1× | 48 × 48 | `mdpi.png` |
-| hdpi | 1.5× | 72 × 72 | `hdpi.png` |
-| xhdpi | 2× | 96 × 96 | `xhdpi.png` |
-| xxhdpi | 3× | 144 × 144 | `xxhdpi.png` |
-| xxxhdpi | 4× | 192 × 192 | `xxxhdpi.png` |
-| Google Play Marketing | — | 512 × 512 | `Play Store.png` |
+| 用途                  | 密度 | 尺寸 (px) | 文件名           |
+| --------------------- | ---- | --------- | ---------------- |
+| mdpi                  | 1×   | 48 × 48   | `mdpi.png`       |
+| hdpi                  | 1.5× | 72 × 72   | `hdpi.png`       |
+| xhdpi                 | 2×   | 96 × 96   | `xhdpi.png`      |
+| xxhdpi                | 3×   | 144 × 144 | `xxhdpi.png`     |
+| xxxhdpi               | 4×   | 192 × 192 | `xxxhdpi.png`    |
+| Google Play Marketing | —    | 512 × 512 | `Play Store.png` |
 
 > **Maskable 图标**：额外保留 25% 安全区（中心 75% 圆内为主视觉）。
 > Play Store 要求正方形（512×512），**无透明**，底色 = brand background (`#080a10`)。
 
 ### 2.4 Web App / PWA 矩阵
 
-| 用途 | 尺寸 (px) | 文件名 | 引用方式 |
-| ---- | --------- | ----- | ------- |
-| Favicon (tab) | 16 × 16 | `favicon-16.png` | `<link rel="icon" sizes="16x16">` |
-| Favicon (bookmarks) | 32 × 32 | `favicon-32.png` | `<link rel="icon" sizes="32x32">` |
-| Apple touch | 180 × 180 | `apple-touch-icon.png` | `<link rel="apple-touch-icon">` |
-| Android Chrome | 192 × 192 | `android-chrome-192.png` | `manifest.icons` |
-| Android Chrome (large) | 512 × 512 | `android-chrome-512.png` | `manifest.icons` + splash |
+| 用途                   | 尺寸 (px) | 文件名                   | 引用方式                          |
+| ---------------------- | --------- | ------------------------ | --------------------------------- |
+| Favicon (tab)          | 16 × 16   | `favicon-16.png`         | `<link rel="icon" sizes="16x16">` |
+| Favicon (bookmarks)    | 32 × 32   | `favicon-32.png`         | `<link rel="icon" sizes="32x32">` |
+| Apple touch            | 180 × 180 | `apple-touch-icon.png`   | `<link rel="apple-touch-icon">`   |
+| Android Chrome         | 192 × 192 | `android-chrome-192.png` | `manifest.icons`                  |
+| Android Chrome (large) | 512 × 512 | `android-chrome-512.png` | `manifest.icons` + splash         |
 
 ### 2.5 macOS 矩阵
 
-| 用途 | 尺寸 (px) | 文件名 |
-| ---- | --------- | ----- |
-| Sidebar | 16 × 16 | `16.png` |
-| Toolbar | 32 × 32 | `32.png`` |
-| Finder list | 64 × 64 | `64.png` |
-| Finder preview | 128 × 128 | `128.png` |
-| Finder icon | 256 × 256 | `256.png` |
-| Retina Finder | 512 × 512 | `512.png` |
+| 用途                | 尺寸 (px)   | 文件名     |
+| ------------------- | ----------- | ---------- |
+| Sidebar             | 16 × 16     | `16.png`   |
+| Toolbar             | 32 × 32     | `32.png``  |
+| Finder list         | 64 × 64     | `64.png`   |
+| Finder preview      | 128 × 128   | `128.png`  |
+| Finder icon         | 256 × 256   | `256.png`  |
+| Retina Finder       | 512 × 512   | `512.png`  |
 | App Store Marketing | 1024 × 1024 | `1024.png` |
 
 > macOS Safari PWA 安装时使用 `apple-touch-icon` + `display_override: ['window-controls-overlay']`，
@@ -203,12 +203,12 @@ _Single Source of Truth · 五端一致 · 视觉可控 · 自动化可追溯_
 
 ### 2.6 watchOS 矩阵
 
-| 用途 | 文件名 |
-| ---- | ----- |
-| App Store 上架 | `App Store.png` |
-| Home Screen 图标 | `Home Screen.png` |
-| Notification | `Notification.png` |
-| Short Look | `Short Look.png` |
+| 用途             | 文件名             |
+| ---------------- | ------------------ |
+| App Store 上架   | `App Store.png`    |
+| Home Screen 图标 | `Home Screen.png`  |
+| Notification     | `Notification.png` |
+| Short Look       | `Short Look.png`   |
 
 > watchOS 与 iOS 共享 IconFamily 资源，可经 Xcode 资产目录统一管理。
 > 复用 `yyc3-icons/macOS/256.png` 作为合成母版。
@@ -230,36 +230,36 @@ graph LR
   A -->|1200×630| H["📤 og-image.png"]
 ```
 
-| 元素 | 规范 |
-| ----- | ----- |
-| **形状** | 圆形云枢（外径 = 边长 × 0.92）+ 内嵌高光球 |
+| 元素     | 规范                                                                     |
+| -------- | ------------------------------------------------------------------------ |
+| **形状** | 圆形云枢（外径 = 边长 × 0.92）+ 内嵌高光球                               |
 | **主色** | `#00d4ff` (cyan) → `#7a5cff` (violet) → `#b700ff` (magenta) 三段线性渐变 |
-| **辅色** | `#080a10` (深空背景) · `#c1eaff` (内层高光) · `#ffffff` (球心) |
-| **字体** | 不在图标内嵌文字（依赖 manifest.name） |
-| **网格** | 1024 × 1024 母版，PPI 72，sRGB IEC61966-2.1，alpha 通道 |
+| **辅色** | `#080a10` (深空背景) · `#c1eaff` (内层高光) · `#ffffff` (球心)           |
+| **字体** | 不在图标内嵌文字（依赖 manifest.name）                                   |
+| **网格** | 1024 × 1024 母版，PPI 72，sRGB IEC61966-2.1，alpha 通道                  |
 
 ### 3.2 安全区与适配裁切
 
-| 平台 | 安全区比例 | 中心可见区 |
-| ---- | -------- | --------- |
-| iOS | 四周 ≥ 12% | 中央 76% 圆 |
-| Android maskable | 四周 ≥ 25% | 中央 50% 圆（任意形状蒙版保留） |
-| macOS | 四周 ≥ 10% | 中央 80% 圆 |
-| Web Favicon | 无（裁切到边缘） | 100% 可用 |
-| watchOS | 四周 ≥ 20% | 中央 60% 圆 |
+| 平台             | 安全区比例       | 中心可见区                      |
+| ---------------- | ---------------- | ------------------------------- |
+| iOS              | 四周 ≥ 12%       | 中央 76% 圆                     |
+| Android maskable | 四周 ≥ 25%       | 中央 50% 圆（任意形状蒙版保留） |
+| macOS            | 四周 ≥ 10%       | 中央 80% 圆                     |
+| Web Favicon      | 无（裁切到边缘） | 100% 可用                       |
+| watchOS          | 四周 ≥ 20%       | 中央 60% 圆                     |
 
 > **统一规则**：主视觉置于中心 60% 圆形区域内，角落装饰元素避让。
 
 ### 3.3 颜色与透明底
 
-| 场景 | 格式 | 透明 | 背景 |
-| ---- | ---- | ---- | ---- |
-| iOS | PNG-24 + alpha | ✅ | — |
-| Android (Chrome) | PNG-24 + alpha | ✅ | — |
-| Android maskable | PNG-24 + alpha | ✅ | 系统叠加 #080a10 |
-| Play Store / macOS .icns | PNG-24 | ❌ | 强制 #080a10 底色 |
-| Favicon | PNG-24 + alpha | ✅ | 浏览器渲染时叠加 |
-| Open Graph | JPEG/PNG | ❌ | #080a10 + 渐变文字 |
+| 场景                     | 格式           | 透明 | 背景               |
+| ------------------------ | -------------- | ---- | ------------------ |
+| iOS                      | PNG-24 + alpha | ✅   | —                  |
+| Android (Chrome)         | PNG-24 + alpha | ✅   | —                  |
+| Android maskable         | PNG-24 + alpha | ✅   | 系统叠加 #080a10   |
+| Play Store / macOS .icns | PNG-24         | ❌   | 强制 #080a10 底色  |
+| Favicon                  | PNG-24 + alpha | ✅   | 浏览器渲染时叠加   |
+| Open Graph               | JPEG/PNG       | ❌   | #080a10 + 渐变文字 |
 
 ---
 
@@ -322,27 +322,27 @@ public/
 
 ### 4.2 命名规则
 
-| 规则 | 形式 | 反例 |
-| ----- | ----- | ----- |
-| **目录** | `PascalCase` 或平台官方命名 | `web-app/` ❌ |
-| **平台矩阵** | 用平台名直译目录（`Android/`、`iOS/`、`macOS/`、`watchOS/`、`Web App/`） | `apple/` ❌ |
-| **iOS 资源** | 跟随 Apple 官方命名（`iPhone App 2x.png` / `iPad Settings.png`） | `app2x_iphone.png` ❌ |
-| **Android 密度** | `mdpi/hdpi/xhdpi/xxhdpi/xxxhdpi.png`（与 Android 资源系统 1:1） | `android_48.png` ❌ |
-| **Web 标准** | `favicon-16.png` / `favicon-32.png` / `apple-touch-icon.png` / `android-chrome-*.png` | `icon-16-2026-09.png` ❌ |
-| **macOS 像素** | `<size>.png`，无前缀 | `macos_16.png` ❌ |
-| **版本** | 仅在文件 metadata，不入文件名 | `v2-favicon.png` ❌ |
+| 规则             | 形式                                                                                  | 反例                     |
+| ---------------- | ------------------------------------------------------------------------------------- | ------------------------ |
+| **目录**         | `PascalCase` 或平台官方命名                                                           | `web-app/` ❌            |
+| **平台矩阵**     | 用平台名直译目录（`Android/`、`iOS/`、`macOS/`、`watchOS/`、`Web App/`）              | `apple/` ❌              |
+| **iOS 资源**     | 跟随 Apple 官方命名（`iPhone App 2x.png` / `iPad Settings.png`）                      | `app2x_iphone.png` ❌    |
+| **Android 密度** | `mdpi/hdpi/xhdpi/xxhdpi/xxxhdpi.png`（与 Android 资源系统 1:1）                       | `android_48.png` ❌      |
+| **Web 标准**     | `favicon-16.png` / `favicon-32.png` / `apple-touch-icon.png` / `android-chrome-*.png` | `icon-16-2026-09.png` ❌ |
+| **macOS 像素**   | `<size>.png`，无前缀                                                                  | `macos_16.png` ❌        |
+| **版本**         | 仅在文件 metadata，不入文件名                                                         | `v2-favicon.png` ❌      |
 
 ### 4.3 文件元数据（EXIF / tEXt）
 
 每张 PNG 写入以下 `tEXt` chunk（仅非营销素材需要，营销素材放 `tEXt` 不放商业敏感元数据）：
 
-| 字段 | 值 |
-| ----- | ----- |
-| `Software` | `YanyuCloudCube Icon Pipeline 1.0` |
-| `Source` | `macOS/1024.png` 或原始矢量母版 ID |
-| `Author` | `YanYuCloudCube Team` |
-| `Copyright` | `Copyright (c) 2026 YanYuCloudCube` |
-| `Comment` | `YYC3-ICON-v1.0.0 · <platform> · <size>` |
+| 字段        | 值                                       |
+| ----------- | ---------------------------------------- |
+| `Software`  | `YanyuCloudCube Icon Pipeline 1.0`       |
+| `Source`    | `macOS/1024.png` 或原始矢量母版 ID       |
+| `Author`    | `YanYuCloudCube Team`                    |
+| `Copyright` | `Copyright (c) 2026 YanYuCloudCube`      |
+| `Comment`   | `YYC3-ICON-v1.0.0 · <platform> · <size>` |
 
 ---
 
@@ -353,12 +353,42 @@ public/
 ```json
 {
   "icons": [
-    { "src": "/yyc3-icons/Web App/favicon-16.png",     "sizes": "16x16",    "type": "image/png", "purpose": "any" },
-    { "src": "/yyc3-icons/Web App/android-chrome-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/yyc3-icons/Web App/android-chrome-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "/yyc3-icons/Web App/android-chrome-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/yyc3-icons/Web App/android-chrome-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
-    { "src": "/yyc3-icons/macOS/1024.png",              "sizes": "1024x1024", "type": "image/png", "purpose": "any" }
+    {
+      "src": "/yyc3-icons/Web App/favicon-16.png",
+      "sizes": "16x16",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/yyc3-icons/Web App/android-chrome-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/yyc3-icons/Web App/android-chrome-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/yyc3-icons/Web App/android-chrome-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/yyc3-icons/Web App/android-chrome-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/yyc3-icons/macOS/1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    }
   ]
 }
 ```
@@ -368,8 +398,8 @@ public/
 ```html
 <!-- 浏览器 favicon（按尺寸从大到小列，浏览器择优） -->
 <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
-<link rel="icon" type="image/png" sizes="16x16"  href="/yyc3-icons/Web App/favicon-16.png" />
-<link rel="icon" type="image/png" sizes="32x32"  href="/yyc3-icons/Web App/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/yyc3-icons/Web App/favicon-16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/yyc3-icons/Web App/favicon-32.png" />
 <link rel="icon" type="image/png" sizes="180x180" href="/yyc3-icons/Web App/apple-touch-icon.png" />
 
 <!-- iOS -->
@@ -400,13 +430,13 @@ graph TB
 
 **推荐工具链**（macOS / Linux 通用）：
 
-| 工具 | 用途 | 命令 |
-| ----- | ---- | ----- |
-| **sharp** (Node.js) | 高质量 PNG 缩放 | `sharp(input).resize(w,h,{kernel:lanczos3})` |
-| **sips** (macOS built-in) | 一键转 ICO / ICNS | `sips -s format ico in.png --out out.ico` |
-| **iconutil** (macOS built-in) | iconset → icns | `iconutil -c icns iconset/` |
-| **ImageMagick** | fallback / 批量 | `convert in.png -resize 192x192 out.png` |
-| **Playwright** | 截图回归测试 | `page.screenshot({ mask: [...] })` |
+| 工具                          | 用途              | 命令                                         |
+| ----------------------------- | ----------------- | -------------------------------------------- |
+| **sharp** (Node.js)           | 高质量 PNG 缩放   | `sharp(input).resize(w,h,{kernel:lanczos3})` |
+| **sips** (macOS built-in)     | 一键转 ICO / ICNS | `sips -s format ico in.png --out out.ico`    |
+| **iconutil** (macOS built-in) | iconset → icns    | `iconutil -c icns iconset/`                  |
+| **ImageMagick**               | fallback / 批量   | `convert in.png -resize 192x192 out.png`     |
+| **Playwright**                | 截图回归测试      | `page.screenshot({ mask: [...] })`           |
 
 ### 6.2 多端批量生成脚本
 
@@ -414,52 +444,85 @@ graph TB
 
 ```javascript
 // scripts/build-icons.mjs  (核心片段 · 完整版见仓库)
-import sharp from "sharp"
-import fs from "node:fs/promises"
-import path from "node:path"
+import sharp from "sharp";
+import fs from "node:fs/promises";
+import path from "node:path";
 
-const SRC = "yyc3-icons/macOS/1024.png"   // SSOT
-const OUT = "public/yyc3-icons"
+const SRC = "yyc3-icons/macOS/1024.png"; // SSOT
+const OUT = "public/yyc3-icons";
 
 const SIZES = {
-  "Web App":    [[16, "favicon-16.png"], [32, "favicon-32.png"], [180, "apple-touch-icon.png"], [192, "android-chrome-192.png"], [512, "android-chrome-512.png"]],
-  Android:     [[48, "mdpi.png"], [72, "hdpi.png"], [96, "xhdpi.png"], [144, "xxhdpi.png"], [192, "xxxhdpi.png"], [512, "Play Store.png"]],
-  macOS:       [[16, "16.png"], [32, "32.png"], [64, "64.png"], [128, "128.png"], [256, "256.png"], [512, "512.png"], [1024, "1024.png"]],
-  iOS:         [
-    [20, "iPad Notification.png"], [29, "iPad Settings.png"], [40, "iPad Spotlight.png"], [76, "iPad App.png"], [152, "iPad Pro App 2x.png"],
-    [40, "iPhone Notification 2x.png"], [60, "iPhone Notification 3x.png"],
-    [58, "iPhone Settings 2x.png"], [87, "iPhone Settings 3x.png"],
-    [80, "iPhone Spotlight 2x.png"], [120, "iPhone Spotlight 3x.png"],
-    [120, "iPhone App 2x.png"], [180, "iPhone App 3x.png"],
-    [1024, "App Store.png"]
+  "Web App": [
+    [16, "favicon-16.png"],
+    [32, "favicon-32.png"],
+    [180, "apple-touch-icon.png"],
+    [192, "android-chrome-192.png"],
+    [512, "android-chrome-512.png"],
   ],
-  watchOS:     [[], [], [], []] // App Store / Home / Notification / Short Look
-}
+  Android: [
+    [48, "mdpi.png"],
+    [72, "hdpi.png"],
+    [96, "xhdpi.png"],
+    [144, "xxhdpi.png"],
+    [192, "xxxhdpi.png"],
+    [512, "Play Store.png"],
+  ],
+  macOS: [
+    [16, "16.png"],
+    [32, "32.png"],
+    [64, "64.png"],
+    [128, "128.png"],
+    [256, "256.png"],
+    [512, "512.png"],
+    [1024, "1024.png"],
+  ],
+  iOS: [
+    [20, "iPad Notification.png"],
+    [29, "iPad Settings.png"],
+    [40, "iPad Spotlight.png"],
+    [76, "iPad App.png"],
+    [152, "iPad Pro App 2x.png"],
+    [40, "iPhone Notification 2x.png"],
+    [60, "iPhone Notification 3x.png"],
+    [58, "iPhone Settings 2x.png"],
+    [87, "iPhone Settings 3x.png"],
+    [80, "iPhone Spotlight 2x.png"],
+    [120, "iPhone Spotlight 3x.png"],
+    [120, "iPhone App 2x.png"],
+    [180, "iPhone App 3x.png"],
+    [1024, "App Store.png"],
+  ],
+  watchOS: [[], [], [], []], // App Store / Home / Notification / Short Look
+};
 
 for (const [dir, sizes] of Object.entries(SIZES)) {
-  const outDir = path.join(OUT, dir)
-  await fs.mkdir(outDir, { recursive: true })
+  const outDir = path.join(OUT, dir);
+  await fs.mkdir(outDir, { recursive: true });
   for (const [size, name] of sizes) {
     await sharp(SRC)
-      .resize(size, size, { kernel: "lanczos3", fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
+      .resize(size, size, {
+        kernel: "lanczos3",
+        fit: "contain",
+        background: { r: 0, g: 0, b: 0, alpha: 0 },
+      })
       .png({ quality: 100, compressionLevel: 9 })
-      .toFile(path.join(outDir, name))
+      .toFile(path.join(outDir, name));
   }
 }
-console.log("✅ 36 icons regenerated under", OUT)
+console.log("✅ 36 icons regenerated under", OUT);
 ```
 
 ### 6.3 校验与质量门禁
 
-| 门禁 | 命令 | 通过标准 |
-| ----- | ----- | -------- |
-| **数量** | `find public/yyc3-icons -name "*.png" \| wc -l` | `>= 36` |
-| **尺寸正确** | `sips -g pixelWidth -g pixelHeight each.png` | 与命名一致 |
-| **格式正确** | `file each.png` | `PNG image data` |
-| **透明通道** | `pngcheck -v each.png` | `non-interlaced` ✓ alpha present (iOS/Android) |
-| **DPR 校验** | `exiftool each.png \| grep -i dimension` | ≥ 标注尺寸 |
-| **启动可达** | `pnpm dev` 后 `curl /yyc3-icons/...png` | HTTP 200 |
-| **Lighthouse PWA** | 自动注入到 CI | `Installable` ✅ |
+| 门禁               | 命令                                            | 通过标准                                       |
+| ------------------ | ----------------------------------------------- | ---------------------------------------------- |
+| **数量**           | `find public/yyc3-icons -name "*.png" \| wc -l` | `>= 36`                                        |
+| **尺寸正确**       | `sips -g pixelWidth -g pixelHeight each.png`    | 与命名一致                                     |
+| **格式正确**       | `file each.png`                                 | `PNG image data`                               |
+| **透明通道**       | `pngcheck -v each.png`                          | `non-interlaced` ✓ alpha present (iOS/Android) |
+| **DPR 校验**       | `exiftool each.png \| grep -i dimension`        | ≥ 标注尺寸                                     |
+| **启动可达**       | `pnpm dev` 后 `curl /yyc3-icons/...png`         | HTTP 200                                       |
+| **Lighthouse PWA** | 自动注入到 CI                                   | `Installable` ✅                               |
 
 ---
 
@@ -479,14 +542,17 @@ console.log("✅ 36 icons regenerated under", OUT)
 ## YYC3-ICON-v1.0.0 · 2026-09-18
 
 ### ✨ 新增
+
 - 体系首发：36 张 PNG · 五端矩阵 · manifest 集成
 - Macros/icons.json：自动化元数据索引
 - Lighthouse PWA 门禁：installable ≥ 100
 
 ### 🔧 改进
+
 - 通过 `sharp + Lanczos3` 替代 ImageMagick，重生成效率 +40%
 
 ### 🐛 修复
+
 - 修复旧 `manifest.webmanifest` 缺 icons 数组导致 Chrome 不展示安装提示
 - 修复 `apple-touch-icon` 仅一种尺寸，被 iPad Pro 拉伸
 ```
@@ -509,13 +575,13 @@ console.log("✅ 36 icons regenerated under", OUT)
 
 ## 8. 五维驱动评估
 
-| 维度 | 设计落地 | 度量指标 |
-| ----- | -------- | -------- |
-| **时间维** | 版本号 SSOT + 自动派生 + CHANGELOG | 母版变更到全端生效 ≤ 5 min |
-| **空间维** | 单一目录树 `public/yyc3-icons/{Platform}/` | 无散落 / 无重复 |
-| **属性维** | 透明度 / 尺寸 / 通道 / 用途 四元组齐备 | 36 / 36 通过门禁 |
-| **事件维** | install/upgrade/regen/check 5 个事件闭环 | 流水线触发器齐备 |
-| **关联维** | manifest ↔ index.html ↔ sw.js ↔ .well-known/assetlinks.json 强一致 | Lighthouse PWA ≥ 95 |
+| 维度       | 设计落地                                                           | 度量指标                   |
+| ---------- | ------------------------------------------------------------------ | -------------------------- |
+| **时间维** | 版本号 SSOT + 自动派生 + CHANGELOG                                 | 母版变更到全端生效 ≤ 5 min |
+| **空间维** | 单一目录树 `public/yyc3-icons/{Platform}/`                         | 无散落 / 无重复            |
+| **属性维** | 透明度 / 尺寸 / 通道 / 用途 四元组齐备                             | 36 / 36 通过门禁           |
+| **事件维** | install/upgrade/regen/check 5 个事件闭环                           | 流水线触发器齐备           |
+| **关联维** | manifest ↔ index.html ↔ sw.js ↔ .well-known/assetlinks.json 强一致 | Lighthouse PWA ≥ 95        |
 
 ---
 
@@ -602,11 +668,11 @@ curl -s -o /dev/null -w "  /sw.js                             %{http_code}\n" ht
 
 ### B. 版本历史
 
-| 版本 | 日期 | 作者 | 摘要 |
-| ----- | ----- | ---- | ---- |
+| 版本   | 日期       | 作者                | 摘要                                                                          |
+| ------ | ---------- | ------------------- | ----------------------------------------------------------------------------- |
 | v1.0.0 | 2026-09-18 | YanYuCloudCube Team | 体系首发 · 五端 36 图 · manifest 多端集成 · Service Worker 五维驱动 · CI 门禁 |
-| v0.9.0 | 2026-09-15 | YanYuCloudCube Team | 草稿评审 · 八智能体色彩 token 注入口预留 |
-| v0.5.0 | 2026-08-01 | YanYuCloudCube Team | 单端原型 · 仅 macOS/ 7 文件 |
+| v0.9.0 | 2026-09-15 | YanYuCloudCube Team | 草稿评审 · 八智能体色彩 token 注入口预留                                      |
+| v0.5.0 | 2026-08-01 | YanYuCloudCube Team | 单端原型 · 仅 macOS/ 7 文件                                                   |
 
 ---
 

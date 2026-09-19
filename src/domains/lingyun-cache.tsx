@@ -1,51 +1,31 @@
-import { useEffect, useState } from "react"
-import { useReadonly } from "../lib/useReadonly"
-import { api, guardianErrorLine, getApiKey } from "../lib/api"
-import {
-  Bind,
-  FamilyBadge,
-  MetricPlaceholder,
-  Page,
-  Panel,
-  Status,
-} from "./shared"
-import type { PageConfig } from "./shared"
+import { useEffect, useState } from "react";
+import { useReadonly } from "../lib/useReadonly";
+import { api, guardianErrorLine, getApiKey } from "../lib/api";
+import { Bind, FamilyBadge, MetricPlaceholder, Page, Panel, Status } from "./shared";
+import type { PageConfig } from "./shared";
 
 /** 创想·灵韵域 · 灵感缓存（hit rate / entries 实时轮询 + 失效操作） */
 export function Cache({ page }: { page: PageConfig }) {
-  const cacheStats = useReadonly(() => api.cacheStats(), { intervalMs: 15_000 })
-  const cacheInfo = useReadonly(() => api.cacheInfo(), { intervalMs: 30_000 })
-  const [hasKey, setHasKey] = useState(() => Boolean(getApiKey()))
+  const cacheStats = useReadonly(() => api.cacheStats(), { intervalMs: 15_000 });
+  const cacheInfo = useReadonly(() => api.cacheInfo(), { intervalMs: 30_000 });
+  const [hasKey, setHasKey] = useState(() => Boolean(getApiKey()));
   useEffect(() => {
-    const id = setInterval(() => setHasKey(Boolean(getApiKey())), 1_500)
-    return () => clearInterval(id)
-  }, [])
+    const id = setInterval(() => setHasKey(Boolean(getApiKey())), 1_500);
+    return () => clearInterval(id);
+  }, []);
 
-  const stats = (cacheStats.data ?? {}) as Record<string, unknown>
-  const info = (cacheInfo.data ?? {}) as Record<string, unknown>
-  const pick = (
-    obj: Record<string, unknown>,
-    keys: string[],
-  ): number | null => {
+  const stats = (cacheStats.data ?? {}) as Record<string, unknown>;
+  const info = (cacheInfo.data ?? {}) as Record<string, unknown>;
+  const pick = (obj: Record<string, unknown>, keys: string[]): number | null => {
     for (const k of keys) {
-      const v = obj[k]
-      if (typeof v === "number") return v
+      const v = obj[k];
+      if (typeof v === "number") return v;
     }
-    return null
-  }
-  const hitRate = pick(stats, [
-    "cache_hit_rate",
-    "hit_rate",
-    "hitRate",
-    "overall_hit_rate",
-  ])
-  const entries = pick(info, [
-    "total_entries",
-    "entries",
-    "cached_entries",
-    "total",
-  ])
-  const locked = !hasKey || cacheStats.gate === "locked"
+    return null;
+  };
+  const hitRate = pick(stats, ["cache_hit_rate", "hit_rate", "hitRate", "overall_hit_rate"]);
+  const entries = pick(info, ["total_entries", "entries", "cached_entries", "total"]);
+  const locked = !hasKey || cacheStats.gate === "locked";
 
   return (
     <Page page={page}>
@@ -90,5 +70,5 @@ export function Cache({ page }: { page: PageConfig }) {
         </div>
       </Panel>
     </Page>
-  )
+  );
 }
