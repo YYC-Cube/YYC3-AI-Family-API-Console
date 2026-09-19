@@ -1652,7 +1652,7 @@ pnpm a11y
 
 ## 📜 行为准则
 
-详见 [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
+详见 [CODE_OF_CONDUCT.md](../../.github/CODE_OF_CONDUCT.md)
 
 **核心原则**：
 

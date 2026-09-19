@@ -56,7 +56,8 @@ graph LR
 
 ### 🎨 visual.yml — 视觉基线门禁
 
-- 基线：`e2e/*.spec.ts-snapshots/`（随仓库提交，Linux CI 渲染一致）
+- 基线：`e2e/*.spec.ts-snapshots/`（随仓库提交；历史 darwin 基线仅 macOS 本地参照，CI 以 `-linux` 后缀基线为门禁真值）
+- 基线引导：CI 检测 `-linux` 基线数 < 35（完整集）时进入首跑引导——`test:visual:update` 冻结缺失基线并由 bot 回推 main；引导完成后所有推送进入严格 `test:visual` diff 门禁
 - 审阅流程：diff 报告（Artifacts `visual-diff`）→ 预期变更则 `pnpm test:visual:update` 冻结并提交；非预期 → 检查 CSS/布局/字体
 
 ### 📜 contract.yml — 契约漂移门禁

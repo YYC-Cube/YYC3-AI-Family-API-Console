@@ -47,21 +47,30 @@ jobs:
 
       - name: Detect baseline phase
         id: phase
+        # 完整 -linux 基线集 = 35（dashboard/branding 2 + badges 9 + routes 24）。
+        # darwin 基线仅为 macOS 本地参照，CI 门禁真值是 -linux 后缀基线。
+        # 少于 35 → 首跑引导：--update-snapshots 冻结全部缺失基线（写入 snapshots 目录）；
+        # 达到 35 → 严格门禁：任何像素级回归直接失败。
         run: |
+          total=35
           count=$(git ls-files 'e2e/*-snapshots/*-linux.png' | wc -l | tr -d ' ')
-          echo "linux_baselines=$count" >> "$GITHUB_OUTPUT"
-          echo "已跟踪的 -linux 基线数：$count"
+          echo "已跟踪的 -linux 基线数：$count / $total"
+          if [ "$count" -lt "$total" ]; then
+            echo "bootstrap=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "bootstrap=false" >> "$GITHUB_OUTPUT"
+          fi
 
-      - name: Bootstrap Linux baselines (first run only)
+      - name: Bootstrap missing Linux baselines
         # 基线自愈：仓库基线生成于 macOS(darwin)，Linux 平台快照带 -linux 后缀。
-        # 首跑（无 -linux 基线）时用 --update-snapshots 从当前渲染冻结基线（写入 snapshots 目录），
+        # 引导阶段用 --update-snapshots 从当前渲染冻结缺失基线（写入 snapshots 目录），
         # 测试整体退出码在此阶段不作为门禁；bot 回推后，后续所有推送进入严格 diff。
-        if: steps.phase.outputs.linux_baselines == '0'
+        if: steps.phase.outputs.bootstrap == 'true'
         run: pnpm test:visual:update
         continue-on-error: true
 
       - name: Freeze & push Linux baselines
-        if: steps.phase.outputs.linux_baselines == '0'
+        if: steps.phase.outputs.bootstrap == 'true'
         run: |
           git add e2e || true
           if git diff --cached --quiet; then
@@ -70,13 +79,13 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "test(visual): freeze linux baselines (first-run bootstrap)"
+          git commit -m "test(visual): freeze linux baselines (bootstrap)"
           git push
           echo "Linux 基线已冻结并回推（本流水线以引导阶段通过）"
 
       - name: Run visual regression (strict)
         # 基线已入库 → 严格视觉门禁：任何像素级回归直接失败
-        if: steps.phase.outputs.linux_baselines != '0'
+        if: steps.phase.outputs.bootstrap == 'false'
         run: pnpm test:visual
 
       - name: Upload diff artifacts (on failure)
