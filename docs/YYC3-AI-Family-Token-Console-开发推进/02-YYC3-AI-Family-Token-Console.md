@@ -2788,9 +2788,9 @@ pnpm lint:family   # 家族标头合规
 
 ## 八、参考
 
-- [全维度设计与落地文档](../设计理念/YYC3-AI-Family-Token-Console.md)
-- [品牌植入与工程落地实施手册](../品牌落地/品牌植入与工程落地实施手册.md)
-- [API 契约](../../apps/console/domains/_shared/types.gen.ts)
+- 全维度设计与落地文档（历史路径存档：`../设计理念/YYC3-AI-Family-Token-Console.md`）
+- 品牌植入与工程落地实施手册（历史路径存档：`../品牌落地/品牌植入与工程落地实施手册.md`）
+- API 契约（历史路径存档：`../../apps/console/domains/_shared/types.gen.ts`）
 
 ---
 

@@ -14,23 +14,23 @@ category: report
 
 ## 基本信息
 
-| 属性 | 值 |
-| ---- | -- |
-| **分析对象** | open-webui / hermes-agent / dify / ragflow |
-| **分析日期** | 2026-09-20 |
-| **分析方法** | 基于源码的实际审计（逐项目读取 README、依赖清单、核心模块结构） |
+| 属性         | 值                                                                                                                  |
+| ------------ | ------------------------------------------------------------------------------------------------------------------- |
+| **分析对象** | open-webui / hermes-agent / dify / ragflow                                                                          |
+| **分析日期** | 2026-09-20                                                                                                          |
+| **分析方法** | 基于源码的实际审计（逐项目读取 README、依赖清单、核心模块结构）                                                     |
 | **定位关系** | 四者互补而非竞争：对话入口（open-webui）/ 自主智能体（hermes-agent）/ 应用编排平台（dify）/ RAG 知识引擎（ragflow） |
 
 ---
 
 ## 一、四大项目一句话释义
 
-| 项目 | 版本 | 出品方 | 一句话释义 |
-| ---- | ---- | ------ | ---------- |
-| **open-webui** | 0.11.3 | Open WebUI 社区 | 自托管 AI 对话平台——"私有化 ChatGPT 界面"，模型聚合 + 企业门户 + RAG 一体 |
-| **hermes-agent** | 0.21.3 | Nous Research (MIT) | **自我改进型 AI 智能体**——从经验中自动生成技能、自我进化、可常驻云端、全平台消息触达 |
-| **dify** | 1.17.1 | LangGenius | **LLM 应用开发平台**——可视化工作流 + RAG 管道 + Agent + LLMOps，从原型到生产的 BaaS |
-| **ragflow** | 0.27.2 | InfiniFlow (Apache-2.0) | **深度文档理解 RAG 引擎**——"Quality in, quality out"，模板化分块 + GraphRAG + 可溯源引用 |
+| 项目             | 版本   | 出品方                  | 一句话释义                                                                               |
+| ---------------- | ------ | ----------------------- | ---------------------------------------------------------------------------------------- |
+| **open-webui**   | 0.11.3 | Open WebUI 社区         | 自托管 AI 对话平台——"私有化 ChatGPT 界面"，模型聚合 + 企业门户 + RAG 一体                |
+| **hermes-agent** | 0.21.3 | Nous Research (MIT)     | **自我改进型 AI 智能体**——从经验中自动生成技能、自我进化、可常驻云端、全平台消息触达     |
+| **dify**         | 1.17.1 | LangGenius              | **LLM 应用开发平台**——可视化工作流 + RAG 管道 + Agent + LLMOps，从原型到生产的 BaaS      |
+| **ragflow**      | 0.27.2 | InfiniFlow (Apache-2.0) | **深度文档理解 RAG 引擎**——"Quality in, quality out"，模板化分块 + GraphRAG + 可溯源引用 |
 
 **生态位类比**：如果组建一个完整 AI 产品线 —— ragflow 是「大脑的知识皮层」，dify 是「神经编排中枢」，open-webui 是「对话面孔」，hermes-agent 是「自主行动的手脚」。
 
@@ -38,17 +38,17 @@ category: report
 
 ## 二、技术栈横向对比
 
-| 维度 | open-webui | hermes-agent | dify | ragflow |
-| ---- | ---------- | ------------ | ---- | ------- |
-| **后端语言** | Python 3.11 (FastAPI) | Python 3.11-3.13 (纯 Python, Fire CLI) | Python 3.12 (Flask + Celery) **+ Go (agent-runtime)** | Python 3.13 **+ Go (internal/ 服务端)** |
-| **前端** | SvelteKit 5 + Tailwind 4 | TypeScript TUI + Desktop (Web) | **Next.js + React + Tailwind** | React |
-| **包管理** | npm + pip/pyproject | **uv (精确锁定 ==X.Y.Z)** + uv.lock | **pnpm workspace + catalog:** + uv workspace | uv/pypi + go.mod |
-| **数据库** | SQLite/PostgreSQL/MySQL (SQLAlchemy async) | SQLite (FTS5 全文检索) | PostgreSQL + Redis + Celery 队列 | MySQL + Redis + MinIO |
-| **检索引擎** | 15 种向量库可选 | 无（自身不聚焦 RAG） | **29 种向量库 provider（uv workspace 成员化）** | Elasticsearch/Infinity(自研)/OpenSearch/GaussDB/OceanBase |
-| **进程模型** | 单体 FastAPI + Socket.IO | 单进程 gateway + 子代理并行 | **gunicorn + gevent + Celery worker/beat 分离** | task_executor 独立进程 + Go 服务 |
-| **扩展机制** | Functions/Tools/Pipes 插件 exec 动态加载 | 技能包 (agentskills.io 标准) + 懒安装依赖 | **插件 Marketplace + uv workspace provider 隔离** | 组件 DSL + 工具注册 + sandbox |
-| **测试** | ⚠️ 极薄（2 个文件） | evals/ 评估目录 + 批量轨迹 | ✅ **完整：vitest 单测 + cucumber e2e + Storybook** | flow/ 有 pytest（分块管线） |
-| **架构守护** | 无 | AGENTS.md 不变式文档 | ✅ **.importlinter + ast_grep_guard.py AST 级守护** | 无 |
+| 维度         | open-webui                                 | hermes-agent                              | dify                                                  | ragflow                                                   |
+| ------------ | ------------------------------------------ | ----------------------------------------- | ----------------------------------------------------- | --------------------------------------------------------- |
+| **后端语言** | Python 3.11 (FastAPI)                      | Python 3.11-3.13 (纯 Python, Fire CLI)    | Python 3.12 (Flask + Celery) **+ Go (agent-runtime)** | Python 3.13 **+ Go (internal/ 服务端)**                   |
+| **前端**     | SvelteKit 5 + Tailwind 4                   | TypeScript TUI + Desktop (Web)            | **Next.js + React + Tailwind**                        | React                                                     |
+| **包管理**   | npm + pip/pyproject                        | **uv (精确锁定 ==X.Y.Z)** + uv.lock       | **pnpm workspace + catalog:** + uv workspace          | uv/pypi + go.mod                                          |
+| **数据库**   | SQLite/PostgreSQL/MySQL (SQLAlchemy async) | SQLite (FTS5 全文检索)                    | PostgreSQL + Redis + Celery 队列                      | MySQL + Redis + MinIO                                     |
+| **检索引擎** | 15 种向量库可选                            | 无（自身不聚焦 RAG）                      | **29 种向量库 provider（uv workspace 成员化）**       | Elasticsearch/Infinity(自研)/OpenSearch/GaussDB/OceanBase |
+| **进程模型** | 单体 FastAPI + Socket.IO                   | 单进程 gateway + 子代理并行               | **gunicorn + gevent + Celery worker/beat 分离**       | task_executor 独立进程 + Go 服务                          |
+| **扩展机制** | Functions/Tools/Pipes 插件 exec 动态加载   | 技能包 (agentskills.io 标准) + 懒安装依赖 | **插件 Marketplace + uv workspace provider 隔离**     | 组件 DSL + 工具注册 + sandbox                             |
+| **测试**     | ⚠️ 极薄（2 个文件）                        | evals/ 评估目录 + 批量轨迹                | ✅ **完整：vitest 单测 + cucumber e2e + Storybook**   | flow/ 有 pytest（分块管线）                               |
+| **架构守护** | 无                                         | AGENTS.md 不变式文档                      | ✅ **.importlinter + ast_grep_guard.py AST 级守护**   | 无                                                        |
 
 ---
 
@@ -67,14 +67,14 @@ category: report
 
 #### 可借鉴项
 
-| # | 借鉴项 | 落地方式 | 适用场景 |
-| -- | ------ | -------- | -------- |
-| 1 | **密钥强制策略** | 启动时密钥为空即 `SystemExit`，并提示支持的启动方式 | 任何自托管产品 |
-| 2 | **依赖锁定注释文化** | 每个非默认锁定附 issue 链接说明原因 | 多人协作仓库 |
-| 3 | **SPAFallback 静态服务** | `SPAStaticFiles` 404 时回退 index.html 但 .js 除外（避免掩盖前端错误） | SPA + API 同端口部署 |
-| 4 | **搜索过滤器前缀语法** | `tag:`/`folder:`/`pinned:` 统一搜索语法（`CHAT_SEARCH_FILTER_PREFIXES`） | 任何列表搜索场景 |
-| 5 | **方言化 SQL 生成器** | 按数据库方言生成 JSON 查询 SQL（sqlite `json_each` vs postgres 分支） | 多数据库兼容产品 |
-| 6 | **离线模式开关** | `OFFLINE_MODE` 一键全离线运行 | 信创/内网交付 |
+| #   | 借鉴项                   | 落地方式                                                                 | 适用场景             |
+| --- | ------------------------ | ------------------------------------------------------------------------ | -------------------- |
+| 1   | **密钥强制策略**         | 启动时密钥为空即 `SystemExit`，并提示支持的启动方式                      | 任何自托管产品       |
+| 2   | **依赖锁定注释文化**     | 每个非默认锁定附 issue 链接说明原因                                      | 多人协作仓库         |
+| 3   | **SPAFallback 静态服务** | `SPAStaticFiles` 404 时回退 index.html 但 .js 除外（避免掩盖前端错误）   | SPA + API 同端口部署 |
+| 4   | **搜索过滤器前缀语法**   | `tag:`/`folder:`/`pinned:` 统一搜索语法（`CHAT_SEARCH_FILTER_PREFIXES`） | 任何列表搜索场景     |
+| 5   | **方言化 SQL 生成器**    | 按数据库方言生成 JSON 查询 SQL（sqlite `json_each` vs postgres 分支）    | 多数据库兼容产品     |
+| 6   | **离线模式开关**         | `OFFLINE_MODE` 一键全离线运行                                            | 信创/内网交付        |
 
 ---
 
@@ -92,16 +92,16 @@ category: report
 
 #### 可借鉴项
 
-| # | 借鉴项 | 落地方式 | 适用场景 |
-| -- | ------ | -------- | -------- |
-| 1 | **精确锁定 + 事件驱动升级** | `==X.Y.Z` + 升级需书面理由 + `uv lock` 同步 | 抵御供应链攻击（有真实案例背书） |
-| 2 | **依赖最小爆炸半径** | 核心依赖只放「每个会话都用」的包，其余懒安装 | CLI 工具/插件化产品 |
-| 3 | **AGENTS.md 架构不变式** | 每个核心目录一份，写明「每次变更必须对照检查的硬规则」 | AI 协同开发项目（YYC³ 高度契合） |
-| 4 | **阶段文件拆分模式** | 长循环按阶段拆 `phase_*.py` 同级文件 | 复杂状态机/流水线代码 |
-| 5 | **技能自进化闭环** | 任务完成→评估→自动生成技能→下次复用→持续改进 | Agent 平台 |
-| 6 | **serverless 执行环境** | 空闲休眠、按需唤醒的沙箱（Modal/Daytona 模式） | 成本敏感的 agent 托管 |
-| 7 | **doctor 自诊断命令** | `hermes doctor` 一键诊断环境问题 | 任何复杂安装产品 |
-| 8 | **多语言 README 覆盖** | 英/中/西/乌尔都语等 4 语言 README | 开源国际化 |
+| #   | 借鉴项                      | 落地方式                                               | 适用场景                         |
+| --- | --------------------------- | ------------------------------------------------------ | -------------------------------- |
+| 1   | **精确锁定 + 事件驱动升级** | `==X.Y.Z` + 升级需书面理由 + `uv lock` 同步            | 抵御供应链攻击（有真实案例背书） |
+| 2   | **依赖最小爆炸半径**        | 核心依赖只放「每个会话都用」的包，其余懒安装           | CLI 工具/插件化产品              |
+| 3   | **AGENTS.md 架构不变式**    | 每个核心目录一份，写明「每次变更必须对照检查的硬规则」 | AI 协同开发项目（YYC³ 高度契合） |
+| 4   | **阶段文件拆分模式**        | 长循环按阶段拆 `phase_*.py` 同级文件                   | 复杂状态机/流水线代码            |
+| 5   | **技能自进化闭环**          | 任务完成→评估→自动生成技能→下次复用→持续改进           | Agent 平台                       |
+| 6   | **serverless 执行环境**     | 空闲休眠、按需唤醒的沙箱（Modal/Daytona 模式）         | 成本敏感的 agent 托管            |
+| 7   | **doctor 自诊断命令**       | `hermes doctor` 一键诊断环境问题                       | 任何复杂安装产品                 |
+| 8   | **多语言 README 覆盖**      | 英/中/西/乌尔都语等 4 语言 README                      | 开源国际化                       |
 
 ---
 
@@ -119,17 +119,17 @@ category: report
 
 #### 可借鉴项
 
-| # | 借鉴项 | 落地方式 | 适用场景 |
-| -- | ------ | -------- | -------- |
-| 1 | **pnpm `catalog:` 版本单点管理** | `pnpm-workspace.yaml` 定义版本目录，子包用 `catalog:` 引用 | ⭐ YYC³ 技术栈（Next.js+pnpm）直接可用 |
-| 2 | **`only-allow pnpm` 预安装钩子** | preinstall script 强制包管理器一致性 | 多人 monorepo |
-| 3 | **importlinter 分层契约** | CI 中强制模块依赖方向，违规即失败 | 大型 Python/TS 项目 |
-| 4 | **ast_grep AST 守护脚本** | 用 ast-grep 写结构化代码规则进 CI | 防止特定反模式 |
-| 5 | **provider workspace 化** | 每个**集成**独立小包，核心按需引用 | ⭐ 解决「集成越多依赖越肿」的通用解法 |
-| 6 | **HITL 暂停恢复模式** | ask_human 节点：工作流可暂停等人、恢复续跑 | 审批流/人工介入场景 |
-| 7 | **触发器三件套** | webhook + schedule + 插件事件统一触发工作流 | 自动化平台 |
-| 8 | **a11y 专项 lint** | CI 中跑无障碍检查脚本 | 对标「五标」可视化与合规 |
-| 9 | **死代码检测 (knip)** | 未使用的导出/依赖自动发现并阻断 | 长期维护的仓库 |
+| #   | 借鉴项                           | 落地方式                                                   | 适用场景                               |
+| --- | -------------------------------- | ---------------------------------------------------------- | -------------------------------------- |
+| 1   | **pnpm `catalog:` 版本单点管理** | `pnpm-workspace.yaml` 定义版本目录，子包用 `catalog:` 引用 | ⭐ YYC³ 技术栈（Next.js+pnpm）直接可用 |
+| 2   | **`only-allow pnpm` 预安装钩子** | preinstall script 强制包管理器一致性                       | 多人 monorepo                          |
+| 3   | **importlinter 分层契约**        | CI 中强制模块依赖方向，违规即失败                          | 大型 Python/TS 项目                    |
+| 4   | **ast_grep AST 守护脚本**        | 用 ast-grep 写结构化代码规则进 CI                          | 防止特定反模式                         |
+| 5   | **provider workspace 化**        | 每个**集成**独立小包，核心按需引用                         | ⭐ 解决「集成越多依赖越肿」的通用解法  |
+| 6   | **HITL 暂停恢复模式**            | ask_human 节点：工作流可暂停等人、恢复续跑                 | 审批流/人工介入场景                    |
+| 7   | **触发器三件套**                 | webhook + schedule + 插件事件统一触发工作流                | 自动化平台                             |
+| 8   | **a11y 专项 lint**               | CI 中跑无障碍检查脚本                                      | 对标「五标」可视化与合规               |
+| 9   | **死代码检测 (knip)**            | 未使用的导出/依赖自动发现并阻断                            | 长期维护的仓库                         |
 
 ---
 
@@ -148,28 +148,28 @@ category: report
 
 #### 可借鉴项
 
-| # | 借鉴项 | 落地方式 | 适用场景 |
-| -- | ------ | -------- | -------- |
-| 1 | **模板化分块策略** | 按文档类型（合同/论文/简历...）选分块模板而非一刀切 | ⭐ 所有 RAG 落地 |
-| 2 | **分块可视化+人工干预** | 解析结果可查看、可修正后再入库 | 企业知识库质检 |
-| 3 | **提示词文件化** | 每条 prompt 一个 .md 进版本库，代码里只引用 | ⭐ 提示词治理（YYC³ 规范化） |
-| 4 | **充分性判断节点** | 检索后先判断「上下文是否足够」再生成，不足则补充检索 | 降低 RAG 幻觉 |
-| 5 | **模型厂商 JSON 声明** | 新增厂商只需一个描述 JSON，无需改代码 | 多模型接入产品 |
-| 6 | **SSRF 防护独立模块** | 所有 URL 抓取过统一 ssrf_guard（内网地址黑名单） | 有网页抓取功能的产品 |
-| 7 | **摄取管线 DSL + 测试** | 分块管线声明式定义，且每个变换有单测 | 数据处理流水线 |
-| 8 | **RAPTOR/GraphRAG 分层** | 普通检索免费、GraphRAG 按库开关（算力换质量） | 分级知识服务 |
+| #   | 借鉴项                   | 落地方式                                             | 适用场景                     |
+| --- | ------------------------ | ---------------------------------------------------- | ---------------------------- |
+| 1   | **模板化分块策略**       | 按文档类型（合同/论文/简历...）选分块模板而非一刀切  | ⭐ 所有 RAG 落地             |
+| 2   | **分块可视化+人工干预**  | 解析结果可查看、可修正后再入库                       | 企业知识库质检               |
+| 3   | **提示词文件化**         | 每条 prompt 一个 .md 进版本库，代码里只引用          | ⭐ 提示词治理（YYC³ 规范化） |
+| 4   | **充分性判断节点**       | 检索后先判断「上下文是否足够」再生成，不足则补充检索 | 降低 RAG 幻觉                |
+| 5   | **模型厂商 JSON 声明**   | 新增厂商只需一个描述 JSON，无需改代码                | 多模型接入产品               |
+| 6   | **SSRF 防护独立模块**    | 所有 URL 抓取过统一 ssrf_guard（内网地址黑名单）     | 有网页抓取功能的产品         |
+| 7   | **摄取管线 DSL + 测试**  | 分块管线声明式定义，且每个变换有单测                 | 数据处理流水线               |
+| 8   | **RAPTOR/GraphRAG 分层** | 普通检索免费、GraphRAG 按库开关（算力换质量）        | 分级知识服务                 |
 
 ---
 
 ## 四、四项目「五高」横向评分
 
-| 五高维度 | open-webui | hermes-agent | dify | ragflow | 最佳实践出处 |
-| -------- | :--: | :--: | :--: | :--: | ---- |
-| **高可用** | ★★★★☆ | ★★★★☆ | ★★★★★ | ★★★☆☆ | dify：gunicorn/gevent + Celery 分离 + beat 定时 |
-| **高性能** | ★★★★☆ | ★★★★☆ | ★★★★☆ | ★★★★☆ | ragflow/dify：Go 下沉执行层 |
-| **高安全** | ★★★★★ | ★★★★★ | ★★★★☆ | ★★★★☆ | hermes：精确锁定防供应链；open-webui：密钥强制 |
-| **高扩展** | ★★★★★ | ★★★☆☆ | ★★★★★ | ★★★★☆ | dify：provider workspace 化；open-webui：15 种向量库 |
-| **高智能** | ★★★★☆ | ★★★★★ | ★★★★☆ | ★★★★★ | hermes：技能自进化；ragflow：GraphRAG |
+| 五高维度   | open-webui | hermes-agent | dify  | ragflow | 最佳实践出处                                         |
+| ---------- | :--------: | :----------: | :---: | :-----: | ---------------------------------------------------- |
+| **高可用** |   ★★★★☆    |    ★★★★☆     | ★★★★★ |  ★★★☆☆  | dify：gunicorn/gevent + Celery 分离 + beat 定时      |
+| **高性能** |   ★★★★☆    |    ★★★★☆     | ★★★★☆ |  ★★★★☆  | ragflow/dify：Go 下沉执行层                          |
+| **高安全** |   ★★★★★    |    ★★★★★     | ★★★★☆ |  ★★★★☆  | hermes：精确锁定防供应链；open-webui：密钥强制       |
+| **高扩展** |   ★★★★★    |    ★★★☆☆     | ★★★★★ |  ★★★★☆  | dify：provider workspace 化；open-webui：15 种向量库 |
+| **高智能** |   ★★★★☆    |    ★★★★★     | ★★★★☆ |  ★★★★★  | hermes：技能自进化；ragflow：GraphRAG                |
 
 **「五标」亮点**：标准化（hermes 依赖纪律 / dify catalog:）、规范化（hermes AGENTS.md / dify importlinter）、自动化（dify 全链路 CI / open-webui 迁移）、可视化（dify 工作流画布 / ragflow 分块可视化）、智能化（hermes 学习闭环 / ragflow 充分性判断）。
 
@@ -191,27 +191,27 @@ category: report
      └─ cron 日报/巡检经 Telegram/Slack 触达运营
 ```
 
-| 优先级 | 借鉴行动 | 源项目 | 预期收益 |
-| ------ | -------- | ------ | -------- |
-| **P0** | pnpm `catalog:` + `only-allow` 引入 YYC³ Next.js 项目 | dify | 版本单点管理，消灭版本漂移 |
-| **P0** | 提示词 .md 资产化进版本库 | ragflow | 提示词可治理、可回滚 |
-| **P1** | AGENTS.md 架构不变式文档 | hermes-agent | AI 协同开发质量护栏 |
-| **P1** | 依赖精确锁定 + 升级书面理由 | hermes-agent | 供应链安全 |
-| **P1** | importlinter + ast-grep 架构守护 | dify | 架构防腐自动化 |
-| **P2** | provider/集成 workspace 化 | dify | 集成增长不增核心负担 |
-| **P2** | 充分性判断 + 模板化分块 | ragflow | RAG 质量与幻觉控制 |
-| **P2** | serverless 沙箱执行环境 | hermes-agent | Agent 托管成本优化 |
+| 优先级 | 借鉴行动                                              | 源项目       | 预期收益                   |
+| ------ | ----------------------------------------------------- | ------------ | -------------------------- |
+| **P0** | pnpm `catalog:` + `only-allow` 引入 YYC³ Next.js 项目 | dify         | 版本单点管理，消灭版本漂移 |
+| **P0** | 提示词 .md 资产化进版本库                             | ragflow      | 提示词可治理、可回滚       |
+| **P1** | AGENTS.md 架构不变式文档                              | hermes-agent | AI 协同开发质量护栏        |
+| **P1** | 依赖精确锁定 + 升级书面理由                           | hermes-agent | 供应链安全                 |
+| **P1** | importlinter + ast-grep 架构守护                      | dify         | 架构防腐自动化             |
+| **P2** | provider/集成 workspace 化                            | dify         | 集成增长不增核心负担       |
+| **P2** | 充分性判断 + 模板化分块                               | ragflow      | RAG 质量与幻觉控制         |
+| **P2** | serverless 沙箱执行环境                               | hermes-agent | Agent 托管成本优化         |
 
 ---
 
 ## 六、结论
 
-| 项目 | 核心竞争力 | 最值得带走的一件事 |
-| ---- | ---------- | ------------------ |
-| open-webui | 生态广度 + 安全纪律 | 「密钥为空拒绝启动」的失败前置设计 |
-| hermes-agent | 自进化智能 + 供应链防御 | 精确锁定依赖 + AGENTS.md 不变式 |
-| dify | 平台工程化 + 插件架构 | pnpm catalog: 单点版本 + provider workspace 化 |
-| ragflow | 深度文档理解 + RAG 专业度 | 模板化分块 + 提示词资产化 |
+| 项目         | 核心竞争力                | 最值得带走的一件事                             |
+| ------------ | ------------------------- | ---------------------------------------------- |
+| open-webui   | 生态广度 + 安全纪律       | 「密钥为空拒绝启动」的失败前置设计             |
+| hermes-agent | 自进化智能 + 供应链防御   | 精确锁定依赖 + AGENTS.md 不变式                |
+| dify         | 平台工程化 + 插件架构     | pnpm catalog: 单点版本 + provider workspace 化 |
+| ragflow      | 深度文档理解 + RAG 专业度 | 模板化分块 + 提示词资产化                      |
 
 四个项目分别示范了「产品化、智能化、平台化、专业化」四种工程范式，任意一个的短板都能在另外三个中找到成熟解法——这正是「五维驱动」中**关联维度**的价值：单一项目做好自己，组合生态才能闭环。
 
