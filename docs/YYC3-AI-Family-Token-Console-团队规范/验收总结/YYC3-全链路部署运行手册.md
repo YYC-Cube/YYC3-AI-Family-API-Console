@@ -14,7 +14,7 @@
 在 GitHub 仓库 → **Settings → Secrets and variables → Actions** 中配置以下 Secrets：
 
 | Secret 名称 | 示例值 | 说明 |
-|------------|--------|------|
+| ------------ | -------- | ------ |
 | `DOCKER_USERNAME` | `yyc3` | Docker Hub 用户名 |
 | `DOCKER_PASSWORD` | `dckr_pat_xxx` | Docker Hub Token |
 | `SSH_PRIVATE_KEY` | `-----BEGIN OPENSSH PRIVATE KEY-----\n...` | 所有节点的统一 SSH 私钥 |
@@ -32,7 +32,7 @@
 | `SLACK_WEBHOOK` | `https://hooks.slack.com/...` | 可选：部署通知 |
 | `ZHIPU_API_KEY` | — | ⚠️ 当前已过期，需重新申请 |
 | `JWT_SECRET_KEY` | — | 生产环境必填 |
-| `API_KEYS` | `sk-yyc3-prod-key-001` | 生产环境必填 |
+| `API_KEYS` | `<REDACTED 占位 — 真实值仅存 GitHub Secrets>` | 生产环境必填 |
 
 ### 1.2 SSH 密钥分发（一次性）
 
@@ -133,7 +133,7 @@ vim .env
 ### 2.1 节点信息速查
 
 | 节点 | Host Name | Tailscale IP | SSH 用户 | 角色 | 运行服务 |
-|------|-----------|-------------|---------|------|---------|
+| ------ | ----------- | ------------- | --------- | ------ | --------- |
 | yyc3-33 | ECS | — (公网) | root | 公网入口 | Traefik + Prometheus + Grafana + Loki |
 | yyc3-22 | MacMax | 100.87.159.21 | yanyu | 代码中心 | 开发机 + SSH枢纽 + Ollama CPU |
 | yyc3-45 | NAS | 100.65.172.88 | YYC3 | **API网关 + 存储** | **gateway:8000** + PG + Redis + NFS |
@@ -384,7 +384,7 @@ echo "════════════════════════�
 ### 3.2 多端跑通矩阵验证
 
 | 端 | 命令 | 预期结果 | 验证结果 |
-|----|------|---------|---------|
+| ---- | ------ | --------- | --------- |
 | **REST** | `curl https://api.0379.world/v1/chat/completions` | 200 + chat completion JSON | ⬜ |
 | **SSE流式** | `curl -N https://api.0379.world/v1/chat/completions?stream=true` | 流式 SSE 事件 | ⬜ |
 | **OpenAI SDK** | `python3 -c "from openai import OpenAI; ..."` | 正常返回 | ⬜ |
@@ -445,7 +445,7 @@ make ops-db-backup
 ### 4.4 故障恢复检查清单
 
 | 症状 | 检查项 | 快速恢复 |
-|------|--------|---------|
+| ------ | -------- | --------- |
 | API 503 | HAProxy 后端是否健康 | `docker compose restart api haproxy` |
 | Redis 不可用 | `redis-cli ping` | `docker compose restart redis` |
 | PostgreSQL 故障 | Patroni leader 选举 | `patronictl list` → `patronictl switchover` |
@@ -460,7 +460,7 @@ make ops-db-backup
 ### 5.1 7x24 监控面板
 
 | 仪表盘 | 访问地址 | 默认凭据 |
-|--------|---------|---------|
+| -------- | --------- | --------- |
 | Grafana | `https://api.0379.world:3000` | `admin` / `admin` |
 | Prometheus | `https://api.0379.world:9090` | 内部访问 |
 | HAProxy | `https://api.0379.world:8404/stats` | 内部访问 |
@@ -468,7 +468,7 @@ make ops-db-backup
 ### 5.2 核心告警阈值
 
 | 告警规则 | 阈值 | 响应 |
-|---------|------|------|
+| --------- | ------ | ------ |
 | API 5xx 率过高 | > 5% in 5min | 检查日志 `docker compose logs api` |
 | P95 延迟 > 3s | > 3s in 5min | 检查模型负载/GPU利用率 |
 | Redis 不可用 | ping fail | `docker compose restart redis` |
@@ -638,7 +638,7 @@ rsync -avz --progress /opt/yyc3/production/ yyc3-45:/opt/yyc3/production/  # 手
 ## 附录 B: Node 角色速查
 
 | 节点 | 主机名 | IP (Tailscale) | 规格 | 角色 | 运行服务 |
-|------|--------|--------------|------|------|---------|
+| ------ | -------- | -------------- | ------ | ------ | --------- |
 | yyc3-33 | ECS | 公网 | 8G/100M | 公网入口 | HAProxy + Prometheus + Loki + Grafana |
 | yyc3-22 | MacMax | `100.87.159.21` | 128G/4T | 代码中心 | 开发机 + SSH枢纽 + Ollama CPU |
 | yyc3-45 | NAS | `100.65.172.88` | 32G/RAID | **API网关 + 存储** | **Gateway v5** + PG Primary + Redis + NFS |
