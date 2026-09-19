@@ -45,37 +45,39 @@ jobs:
       - name: Install Playwright browsers
         run: pnpm exec playwright install chromium --with-deps
 
-      - name: Run visual regression (32 baselines)
-        # 基线自愈（首跑冻结，次跑严格）：
-        # 仓库现有基线于 macOS(darwin) 生成；Linux 平台快照自动携带 -linux 后缀，
-        # --update-snapshots=missing 缺失即写入新基线；首跑因快照缺失退出码 1 属预期，
-        # 用 continue-error 兜底，由下一步「基线是否新增」判定真实结果
-        run: pnpm test:visual --update-snapshots=missing
+      - name: Detect baseline phase
+        id: phase
+        run: |
+          count=$(git ls-files 'e2e/*-snapshots/*-linux.png' | wc -l | tr -d ' ')
+          echo "linux_baselines=$count" >> "$GITHUB_OUTPUT"
+          echo "已跟踪的 -linux 基线数：$count"
+
+      - name: Bootstrap Linux baselines (first run only)
+        # 基线自愈：仓库基线生成于 macOS(darwin)，Linux 平台快照带 -linux 后缀。
+        # 首跑（无 -linux 基线）时用 --update-snapshots 从当前渲染冻结基线（写入 snapshots 目录），
+        # 测试整体退出码在此阶段不作为门禁；bot 回推后，后续所有推送进入严格 diff。
+        if: steps.phase.outputs.linux_baselines == '0'
+        run: pnpm test:visual:update
         continue-on-error: true
 
-      - name: Fail if Linux baselines still missing after bootstrap
-        # 快照已冻结后仍失败 → 真实视觉回归，不放行
+      - name: Freeze & push Linux baselines
+        if: steps.phase.outputs.linux_baselines == '0'
         run: |
-          if grep -q "doesn't exist" test-results/.last-run.json 2>/dev/null; then
-            echo "::error::首跑自愈后仍有快照缺失，请人工检查"
+          git add e2e || true
+          if git diff --cached --quiet; then
+            echo "::error::首跑引导未产出任何 -linux 基线，请人工排查"
             exit 1
           fi
-          echo "自愈引导阶段（缺失基线已写入），交由提交步骤回推"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "test(visual): freeze linux baselines (first-run bootstrap)"
+          git push
+          echo "Linux 基线已冻结并回推（本流水线以引导阶段通过）"
 
-      - name: Commit regenerated Linux baselines
-        # Linux 首跑生成的新基线直接回推 main，闭环次跑起严格门禁
-        if: always()
-        run: |
-          if [ -n "$(git status --porcelain e2e/*.spec.ts-snapshots)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add "e2e/*.spec.ts-snapshots"
-            git commit -m "test(visual): freeze linux baselines (first-run bootstrap)"
-            git push
-            echo "Linux 基线已冻结并回推"
-          else
-            echo "基线无变化（严格 diff 通过）"
-          fi
+      - name: Run visual regression (strict)
+        # 基线已入库 → 严格视觉门禁：任何像素级回归直接失败
+        if: steps.phase.outputs.linux_baselines != '0'
+        run: pnpm test:visual
 
       - name: Upload diff artifacts (on failure)
         if: failure()

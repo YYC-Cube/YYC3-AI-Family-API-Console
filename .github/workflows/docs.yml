@@ -44,10 +44,12 @@ jobs:
             docs/**/*.md
 
       # 2) 死链扫描（README / 设计文档 / 规范文档互相引用）
+      # --root-dir 指向 public/（web 根）：offline.html 等页面内的根相对链接
+      # （/yyc3-icons/**、/manifest.webmanifest）可在本地正确解析，不再误报
       - name: Lychee dead-link scan
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --offline --no-progress --exclude-loopback --exclude 'https://token.yyc3.top/*' --exclude 'https://api.0379.world/*' .
+          args: --offline --no-progress --exclude-loopback --root-dir ${{ github.workspace }}/public --exclude 'https://token.yyc3.top/*' --exclude 'https://api.0379.world/*' .
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
