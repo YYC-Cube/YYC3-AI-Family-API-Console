@@ -80,8 +80,9 @@ export function guardianErrorLine(err: unknown): string {
   return `未知异常：${err instanceof Error ? err.message : String(err)}`;
 }
 
-async function request<T>(path: string, auth = false): Promise<T> {
+async function request<T>(path: string, auth = false, init?: RequestInit): Promise<T> {
   const headers: Record<string, string> = { Accept: "application/json" };
+  if (init?.body) headers["Content-Type"] = "application/json";
   if (auth) {
     const key = getApiKey();
     if (!key) throw new ApiError(401, "validation", "尚未出示 API Key");
@@ -89,7 +90,7 @@ async function request<T>(path: string, auth = false): Promise<T> {
   }
   let response: Response;
   try {
-    response = await fetch(`${API_BASE}${path}`, { headers });
+    response = await fetch(`${API_BASE}${path}`, { ...init, headers });
   } catch (e) {
     throw new ApiError(0, "network", (e as Error).message);
   }
@@ -172,6 +173,12 @@ export const api = {
   mcpLocalTools: () => request<Record<string, unknown>>("/v1/mcp/local/tools", true),
   /** GET /v1/mcp/local/status → object */
   mcpLocalStatus: () => request<Record<string, unknown>>("/v1/mcp/local/status", true),
+  /** POST /v1/rag/search → SearchResponse（向量/混合检索，契约 SearchRequest） */
+  ragSearch: (req: RAGSearchRequest) =>
+    request<RAGSearchResponse>("/v1/rag/search", true, {
+      method: "POST",
+      body: JSON.stringify(req),
+    }),
 };
 
 /** 知识库条目（契约 KnowledgeBaseResponse） */
@@ -207,6 +214,38 @@ export type MCPToolsList = {
   zhipu_tools?: Record<string, unknown>[];
   local_tools?: Record<string, unknown>[];
   total_count: number;
+};
+
+/** RAG 检索请求（契约 SearchRequest：query 必填 + kb_ids 必填，top_k≤20 · threshold 0-1） */
+export type RAGSearchRequest = {
+  query: string;
+  knowledge_base_ids: string[];
+  top_k?: number;
+  threshold?: number;
+  search_type?: "semantic" | "hybrid";
+};
+
+/** RAG 检索结果条目（契约 SearchResult） */
+export type RAGSearchResult = {
+  chunk_id: string;
+  document_id: string;
+  knowledge_base_id: string;
+  chunk_index: number;
+  content: string;
+  token_count: number;
+  document_title: string;
+  knowledge_base_name: string;
+  similarity: number;
+  score?: number | null;
+  keyword_match?: boolean | null;
+};
+
+/** RAG 检索响应（契约 SearchResponse） */
+export type RAGSearchResponse = {
+  query: string;
+  results: RAGSearchResult[];
+  total_count: number;
+  response_time_ms: number;
 };
 
 /** 401/403 时是否因「未认证」而非「密钥无效」：引导用户到门禁页 */

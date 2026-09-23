@@ -685,6 +685,115 @@ a:focus-visible {
     9px "JetBrains Mono",
     monospace;
 }
+/* ── RAG 检索面板（POST /v1/rag/search 真接入） ── */
+.rag-form {
+  margin-bottom: 14px;
+}
+.rag-form .form-row {
+  margin: 0;
+}
+.rag-form input,
+.rag-form select {
+  border: 1px solid #354057;
+  background: #080b12;
+  color: #e5ebf8;
+  padding: 9px 10px;
+  font-size: 12px;
+}
+.rag-form input {
+  flex: 1;
+  min-width: 180px;
+}
+.rag-form select {
+  border-color: #2a3448;
+  background: #0e131e;
+  color: #9eaabe;
+  font-size: 11px;
+}
+.rag-form button[type="submit"] {
+  border: 1px solid #6c5ce7;
+  background: #6c5ce7;
+  color: #fff;
+  padding: 9px 18px;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.rag-form button[type="submit"]:disabled {
+  border-color: #2a3448;
+  background: #0e131e;
+  color: #5a6579;
+  cursor: not-allowed;
+}
+.rag-kb-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.rag-kb-row .chip {
+  border: 1px solid #2a3448;
+  background: #0e131e;
+  color: #8793a9;
+  padding: 5px 10px;
+  font-size: 10px;
+  cursor: pointer;
+}
+.rag-kb-row .chip.selected {
+  border-color: #00d4ff;
+  background: #00d4ff19;
+  color: #5ee7ff;
+}
+.rag-kb-row .chip:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.rag-results {
+  margin-top: 14px;
+}
+.rag-meta {
+  margin-bottom: 10px;
+  color: #5ee7ff;
+  font-size: 10px;
+}
+.rag-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.rag-list li {
+  display: grid;
+  gap: 6px;
+  border: 1px solid rgba(99, 117, 151, 0.35);
+  background: rgba(13, 16, 25, 0.6);
+  padding: 12px 14px;
+}
+.rag-item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.rag-item-head b {
+  color: #e5ebf8;
+  font-size: 12px;
+}
+.rag-item-head span {
+  color: #8793a9;
+  font-size: 10px;
+}
+.rag-list p {
+  margin: 0;
+  color: #aeb9cc;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.rag-list small {
+  color: #5a6579;
+  font-size: 9px;
+}
 .orchestration {
   height: 235px;
   position: relative;
