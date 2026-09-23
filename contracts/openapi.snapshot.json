@@ -1,7 +1,7 @@
 {
-  "frozenAt": "2026-09-23T19:22:06.994Z",
+  "frozenAt": "2026-09-23T22:11:11.454Z",
   "apiVersion": "2.0.0",
-  "hash": "88ac66a71c01a0b049dcb0a8f15c58085e429a4fb9628be1bde0e9e6d438b879",
+  "hash": "4c79cb81efaf29fa4307d078ad104b90d0397fac116b11b0f087f8c4c074ec28",
   "spec": {
     "openapi": "3.1.0",
     "info": {
@@ -619,6 +619,145 @@
           }
         }
       },
+      "/v1/video/tasks": {
+        "post": {
+          "operationId": "create_video_task_v1_video_tasks_post",
+          "requestBody": ["application/json"],
+          "responses": {
+            "201": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        },
+        "get": {
+          "operationId": "list_video_tasks_v1_video_tasks_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/video/tasks/{task_id}": {
+        "get": {
+          "operationId": "get_video_task_v1_video_tasks__task_id__get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/video/tasks/{task_id}/result": {
+        "get": {
+          "operationId": "get_video_result_v1_video_tasks__task_id__result_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/admin/video/tasks/claim": {
+        "post": {
+          "operationId": "claim_video_task_v1_admin_video_tasks_claim_post",
+          "requestBody": ["application/json"],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/admin/video/tasks/{task_id}/heartbeat": {
+        "post": {
+          "operationId": "heartbeat_video_task_v1_admin_video_tasks__task_id__heartbeat_post",
+          "requestBody": ["application/json"],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/admin/video/tasks/{task_id}/result": {
+        "post": {
+          "operationId": "report_video_result_v1_admin_video_tasks__task_id__result_post",
+          "requestBody": ["multipart/form-data"],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/admin/video/tasks/{task_id}/failure": {
+        "post": {
+          "operationId": "report_video_failure_v1_admin_video_tasks__task_id__failure_post",
+          "requestBody": ["application/json"],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
       "/v1/admin/dashboard": {
         "get": {
           "operationId": "admin_dashboard_v1_admin_dashboard_get",
@@ -931,15 +1070,19 @@
     },
     "schemaNames": [
       "Body_ocr_v1_ocr_post",
+      "Body_report_video_result_v1_admin_video_tasks__task_id__result_post",
       "Body_transcriptions_v1_audio_transcriptions_post",
       "Body_upload_document_v1_documents_upload_post",
+      "ClaimRequest",
       "CompletionRequest",
       "DocumentChunkResponse",
       "DocumentCreate",
       "DocumentResponse",
       "EmbeddingRequest",
       "ErrorRecord",
+      "FailureRequest",
       "HTTPValidationError",
+      "HeartbeatRequest",
       "KnowledgeBaseCreate",
       "KnowledgeBaseResponse",
       "KnowledgeBaseUpdate",
@@ -957,7 +1100,8 @@
       "UsageSummary",
       "VKCreateRequest",
       "VKUpdateRequest",
-      "ValidationError"
+      "ValidationError",
+      "VideoTaskCreate"
     ]
   }
 }
