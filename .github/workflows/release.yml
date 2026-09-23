@@ -66,6 +66,14 @@ jobs:
           name: dist
           path: dist/
 
+      - name: Package dist → single zip
+        run: |
+          cd dist
+          zip -r ../yyc3-console-dist.zip .
+          cd ..
+          echo "## sha256" >> $GITHUB_STEP_SUMMARY
+          sha256sum yyc3-console-dist.zip >> $GITHUB_STEP_SUMMARY
+
       - name: Generate changelog
         id: changelog
         uses: mikepenz/release-changelog-builder-action@v4
@@ -82,11 +90,11 @@ jobs:
 
             ### 📥 访问方式
             - **Web / PWA**：打开 [token.yyc3.top](https://token.yyc3.top) → 浏览器「安装至桌面/主屏幕」
-            - **离线分发**：下载附件 `dist/`（静态构建产物）本地托管运行
+            - **离线分发**：下载附件 `yyc3-console-dist.zip`（静态构建产物）解压本地托管运行
 
             ### 📦 本次变更
             ${{ steps.changelog.outputs.changelog }}
-          files: dist/**/*
+          files: yyc3-console-dist.zip
           generate_release_notes: true
 
   release-notify:

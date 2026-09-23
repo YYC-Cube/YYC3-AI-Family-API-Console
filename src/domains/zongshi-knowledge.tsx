@@ -82,14 +82,16 @@ export function Knowledge({ page }: { page: PageConfig }) {
   );
 }
 
-/** RAG 检索面板：POST /v1/rag/search 真接入（契约 SearchRequest/SearchResponse） */
+/** RAG 检索/问答面板：POST /v1/rag/search + /v1/rag/ask 真接入（契约 SearchRequest） */
 function RagSearchPanel({ kbIds, disabled }: { kbIds: string[]; disabled: boolean }) {
   const [query, setQuery] = useState("");
   const [topK, setTopK] = useState(5);
   const [searchType, setSearchType] = useState<"semantic" | "hybrid">("semantic");
+  const [mode, setMode] = useState<"search" | "ask">("search");
   const [selected, setSelected] = useState<string[]>([]);
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<Awaited<ReturnType<typeof api.ragSearch>> | null>(null);
+  const [answer, setAnswer] = useState<Awaited<ReturnType<typeof api.ragAsk>> | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // 知识库清单到达后默认全选
@@ -106,21 +108,37 @@ function RagSearchPanel({ kbIds, disabled }: { kbIds: string[]; disabled: boolea
           : prev,
     );
 
+  const switchMode = (m: "search" | "ask") => {
+    setMode(m);
+    setResult(null);
+    setAnswer(null);
+    setError(null);
+  };
+
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!query.trim() || selected.length === 0 || busy) return;
     setBusy(true);
     setError(null);
+    const body = {
+      query: query.trim(),
+      knowledge_base_ids: selected,
+      top_k: topK,
+      search_type: searchType,
+    };
     try {
-      const r = await api.ragSearch({
-        query: query.trim(),
-        knowledge_base_ids: selected,
-        top_k: topK,
-        search_type: searchType,
-      });
-      setResult(r);
+      if (mode === "ask") {
+        const r = await api.ragAsk(body);
+        setResult(null);
+        setAnswer(r);
+      } else {
+        const r = await api.ragSearch(body);
+        setAnswer(null);
+        setResult(r);
+      }
     } catch (err) {
       setResult(null);
+      setAnswer(null);
       setError(guardianErrorLine(err));
     } finally {
       setBusy(false);
@@ -129,13 +147,37 @@ function RagSearchPanel({ kbIds, disabled }: { kbIds: string[]; disabled: boolea
 
   return (
     <Panel title="检索与问答" binding="POST /v1/rag/search · POST /v1/rag/ask">
+      <div className="segmented rag-mode" role="tablist" aria-label="模式切换">
+        <button
+          type="button"
+          className={mode === "search" ? "selected" : ""}
+          onClick={() => switchMode("search")}
+          role="tab"
+          aria-selected={mode === "search"}
+        >
+          检索 · rag/search
+        </button>
+        <button
+          type="button"
+          className={mode === "ask" ? "selected" : ""}
+          onClick={() => switchMode("ask")}
+          role="tab"
+          aria-selected={mode === "ask"}
+        >
+          问答 · rag/ask
+        </button>
+      </div>
       <form className="rag-form" onSubmit={submit}>
         <div className="form-row">
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="输入检索文本，如：网关限流策略"
-            aria-label="检索文本"
+            placeholder={
+              mode === "ask"
+                ? "输入问题，如：当前网关限流阈值是多少？"
+                : "输入检索文本，如：网关限流策略"
+            }
+            aria-label={mode === "ask" ? "问题文本" : "检索文本"}
             disabled={disabled}
           />
           <select
@@ -163,7 +205,7 @@ function RagSearchPanel({ kbIds, disabled }: { kbIds: string[]; disabled: boolea
             type="submit"
             disabled={disabled || busy || !query.trim() || selected.length === 0}
           >
-            {busy ? "检索中…" : "检索"}
+            {busy ? (mode === "ask" ? "生成中…" : "检索中…") : mode === "ask" ? "提问" : "检索"}
           </button>
         </div>
         {kbIds.length > 0 && (
@@ -208,6 +250,39 @@ function RagSearchPanel({ kbIds, disabled }: { kbIds: string[]; disabled: boolea
             </ul>
           ) : (
             <Empty owner="zongshi" text="无匹配分块 — 尝试降低 threshold 或切换 hybrid" />
+          )}
+        </div>
+      )}
+      {answer && (
+        <div className="rag-results rag-ask">
+          <div className="rag-meta mono">
+            RAG 回答
+            {answer.response_time_ms != null && ` · ${answer.response_time_ms}ms`}
+          </div>
+          <div className="rag-answer">
+            {answer.answer ?? "（上游未返回 answer 字段，原始响应见下）"}
+          </div>
+          {answer.answer == null && (
+            <pre className="rag-raw mono">{JSON.stringify(answer, null, 2)}</pre>
+          )}
+          {answer.sources && answer.sources.length > 0 && (
+            <details className="rag-sources">
+              <summary>
+                引用来源 · {answer.sources.length} chunks（
+                {answer.sources.map((s) => s.document_title).join(" / ")}）
+              </summary>
+              <ul className="rag-list">
+                {answer.sources.map((s) => (
+                  <li key={s.chunk_id}>
+                    <div className="rag-item-head">
+                      <b>{s.document_title}</b>
+                      <span className="mono">sim {s.similarity.toFixed(3)}</span>
+                    </div>
+                    <p>{s.content}</p>
+                  </li>
+                ))}
+              </ul>
+            </details>
           )}
         </div>
       )}

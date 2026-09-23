@@ -179,6 +179,12 @@ export const api = {
       method: "POST",
       body: JSON.stringify(req),
     }),
+  /** POST /v1/rag/ask → RAGAskResponse（检索+LLM 生成答案；契约响应未标 schema，宽松接收） */
+  ragAsk: (req: RAGSearchRequest) =>
+    request<RAGAskResponse>("/v1/rag/ask", true, {
+      method: "POST",
+      body: JSON.stringify(req),
+    }),
 };
 
 /** 知识库条目（契约 KnowledgeBaseResponse） */
@@ -246,6 +252,16 @@ export type RAGSearchResponse = {
   results: RAGSearchResult[];
   total_count: number;
   response_time_ms: number;
+};
+
+/** RAG 问答响应（契约 /v1/rag/ask 响应未标 schema —— 常见字段宽松接收） */
+export type RAGAskResponse = {
+  answer?: string;
+  query?: string;
+  sources?: RAGSearchResult[];
+  total_count?: number;
+  response_time_ms?: number;
+  [key: string]: unknown;
 };
 
 /** 401/403 时是否因「未认证」而非「密钥无效」：引导用户到门禁页 */
