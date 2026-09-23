@@ -1,7 +1,7 @@
 {
-  "frozenAt": "2026-09-18T03:23:47.529Z",
+  "frozenAt": "2026-09-23T19:22:06.994Z",
   "apiVersion": "2.0.0",
-  "hash": "18e5309cb38e2be0d256e3dbb006a7e02c2a2672ba1e863c7147248bd5b9e45d",
+  "hash": "88ac66a71c01a0b049dcb0a8f15c58085e429a4fb9628be1bde0e9e6d438b879",
   "spec": {
     "openapi": "3.1.0",
     "info": {
@@ -23,7 +23,9 @@
       "/v1/chat/completions": {
         "post": {
           "operationId": "chat_completion_v1_chat_completions_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -53,7 +55,9 @@
       "/v1/mcp/execute": {
         "post": {
           "operationId": "execute_mcp_tool_v1_mcp_execute_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -95,7 +99,9 @@
       "/v1/mcp/local/execute": {
         "post": {
           "operationId": "execute_local_mcp_tool_v1_mcp_local_execute_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -113,7 +119,9 @@
       "/v1/mcp/web/read": {
         "post": {
           "operationId": "read_webpage_v1_mcp_web_read_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -131,7 +139,9 @@
       "/v1/mcp/web/search": {
         "post": {
           "operationId": "search_web_v1_mcp_web_search_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -149,7 +159,9 @@
       "/v1/mcp/github/search": {
         "post": {
           "operationId": "search_github_v1_mcp_github_search_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -167,7 +179,9 @@
       "/v1/mcp/github/structure": {
         "post": {
           "operationId": "get_github_structure_v1_mcp_github_structure_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -185,7 +199,9 @@
       "/v1/mcp/filesystem/read": {
         "post": {
           "operationId": "read_file_v1_mcp_filesystem_read_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -203,7 +219,9 @@
       "/v1/mcp/filesystem/list": {
         "post": {
           "operationId": "list_directory_v1_mcp_filesystem_list_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -233,7 +251,9 @@
       "/v1/mcp/docker/logs": {
         "post": {
           "operationId": "get_container_logs_v1_mcp_docker_logs_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -251,7 +271,9 @@
       "/v1/mcp/database/query": {
         "post": {
           "operationId": "query_database_v1_mcp_database_query_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -281,7 +303,9 @@
       "/v1/mcp/search": {
         "post": {
           "operationId": "brave_search_v1_mcp_search_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -299,7 +323,9 @@
       "/v1/knowledge-bases": {
         "post": {
           "operationId": "create_knowledge_base_v1_knowledge_bases_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -347,7 +373,9 @@
         },
         "patch": {
           "operationId": "update_knowledge_base_v1_knowledge_bases__kb_id__patch",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -397,7 +425,9 @@
       "/v1/documents/upload": {
         "post": {
           "operationId": "upload_document_v1_documents_upload_post",
-          "requestBody": ["multipart/form-data"],
+          "requestBody": [
+            "multipart/form-data"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -415,7 +445,9 @@
       "/v1/documents": {
         "post": {
           "operationId": "create_document_v1_documents_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -514,7 +546,9 @@
       "/v1/rag/search": {
         "post": {
           "operationId": "search_v1_rag_search_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -532,7 +566,9 @@
       "/v1/rag/ask": {
         "post": {
           "operationId": "ask_with_context_v1_rag_ask_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -550,7 +586,9 @@
       "/v1/embeddings": {
         "post": {
           "operationId": "embeddings_v1_embeddings_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -568,7 +606,9 @@
       "/v1/rerank": {
         "post": {
           "operationId": "rerank_v1_rerank_post",
-          "requestBody": ["application/json"],
+          "requestBody": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -586,7 +626,9 @@
       "/v1/audio/transcriptions": {
         "post": {
           "operationId": "transcriptions_v1_audio_transcriptions_post",
-          "requestBody": ["multipart/form-data"],
+          "requestBody": [
+            "multipart/form-data"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -604,7 +646,9 @@
       "/v1/ocr": {
         "post": {
           "operationId": "ocr_v1_ocr_post",
-          "requestBody": ["multipart/form-data"],
+          "requestBody": [
+            "multipart/form-data"
+          ],
           "responses": {
             "200": {
               "application/json": {
@@ -614,6 +658,18 @@
             "422": {
               "application/json": {
                 "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/admin/dashboard": {
+        "get": {
+          "operationId": "admin_dashboard_v1_admin_dashboard_get",
+          "responses": {
+            "200": {
+              "text/html": {
+                "type": "string"
               }
             }
           }
@@ -808,6 +864,117 @@
             }
           }
         }
+      },
+      "/v1/admin/upstreams/probe": {
+        "post": {
+          "operationId": "probe_upstreams_v1_admin_upstreams_probe_post",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            }
+          }
+        }
+      },
+      "/v1/providers": {
+        "get": {
+          "operationId": "list_providers_v1_providers_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            }
+          }
+        }
+      },
+      "/v1/admin/virtual-keys": {
+        "post": {
+          "operationId": "admin_vk_create_v1_admin_virtual_keys_post",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        },
+        "get": {
+          "operationId": "admin_vk_list_v1_admin_virtual_keys_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/admin/virtual-keys/{key_id}": {
+        "patch": {
+          "operationId": "admin_vk_update_v1_admin_virtual_keys__key_id__patch",
+          "requestBody": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        },
+        "delete": {
+          "operationId": "admin_vk_delete_v1_admin_virtual_keys__key_id__delete",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
+      },
+      "/v1/admin/virtual-keys/{key_id}/usage": {
+        "get": {
+          "operationId": "admin_vk_usage_v1_admin_virtual_keys__key_id__usage_get",
+          "responses": {
+            "200": {
+              "application/json": {
+                "type": null
+              }
+            },
+            "422": {
+              "application/json": {
+                "$ref": "#/components/schemas/HTTPValidationError"
+              }
+            }
+          }
+        }
       }
     },
     "schemaNames": [
@@ -836,6 +1003,8 @@
       "SearchResponse",
       "SearchResult",
       "UsageSummary",
+      "VKCreateRequest",
+      "VKUpdateRequest",
       "ValidationError"
     ]
   }
