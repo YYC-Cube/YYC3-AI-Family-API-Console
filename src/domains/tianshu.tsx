@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { NavLink } from "react-router";
 import { modelAssets } from "../data/modelAssets";
 import logoCyan from "../imports/512.png";
-import { api } from "../lib/api";
+import { api, getApiKey, guardianErrorLine } from "../lib/api";
+import { useReadonly } from "../lib/useReadonly";
 import type { FamilyKey, HealthResponse, PageConfig } from "./shared";
 import {
   Bind,
@@ -398,8 +399,22 @@ export function Overview({ page }: { page: PageConfig }) {
   );
 }
 
-/** 元启·天枢域 · 编排之环（MCP 工具注册表） */
+/** 元启·天枢域 · 编排之环（MCP 工具注册表 · 真数据接入 Phase 2） */
 export function Mcp({ page }: { page: PageConfig }) {
+  const tools = useReadonly(() => api.mcpTools(), { intervalMs: 30_000 });
+  const localStatus = useReadonly(() => api.mcpLocalStatus(), { intervalMs: 60_000 });
+  const [hasKey, setHasKey] = useState(() => Boolean(getApiKey()));
+  React.useEffect(() => {
+    const id = setInterval(() => setHasKey(Boolean(getApiKey())), 1_500);
+    return () => clearInterval(id);
+  }, []);
+
+  const locked = !hasKey || tools.gate === "locked";
+  const zhipu = tools.data?.zhipu_tools ?? [];
+  const local = tools.data?.local_tools ?? [];
+  const toolName = (t: Record<string, unknown>): string =>
+    String(t.name ?? t.tool_name ?? t.id ?? "unknown");
+
   return (
     <Page page={page}>
       <div className="orchestration">
@@ -409,8 +424,59 @@ export function Mcp({ page }: { page: PageConfig }) {
           🧠<small>ORCHESTRATE</small>
         </div>
       </div>
+      {locked && (
+        <div className="notice">
+          工具注册表需出示密钥 — 请先前往 <b>安全 · 门禁</b> 页连接。
+        </div>
+      )}
+      {tools.gate === "offline" && (
+        <div className="notice">上游不可达：{guardianErrorLine(tools.error)} · 30s 自动重试</div>
+      )}
+      <div className="content-grid">
+        <Panel title="工具总数" binding="GET /v1/mcp/tools">
+          {tools.data != null ? (
+            <div className="metric-live">
+              <strong className="mono">{tools.data.total_count}</strong>
+              <span>
+                zhipu {zhipu.length} · local {local.length}
+              </span>
+              <Status tone="ok">LIVE · 30s 轮询</Status>
+            </div>
+          ) : (
+            <MetricPlaceholder label="total tools" />
+          )}
+        </Panel>
+        <Panel title="本地 MCP 状态" binding="GET /v1/mcp/local/status">
+          {localStatus.data != null ? (
+            <div className="metric-live">
+              <strong className="mono">
+                {String((localStatus.data as Record<string, unknown>).status ?? "unknown")}
+              </strong>
+              <span>local server</span>
+              <Status tone="ok">LIVE · 60s 轮询</Status>
+            </div>
+          ) : (
+            <MetricPlaceholder label="local status" />
+          )}
+        </Panel>
+      </div>
       <Panel title="工具注册表" binding="GET /v1/mcp/tools">
-        <Empty owner="tianshu" text="等待工具清单；总指挥将为每次调用编排路径。" />
+        {tools.data != null && tools.data.total_count > 0 ? (
+          <ul className="check-list">
+            {[
+              ...zhipu.map((t) => ({ t, src: "zhipu" })),
+              ...local.map((t) => ({ t, src: "local" })),
+            ].map(({ t, src }, i) => (
+              <li key={`${src}-${toolName(t)}-${i}`}>
+                <span>{src === "zhipu" ? "🜲" : "⚙"}</span>
+                {toolName(t)}
+                <em>{src === "zhipu" ? "智谱 AI 工具" : "本地 MCP 工具"}</em>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <Empty owner="tianshu" text="注册表为空；总指挥将为每次调用编排路径。" />
+        )}
       </Panel>
     </Page>
   );

@@ -157,6 +157,56 @@ export const api = {
   cacheInfo: () => request<Record<string, unknown>>("/v1/cache/info", true),
   /** GET /v1/versions → object */
   versions: () => request<Record<string, unknown>>("/v1/versions", true),
+  /* ── P1 knowledge / mcp 域（契约 v2.0.0） ── */
+  /** GET /v1/knowledge-bases → KnowledgeBaseResponse[] */
+  knowledgeBases: () => request<KnowledgeBaseResponse[]>("/v1/knowledge-bases", true),
+  /** GET /v1/documents?knowledge_base_id= → DocumentResponse[] */
+  documents: (kbId?: string) =>
+    request<DocumentResponse[]>(
+      `/v1/documents${kbId ? `?knowledge_base_id=${encodeURIComponent(kbId)}` : ""}`,
+      true,
+    ),
+  /** GET /v1/mcp/tools → MCPToolsList（智谱 + 本地工具注册表） */
+  mcpTools: () => request<MCPToolsList>("/v1/mcp/tools", true),
+  /** GET /v1/mcp/local/tools → object（契约未标注 schema，宽松接收） */
+  mcpLocalTools: () => request<Record<string, unknown>>("/v1/mcp/local/tools", true),
+  /** GET /v1/mcp/local/status → object */
+  mcpLocalStatus: () => request<Record<string, unknown>>("/v1/mcp/local/status", true),
+};
+
+/** 知识库条目（契约 KnowledgeBaseResponse） */
+export type KnowledgeBaseResponse = {
+  id: string;
+  name: string;
+  description?: string | null;
+  embedding_model: string;
+  icon: string;
+  background: string;
+  status: string;
+  document_count: number;
+  total_tokens: number;
+  created_at: string;
+  updated_at: string;
+};
+
+/** 文档条目（契约 DocumentResponse） */
+export type DocumentResponse = {
+  id: string;
+  knowledge_base_id: string;
+  title: string;
+  source_type: string;
+  source_url?: string | null;
+  file_path?: string | null;
+  file_size?: number | null;
+  status?: string;
+  created_at?: string;
+};
+
+/** MCP 工具注册表（契约 MCPToolsList） */
+export type MCPToolsList = {
+  zhipu_tools?: Record<string, unknown>[];
+  local_tools?: Record<string, unknown>[];
+  total_count: number;
 };
 
 /** 401/403 时是否因「未认证」而非「密钥无效」：引导用户到门禁页 */
